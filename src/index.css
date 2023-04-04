@@ -14,3 +14,99 @@ body {
 * {
   box-sizing: border-box;
 }
+
+/* / fonts /  */
+.font-12 {
+  font-size: 12px;
+  line-height: 100%;
+}
+
+.font-14-100 {
+  font-size: 14px;
+  line-height: 100%;
+}
+
+.font-14 {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.font-16 {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.font-18 {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.font-18-22 {
+  font-size: 18px;
+  line-height: 22px;
+}
+
+.font-18-100 {
+  font-size: 18px;
+  line-height: 100%;
+}
+
+.font-20 {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.font-24-100 {
+  font-size: 24px;
+  line-height: 100%;
+}
+
+.font-24 {
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.font-27 {
+  font-size: 27px;
+  line-height: 33px;
+}
+
+.font-36 {
+  font-size: 36px;
+  line-height: 100%;
+}
+
+.font-36-48 {
+  font-size: 36px;
+  line-height: 48px;
+}
+
+.font-40 {
+  font-size: 40px;
+  line-height: 100%;
+}
+
+.font-48 {
+  font-size: 48px;
+  line-height: 100%;
+}
+
+.font-weight-400 {
+  font-weight: 400;
+}
+
+.font-weight-500 {
+  font-weight: 500;
+}
+
+.font-weight-600 {
+  font-weight: 600;
+}
+
+.font-weight-700 {
+  font-weight: 700;
+}
+
+.font-weight-800 {
+  font-weight: 800;
+}
