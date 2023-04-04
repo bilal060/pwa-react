@@ -1,25 +1,27 @@
+import { useLocation } from 'react-router-dom';
 import '../src/Pages/common.css';
-import ContentRoutes from './Components/Content/routes';
-import AppLayout from './Components/App Layout';
-import RegistrationLayout from './Components/Registration';
 import RegistrationRoutes from './Components/Registration/routes';
-import 'bootstrap/dist/css/bootstrap.css';
-// Put any other imports below so that CSS from your
-// components takes precedence over default styles.
+import RegistrationLayout from './Components/Registration';
+import AppLayout from './Components/App Layout';
+import ContentRoutes from './Components/Content/routes';
+
 function App() {
+  const homepage = ['/home', '/products', '/aboutus']
+  const location = useLocation();
 
-
-  // <AppLayout>
-  //   <ContentRoutes />
-  // </AppLayout>
-
-  return (
-    <RegistrationLayout>
-      <RegistrationRoutes />
-    </RegistrationLayout>
-  )
-
-
+  if (homepage.includes(location.pathname)) {
+    return (
+      <AppLayout>
+        <ContentRoutes />
+      </AppLayout>
+    );
+  }
+  else
+    return (
+      <RegistrationLayout>
+        <RegistrationRoutes />
+      </RegistrationLayout>
+    );
 }
 
 export default App;
