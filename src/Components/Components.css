@@ -2,5 +2,74 @@
     height: 100vh;
     width: 100vw;
     background-image: url(../assets/Images/registration-bg.png);
-    background-position: center;
+    background-position: top;
+    background-size: cover;
+}
+
+.auth-model {
+    max-width: 521px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.09);
+    backdrop-filter: blur(36.7143px);
+    border-radius: 24px;
+    color: white;
+}
+
+.auth-model-heading {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 32px;
+    text-align: center;
+    text-transform: capitalize;
+    color: #FFFFFF;
+}
+
+.auth-model-desc {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 100%;
+    text-align: center;
+    color: #BEBEBE;
+}
+
+.auth-input {
+    height: 56px;
+    background: #1D1D1D !important;
+    color: white;
+    border: 1px solid #6B6B6B;
+    border-radius: 12px;
+    width: 100%;
+    padding: 20px;
+}
+
+.auth-label {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FFFFFF;
+}
+
+.auth-checkbox {
+    width: 20px;
+    height: 20px;
+    background: #1D1D1D;
+    border: 1px solid #6B6B6B;
+    border-radius: 6px;
+}
+
+.green-btn {
+    height: 56px;
+    background: #5D8B2F;
+    border-radius: 12px;
+    width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: center;
+    color: #FFFFFF;
+    border: 0;
 }
