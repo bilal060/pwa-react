@@ -4,6 +4,7 @@ import RegistrationRoutes from './Components/Registration/routes';
 import RegistrationLayout from './Components/Registration';
 import AppLayout from './Components/App Layout';
 import ContentRoutes from './Components/Content/routes';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function App() {
   const homepage = ['/home', '/products', '/aboutus']
