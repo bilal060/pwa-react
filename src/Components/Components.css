@@ -73,3 +73,65 @@
     color: #FFFFFF;
     border: 0;
 }
+
+
+
+
+
+
+
+
+.checkbox-container {
+    display: block;
+}
+
+.checkbox-container input {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.checkbox-container label {
+    position: relative;
+    cursor: pointer;
+    margin: 0 !important;
+}
+
+.checkbox-container label:before {
+    content: '';
+    -webkit-appearance: none;
+    background: #1D1D1D;
+    border: 1px solid #6B6B6B;
+    border-radius: 6px;
+    box-shadow: inset 0px 1px 3px rgba(36, 39, 43, 0.25);
+    padding: 7px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.checkbox-container input:checked+label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 6px;
+    width: 5px;
+    height: 11px;
+    border: solid #47505E;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.google-login {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
+    border-radius: 12px;
+}
