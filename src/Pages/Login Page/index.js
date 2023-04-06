@@ -22,7 +22,7 @@ const LoginPage = () => {
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-4'>Welcome Back!</h2>
             <p className='auth-model-desc mb-5'>Please login to your account.</p>
-            <form onClick={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => e.preventDefault()}>
                 <input className='auth-input' type='text' placeholder='Email' />
                 <input className='auth-input my-3' type='Password' placeholder='Password' />
 
@@ -56,6 +56,7 @@ const LoginPage = () => {
                 <GoogleIcon />
                 <span className='ps-3 font-weight-700 font-18-100'>Login with Google</span>
             </button>
+            <p className='text-center text-grey mt-5 pt-sm-0 pt-3 font-16'>Terms of use   |   Privacy Policy</p>
         </div>
     )
 }

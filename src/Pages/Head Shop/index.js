@@ -3,7 +3,7 @@ import UploadIcon from '../../assets/Images/Upload'
 import AddIcon from '../../assets/Images/Add'
 import { useNavigate } from 'react-router-dom';
 
-const DispensaryType = () => {
+const HeadShop = () => {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('');
 
@@ -31,18 +31,18 @@ const DispensaryType = () => {
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
                     <div className='form-control p-0 bg-transparent border-0'>
-                        <label className='text-white mb-2 font-weight-600 font-18-100'>Post Strain</label>
+                        <label className='text-white mb-2 font-weight-600 font-18-100'>Select Accessories</label>
                         <select className='auth-input'>
-                            <option defaultValue>- Select Strain -</option>
+                            <option defaultValue>- Select Option -</option>
                             <option>Option 1</option>
                             <option>Option 2</option>
                             <option>Option 3</option>
                         </select>
                     </div>
                     <div className='form-control p-0 bg-transparent border-0'>
-                        <label className='text-white mb-2 font-weight-600 font-18-100'>Quantity</label>
+                        <label className='text-white mb-2 font-weight-600 font-18-100'>Select Type</label>
                         <select className='auth-input'>
-                            <option defaultValue>- Select Quantity -</option>
+                            <option defaultValue>- Select Type -</option>
                             <option>Option 1</option>
                             <option>Option 2</option>
                             <option>Option 3</option>
@@ -55,13 +55,24 @@ const DispensaryType = () => {
                         <input type='number' className='auth-input' placeholder='$ Enter Cost' />
                     </div>
                     <div className='form-control p-0 bg-transparent border-0'>
-                        <label className='text-white mb-2 font-weight-600 font-18-100'>Strain Name</label>
-                        <input type='text' className='auth-input' placeholder='Enter Strain Name' />
+                        <label className='text-white mb-2 font-weight-600 font-18-100'>Brand Name</label>
+                        <input type='text' className='auth-input' placeholder='Enter Brand Name' />
                     </div>
                 </div>
-                <div className='form-control p-0 bg-transparent border-0 mb-4'>
-                    <label className='text-white mb-2 font-weight-600 font-18-100'>Description</label>
-                    <textarea className='auth-input-textarea' placeholder='Enter description here...' />
+                <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
+                    <div className='form-control p-0 bg-transparent border-0'>
+                        <label className='text-white mb-2 font-weight-600 font-18-100'>Product Name</label>
+                        <input type='text' className='auth-input' placeholder='Enter Product Name' />
+                    </div>
+                    <div className='form-control p-0 bg-transparent border-0'>
+                        <label className='text-white mb-2 font-weight-600 font-18-100'>Select Size</label>
+                        <select className='auth-input'>
+                            <option defaultValue>- Select Type -</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                            <option>Option 3</option>
+                        </select>
+                    </div>
                 </div>
 
                 <label className='text-white mb-2 font-weight-600 font-18-100'>Upload Images</label>
@@ -82,9 +93,9 @@ const DispensaryType = () => {
                     <button className='green-btn custom-w min-width-208'>Next</button>
                 </div>
             </form>
-            <p className='text-center text-grey mt-5'>Terms of use   |   Privacy Policy</p>
+            <p className='text-center text-grey mt-5 font-16'>Terms of use   |   Privacy Policy</p>
         </div>
     )
 }
 
-export default DispensaryType
+export default HeadShop
