@@ -3,11 +3,11 @@ import '../src/Pages/common.css';
 import RegistrationRoutes from './Components/Registration/routes';
 import RegistrationLayout from './Components/Registration';
 import AppLayout from './Components/App Layout';
-import ContentRoutes from './Components/Content/routes';
 import 'bootstrap/dist/css/bootstrap.css';
+import ContentRoutes from './Components/Content/routes';
 
 function App() {
-  const homepage = ['/home', '/products', '/aboutus']
+  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
   const location = useLocation();
 
   if (homepage.includes(location.pathname)) {

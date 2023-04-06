@@ -11,6 +11,7 @@ import ResponsivePage from '../../Pages/Response Page'
 import BudSeedPage from '../../Pages/Bud Seed'
 import TermsConditionsPage from '../../Pages/Terms and Conditions'
 import AddAddressPage from '../../Pages/Add Adress'
+import NotFound from '../../Pages/Not Found'
 
 const RegistrationRoutes = () => {
     return (
@@ -28,6 +29,8 @@ const RegistrationRoutes = () => {
                 <Route path="/response" element={<ResponsivePage />} />
                 <Route path="/budseed" element={<BudSeedPage />} />
                 <Route path="/terms" element={<TermsConditionsPage />} />
+                <Route path="*" element={<NotFound />} />
+
             </Routes>
 
         </div>
