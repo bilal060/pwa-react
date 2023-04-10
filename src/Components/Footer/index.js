@@ -3,12 +3,12 @@ import FacebookIcon from '../../assets/Images/Facebook'
 import LinkedInIcon from '../../assets/Images/LinkedIn'
 import InstaIcon from '../../assets/Images/Insta'
 import TwitterIcon from '../../assets/Images/Twitter'
-import LocationIcon from '../../assets/Images/Location'
 import { Link } from 'react-router-dom'
 import MailIcon from '../../assets/Images/Mail'
 import PhoneIcon from '../../assets/Images/phone'
 import DashboardLogo from '../../assets/Images/DashboardLogo'
 import SendMailIcon from '../../assets/Images/SendMail'
+import FooterLocationIcon from '../../assets/Images/FooterLocation'
 const AppFooter = () => {
     return (
         <>
@@ -54,7 +54,7 @@ const AppFooter = () => {
                             <ul>
                                 <li><PhoneIcon />+1 234 56789</li>
                                 <li><MailIcon />yourmail@mail.com </li>
-                                <li><LocationIcon />Your address goes here</li>
+                                <li><FooterLocationIcon />Your address goes here</li>
                             </ul>
                         </div>
                         <div className="col-md-12 col-xl-4 col-lg-3 col-sm-12 p-0 ">

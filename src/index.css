@@ -166,9 +166,9 @@ a {
   font-size: 72px;
   line-height: 110%;
   -webkit-transition: font-size 0.5s ease;
-    -moz-transition: font-size 0.5s ease;
-    -o-transition: font-size 0.5s ease;
-    transition: font-size 0.5s ease;
+  -moz-transition: font-size 0.5s ease;
+  -o-transition: font-size 0.5s ease;
+  transition: font-size 0.5s ease;
 }
 
 .font-weight-300 {
@@ -360,6 +360,9 @@ select {
 }
 
 
+.overflow-x-auto {
+  overflow-x: auto;
+}
 
 
 @media (max-width: 992px) {
@@ -440,5 +443,10 @@ select {
 
   .font-18-100 {
     font-size: 16px !important;
+  }
+
+  .font-24 {
+    font-size: 18px !important;
+    line-height: 20px !important;
   }
 }

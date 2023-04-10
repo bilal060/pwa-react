@@ -34,7 +34,7 @@ const SignUpPage = () => {
                     <option>Visit</option>
                 </select>
                 <input className='auth-input mb-3' type='text' placeholder='Full Name' />
-                <input className='auth-input mb-3' type='text' placeholder='Email' />
+                <input className='auth-input mb-3' type='email' placeholder='Email' />
                 <div className='auth-input mb-3 d-flex align-items-center justify-content-between' >
                     <input
                         name='password'

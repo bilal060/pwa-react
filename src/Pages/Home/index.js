@@ -7,8 +7,9 @@ const HomePage = (props) => {
     return (
         <div>
             <PanicSection />
-            <AllProducts />
-            {children}
+            <AllProducts>
+                {children}
+            </AllProducts>
         </div>
     )
 }

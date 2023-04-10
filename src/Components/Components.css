@@ -322,8 +322,8 @@
 /* header */
 .app-header {
     display: flex;
-    align-items: center;
-    gap: 20px;
+    /* align-items: center; */
+    /* gap: 20px; */
     height: 80px;
 }
 
@@ -409,13 +409,23 @@
     overflow-y: auto;
 }
 
+.mobile-view-footer {
+    width: 100%;
+    height: 56px;
+    background: #99C76B;
+    box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.04);
+}
+
+.mob-footer-link-active svg path {
+    fill: white;
+}
 
 /* dashboard */
 
 /* panic-section */
 .panic-section {
     height: 400px;
-    width: 100vw;
+    /* width: 100vw; */
     background-image: url(../assets/Images/registration-bg.png);
     background-position: center;
     background-size: cover;
@@ -457,7 +467,7 @@
     text-align: center;
     color: #707070 !important;
     opacity: 0.94;
-    width: max-content;
+    min-width: fit-content;
     padding: 0 16px;
     gap: 16px;
 }
@@ -478,17 +488,175 @@
     border-radius: 16px;
     padding: 8px 8px 8px 20px;
     display: flex;
-    justify-content: between;
+    justify-content: space-between;
     align-items: center;
 }
+
+.search-product span {
+    width: 40px;
+    height: 40px;
+    background: #5D8B2F;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+}
+
+.all-products-link::-webkit-scrollbar {
+    width: 2px;
+}
+
+/* seeds */
+.seeds-card-main {
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap; */
+}
+
+.seeds-card-main .intro-img {
+    width: 100%;
+    height: 100%;
+}
+
+.seed-card {
+    background: #FFFFFF;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 16px;
+    /* width: 300px; */
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+
+.seed-card .green-btn .send-message svg rect {
+    fill: #C2DE86;
+}
+
+.seed-card .green-btn .send-message svg path {
+    fill: #5D8B2F;
+}
+
+.app-menu {
+    height: 100vh;
+    position: absolute;
+    width: 300px;
+    background-color: white;
+    border-radius: 0 16px 16px 0;
+    padding: 24px;
+    filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+    z-index: 99;
+    left: 0;
+}
+
+.like-post {
+    box-sizing: border-box;
+
+    position: absolute;
+    right: 5%;
+    top: 5%;
+    height: 40px;
+    width: 40px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:991px) {}
 
 @media screen and (max-width:767px) {
     .panic-section .description {
         width: 100%;
     }
+
+    .like-post {
+        right: 5% !important;
+    }
 }
 
 @media screen and (max-width:576px) {
+
+    .height-56 {
+        height: 40px !important
+    }
+
+    .green-btn,
+    .green-btn-outline,
+    .product-item,
+    .search-product {
+        height: 40px !important;
+        border-radius: 8px;
+    }
+
+
+
+    .search-product {
+        padding-right: 4px;
+    }
+
+    .search-product span {
+        width: 32px;
+        height: 32px;
+        border-radius: 5px;
+    }
+
+    .seed-card .green-btn .send-message svg {
+        height: 100%;
+        width: 100%;
+    }
+
+    .seed-card .green-btn {
+        height: 34px !important;
+        border-radius: 5px;
+    }
+
+    .seed-card {
+        padding: 0 0 24px 0;
+        box-shadow: none;
+        flex-direction: row;
+        border-bottom: 1px solid rgba(93, 139, 47, 0.2);
+        border-radius: 0 !important;
+    }
+
+    .seed-card .like-post-main .intro-img {
+        max-width: 100%;
+        height: 100%;
+    }
+
+    .seed-card .intro-img {
+        max-width: 50%;
+        height: 100%;
+    }
+
+
+    .app-header {
+        background: #FFFFFF;
+        border-radius: 0px 0px 16px 16px;
+        filter: drop-shadow(0px 4px 14px rgba(0, 0, 0, 0.09));
+        height: 327px !important;
+    }
+
+    .all-product-section {
+        padding-top: 50px !important;
+    }
+
+    .content-footer {
+        height: calc(100vh - 327px - 56px);
+    }
+
+    .search-product {
+        width: 100%;
+    }
+
     .max-width-521 {
         max-width: 521px;
         padding: 36px 16px 16px 16px;
@@ -519,5 +687,33 @@
 
     .custom-w {
         width: 100% !important;
+    }
+
+    .seed-card .green-btn .send-message {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+    }
+}
+
+@media screen and (min-width:436px) {
+    .like-res {
+        display: none !important;
+    }
+
+}
+
+@media screen and (max-width:436px) {
+    .like-post-main {
+        display: none;
+    }
+
+    .like-res {
+        display: block !important;
+    }
+
+    .seed-card .intro-img {
+        max-width: 40%;
+        height: 100%;
     }
 }

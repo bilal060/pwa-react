@@ -23,10 +23,10 @@ const LoginPage = () => {
             <h2 className='auth-model-heading mb-4'>Welcome Back!</h2>
             <p className='auth-model-desc mb-5'>Please login to your account.</p>
             <form onSubmit={(e) => e.preventDefault()}>
-                <input className='auth-input' type='text' placeholder='Email' />
+                <input className='auth-input' type='email' placeholder='Email' />
                 <input className='auth-input my-3' type='Password' placeholder='Password' />
 
-                <div className='auth-input mb-3 d-flex align-items-center justify-content-between' >
+                {/* <div className='auth-input my-3 d-flex align-items-center justify-content-between' >
                     <input
                         name='password'
                         required
@@ -39,7 +39,7 @@ const LoginPage = () => {
                         className='see-pswd-btn cr-p'>
                         <ShowPassword />
                     </span>
-                </div>
+                </div> */}
 
                 <div className='d-flex align-items-center justify-content-between mb-4 pb-3'>
                     <div className='checkbox-container'>
