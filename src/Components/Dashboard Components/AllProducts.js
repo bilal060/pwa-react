@@ -183,7 +183,7 @@ const ShowAllProducts = () => {
                                     <span className='d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3'>
                                         <LocationIcon />
                                         {data.location}</span>
-                                    <div className='d-flex justify-content-between align-items-center gap-2 flex-wrap'>
+                                    <div className='d-flex justify-content-between align-items-center gap-2 flex-sm-nowrap flex-wrap'>
                                         <div className='d-flex gap-2 align-items-center flex-wrap'>
                                             <span className='d-flex gap-2 align-items-center font-24 font-weight-700'>
                                                 <RatingIcon />
