@@ -1,6 +1,6 @@
 import React from 'react'
 import PanicSection from '../../Components/Dashboard Components/PanicSection'
-import AllProducts from '../../Components/Dashboard Components/AllProducts'
+import AllProducts from '../../Components/Dashboard Components';
 
 const HomePage = (props) => {
     const { children } = props;

@@ -145,9 +145,6 @@ const HeadShop = () => {
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 )
             })}
