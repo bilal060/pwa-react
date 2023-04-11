@@ -1,12 +1,4 @@
 import React from 'react'
-import ScopeIcon from '../../assets/Images/Scope'
-import { Link, useLocation } from 'react-router-dom'
-import SeedICon from '../../assets/Images/Seed'
-import BudsIcon from '../../assets/Images/Buds'
-import CannbisIcon from '../../assets/Images/Cannbis'
-import HeadShopIcon from '../../assets/Images/HeadShop'
-import DispensaryIcon from '../../assets/Images/Dispensary'
-import SearchButtonIcon from '../../assets/Images/Search'
 import dispensary1 from '../../assets/Images/dispensary1.svg'
 import dispensary2 from '../../assets/Images/dispensary2.svg'
 import seed1 from '../../assets/Images/seed1.svg'
@@ -23,34 +15,7 @@ import SendMailIcon from '../../assets/Images/SendMail'
 import CountIcon from '../../assets/Images/Count'
 import TimerIcon from '../../assets/Images/Timer'
 import HeartIcon from '../../assets/Images/Heart'
-
-const products = [
-    {
-        name: 'Seeds',
-        icon: <SeedICon />,
-        link: '/home/seed'
-    },
-    {
-        name: 'Buds',
-        icon: <BudsIcon />,
-        link: '/home/buds'
-    },
-    {
-        name: 'Dispensary',
-        icon: <DispensaryIcon />,
-        link: '/home/dispensary'
-    },
-    {
-        name: 'Cannabis Lounge',
-        icon: <CannbisIcon />,
-        link: '/home/cannabis'
-    },
-    {
-        name: 'Head Shop',
-        icon: <HeadShopIcon />,
-        link: '/home/headshop'
-    },
-]
+import PriceIcon from '../../assets/Images/Price'
 
 
 const allProducts = [
@@ -145,19 +110,17 @@ const ShowAllProducts = () => {
             <div className='seeds-card-main row m-0'>
                 {allProducts.map((data, index) => {
                     return (
-                        <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col' key={index}>
-                            <div className='seed-card '>
+                        <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col h-100' key={index}>
+                            <div className='seed-card h-100'>
                                 <img className='w-100 intro-img like-res' src={data.img} alt='' />
-
                                 <span className='position-relative like-post-main'>
-                                    <img className='w-100 intro-img position-relative' src={data.img} alt='' />
                                     <span className='like-post'>
                                         <HeartIcon />
                                     </span>
                                 </span>
                                 <div className='ps-sm-0 ps-3'>
                                     <p className='my-sm-4 mb-3 font-24 font-weight-700'>{data.name}</p>
-                                    <div className='d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2'>
+                                    <div className='d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2'>
                                         <span className='d-flex gap-2 align-items-center font-18 font-weight-500'>
                                             <DistanceIcon />
                                             {data.distance}
@@ -170,12 +133,13 @@ const ShowAllProducts = () => {
                                                     {data.type === 'seed' ?
                                                         <CountIcon />
                                                         :
-                                                        <CountIcon />
+                                                        <PriceIcon />
                                                     }
                                                 </>
 
                                             }
-                                            {data.count}</span>
+
+                                            {data.count ? data.count : data.fees}</span>
                                     </div>
                                     {data.timing && <span className='d-flex gap-2 align-items-center font-18 font-weight-500  mb-sm-3 mb-2'>
                                         <TimerIcon />
@@ -193,7 +157,7 @@ const ShowAllProducts = () => {
                                                 {data.totalReviews}
                                             </span>
                                         </div>
-                                        <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-sm-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
+                                        <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
                                     </div>
                                 </div>
                             </div>

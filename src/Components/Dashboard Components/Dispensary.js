@@ -1,5 +1,4 @@
 import React from 'react'
-import Seed1Image from '../../assets/Images/Seed1'
 import DistanceIcon from '../../assets/Images/Distance'
 import RatingIcon from '../../assets/Images/Rating'
 import LocationIcon from '../../assets/Images/Location'
@@ -9,6 +8,7 @@ import dispensary1 from '../../assets/Images/dispensary1.svg'
 import dispensary2 from '../../assets/Images/dispensary2.svg'
 import dispensary3 from '../../assets/Images/dispensary3.svg'
 import dispensary4 from '../../assets/Images/dispensary4.svg'
+import HeartIcon from '../../assets/Images/Heart'
 
 const dispensaryData = [
     {
@@ -98,8 +98,11 @@ const Dispensary = () => {
             {dispensaryData.map((data, index) => {
                 return (
                     <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col' key={index}>
-                        <div className='seed-card'>
+                        <div className='seed-card position-relative'>
                             <img className='w-100 intro-img' src={data.img} alt='' />
+                            <span className='like-post'>
+                                <HeartIcon />
+                            </span>
                             <div className='ps-sm-0 ps-3'>
                                 <p className='my-sm-4 mb-3 font-24 font-weight-700'>{data.name}</p>
                                 <div className='d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2'>
@@ -115,7 +118,7 @@ const Dispensary = () => {
                                 <span className='d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3'>
                                     <LocationIcon />
                                     {data.location}</span>
-                                <div className='d-flex justify-content-between align-items-center gap-2 flex-wrap'>
+                                <div className='d-flex justify-content-between align-items-center gap-2'>
                                     <div className='d-flex gap-2 align-items-center flex-wrap'>
                                         <span className='d-flex gap-2 align-items-center font-24 font-weight-700'>
                                             <RatingIcon />

@@ -7,6 +7,7 @@ import Dispensary from '../Dashboard Components/Dispensary'
 import Cannabis from '../Dashboard Components/Cannabis'
 import HeadShop from '../Dashboard Components/HeadShop'
 import ShowAllProducts from '../Dashboard Components/AllProducts'
+import ProductUserProfile from '../../Pages/Product User Profile'
 
 
 const ContentRoutes = () => {
@@ -19,6 +20,9 @@ const ContentRoutes = () => {
                 <Route path="/home/dispensary" element={<HomePage><Dispensary /></HomePage>} />
                 <Route path="/home/cannabis" element={<HomePage><Cannabis /></HomePage>} />
                 <Route path="/home/headshop" element={<HomePage><HeadShop /></HomePage>} />
+                <Route path="/home/seed/seedinfo" element={<ProductUserProfile/>} />
+
+                
                 {/* <Route path="/likes" element={<HomePage><HeadShop /></HomePage>} /> */}
 
 

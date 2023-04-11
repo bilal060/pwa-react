@@ -42,8 +42,10 @@ const AppHeader = (props) => {
     const Location = useLocation();
     const { isOpen, setIsOpen } = props;
 
+    const head = ['home', '/aboutus', '/home/seed', ' /home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
+
     return (
-        <div className='app-header flex-column justify-content-center'>
+        <div className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? 'mob-app-header' : ''}`}>
             <div className='container mx-auto d-flex align-items-center justify-content-between'>
                 <div className='d-flex align-items-center gap-2'>
                     <DashboardLogo />
@@ -51,14 +53,14 @@ const AppHeader = (props) => {
                 </div>
                 <span onClick={() => setIsOpen(!isOpen)} className='cr-p'><MenuBarIcon /></span>
             </div>
-            <div className='allproduct-mob d-sm-none d-block mt-5'>
+            {head.includes(Location.pathname) && <div className='allproduct-mob d-sm-none d-block mt-5'>
                 <div className='container mx-auto'>
                     <div className='d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4'>
                         <h2 className='allproduct-heading'>All Products</h2>
                         <div className='d-flex  align-items-center gap-4'>
                             <div className='search-product  d-sm-none d-flex'>
                                 <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
-                                <span><MobSearchIcon /></span>
+                                <span className='icon-green-bg'><MobSearchIcon /></span>
                             </div>
                             <div className='d-flex align-items-center gap-4'>
                                 <button className='border-0 outline-0 bg-transparent p-0 height-56'>
@@ -81,7 +83,7 @@ const AppHeader = (props) => {
                         })}
                     </div>
                 </div>
-            </div>
+            </div>}
 
         </div>
     )

@@ -33,7 +33,7 @@ a {
 
 /* color */
 .text-primary-green {
-  color: #5D8B2F
+  color: #5D8B2F !important;
 }
 
 .text-dark-brown {
@@ -46,6 +46,14 @@ a {
 
 .text-red {
   color: #ED6565 !important;
+}
+
+.bg-light-green {
+  background-color: #99C76B !important;
+}
+
+.bg-primary-green {
+  background-color: #5D8B2F !important;
 }
 
 /* / fonts /  */
@@ -136,6 +144,15 @@ a {
 .font-27 {
   font-size: 27px;
   line-height: 33px;
+}
+
+.font-32 {
+  font-size: 32px;
+  line-height: 100%;
+  -webkit-transition: font-size 0.5s ease;
+  -moz-transition: font-size 0.5s ease;
+  -o-transition: font-size 0.5s ease;
+  transition: font-size 0.5s ease;
 }
 
 .font-36 {
@@ -386,6 +403,10 @@ select {
     line-height: 40px !important;
   }
 
+  .font-32 {
+    font-size: 28px !important;
+  }
+
   .font-72 {
     font-size: 56px !important;
   }
@@ -414,6 +435,10 @@ select {
   .font-24 {
     font-size: 22px !important;
     line-height: 23px !important;
+  }
+
+  .font-32 {
+    font-size: 24px !important;
   }
 
   .font-36 {
@@ -448,5 +473,9 @@ select {
   .font-24 {
     font-size: 18px !important;
     line-height: 20px !important;
+  }
+
+  .font-32 {
+    font-size: 18px !important;
   }
 }
