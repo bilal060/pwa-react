@@ -9,6 +9,7 @@ import seed2 from '../../assets/Images/seed2.svg'
 import seed3 from '../../assets/Images/seed3.svg'
 import seed4 from '../../assets/Images/seed4.svg'
 import HeartIcon from '../../assets/Images/Heart'
+import { Link } from 'react-router-dom'
 
 const budsData = [
     {
@@ -99,7 +100,7 @@ const Buds = () => {
             {budsData.map((data, index) => {
                 return (
                     <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col' key={index}>
-                        <div className='seed-card position-relative'>
+                        <Link to={'/home/seed/seedinfo'} className='seed-card position-relative text-black'>
                             <img className='w-100 intro-img' src={data.img} alt='' />
                             <span className='like-post'>
                                 <HeartIcon />
@@ -132,7 +133,7 @@ const Buds = () => {
                                     <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-sm-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 )
             })}

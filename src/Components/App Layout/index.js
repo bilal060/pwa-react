@@ -80,26 +80,28 @@ const AppLayout = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { children } = props;
     const Location = useLocation();
-    const mobFooter = ['/home', '/likes', '/home/seed', '/home/buds', '/home/cannabis', '/home/dispensary', '/home/headshop',]
-    const head = ['home', '/aboutus', '/home/seed', ' /home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
+    const mobFooter = ['/home', '/likes']
+    const head = ['/home', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
 
     return (
         <div className='app-layout'>
             {isOpen && <div className={`app-menu`}>
                 <div>
-                    <div className='d-flex justify-content-end align-items-center'>
-                        <span onClick={() => setIsOpen(!isOpen)} className='cr-p mb-4'><CrossIcon /></span>
-                    </div>
-                    <div className='d-flex align-items-center gap-2  mb-4 pb-3'>
-                        <DashboardLogo />
-                        <div>
-                            <h3 className='font-18 font-weight-700'>GROW AND SHARE</h3>
-                            <p className='font-10'>Diversity Your Supply</p>
+                    <div className='section-1'>
+                        <div className='d-flex justify-content-end align-items-center'>
+                            <span onClick={() => setIsOpen(!isOpen)} className='cr-p mb-4'><CrossIcon /></span>
                         </div>
-                    </div>
-                    <div className='search-product mb-4'>
-                        <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
-                        <span className='icon-green-bg'><MobSearchIcon /></span>
+                        <div className='d-flex align-items-center gap-2  mb-4 pb-3'>
+                            <DashboardLogo />
+                            <div>
+                                <h3 className='font-18 font-weight-700'>GROW AND SHARE</h3>
+                                <p className='font-10'>Diversity Your Supply</p>
+                            </div>
+                        </div>
+                        <div className='search-product mb-4'>
+                            <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
+                            <span className='icon-green-bg'><MobSearchIcon /></span>
+                        </div>
                     </div>
                     <div className='d-flex flex-column  side-links-main'>
                         {sideLinks.map((data, index) => {
@@ -109,8 +111,8 @@ const AppLayout = (props) => {
                         })}
                     </div>
                 </div>
-                <div className='d-flex align-items-center justify-content-between gap-2 pt-4 '>
-                    <div class="dropdown">
+                <div className='d-flex align-items-center justify-content-between gap-2 pt-4 section-2'>
+                    <div className="dropdown">
                         <div className='d-flex align-items-center gap-2' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <img src={User} alt='' className='side-link-user-img' />
                             <div>
@@ -132,7 +134,7 @@ const AppLayout = (props) => {
 
             </div>}
             <AppHeader setIsOpen={setIsOpen} isOpen={isOpen} />
-            <div className={`content-footer ${head.includes(Location.pathname) ? 'mob-app-content-footer' : ''}`}>
+            <div className={`content-footer ${head.includes(Location.pathname) ? 'mob-app-content-footer' : ''} ${mobFooter.includes(Location.pathname) ? 'small-header-mob-footer' : ''}`}>
                 {children}
                 <div className='d-sm-block d-none'>
                     <AppFooter />

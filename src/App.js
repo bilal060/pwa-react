@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ContentRoutes from './Components/Content/routes';
 
 function App() {
-  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop', '/likes','/home/seed/seedinfo']
+  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop', '/likes', '/home/seed/seedinfo', '/home/dispensary/detail', '/home/cannabis/detail', '/home/headshop/detail']
   const location = useLocation();
 
   if (homepage.includes(location.pathname)) {

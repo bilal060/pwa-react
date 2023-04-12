@@ -10,6 +10,7 @@ import headshop3 from '../../assets/Images/headshop3.svg'
 import headshop4 from '../../assets/Images/headshop4.svg'
 import FlavorIcon from '../../assets/Images/Flavor'
 import HeartIcon from '../../assets/Images/Heart'
+import { Link } from 'react-router-dom'
 
 
 
@@ -110,7 +111,7 @@ const HeadShop = () => {
             {headShopData.map((data, index) => {
                 return (
                     <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col' key={index}>
-                        <div className='seed-card position-relative'>
+                        <Link to={'/home/headshop/detail'} className='seed-card position-relative text-black'>
                             <img className='w-100 intro-img' src={data.img} alt='' />
                             <span className='like-post'>
                                 <HeartIcon />
@@ -147,7 +148,7 @@ const HeadShop = () => {
                                     <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-sm-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     </div>
                 )
             })}

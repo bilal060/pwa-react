@@ -1,7 +1,5 @@
 import React from 'react'
 import DashboardLogo from '../../assets/Images/DashboardLogo'
-import SearchButtonIcon from '../../assets/Images/Search'
-import ScopeIcon from '../../assets/Images/Scope'
 import SeedICon from '../../assets/Images/Seed'
 import DispensaryIcon from '../../assets/Images/Dispensary'
 import CannbisIcon from '../../assets/Images/Cannbis'
@@ -42,11 +40,11 @@ const AppHeader = (props) => {
     const Location = useLocation();
     const { isOpen, setIsOpen } = props;
 
-    const head = ['home', '/aboutus', '/home/seed', ' /home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
+    const head = ['/home', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
 
     return (
         <div className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? 'mob-app-header' : ''}`}>
-            <div className='container mx-auto d-flex align-items-center justify-content-between'>
+            <div className='container px-4 mx-auto d-flex align-items-center justify-content-between'>
                 <div className='d-flex align-items-center gap-2'>
                     <DashboardLogo />
                     <h3 className='app-heading'>GROW AND SHARE</h3>
@@ -56,8 +54,8 @@ const AppHeader = (props) => {
             {head.includes(Location.pathname) && <div className='allproduct-mob d-sm-none d-block mt-5'>
                 <div className='container mx-auto'>
                     <div className='d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4'>
-                        <h2 className='allproduct-heading'>All Products</h2>
-                        <div className='d-flex  align-items-center gap-4'>
+                        <h2 className='allproduct-heading m ms-12 me-12'>All Products</h2>
+                        <div className='d-flex ps-12 pe-12 align-items-center gap-4'>
                             <div className='search-product  d-sm-none d-flex'>
                                 <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
                                 <span className='icon-green-bg'><MobSearchIcon /></span>
@@ -75,7 +73,7 @@ const AppHeader = (props) => {
                     </div>
                 </div>
                 <div className='mt-sm-5 mt-4 mb-sm-5 pb-3 gap-4 d-flex align-items-start justify-content-between'>
-                    <div className='d-flex gap-3 overflow-x-auto all-products-link px-3'>
+                    <div className='d-flex gap-3 overflow-x-auto all-products-link px-4'>
                         {products.map((data, index) => {
                             return (
                                 <Link key={index} to={data.link} className={`${data.link === Location.pathname ? 'product-item-active' : ''}  product-item`}>{data.icon} {data.name}</Link>

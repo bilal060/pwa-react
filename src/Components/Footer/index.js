@@ -12,9 +12,9 @@ import FooterLocationIcon from '../../assets/Images/FooterLocation'
 const AppFooter = () => {
     return (
         <>
-            <div className="app-footer">
+            <div className="app-footer ">
                 <div className="container mx-auto">
-                    <div className="row m-0">
+                    <div className="row m-0 ps-12 pe-12">
                         <div className="col-md-5 col-lg-4 col-sm-12 ps-0 pe-md-5 mb-lg-0 mb-5">
                             <div className="d-flex align-items-center gap-2 mb-3">
                                 <DashboardLogo />
@@ -65,12 +65,13 @@ const AppFooter = () => {
                                 <SendMailIcon />
                             </div>
                         </div>
+                        <div className="col-12 p-0">
+                            <pre className='copyright mt-5'>
+                                Copyright © 2023. All Rights Reserved.
+                            </pre>
+                        </div>
                     </div>
-                    <div className="col-12">
-                        <pre className='copyright mt-5'>
-                            Copyright © 2023. All Rights Reserved.
-                        </pre>
-                    </div>
+                    
                 </div>
             </div>
         </>

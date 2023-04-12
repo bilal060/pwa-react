@@ -11,6 +11,7 @@ import SendMailIcon from '../../assets/Images/SendMail'
 import TimerIcon from '../../assets/Images/Timer'
 import PriceIcon from '../../assets/Images/Price'
 import HeartIcon from '../../assets/Images/Heart'
+import { Link } from 'react-router-dom'
 
 const cannabisData = [
     {
@@ -109,7 +110,7 @@ const Cannabis = () => {
             {cannabisData.map((data, index) => {
                 return (
                     <div className='col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col' key={index}>
-                        <div className='seed-card position-relative'>
+                        <Link to={'/home/cannabis/detail'} className='seed-card position-relative text-black'>
                             <img className='w-100 intro-img' src={data.img} alt='' />
                             <span className='like-post'>
                                 <HeartIcon />
@@ -144,7 +145,7 @@ const Cannabis = () => {
                                     <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-sm-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
 
                     </div>
                 )

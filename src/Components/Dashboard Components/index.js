@@ -46,7 +46,7 @@ const AllProducts = (props) => {
             <div className='allproduct-mob d-sm-block d-none'>
                 <div className='container mx-auto'>
                     <div className='d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4'>
-                        <h2 className='allproduct-heading'>All Products</h2>
+                        <h2 className='allproduct-heading ps-12 pe-12'>All Products</h2>
                         <div className='d-flex  align-items-center gap-4'>
                             <div className='search-product d-sm-none d-flex'>
                                 <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
