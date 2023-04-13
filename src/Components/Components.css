@@ -122,6 +122,20 @@
     color: #FFFFFF;
 }
 
+.light-red-btn-outline {
+    background: rgba(190, 63, 63, 0.2);
+    border: 1px solid #BE3F3F;
+    height: 56px;
+    border-radius: 12px;
+    width: 100%;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 100%;
+    text-align: center;
+    color: #BE3F3F;
+}
+
 .view-map-btn {
     background: #5D8B2F;
     border-radius: 16px;
@@ -514,6 +528,18 @@
     padding: 8px;
 }
 
+.icon-red-bg {
+    width: 40px !important;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    background: #BE3F3F;
+    box-shadow: -2px 0px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 7px;
+}
+
 .icon-light-green-bg {
     width: 40px;
     height: 40px;
@@ -637,6 +663,21 @@
     align-items: center;
 }
 
+.favourite-post {
+    box-sizing: border-box;
+    position: absolute;
+    left: 4%;
+    top: 6%;
+    height: 40px;
+    width: 40px;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #FFFFFF;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 /* product-user-profile */
 .product-user-profile {
@@ -747,9 +788,49 @@
     display: none;
 }
 
+.custom-model {
+    max-width: 1024px !important;
+    height: 100vh;
+}
 
-@media screen and (min-width:1200px) {
-    .w-xl-40 {
+.custom-model .modal-content {
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 16px !important;
+    overflow-y: auto;
+    border: 0 !important;
+}
+
+.custom-model .modal-content .auth-input,
+.auth-input-textarea {
+    box-shadow: none !important;
+    border: 1px solid #C6C6C6 !important;
+}
+
+.custom-model .modal-content .add-more svg path {
+    fill: black !important;
+}
+
+.custom-model .modal-content .upload-file {
+    background-color: #F2F2F2 !important;
+}
+
+.custom-model .modal-content .upload-file::before {
+    border-color: #CDCDCD !important;
+}
+
+.edit-profile .seed-card {
+    background: #FFFFFF !important;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
+    border-radius: 16px !important;
+    width: 100%;
+    padding: 16px;
+    border-bottom: 0 !important;
+}
+.edit-profile{
+    width: max-content;
+}
+@media screen and (min-width:991px) {
+    .w-lg-40 {
         width: 40% !important;
     }
 }
@@ -766,19 +847,46 @@
     .like-post {
         right: 6% !important;
     }
+
+    .favourite-post {
+
+        left: 5%;
+        top: 3%;
+    }
+
+    .custom-model .modal-content {
+        border-radius: 0px !important;
+        height: 100vh;
+        border: 0 !important;
+    }
 }
 
 @media screen and (max-width:576px) {
+    .edit-profile {
+            width: 100% !important;
+        }
     .nav-link.product-item {
         border-radius: 5px !important;
     }
 
-    .product-user-profile .auth-input {
+    .product-user-profile .auth-input,
+    .auth-input-textarea,
+    .upload-file {
         border-radius: 5px !important;
     }
 
+    .product-user-profile .upload-file::before {
+        border-radius: 5px !important;
+    }
+
+
     .like-post {
         left: 38% !important;
+    }
+
+    .favourite-post {
+        left: 2% !important;
+        top: 5% !important;
     }
 
     .height-56 {
@@ -788,7 +896,9 @@
     .green-btn,
     .green-btn-outline,
     .product-item,
-    .search-product {
+    .search-product,
+    .light-red-btn-outline,
+    .add-more {
         height: 40px !important;
         border-radius: 8px;
     }
@@ -799,8 +909,9 @@
         padding-right: 4px;
     }
 
-    .icon-green-bg {
-        width: 32px;
+    .icon-green-bg,
+    .icon-red-bg {
+        width: 32px !important;
         height: 32px;
         border-radius: 5px;
     }
@@ -832,6 +943,11 @@
         flex-direction: row;
         border-bottom: 1px solid rgba(93, 139, 47, 0.2);
         border-radius: 0 !important;
+    }
+
+    .seed-card-col:last-child .seed-card {
+        border-bottom: 0 !important;
+        padding: 0 !important;
     }
 
     .seed-card.product-profile {

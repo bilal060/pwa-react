@@ -12,6 +12,8 @@ import DispensaryProfileDetail from '../../Pages/Dispensary User Profile'
 import CannabisProfileDetail from '../../Pages/Cannabis User Profile'
 import HeadProfileDetail from '../../Pages/Head User Profile'
 import FavoriteProduct from '../../Pages/Favorite Products'
+import UserProfile from '../../Pages/User Profile'
+import EditProfile from '../User Profile Detail Options/EditProfile'
 
 
 const ContentRoutes = () => {
@@ -30,7 +32,11 @@ const ContentRoutes = () => {
                 <Route path="/home/headshop/detail" element={<HeadProfileDetail />} />
                 
 
-                <Route path="/likes" element={<FavoriteProduct />} />
+                <Route path="/favourite" element={<FavoriteProduct />} />
+                <Route path="/favourite/userprofile" element={<UserProfile />} />
+                <Route path="/favourite/userprofile/edit" element={<EditProfile />} />
+
+
 
 
             </Routes>

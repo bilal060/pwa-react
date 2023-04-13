@@ -11,7 +11,6 @@ const AddAddressPage = () => {
     const [value, setvalue] = useState('')
     const [country, setCountry] = useState('US')
 
-    const [phone, setphone] = useState('')
     const navigate = useNavigate();
     const goBack = () => {
         navigate(-1);
@@ -30,24 +29,6 @@ const AddAddressPage = () => {
                     <div className='form-control p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Phone Number (optional)</label>
 
-                        {/* <PhoneInput
-                            country={'us'}
-                            value={phone}
-                            onChange={phone => setphone(phone)}
-                            containerClass='auth-input'
-                            buttonClass='bg-transparent outline-0 border-0 phone-dropdown-btn'
-                            inputClass='bg-transparent outline-0 border-0 shadow-none phone-input '
-                            dropdownClass='phone-dropdown-content'
-                        /> */}
-
-                        {/* <Input
-                            placeholder="Enter phone number"
-                            value={value}
-                            country={country}
-                            onChange={setvalue}
-                            international
-                            withCountryCallingCode
-                        /> */}
                         <div className='custom-phone-input auth-input d-flex align-items-center'>
                             <CountrySelect
                                 labels={en}
