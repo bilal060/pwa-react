@@ -48,6 +48,10 @@ a {
   color: #ED6565 !important;
 }
 
+.bg-primary-red {
+  background-color: #BE3F3F !important;
+}
+
 .bg-light-green {
   background-color: #99C76B !important;
 }

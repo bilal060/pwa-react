@@ -14,6 +14,8 @@ import HeadProfileDetail from '../../Pages/Head User Profile'
 import FavoriteProduct from '../../Pages/Favorite Products'
 import UserProfile from '../../Pages/User Profile'
 import EditProfile from '../User Profile Detail Options/EditProfile'
+import DeleteProfile from '../User Profile Detail Options/DeleteAccount'
+import Chat from '../../Pages/Chat'
 
 
 const ContentRoutes = () => {
@@ -30,11 +32,15 @@ const ContentRoutes = () => {
                 <Route path="/home/dispensary/detail" element={<DispensaryProfileDetail />} />
                 <Route path="/home/cannabis/detail" element={<CannabisProfileDetail />} />
                 <Route path="/home/headshop/detail" element={<HeadProfileDetail />} />
-                
+
 
                 <Route path="/favourite" element={<FavoriteProduct />} />
                 <Route path="/favourite/userprofile" element={<UserProfile />} />
                 <Route path="/favourite/userprofile/edit" element={<EditProfile />} />
+                <Route path="/favourite/userprofile/delete" element={<DeleteProfile />} />
+                <Route path="/chat" element={<Chat />} />
+                <Route path="/chat" element={<Chat />} />
+
 
 
 

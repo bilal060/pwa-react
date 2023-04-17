@@ -826,9 +826,222 @@
     padding: 16px;
     border-bottom: 0 !important;
 }
-.edit-profile{
+
+.edit-profile {
     width: max-content;
 }
+
+
+
+/* delete account */
+.deleteuser-img {
+    height: 96px;
+    width: 96px;
+    border-radius: 10px;
+}
+
+.delete-account .upload-file {
+    background-color: #F2F2F2 !important;
+}
+
+.delete-account .upload-file::before {
+    border-color: #CDCDCD !important;
+}
+
+.delete-account .checkbox-container label:before {
+    background: #CDCDCD !important;
+}
+
+.delete-account .checkbox-container input:checked+label:before {
+    background: #5D8B2F !important;
+}
+
+.h-max-content {
+    height: max-content !important;
+}
+
+.delete-account .user-detail {
+    border-bottom: 1px solid #C6C6C6;
+}
+
+[type="radio"]:checked,
+[type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+
+[type="radio"]:checked+label,
+[type="radio"]:not(:checked)+label {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+
+[type="radio"]:checked+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #5D8B2F;
+    border-radius: 6px;
+    background: #fff;
+    background: #5D8B2F !important;
+}
+
+[type="radio"]:not(:checked)+label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #6B6B6B;
+    border-radius: 6px;
+    background: #fff;
+    background: #CDCDCD !important;
+}
+
+[type="radio"]:not(:checked)+label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 7px;
+    left: 8px;
+    width: 5px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) !important;
+}
+
+[type="radio"]:checked+label:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 5px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+[type="radio"]:not(:checked)+label:after {
+    opacity: 0;
+}
+
+
+/* chat screen */
+.recent-chats-header {
+    border-bottom: 1px solid #C6C6C6;
+}
+
+.recent-chats-detail .nav-link.product-item .user-name {
+    border-bottom: 1px solid #C6C6C6;
+}
+
+.recent-chats-detail .nav-link.product-item.active .user-name {
+    border-bottom: 0 !important;
+}
+
+.recent-chats-detail {
+    height: calc(700px - 66px);
+    overflow-y: auto;
+}
+
+.new-msg {
+    margin-bottom: 24px !important;
+
+}
+
+.send-msg .msg {
+    background: #5D8B2F;
+    border-radius: 16px 0px 16px 16px;
+    padding: 16px 32px 16px;
+    color: white;
+    width: max-content;
+    max-width: 100%;
+}
+
+.send-msg {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rcv-msg div {
+
+    background: #F1F1F1;
+    border-radius: 0px 16px 16px 16px;
+    padding: 16px 32px 16px;
+    width: max-content;
+    max-width: 100%;
+}
+
+.send-message-box {
+    background: #F1F1F1;
+    border-radius: 16px;
+    padding: 5px 17px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.send-message-box textarea {
+    resize: none;
+    outline: none;
+}
+
+.chat-detail-header {
+    height: 75px;
+    border-bottom: 1px solid #C6C6C6;
+    gap: 16px;
+}
+
+.chat-detail-body {
+    height: calc(700px - 75px - 66px);
+    overflow-y: auto;
+}
+
+.fade:not(.show) {
+    display: none !important;
+}
+
+.chatbox-footer {
+    /* position: absolute; */
+    /* bottom: 16px; */
+    gap: 16px;
+    width: 100%;
+}
+
+textarea[name="chatbox"] {
+    resize: none;
+    border-right: 0;
+    background-color: transparent;
+    height: 3em;
+    margin: 0;
+    padding: 0.75em;
+    border-radius: 8px 0px 0px 8px;
+    font-family: inherit;
+    font-size: 1em;
+    outline: 0;
+    border: 0;
+    /* width: calc(100% - 85px) !important; */
+}
+
+textarea[name="chatbox"]::-webkit-scrollbar {
+    width: 5px;
+}
+
+textarea[name="chatbox"]::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
 @media screen and (min-width:991px) {
     .w-lg-40 {
         width: 40% !important;
@@ -859,12 +1072,25 @@
         height: 100vh;
         border: 0 !important;
     }
+
+    .custom-model.user-model {
+        width: 100vw;
+    }
+
+    .custom-model.user-model .modal-content {
+        width: 100vw;
+    }
 }
 
 @media screen and (max-width:576px) {
+    .delete-account .user-detail {
+        border-bottom: none !important;
+    }
+
     .edit-profile {
-            width: 100% !important;
-        }
+        width: 100% !important;
+    }
+
     .nav-link.product-item {
         border-radius: 5px !important;
     }

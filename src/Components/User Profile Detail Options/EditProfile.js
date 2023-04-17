@@ -36,7 +36,7 @@ const EditProfile = () => {
         <div className='product-user-profile'>
             <div className='container mx-auto'>
                 <div className='me-12 ms-12 position-relative'>
-                    <div className='d-flex justify-content-start'>
+                    <div className='d-flex justify-content-start d-sm-flex d-none'>
                         <button className='green-btn-outline text-primary-green w-max-content px-5 gap-2' onClick={() => goBack()}>
                             <BackIcon />
                             <span className='ps-2'>Back</span></button>
@@ -44,7 +44,7 @@ const EditProfile = () => {
 
                     <div className=' mx-auto edit-profile'>
                         <h3 className='pb-4 font-32 font-weight-600 allproduct-heading position-absolute mx-auto top-0 d-lg-block d-none'>Edit Profile</h3>
-                        <h3 className='pb-4 font-32 font-weight-600 allproduct-heading mt-5 d-lg-none d-block'>Edit Profile</h3>
+                        <h3 className='pb-4 font-32 font-weight-600 allproduct-heading mt-5 d-lg-none d-sm-block d-none'>Edit Profile</h3>
 
                         <form onSubmit={(e) => e.preventDefault()}>
                             <div className='seed-card flex-column mt-lg-5 mt-3'>

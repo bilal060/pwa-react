@@ -26,7 +26,7 @@ const LoginPage = () => {
                 <input className='auth-input' type='email' placeholder='Email' />
                 <input className='auth-input my-3' type='Password' placeholder='Password' />
 
-                {/* <div className='auth-input my-3 d-flex align-items-center justify-content-between' >
+                <div className='auth-input my-3 d-flex align-items-center justify-content-between' >
                     <input
                         name='password'
                         required
@@ -39,7 +39,7 @@ const LoginPage = () => {
                         className='see-pswd-btn cr-p'>
                         <ShowPassword />
                     </span>
-                </div> */}
+                </div>
 
                 <div className='d-flex align-items-center justify-content-between mb-4 pb-3'>
                     <div className='checkbox-container'>

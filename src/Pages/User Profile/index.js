@@ -139,7 +139,7 @@ const UserProfile = (props) => {
                                 <EditIcon />
                             </span>
                             </Link>
-                            <button className='light-red-btn-outline w-auto ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 user'> <span>Delete Account</span> <span className='icon-red-bg'><DeleteIcon /></span></button>
+                            <Link to={'/favourite/userprofile/delete'} className='light-red-btn-outline w-auto ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 user'> <span>Delete Account</span> <span className='icon-red-bg'><DeleteIcon /></span></Link>
                         </div>
 
                     </div>
@@ -258,7 +258,7 @@ const UserProfile = (props) => {
                                         <label className='mb-2 font-weight-600 font-18-100'>Description</label>
 
                                         <div className='col-md-6  bg-transparent border-0'>
-                                            <div className='form-control p-0 bg-transparent border-0 mb-4'>
+                                            <div className='p-0 bg-transparent border-0 mb-4'>
                                                 <textarea className='auth-input-textarea bg-transparent' placeholder='Enter description here...' />
                                             </div>
                                         </div>
