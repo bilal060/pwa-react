@@ -410,11 +410,11 @@ const Chat = () => {
                                     </div>
                                 }
 
-                            </div >
-                        </div >
+                            </div>
+                        </div>
 
-                    </div >
-                </div >
+                    </div>
+                </div>
                 <div className='d-md-block d-none'>
                     <AppFooter />
                 </div>

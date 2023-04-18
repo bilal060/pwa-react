@@ -5,9 +5,13 @@ import RegistrationLayout from './Components/Registration';
 import AppLayout from './Components/App Layout';
 import 'bootstrap/dist/css/bootstrap.css';
 import ContentRoutes from './Components/Content/routes';
+import Chat from './Pages/Chat';
+import ChatLayout from './Components/Chat/ChatLayout';
 
 function App() {
-  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop', '/favourite', '/favourite/userprofile', '/favourite/userprofile/edit', '/favourite/userprofile/delete', '/home/seed/seedinfo', '/home/dispensary/detail', '/home/cannabis/detail', '/home/headshop/detail', '/chat']
+  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop', '/favourite', '/favourite/userprofile', '/favourite/userprofile/edit', '/favourite/userprofile/delete', '/home/seed/seedinfo', '/home/dispensary/detail', '/home/cannabis/detail', '/home/headshop/detail',]
+  const chat = ['/chat']
+
   const location = useLocation();
 
   if (homepage.includes(location.pathname)) {
@@ -15,6 +19,11 @@ function App() {
       <AppLayout>
         <ContentRoutes />
       </AppLayout>
+    );
+  }
+  if (chat.includes(location.pathname)) {
+    return (
+      <Chat />
     );
   }
   else

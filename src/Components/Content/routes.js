@@ -32,19 +32,10 @@ const ContentRoutes = () => {
                 <Route path="/home/dispensary/detail" element={<DispensaryProfileDetail />} />
                 <Route path="/home/cannabis/detail" element={<CannabisProfileDetail />} />
                 <Route path="/home/headshop/detail" element={<HeadProfileDetail />} />
-
-
                 <Route path="/favourite" element={<FavoriteProduct />} />
                 <Route path="/favourite/userprofile" element={<UserProfile />} />
                 <Route path="/favourite/userprofile/edit" element={<EditProfile />} />
                 <Route path="/favourite/userprofile/delete" element={<DeleteProfile />} />
-                <Route path="/chat" element={<Chat />} />
-                <Route path="/chat" element={<Chat />} />
-
-
-
-
-
             </Routes>
         </>
     )
