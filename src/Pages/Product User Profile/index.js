@@ -155,7 +155,7 @@ const ProductUserProfile = (props) => {
                             <div className='d-flex flex-lg-column justify-content-lg-center justify-content-between align-items-center mb-lg-5 mb-3'>
                                 <img src={productuser} alt='' className='mb-md-4 ' />
                                 <div className='d-flex flex-column gap-3'>
-                                    <p className='font-24 font-weight-700 mb-3'>Tony Stark</p>
+                                    <p className='font-24 font-weight-700 mb-lg-3'>Tony Stark</p>
                                     <div className='d-flex gap-2 align-items-center flex-wrap'>
                                         <span className='d-flex gap-2 align-items-center font-24 font-weight-700'>
                                             <RatingIcon />

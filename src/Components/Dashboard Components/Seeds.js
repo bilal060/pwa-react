@@ -118,10 +118,10 @@ const Seeds = () => {
                                         {data.count}</span>
                                 </div>
 
-                                <span className='d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3'>
+                                <span className='d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2'>
                                     <LocationIcon />
                                     {data.location}</span>
-                                <div className='d-flex justify-content-between align-items-center gap-2'>
+                                <div className='d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap'>
                                     <div className='d-flex gap-2 align-items-center flex-wrap'>
                                         <span className='d-flex gap-2 align-items-center font-24 font-weight-700'>
                                             <RatingIcon />
@@ -131,7 +131,7 @@ const Seeds = () => {
                                             {data.totalReviews}
                                         </span>
                                     </div>
-                                    <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 py-sm-2 '> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
+                                    <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
                                 </div>
                             </div>
                         </Link>

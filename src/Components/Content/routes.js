@@ -15,7 +15,7 @@ import FavoriteProduct from '../../Pages/Favorite Products'
 import UserProfile from '../../Pages/User Profile'
 import EditProfile from '../User Profile Detail Options/EditProfile'
 import DeleteProfile from '../User Profile Detail Options/DeleteAccount'
-import Chat from '../../Pages/Chat'
+import SeedMap from '../ViewMap/Seed'
 
 
 const ContentRoutes = () => {
@@ -24,10 +24,16 @@ const ContentRoutes = () => {
             <Routes>
                 <Route path="/home" element={<HomePage><ShowAllProducts /></HomePage>} />
                 <Route path="/home/seed" element={<HomePage><Seeds /></HomePage>} />
+                <Route path="/home/seed/map" element={<HomePage><SeedMap /></HomePage>} />
                 <Route path="/home/buds" element={<HomePage><Buds /></HomePage>} />
+                <Route path="/home/buds/map" element={<HomePage><SeedMap /></HomePage>} />
                 <Route path="/home/dispensary" element={<HomePage><Dispensary /></HomePage>} />
+                <Route path="/home/dispensary/map" element={<HomePage><SeedMap /></HomePage>} />
                 <Route path="/home/cannabis" element={<HomePage><Cannabis /></HomePage>} />
+                <Route path="/home/cannabis/map" element={<HomePage><SeedMap /></HomePage>} />
                 <Route path="/home/headshop" element={<HomePage><HeadShop /></HomePage>} />
+                <Route path="/home/headshop/map" element={<HomePage><SeedMap /></HomePage>} />
+
                 <Route path="/home/seed/seedinfo" element={<ProductUserProfile />} />
                 <Route path="/home/dispensary/detail" element={<DispensaryProfileDetail />} />
                 <Route path="/home/cannabis/detail" element={<CannabisProfileDetail />} />

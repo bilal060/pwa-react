@@ -71,6 +71,11 @@ a {
   line-height: 100%;
 }
 
+.font-13 {
+  font-size: 13px;
+  line-height: 13px;
+}
+
 .font-14-100 {
   font-size: 14px;
   line-height: 100%;
@@ -459,6 +464,7 @@ select {
 
   .font-32 {
     font-size: 24px !important;
+    line-height: 22px;
   }
 
   .font-36 {
@@ -497,5 +503,6 @@ select {
 
   .font-32 {
     font-size: 18px !important;
+    line-height: 22px;
   }
 }

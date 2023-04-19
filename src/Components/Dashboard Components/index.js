@@ -40,7 +40,6 @@ const products = [
 const AllProducts = (props) => {
     const { children } = props;
     const Location = useLocation();
-
     return (
         <div className='all-product-section'>
             <div className='allproduct-mob d-sm-block d-none'>
@@ -53,12 +52,12 @@ const AllProducts = (props) => {
                                 <SearchButtonIcon />
                             </div>
                             <div className='d-flex align-items-center gap-4'>
-                                <button className='view-map-btn d-sm-flex d-none align-items-center gap-3'>
+                                <Link to={`${Location.pathname}/map`} className='text-white view-map-btn d-sm-flex d-none align-items-center gap-3'>
                                     View Map
                                     <span className='view-map-btn-scope d-flex align-items-center justify-content-center '>
                                         <ScopeIcon />
                                     </span>
-                                </button>
+                                </Link>
                                 <button className='border-0 outline-0 bg-transparent p-0'>
                                     <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="0.5" width={55} height={55} rx="15.5" fill="#5D8B2F" fillOpacity="0.2" stroke="#5D8B2F" />

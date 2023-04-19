@@ -425,10 +425,42 @@
 .small-header-mob-footer {}
 
 .mobile-view-footer {
+    position: relative;
     width: 100%;
     height: 56px;
-    background: #99C76B;
+    background-image: url(../assets/Images/MobFooter.svg);
+    background-position: center;
+    /* background: #99C76B; */
     box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.04);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.mobile-view-footer .section-1 {
+    gap: 3rem;
+}
+
+.mobile-view-footer .section-2 {
+    gap: 3rem;
+}
+
+.center-location {
+    background: rgba(93, 139, 47, 0.2);
+    border: 3px solid #99C76B;
+    border-radius: 100%;
+    /* padding: 20px; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 47px !important;
+    height: 47px !important;
+    position: absolute;
+    left: 10px;
+    right: 0;
+    top: -50px;
+    bottom: 0;
+    margin: auto !important;
+
 }
 
 .mob-footer-link-active svg path {
@@ -949,7 +981,7 @@
 }
 
 .chat-screen-content {
-    height: calc(100vh);
+    /* height: calc(100vh); */
     overflow-y: auto;
 }
 
@@ -1061,20 +1093,111 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     background: #888;
 }
 
+/* view map */
+.custom-map {
+    height: 100% !important;
+}
+
+.custom-map>div>div {
+    border-radius: 0px 10px 10px 0px;
+}
+
+.map-link {
+    padding: 16px !important;
+}
+
+.map-link.active {
+    border: 1px solid #5D8B2F !important;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.15);
+}
+
+.w-lg-40-100-40 {
+    width: 40% !important;
+}
+
+.map-card-col .map-link:first-child {
+    border-radius: 16px 0 0 0 !important;
+}
+
+.map-card-col .map-link:last-child {
+    border-radius: 0 0 0 16px !important;
+}
+
+.map-dropbtn svg path {
+    fill: #5D8B2F;
+}
+
+.map-dropbtn {
+    border: 2px solid #5D8B2F;
+    height: 72px;
+    width: 72px;
+    border-radius: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.map-dropbtn[aria-expanded="true"] {
+    background-color: #5D8B2F;
+}
+
+.map-dropbtn[aria-expanded="true"] svg path {
+    fill: white;
+}
+
+.map-comp-dropmenu {
+    border: 0 !important;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.15) !important;
+    border-radius: 24px !important;
+    width: 343px !important;
+    transform: translate3d(-120px, 112px, 0px) !important;
+    padding: 0 !important;
+}
+
+.map-comp-dropmenu img {
+    width: 100% !important;
+}
+
 @media screen and (min-width:991px) {
     .w-lg-40 {
         width: 40% !important;
     }
 }
 
-@media screen and (max-width:991px) {}
+@media screen and (max-width:991px) {
+    .w-lg-40-100-40 {
+        width: 100% !important;
+    }
+}
 
 @media screen and (max-width:767px) {
+    .map-card-col .map-link:first-child {
+        border-radius: 0 !important;
+    }
+
+    .map-card-col .map-link:last-child {
+        border-radius: 0 !important;
+    }
+
+    .custom-map {
+        height: 500px !important;
+    }
+
+    .custom-map>div>div {
+        border-radius: 10px;
+    }
+
+    .w-lg-40-100-40 {
+        width: 40% !important;
+    }
+
     .chat-screen {
-            padding: 48px 0 !important;
-        }
+        padding: 48px 0 !important;
+    }
+
     .chat-detail-body {
-        height: 100%;
+        /* height: 100%; */
         overflow-y: auto;
     }
 
@@ -1112,10 +1235,17 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 }
 
 @media screen and (max-width:576px) {
+    .map-comp-dropmenu {
+        max-width: 270px !important;
+    }
+
+
+
     .chat-detail-body {
-            height: calc(100vh - 75px - 107px);
-            overflow-y: auto;
-        }
+        height: calc(100vh - 75px - 107px);
+        overflow-y: auto;
+    }
+
     .chat-screen {
         padding: 0 !important;
     }
@@ -1167,7 +1297,7 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     .light-red-btn-outline,
     .add-more {
         height: 40px !important;
-        border-radius: 8px;
+        border-radius: 8px !important;
     }
 
 
@@ -1315,6 +1445,17 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     }
 }
 
+@media screen and (max-width:525px) {
+    .mobile-view-footer .section-1 {
+        gap: 1.8rem !important;
+    }
+
+    .mobile-view-footer .section-2 {
+        gap: 1.8rem !important;
+    }
+
+}
+
 @media screen and (max-width:400px) {
     .like-post {
         left: 24% !important;
@@ -1323,6 +1464,14 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     .seed-card .intro-img {
         max-width: 40%;
         height: 100%;
+    }
+
+    .mobile-view-footer .section-1 {
+        gap: 1.5rem !important;
+    }
+
+    .mobile-view-footer .section-2 {
+        gap: 1.5rem !important;
     }
 
 }

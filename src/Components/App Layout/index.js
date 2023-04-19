@@ -13,6 +13,7 @@ import CrossIcon from '../../assets/Images/Cross';
 import User from '../../assets/Images/sidelink-user.svg';
 import SideLinkSettings from '../../assets/Images/sideLinkSettings';
 import selectafter from '../../assets/Images/select-after.svg';
+import LocationIcon from '../../assets/Images/Location';
 
 
 
@@ -23,7 +24,7 @@ const mobileFooter = [
     },
     {
         icon: <MobHeartIcon />,
-        link: '/likes'
+        link: '/favourite'
     },
     {
         icon: <MobSearchIcon />,
@@ -80,8 +81,8 @@ const AppLayout = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { children } = props;
     const Location = useLocation();
-    const mobFooter = ['/home', '/likes']
-    const head = ['/home', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
+    const mobFooter = ['/favourite']
+    const head = ['/home', '/favourite', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
 
     return (
         <div className='app-layout'>
@@ -140,15 +141,30 @@ const AppLayout = (props) => {
                     <AppFooter />
                 </div>
             </div>
-            {mobFooter.includes(Location.pathname) ? <div className='mobile-view-footer d-sm-none b-block'>
+            {head.includes(Location.pathname) ? <div className='mobile-view-footer d-sm-none b-block'>
+                <Link className={`center-location`}>
+                    <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
+                    </svg>
+                </Link>
                 <div className='container mx-auto h-100'>
-                    <div className='d-flex align-items-center justify-content-around gap-3 h-100'>
-                        {mobileFooter.map((data, index) => {
+                    <div className='d-flex align-items-center justify-content-between gap-5 h-100 px-xs-4 mx-2'>
+                        <div className='d-flex align-items-center justify-content-between h-100 section-1'>
+                            <Link to={'/home'} className={`${Location.pathname.includes('/home') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobHomeIcon /></Link>
+                            <Link to={'/favourite'} className={`${Location.pathname.includes('/favourite') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobHeartIcon /></Link>
+                            <Link to={'/search'} className={`${Location.pathname.includes('/search') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobSearchIcon /></Link>
+                        </div>
+                        <div className='d-flex align-items-center justify-content-between h-100 section-2'>
+                            <Link to={'/dispensary'} className={`${Location.pathname.includes('/dispensary') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobDispensaryIcon /></Link>
+                            <Link to={'/settings'} className={`${Location.pathname.includes('/settings') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobSettingsIcon /></Link>
+                            <Link to={'/user'} className={`${Location.pathname.includes('/user') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobUserIcon /></Link>
+                        </div>
+                    </div>
+                    {/* {mobileFooter.map((data, index) => {
                             return (
                                 <Link key={index} to={data.link} className={`${Location.pathname.includes(data.link) ? 'mob-footer-link-active' : ''} mob-footer-link`}>{data.icon}</Link>
                             )
-                        })}
-                    </div>
+                        })} */}
                 </div>
             </div> : ''
             }
