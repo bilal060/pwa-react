@@ -29,17 +29,19 @@ const ResponsivePage = () => {
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-4 pb-3'>We’ll help you get started based on your response</h2>
             <form onSubmit={(e) => e.preventDefault()}>
-                <div className='form-control p-0 bg-transparent border-0 mb-4'>
+                <div className='form-control h-auto p-0 bg-transparent border-0 mb-4'>
                     <label className='text-white mb-2 font-weight-600 font-18-100'>Which Strain type do you have?</label>
                     <select className='auth-input'>
                         <option defaultValue>Strain Type</option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
-                        <option>Option 3</option>
+                        <option>All</option>
+                        <option>Sativa</option>
+                        <option>Indica</option>
+                        <option>Hybrid</option>
+                        <option>CBD</option>
                     </select>
                 </div>
 
-                <div className='form-control p-0 bg-transparent border-0 mb-4'>
+                <div className='form-control h-auto p-0 bg-transparent border-0 mb-4'>
                     <label className='text-white mb-2 font-weight-600 font-18-100'>Grown or Purchased?</label>
                     <select className='auth-input'>
                         <option defaultValue>- Select Option -</option>

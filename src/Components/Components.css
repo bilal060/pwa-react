@@ -185,12 +185,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
     position: relative;
     text-align: center;
-    /* background-image: url(../assets/Images/dashed-border.svg);
-    background-position: center;
-    background-size: 100% 56px !important; */
 }
 
 .upload-file::before {
@@ -327,6 +323,10 @@
     padding: 40px;
 }
 
+.min-width-521 {
+    min-width: 521px;
+}
+
 .max-width-792 {
     max-width: 792px;
     padding: 40px;
@@ -430,10 +430,10 @@
     height: 56px;
     background-image: url(../assets/Images/MobFooter.svg);
     background-position: center;
-    /* background: #99C76B; */
     box-shadow: 0px -2px 16px rgba(0, 0, 0, 0.04);
     background-repeat: no-repeat;
     background-size: 100%;
+    /* background-position: bottom; */
 }
 
 .mobile-view-footer .section-1 {
@@ -445,17 +445,16 @@
 }
 
 .center-location {
-    background: rgba(93, 139, 47, 0.2);
+    background: #dfe8d6;
     border: 3px solid #99C76B;
     border-radius: 100%;
-    /* padding: 20px; */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 47px !important;
     height: 47px !important;
     position: absolute;
-    left: 10px;
+    left: 2%;
     right: 0;
     top: -50px;
     bottom: 0;
@@ -472,7 +471,6 @@
 /* panic-section */
 .panic-section {
     height: 400px;
-    /* width: 100vw; */
     background-image: url(../assets/Images/registration-bg.png);
     background-position: center;
     background-size: cover;
@@ -605,7 +603,6 @@
     background: #FFFFFF;
     box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05);
     border-radius: 16px;
-    /* width: 300px; */
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -790,7 +787,6 @@
 }
 
 .bordered-heading {
-    /* width: max-content !important; */
     background-image: url(../assets/Images/curl.svg);
     background-repeat: no-repeat;
     background-position: left bottom;
@@ -981,7 +977,6 @@
 }
 
 .chat-screen-content {
-    /* height: calc(100vh); */
     overflow-y: auto;
 }
 
@@ -1064,8 +1059,6 @@
 }
 
 .chatbox-footer {
-    /* position: absolute; */
-    /* bottom: 16px; */
     gap: 16px;
     width: 100%;
 }
@@ -1082,7 +1075,6 @@ textarea[name="chatbox"] {
     font-size: 1em;
     outline: 0;
     border: 0;
-    /* width: calc(100% - 85px) !important; */
 }
 
 textarea[name="chatbox"]::-webkit-scrollbar {
@@ -1159,6 +1151,17 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     width: 100% !important;
 }
 
+.z-index-1 {
+    z-index: 1;
+}
+
+.poeple-sharing-seed {
+    position: absolute;
+    z-index: 1;
+    top: 16px;
+    right: 16px;
+}
+
 @media screen and (min-width:991px) {
     .w-lg-40 {
         width: 40% !important;
@@ -1197,7 +1200,6 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     }
 
     .chat-detail-body {
-        /* height: 100%; */
         overflow-y: auto;
     }
 
@@ -1231,6 +1233,11 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 
     .custom-model.user-model .modal-content {
         width: 100vw;
+    }
+
+    .map-dropbtn {
+        height: 50px;
+        width: 50px;
     }
 }
 
@@ -1290,6 +1297,31 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
         height: 40px !important
     }
 
+    .registration-layout .green-btn {
+        height: 56px !important;
+        border-radius: 12px !important;
+    }
+
+    .registration-layout .green-btn-outline {
+        height: 56px !important;
+        border-radius: 12px !important;
+    }
+
+    .registration-layout .add-more {
+        height: 56px !important;
+        border-radius: 12px !important;
+    }
+
+    .registration-layout .light-red-btn-outline {
+        height: 56px !important;
+        border-radius: 12px !important;
+    }
+
+    .registration-layout .upload-file {
+        height: 56px !important;
+        border-radius: 12px !important;
+    }
+
     .green-btn,
     .green-btn-outline,
     .product-item,
@@ -1331,7 +1363,7 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 
     .seed-card .green-btn {
         height: 34px !important;
-        border-radius: 5px;
+        border-radius: 5px !important;
     }
 
     .seed-card {
@@ -1390,6 +1422,10 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     .max-width-521 {
         max-width: 521px;
         padding: 36px 16px 16px 16px;
+    }
+
+    .min-width-521 {
+        min-width: auto;
     }
 
     .max-width-792 {

@@ -30,41 +30,43 @@ const HeadShop = () => {
         <div className='max-width-792'>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Accessories</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Option -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>Bongs</option>
+                            <option>Rigs</option>
+                            <option>Papers</option>
+                            <option>Vaporizers</option>
+
                         </select>
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Type</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Type -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>Under $100</option>
+                            <option>Under $300</option>
+                            <option>Under $1000</option>
                         </select>
                     </div>
                 </div>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Cost</label>
                         <input type='number' className='auth-input' placeholder='$ Enter Cost' />
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Brand Name</label>
                         <input type='text' className='auth-input' placeholder='Enter Brand Name' />
                     </div>
                 </div>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Product Name</label>
                         <input type='text' className='auth-input' placeholder='Enter Product Name' />
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Size</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Type -</option>

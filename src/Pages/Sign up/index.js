@@ -31,7 +31,10 @@ const SignUpPage = () => {
             <form onSubmit={(e) => e.preventDefault()}>
                 <select className='auth-input mb-3'>
                     <option>- Select Type -</option>
-                    <option>Visit</option>
+                    <option>Under $100</option>
+                    <option>Under $300</option>
+                    <option>Under $1000</option>
+
                 </select>
                 <input className='auth-input mb-3' type='text' placeholder='Full Name' />
                 <input className='auth-input mb-3' type='email' placeholder='Email' />

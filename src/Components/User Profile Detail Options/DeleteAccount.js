@@ -13,9 +13,6 @@ const DeleteProfile = () => {
         navigate(-1);
     }
 
-    const [harassed, setHarassed] = useState(false);
-    const [other, setOther] = useState(false);
-
     const [fileName, setFileName] = useState('');
     const attachFile = (e) => {
         if (e.target.files) {

@@ -23,16 +23,19 @@ const CannabisLounge = () => {
         <div className='max-width-792'>
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Event</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Option -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>Music / Band</option>
+                            <option>Comedy Show</option>
+                            <option>Sesh and Paint</option>
+                            <option>BBQ</option>
+                            <option>Other</option>
+
                         </select>
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Date</label>
                         <DatePicker
                             onChange={onChange}
@@ -49,7 +52,7 @@ const CannabisLounge = () => {
                     </div>
                 </div>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Food Offered</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Option -</option>
@@ -58,17 +61,17 @@ const CannabisLounge = () => {
                             <option>Option 3</option>
                         </select>
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Accessories for Use</label>
                         <input type='text' className='auth-input' placeholder='Enter Brand Name' />
                     </div>
                 </div>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Entry Fees</label>
                         <input type='number' className='auth-input' placeholder='$ 00' readOnly />
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Connect to Eventbrite</label>
                         <div className='auth-input d-flex align-items-center justify-content-between cr-p' onClick={(e) => copyToClipboard(e)}>
                             <input type='text' className='border-0 outline-0 cr-p w-75' ref={textAreaRef} readOnly value='dummyhyperlink.3hndjEE.io' />

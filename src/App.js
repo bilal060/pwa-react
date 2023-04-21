@@ -8,7 +8,27 @@ import ContentRoutes from './Components/Content/routes';
 import Chat from './Pages/Chat';
 
 function App() {
-  const homepage = ['/home', '/products', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop', '/favourite', '/favourite/userprofile', '/favourite/userprofile/edit', '/favourite/userprofile/delete', '/home/seed/seedinfo', '/home/dispensary/detail', '/home/cannabis/detail', '/home/headshop/detail', '/home/seed/map']
+  const homepage = ['/home',
+    '/products',
+    '/aboutus',
+    '/home/seed',
+    '/home/buds',
+    '/home/dispensary',
+    '/home/cannabis',
+    '/home/headshop',
+    '/favourite',
+    '/favourite/userprofile',
+    '/favourite/userprofile/edit',
+    '/favourite/userprofile/delete',
+    '/home/seed/seedinfo',
+    '/home/dispensary/detail',
+    '/home/cannabis/detail',
+    '/home/headshop/detail',
+    '/home/seed/map',
+    '/home/buds/map',
+    '/home/dispensary/map',
+    '/home/cannabis/map',
+    '/home/headshop/map']
   const chat = ['/chat']
 
   const location = useLocation();

@@ -40,8 +40,20 @@ const AppHeader = (props) => {
     const Location = useLocation();
     const { isOpen, setIsOpen } = props;
 
-    const head = ['/home', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
-
+    const head = [
+        '/home',
+        '/aboutus',
+        '/home/seed',
+        '/home/buds',
+        '/home/dispensary',
+        '/home/cannabis',
+        '/home/headshop',
+        '/home/seed/map',
+        '/home/buds/map',
+        '/home/dispensary/map',
+        '/home/cannabis/map',
+        '/home/headshop/map'
+    ]
     return (
         <div className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? 'mob-app-header' : ''}`}>
             <div className='container px-4 mx-auto d-flex align-items-center justify-content-between'>
@@ -76,7 +88,7 @@ const AppHeader = (props) => {
                     <div className='d-flex gap-3 overflow-x-auto all-products-link px-4'>
                         {products.map((data, index) => {
                             return (
-                                <Link key={index} to={data.link} className={`${data.link === Location.pathname ? 'product-item-active' : ''}  product-item`}>{data.icon} {data.name}</Link>
+                                <Link key={index} to={data.link} className={`${data.link === Location.pathname || Location.pathname.includes(`${data.link}/map`) ? 'product-item-active' : ''}  product-item`}>{data.icon} {data.name}</Link>
                             )
                         })}
                     </div>

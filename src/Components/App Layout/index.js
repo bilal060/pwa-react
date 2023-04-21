@@ -81,8 +81,22 @@ const AppLayout = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { children } = props;
     const Location = useLocation();
-    const mobFooter = ['/favourite']
-    const head = ['/home', '/favourite', '/aboutus', '/home/seed', '/home/buds', '/home/dispensary', '/home/cannabis', '/home/headshop']
+    const mobFooter = ['']
+    const head = [
+        '/home',
+        // '/favourite',
+        '/aboutus',
+        '/home/seed',
+        '/home/buds',
+        '/home/dispensary',
+        '/home/cannabis',
+        '/home/headshop',
+        '/home/seed/map',
+        '/home/buds/map',
+        '/home/dispensary/map',
+        '/home/cannabis/map',
+        '/home/headshop/map'
+    ]
 
     return (
         <div className='app-layout'>
@@ -142,11 +156,19 @@ const AppLayout = (props) => {
                 </div>
             </div>
             {head.includes(Location.pathname) ? <div className='mobile-view-footer d-sm-none b-block'>
-                <Link className={`center-location`}>
-                    <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
-                    </svg>
-                </Link>
+                {!Location.pathname.includes('map') ?
+                    <Link to={`${Location.pathname}/map`} className={`center-location`}>
+                        <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
+                        </svg>
+                    </Link>
+                    :
+                    <Link className={`center-location`}>
+                        <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
+                        </svg>
+                    </Link>
+                }
                 <div className='container mx-auto h-100'>
                     <div className='d-flex align-items-center justify-content-between gap-5 h-100 px-xs-4 mx-2'>
                         <div className='d-flex align-items-center justify-content-between h-100 section-1'>

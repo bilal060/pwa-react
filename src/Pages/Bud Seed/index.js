@@ -11,44 +11,52 @@ const BudSeedPage = () => {
             <form onSubmit={(e) => e.preventDefault()}>
                 <h2 className='font-36 font-weight-700 mb-5'>BUD</h2>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-5'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Quantity</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Quantity -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>3-5 Seeds</option>
+                            <option>5-10 Seeds</option>
+                            <option>10-15 Seeds</option>
+                            <option>15-20 Seeds</option>
+                            <option>Deals</option>
                         </select>
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'> Strain</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Strain -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>All</option>
+                            <option>Sativa</option>
+                            <option>Indica</option>
+                            <option>Hybrid</option>
+                            <option>CBD</option>
                         </select>
                     </div>
                 </div>
 
                 <h2 className='font-36 font-weight-700 mb-5'>SEED</h2>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-5'>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Quantity</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Quantity -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>3-5 Seeds</option>
+                            <option>5-10 Seeds</option>
+                            <option>10-15 Seeds</option>
+                            <option>15-20 Seeds</option>
+                            <option>Deals</option>
                         </select>
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'> Strain</label>
                         <select className='auth-input'>
                             <option defaultValue>- Select Strain -</option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
-                            <option>Option 3</option>
+                            <option>All</option>
+                            <option>Sativa</option>
+                            <option>Indica</option>
+                            <option>Hybrid</option>
+                            <option>CBD</option>
                         </select>
                     </div>
                 </div>

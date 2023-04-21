@@ -10,6 +10,8 @@ import seed3 from '../../assets/Images/seed3.svg'
 import seed4 from '../../assets/Images/seed4.svg'
 import HeartIcon from '../../assets/Images/Heart'
 import { Link } from 'react-router-dom'
+import BudsIcon from '../../assets/Images/Buds'
+import BudCount from '../../assets/Images/BudCount'
 
 const budsData = [
     {
@@ -113,7 +115,7 @@ const Buds = () => {
                                         {data.distance}
                                     </span>
                                     <span className='d-flex gap-2 align-items-center font-18 font-weight-500'>
-                                        <CountIcon />
+                                        <BudCount />
                                         {data.count}</span>
                                 </div>
 

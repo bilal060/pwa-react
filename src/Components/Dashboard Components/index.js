@@ -41,10 +41,10 @@ const AllProducts = (props) => {
     const { children } = props;
     const Location = useLocation();
     return (
-        <div className='all-product-section'>
+        <div className='all-product-section '>
             <div className='allproduct-mob d-sm-block d-none'>
                 <div className='container mx-auto'>
-                    <div className='d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4'>
+                    <div className='d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4 ps-12 pe-12'>
                         <h2 className='allproduct-heading ps-12 pe-12'>All Products</h2>
                         <div className='d-flex  align-items-center gap-4'>
                             <div className='search-product d-sm-none d-flex'>
@@ -52,12 +52,21 @@ const AllProducts = (props) => {
                                 <SearchButtonIcon />
                             </div>
                             <div className='d-flex align-items-center gap-4'>
-                                <Link to={`${Location.pathname}/map`} className='text-white view-map-btn d-sm-flex d-none align-items-center gap-3'>
-                                    View Map
-                                    <span className='view-map-btn-scope d-flex align-items-center justify-content-center '>
-                                        <ScopeIcon />
-                                    </span>
-                                </Link>
+                                {!Location.pathname.includes('map') ?
+                                    <Link to={`${Location.pathname}/map`} className='text-white view-map-btn d-sm-flex d-none align-items-center gap-3'>
+                                        View Map
+                                        <span className='view-map-btn-scope d-flex align-items-center justify-content-center '>
+                                            <ScopeIcon />
+                                        </span>
+                                    </Link>
+                                    :
+                                    <Link className='text-white view-map-btn d-sm-flex d-none align-items-center gap-3'>
+                                        View Map
+                                        <span className='view-map-btn-scope d-flex align-items-center justify-content-center '>
+                                            <ScopeIcon />
+                                        </span>
+                                    </Link>
+                                }
                                 <button className='border-0 outline-0 bg-transparent p-0'>
                                     <svg width={56} height={56} viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <rect x="0.5" y="0.5" width={55} height={55} rx="15.5" fill="#5D8B2F" fillOpacity="0.2" stroke="#5D8B2F" />
@@ -69,7 +78,7 @@ const AllProducts = (props) => {
                         </div>
                     </div>
 
-                    <div className='mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between'>
+                    <div className='mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12'>
                         <div className='search-product d-sm-flex d-none'>
                             <input placeholder='Search Product' className='border-0 outline-0 bg-transparent' />
                             <SearchButtonIcon />
@@ -77,7 +86,8 @@ const AllProducts = (props) => {
                         <div className='d-flex gap-3 overflow-x-auto all-products-link'>
                             {products.map((data, index) => {
                                 return (
-                                    <Link key={index} to={data.link} className={`${data.link === Location.pathname ? 'product-item-active' : ''}  product-item`}>{data.icon} {data.name}</Link>
+                                    <Link key={index} to={data.link} className={`${data.link === Location.pathname || Location.pathname.includes(`${data.link}/map`) ? 'product-item-active' : ''}  product-item`}
+                                    >{data.icon} {data.name}</Link>
                                 )
                             })}
                         </div>

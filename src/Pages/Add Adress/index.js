@@ -22,11 +22,11 @@ const AddAddressPage = () => {
 
             <form onSubmit={(e) => e.preventDefault()}>
                 <div className='mb-5'>
-                    <div className='form-control p-0 bg-transparent border-0 mb-4'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0 mb-4'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Postal Code</label>
                         <input type='text' required className='auth-input' placeholder='Enter Postal Code' />
                     </div>
-                    <div className='form-control p-0 bg-transparent border-0'>
+                    <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Phone Number (optional)</label>
 
                         <div className='custom-phone-input auth-input d-flex align-items-center'>
