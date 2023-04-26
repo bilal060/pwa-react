@@ -17,93 +17,113 @@ const chats = [
         name: "Raza Awan",
         id: 1,
         lastmessage: "okk",
+        active: true
     },
     {
         name: "Raza Awan",
         id: 2,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 3,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 4,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 5,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 6,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 7,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 8,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 9,
         lastmessage: "okk",
+        active: false
     },
     {
         name: "Raza Awan",
         id: 10,
         lastmessage: "okk",
+        active: false
     },
 ];
 const chatsdetail = [
     {
         id: 1,
         name: "Raza Awan",
+        active: true
     },
     {
         id: 2,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 3,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 4,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 5,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 6,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 7,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 8,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 9,
         name: "Raza Awan",
+        active: false
     },
     {
         id: 10,
         name: "Raza Awan",
+        active: false
     },
 ];
 const sideLinks = [
@@ -272,7 +292,7 @@ const Chat = () => {
                                                         <>
                                                             <button
                                                                 key={index}
-                                                                className="nav-link w-100  product-item bg-white  rounded-0 w-100 justify-content-start h-auto"
+                                                                className={`${data.active ? 'active' : ''} nav-link w-100  product-item bg-white  rounded-0 w-100 justify-content-start h-auto`}
                                                                 id={`v-pills-${data.id}-tab`}
                                                                 data-toggle="pill"
                                                                 href={`#v-pills-${data.id}`}
@@ -321,7 +341,8 @@ const Chat = () => {
                                                 return (
                                                     <div
                                                         key={index}
-                                                        className="tab-pane w-100 fade  chat-detail"
+                                                        className={`${chatsdetail.active ? 'active show' : ''} tab-pane w-100 fade  chat-detail`}
+
                                                         id={`v-pills-${chatsdetail.id}`}
                                                         role="tabpanel"
                                                         aria-labelledby={`v-pills-${chatsdetail.id}-tab`}

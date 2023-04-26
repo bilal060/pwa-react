@@ -328,8 +328,12 @@
 }
 
 .max-width-792 {
-    max-width: 792px;
+
     padding: 40px;
+}
+
+.min-width-792 {
+    min-width: 792px;
 }
 
 
@@ -340,11 +344,54 @@
     box-shadow: 0px 2px 19px rgba(0, 0, 0, 0.05);
 }
 
+.app-header .headlink .product-item {
+    background-color: transparent !important;
+    padding: 0 !important;
+    height: auto !important;
+    padding: 0 10px !important;
+}
+
+.app-header .headlink .product-item-active {
+    background-color: transparent !important;
+    padding: 0 !important;
+    color: #5D8B2F !important;
+    font-weight: 900 !important;
+}
+
 .app-header .app-heading {
     font-size: 18px;
     line-height: 100%;
     font-weight: 700;
 }
+
+.app-header .header-dropdown .drop-btn[aria-expanded="true"] .icon-green-bg {
+    background-color: #5D8B2F !important;
+}
+
+.app-header .header-dropdown .drop-btn[aria-expanded="true"] svg path {
+    fill: white !important;
+}
+
+.app-header .dropdown-menu {
+    transform: translate(-120px, 50px) !important;
+    border: 0 !important;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4) !important;
+    border-radius: 8px !important;
+    padding: 0 !important;
+}
+
+.app-header .dropdown-menu .dropdown-item {
+    padding: 8px 16px;
+    color: #333333 !important;
+    border-radius: 8px !important;
+}
+
+.app-header .dropdown-menu .dropdown-item:active {
+    color: #1D1D1D !important;
+    background-color: transparent !important;
+    outline: 0 !important;
+}
+
 
 /* footer */
 .app-footer {
@@ -620,6 +667,38 @@
     fill: #5D8B2F;
 }
 
+.app-menu-desktop {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-color: #1E1E1E;
+    border-radius: 0 !important;
+    padding: 24px;
+    z-index: 99;
+    left: 0;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.app-menu-desktop .side-link-user-img {
+    padding: 16px !important;
+    border: 3px solid #5D8B2F;
+    color: #5D8B2F;
+}
+
+.app-menu-desktop .side-link {
+    color: #A3A3A3 !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+}
+
+.app-menu-desktop .side-link-active {
+    color: #5D8B2F !important;
+    font-size: 32px !important;
+    font-weight: 900 !important;
+}
 
 .app-menu {
     height: 100vh;
@@ -1169,6 +1248,10 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 }
 
 @media screen and (max-width:991px) {
+    .min-width-792 {
+        min-width: auto !important;
+    }
+
     .w-lg-40-100-40 {
         width: 100% !important;
     }

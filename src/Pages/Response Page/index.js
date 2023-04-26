@@ -25,10 +25,14 @@ const ResponsivePage = () => {
     const goBack = () => {
         navigate(-1);
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/retailer')
+    }
     return (
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-4 pb-3'>We’ll help you get started based on your response</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <div className='form-control h-auto p-0 bg-transparent border-0 mb-4'>
                     <label className='text-white mb-2 font-weight-600 font-18-100'>Which Strain type do you have?</label>
                     <select className='auth-input'>

@@ -26,9 +26,13 @@ const HeadShop = () => {
     const goBack = () => {
         navigate(-1);
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/cannabis')
+    }
     return (
         <div className='max-width-792'>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4'>
                     <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Select Accessories</label>

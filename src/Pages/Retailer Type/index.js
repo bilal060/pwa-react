@@ -6,10 +6,14 @@ const RetailerType = () => {
     const goBack = () => {
         navigate(-1);
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/dispensary')
+    }
     return (
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-4 pb-3'>What type of Retailer are you?</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <select className='auth-input'>
                     <option defaultValue>- Select Retailer Type -</option>
                     <option>Option 1</option>

@@ -6,14 +6,18 @@ const BudSeedPage = () => {
     const goBack = () => {
         navigate(-1);
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/home')
+    }
     return (
-        <div className='max-width-792'>
-            <form onSubmit={(e) => e.preventDefault()}>
+        <div className='max-width-792 min-width-792'>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <h2 className='font-36 font-weight-700 mb-5'>BUD</h2>
                 <div className='d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-5'>
                     <div className='form-control h-auto p-0 bg-transparent border-0'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Quantity</label>
-                        <select className='auth-input'>
+                        <select className='auth-input' required>
                             <option defaultValue>- Select Quantity -</option>
                             <option>3-5 Seeds</option>
                             <option>5-10 Seeds</option>

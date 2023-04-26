@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
 import DatePicker from 'react-date-picker'
 import CalendarIcon from '../../assets/Images/Calendar';
+import { useNavigate } from 'react-router-dom';
 
 const AgeVerifyPage = () => {
     const [value, onChange] = useState();
-
+    const navigate = useNavigate()
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/retailer')
+    }
     return (
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-4'>Confirm Your Age</h2>
             <p className='auth-model-desc mb-5'>You must be of legal age to consume cannabis in your  province or state of residence to enter our app. By clicking “Enter”, You confirm that you are of legal age to consume  cannabis in the province or state you reside.</p>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <select className='auth-input my-3'>
                     <option>Punjab</option>
                     <option>Sindh</option>

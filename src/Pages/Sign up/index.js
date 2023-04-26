@@ -24,11 +24,14 @@ const SignUpPage = () => {
     const goBack = () => {
         navigate(-1);
     }
-
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/age')
+    }
     return (
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-5'>Create Account</h2>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <select className='auth-input mb-3'>
                     <option>- Select Type -</option>
                     <option>Under $100</option>
@@ -36,8 +39,8 @@ const SignUpPage = () => {
                     <option>Under $1000</option>
 
                 </select>
-                <input className='auth-input mb-3' type='text' placeholder='Full Name' />
-                <input className='auth-input mb-3' type='email' placeholder='Email' />
+                <input className='auth-input mb-3' type='text' placeholder='Full Name' required/>
+                <input className='auth-input mb-3' type='email' placeholder='Email'  required/>
                 <div className='auth-input mb-3 d-flex align-items-center justify-content-between' >
                     <input
                         name='password'

@@ -145,7 +145,7 @@ const HeadShop = () => {
                                             {data.totalReviews}
                                         </span>
                                     </div>
-                                    <button className='green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></button>
+                                    <Link to={'/chat'} className='text-white green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></Link>
                                 </div>
                             </div>
                         </Link>

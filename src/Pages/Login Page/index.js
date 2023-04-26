@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ShowPassword from '../../assets/Images/ShowPassword';
 import GoogleIcon from '../../assets/Images/Google';
 
@@ -17,12 +17,16 @@ const LoginPage = () => {
             [name]: value
         }));
     }
-    console.log(loginDetails)
+    const navigate = useNavigate()
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/home')
+    }
     return (
         <div className='max-width-521 min-width-521'>
             <h2 className='auth-model-heading mb-4'>Welcome Back!</h2>
             <p className='auth-model-desc mb-5'>Please login to your account.</p>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <input className='auth-input' type='email' placeholder='Email' />
                 {/* <input className='auth-input my-3' type='Password' placeholder='Password' /> */}
 

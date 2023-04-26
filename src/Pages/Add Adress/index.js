@@ -15,12 +15,16 @@ const AddAddressPage = () => {
     const goBack = () => {
         navigate(-1);
     }
+    const submitHandler = (e) => {
+        e.preventDefault()
+        navigate('/terms')
+    }
     return (
         <div className='max-width-792'>
             <h2 className='auth-model-heading text-center mb-4'>Add an address so you can share nearby</h2>
             <p className='auth-model-desc mb-4 pb-3'>This will be used  to determine your share</p>
 
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={(e) => submitHandler(e)}>
                 <div className='mb-5'>
                     <div className='form-control h-auto p-0 bg-transparent border-0 mb-4'>
                         <label className='text-white mb-2 font-weight-600 font-18-100'>Postal Code</label>

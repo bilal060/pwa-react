@@ -11,38 +11,13 @@ import MobSettingsIcon from '../../assets/Images/MobSettings';
 import DashboardLogo from '../../assets/Images/DashboardLogo';
 import CrossIcon from '../../assets/Images/Cross';
 import User from '../../assets/Images/sidelink-user.svg';
+import drawerUser from '../../assets/Images/drawerUser.svg';
 import SideLinkSettings from '../../assets/Images/sideLinkSettings';
 import selectafter from '../../assets/Images/select-after.svg';
-import LocationIcon from '../../assets/Images/Location';
+import MobMapIcon from '../../assets/Images/mobMap';
+import FavouriteIcon from '../../assets/Images/FavouriteIcon';
 
 
-
-const mobileFooter = [
-    {
-        icon: <MobHomeIcon />,
-        link: '/home'
-    },
-    {
-        icon: <MobHeartIcon />,
-        link: '/favourite'
-    },
-    {
-        icon: <MobSearchIcon />,
-        link: '/search'
-    },
-    {
-        icon: <MobDispensaryIcon />,
-        link: '/dispensary'
-    },
-    {
-        icon: <MobSettingsIcon />,
-        link: '/settings'
-    },
-    {
-        icon: <MobUserIcon />,
-        link: '/user'
-    },
-]
 const sideLinks = [
     {
         name: 'Home',
@@ -77,6 +52,36 @@ const sideLinks = [
         link: '/logout'
     },
 ]
+const sideLinksDesktop = [
+    {
+        name: 'Home',
+        link: '/home'
+    },
+    {
+        name: 'Dispensary',
+        link: '/home/dispensary'
+    },
+    {
+        name: 'Cannabis Lounge',
+        link: '/home/cannabis'
+    },
+    {
+        name: 'Head Shop',
+        link: '/home/headshop'
+    },
+    {
+        name: 'My Favourite',
+        link: '/favourite'
+    },
+    {
+        name: 'Messages',
+        link: '/chat'
+    },
+    {
+        name: 'Contact Support',
+        link: '/logout'
+    },  
+]
 const AppLayout = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { children } = props;
@@ -100,7 +105,7 @@ const AppLayout = (props) => {
 
     return (
         <div className='app-layout'>
-            {isOpen && <div className={`app-menu`}>
+            {isOpen && <div className={`app-menu d-flex d-md-none`}>
                 <div>
                     <div className='section-1'>
                         <div className='d-flex justify-content-end align-items-center'>
@@ -148,6 +153,46 @@ const AppLayout = (props) => {
                 </div>
 
             </div>}
+            {isOpen && <div className={`app-menu-desktop d-none d-md-flex`}>
+                <div>
+                    <div className='d-flex justify-content-between align-items-center'>
+                        
+                        <div className='d-flex align-items-center gap-2'>
+                            <DashboardLogo />
+                            <div>
+                                <h3 className='font-18 font-weight-700 text-white'>GROW AND SHARE</h3>
+                            </div>
+                        </div>
+                        <div className='d-flex justify-content-end align-items-center'>
+                            <span onClick={() => setIsOpen(!isOpen)} className='cr-p'><CrossIcon /></span>
+                        </div>
+                       
+                    </div>
+                    <div className='d-flex justify-content-around align-items-center gap-5 pt-5'>
+                        <div className='d-flex align-items-center gap-2' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src={drawerUser} alt='' className='side-link-user-img' />
+                            <div>
+                                <h3 className='font-32 font-weight-700 text-white mb-3'>Tony Stark</h3>
+                                <p className='font-18 text-grey mb-4 pb-2'>789 Yonge St, Toronto, ON M4W 2G8, Canada</p>
+                                <Link to={'/home/cannabis/detail'} className='green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content'> <span>View Profile </span> <span className='icon-green-bg bg-light-green'>
+                                    <FavouriteIcon />
+                                </span>
+                                </Link>
+                            </div>
+
+                        </div>
+                        <div className='d-flex flex-column'>
+                            {sideLinksDesktop.map((data, index) => {
+                                return (
+                                    <Link onClick={() => setIsOpen(!isOpen)} key={index} to={data.link} className={`${data.link === Location.pathname ? 'side-link-active' : ''}  side-link border-0 text-grey font-48 font-weight-900`}>{data.icon} {data.name}</Link>
+                                )
+                            })}
+                        </div>
+                   </div>
+                </div>
+                
+
+            </div>}
             <AppHeader setIsOpen={setIsOpen} isOpen={isOpen} />
             <div className={`content-footer ${head.includes(Location.pathname) ? 'mob-app-content-footer' : ''} ${mobFooter.includes(Location.pathname) ? 'small-header-mob-footer' : ''}`}>
                 {children}
@@ -158,15 +203,11 @@ const AppLayout = (props) => {
             {head.includes(Location.pathname) ? <div className='mobile-view-footer d-sm-none b-block'>
                 {!Location.pathname.includes('map') ?
                     <Link to={`${Location.pathname}/map`} className={`center-location`}>
-                        <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
-                        </svg>
+                        <MobMapIcon />
                     </Link>
                     :
                     <Link className={`center-location`}>
-                        <svg width={22} height={27} viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M11.0421 26.3859C15.5978 26.3859 21.7944 17.2031 21.7944 11.3347C21.7944 5.46626 16.9804 0.708984 11.0421 0.708984C5.10388 0.708984 0.289978 5.46626 0.289978 11.3347C0.289978 17.2031 6.48657 26.3859 11.0421 26.3859ZM11.0422 14.299C13.4643 14.299 15.4278 12.3586 15.4278 9.96496C15.4278 7.57137 13.4643 5.63099 11.0422 5.63099C8.62011 5.63099 6.65662 7.57137 6.65662 9.96496C6.65662 12.3586 8.62011 14.299 11.0422 14.299Z" fill="#5D8B2F" />
-                        </svg>
+                        <MobMapIcon />
                     </Link>
                 }
                 <div className='container mx-auto h-100'>
@@ -182,11 +223,7 @@ const AppLayout = (props) => {
                             <Link to={'/user'} className={`${Location.pathname.includes('/user') ? 'mob-footer-link-active' : ''} mob-footer-link`}><MobUserIcon /></Link>
                         </div>
                     </div>
-                    {/* {mobileFooter.map((data, index) => {
-                            return (
-                                <Link key={index} to={data.link} className={`${Location.pathname.includes(data.link) ? 'mob-footer-link-active' : ''} mob-footer-link`}>{data.icon}</Link>
-                            )
-                        })} */}
+
                 </div>
             </div> : ''
             }
