@@ -8,7 +8,7 @@ const AgeVerifyPage = () => {
     const navigate = useNavigate()
     const submitHandler = (e) => {
         e.preventDefault()
-        navigate('/retailer')
+        navigate('/address')
     }
     return (
         <div className='max-width-521'>
@@ -16,10 +16,10 @@ const AgeVerifyPage = () => {
             <p className='auth-model-desc mb-5'>You must be of legal age to consume cannabis in your  province or state of residence to enter our app. By clicking “Enter”, You confirm that you are of legal age to consume  cannabis in the province or state you reside.</p>
             <form onSubmit={(e) => submitHandler(e)}>
                 <select className='auth-input my-3'>
-                    <option>Punjab</option>
-                    <option>Sindh</option>
-                    <option>KPK</option>
-                    <option>Balochistan</option>
+                    <option>Pakistan</option>
+                    <option>Usa</option>
+                    <option>Canada</option>
+                    <option>Uae</option>
 
                 </select>
                 <DatePicker

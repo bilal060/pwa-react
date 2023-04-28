@@ -8,7 +8,7 @@ const RetailerType = () => {
     }
     const submitHandler = (e) => {
         e.preventDefault()
-        navigate('/dispensary')
+        navigate('/age')
     }
     return (
         <div className='max-width-521'>

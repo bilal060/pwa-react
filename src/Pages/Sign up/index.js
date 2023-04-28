@@ -8,6 +8,7 @@ const SignUpPage = () => {
         email: '',
         password: '',
         confirmPassword: '',
+        userType: ''
     });
     const [passwordShown1, setPasswordShown1] = useState(false);
     const [passwordShown2, setPasswordShown2] = useState(false);
@@ -26,21 +27,26 @@ const SignUpPage = () => {
     }
     const submitHandler = (e) => {
         e.preventDefault()
-        navigate('/age')
+        if (signInDetails.userType === 'Retailer') (
+            navigate('/retailer')
+        )
+        else
+            navigate('/age')
     }
     return (
         <div className='max-width-521'>
             <h2 className='auth-model-heading mb-5'>Create Account</h2>
             <form onSubmit={(e) => submitHandler(e)}>
-                <select className='auth-input mb-3'>
-                    <option>- Select Type -</option>
-                    <option>Under $100</option>
-                    <option>Under $300</option>
-                    <option>Under $1000</option>
-
+                <select className='auth-input mb-3' name='userType' onChange={(e) => formHandler(e)}>
+                    <option >Retailer</option>
+                    <option defaultValue>Consumer</option>
                 </select>
-                <input className='auth-input mb-3' type='text' placeholder='Full Name' required/>
-                <input className='auth-input mb-3' type='email' placeholder='Email'  required/>
+                {signInDetails.userType === 'Consumer' ?
+                    <input className='auth-input mb-3' type='text' placeholder='Full Name' required />
+                    :
+                    <input className='auth-input mb-3' type='text' placeholder='Store Name' required />
+                }
+                <input className='auth-input mb-3' type='email' placeholder='Email' required />
                 <div className='auth-input mb-3 d-flex align-items-center justify-content-between' >
                     <input
                         name='password'

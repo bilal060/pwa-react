@@ -1,15 +1,6 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  /* font-family: 'Satoshi' !important;
-  src: url('../src/assets/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Black.eot') format('eot'),
-    url('../src/assets/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Black.ttf') format('ttf'),
-    url('../src/assets/Satoshi_Complete/Fonts/WEB/fonts/Satoshi-Black.woff') format('woff');
-  font-weight: 300 900;
-  font-display: swap;
-  font-style: normal; */
+  font-family: 'Satoshi', sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }

@@ -11,6 +11,8 @@ import FavouriteIcon from '../../assets/Images/FavouriteIcon'
 import GoogleMapReact from 'google-map-react';
 import SeedICon from '../../assets/Images/Seed'
 import DispensryProductIcon from '../../assets/Images/Dispensry1'
+import GoogleMap from './GoogleMap'
+import { markersData } from './fakeData';
 
 
 const seedsDetail = [
@@ -228,33 +230,11 @@ const DispensaryMap = () => {
                                                 <path opacity="0.4" d="M17.9929 5.3401C18.1526 7.2801 16.7754 8.9801 14.8694 9.2101C14.8594 9.2101 14.8594 9.2101 14.8494 9.2101H14.8195C14.7596 9.2101 14.6997 9.2101 14.6498 9.2301C13.6818 9.2801 12.7936 8.9701 12.125 8.4001C13.1529 7.4801 13.7417 6.1001 13.6219 4.6001C13.5521 3.7901 13.2726 3.0501 12.8535 2.4201C13.2327 2.2301 13.6718 2.1101 14.1209 2.0701C16.0769 1.9001 17.8233 3.3601 17.9929 5.3401Z" fill="#5D8B2F" />
                                                 <path d="M19.9894 14.5904C19.9096 15.5604 19.2909 16.4004 18.253 16.9704C17.2551 17.5204 15.9976 17.7804 14.7502 17.7504C15.4687 17.1004 15.8879 16.2904 15.9677 15.4304C16.0675 14.1904 15.4787 13.0004 14.3011 12.0504C13.6325 11.5204 12.8541 11.1004 12.0059 10.7904C14.2113 10.1504 16.9856 10.5804 18.6921 11.9604C19.6102 12.7004 20.0792 13.6304 19.9894 14.5904Z" fill="#5D8B2F" />
                                             </svg>
-                                            4 People Sharing Seeds
+                                            {markersData.length} People Sharing Seeds
                                         </button>
                                     </div>
-                                    <GoogleMapReact
-                                        bootstrapURLKeys={{ key: "" }}
-                                        defaultCenter={defaultProps.center}
-                                        defaultZoom={defaultProps.zoom}
-                                        options={defaultMapOptions}
+                                    <GoogleMap />
 
-                                    >
-                                        <AnyReactComponent
-                                            lat={-33.91721}
-                                            lng={151.2263}
-                                        />
-                                        <AnyReactComponent
-                                            lat={-33.91539}
-                                            lng={151.2282}
-                                        />
-                                        <AnyReactComponent
-                                            lat={-33.91747}
-                                            lng={151.22912}
-                                        />
-                                        <AnyReactComponent
-                                            lat={-33.9191}
-                                            lng={151.22907}
-                                        />
-                                    </GoogleMapReact>
                                 </div>
                             </div>
                         );

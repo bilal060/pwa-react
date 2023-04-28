@@ -11,11 +11,9 @@ import MobSettingsIcon from '../../assets/Images/MobSettings';
 import DashboardLogo from '../../assets/Images/DashboardLogo';
 import CrossIcon from '../../assets/Images/Cross';
 import User from '../../assets/Images/sidelink-user.svg';
-import drawerUser from '../../assets/Images/drawerUser.svg';
 import SideLinkSettings from '../../assets/Images/sideLinkSettings';
 import selectafter from '../../assets/Images/select-after.svg';
 import MobMapIcon from '../../assets/Images/mobMap';
-import FavouriteIcon from '../../assets/Images/FavouriteIcon';
 
 
 const sideLinks = [
@@ -52,36 +50,7 @@ const sideLinks = [
         link: '/logout'
     },
 ]
-const sideLinksDesktop = [
-    {
-        name: 'Home',
-        link: '/home'
-    },
-    {
-        name: 'Dispensary',
-        link: '/home/dispensary'
-    },
-    {
-        name: 'Cannabis Lounge',
-        link: '/home/cannabis'
-    },
-    {
-        name: 'Head Shop',
-        link: '/home/headshop'
-    },
-    {
-        name: 'My Favourite',
-        link: '/favourite'
-    },
-    {
-        name: 'Messages',
-        link: '/chat'
-    },
-    {
-        name: 'Contact Support',
-        link: '/logout'
-    },  
-]
+
 const AppLayout = (props) => {
     const [isOpen, setIsOpen] = useState(false);
     const { children } = props;
@@ -105,7 +74,7 @@ const AppLayout = (props) => {
 
     return (
         <div className='app-layout'>
-            {isOpen && <div className={`app-menu d-flex d-md-none`}>
+            {isOpen && <div className={`app-menu d-flex d-lg-none`}>
                 <div>
                     <div className='section-1'>
                         <div className='d-flex justify-content-end align-items-center'>
@@ -153,7 +122,7 @@ const AppLayout = (props) => {
                 </div>
 
             </div>}
-            {isOpen && <div className={`app-menu-desktop d-none d-md-flex`}>
+            {/* {isOpen && <div className={`app-menu-desktop d-none d-md-flex`}>
                 <div>
                     <div className='d-flex justify-content-between align-items-center'>
                         
@@ -192,7 +161,7 @@ const AppLayout = (props) => {
                 </div>
                 
 
-            </div>}
+            </div>} */}
             <AppHeader setIsOpen={setIsOpen} isOpen={isOpen} />
             <div className={`content-footer ${head.includes(Location.pathname) ? 'mob-app-content-footer' : ''} ${mobFooter.includes(Location.pathname) ? 'small-header-mob-footer' : ''}`}>
                 {children}

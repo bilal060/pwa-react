@@ -81,14 +81,14 @@ const AppHeader = (props) => {
                     <DashboardLogo />
                     <h3 className='app-heading'>GROW AND SHARE</h3>
                 </div>
-                <div className='d-flex gap-lg-3 headlink d-md-flex d-none'>
+                <div className='d-flex gap-lg-3 headlink d-lg-flex d-none h-100'>
                     {headLinks.map((data, index) => {
                         return (
-                            <Link key={index} to={data.link} className={`${data.link === Location.pathname || Location.pathname.includes(`${data.link}/map`) ? 'product-item-active ' : ''}  product-item `}>{data.icon} {data.name}</Link>
+                            <Link key={index} to={data.link} className={`${data.link === Location.pathname || Location.pathname.includes(`${data.link}/map`) ? 'product-item-active allproduct-heading' : ''}  product-item `}>{data.icon} {data.name}</Link>
                         )
                     })}
                 </div>
-                <div className="dropdown cr-p d-none d-md-flex header-dropdown">
+                <div className="dropdown cr-p d-none d-lg-flex header-dropdown">
                     <div className='d-flex align-items-center gap-2 drop-btn' type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <span className='icon-green-bg bg-light-green rounded-circle'>
                             <FavouriteIcon />
@@ -100,7 +100,7 @@ const AppHeader = (props) => {
                         <Link to={'/login'} className={` dropdown-item`}>Logout</Link>
                     </ul>
                 </div>
-                <span onClick={() => setIsOpen(!isOpen)} className='cr-p d-md-none d-block'><MenuBarIcon /></span>
+                <span onClick={() => setIsOpen(!isOpen)} className='cr-p d-lg-none d-block'><MenuBarIcon /></span>
             </div>
 
             {
@@ -137,7 +137,7 @@ const AppHeader = (props) => {
                 </div>
             }
 
-        </div >
+        </div>
     )
 }
 

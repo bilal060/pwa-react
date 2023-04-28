@@ -328,7 +328,7 @@
 }
 
 .max-width-792 {
-
+    max-width: 792px;
     padding: 40px;
 }
 
@@ -354,8 +354,11 @@
 .app-header .headlink .product-item-active {
     background-color: transparent !important;
     padding: 0 !important;
-    color: #5D8B2F !important;
     font-weight: 900 !important;
+
+    background: -webkit-linear-gradient(#99c76b62, #5D8B2F) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
 }
 
 .app-header .app-heading {
@@ -1239,6 +1242,13 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     z-index: 1;
     top: 16px;
     right: 16px;
+}
+
+.sc-htpNat {
+    align-items: center;
+    justify-content: space-between !important;
+    width: max-content !important;
+    background-color: transparent !important;
 }
 
 @media screen and (min-width:991px) {
