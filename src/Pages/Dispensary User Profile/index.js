@@ -161,7 +161,7 @@ const DispensaryProfileDetail = () => {
                         </select>
                     </div>
                     <div className='col-lg-3 col-md-6  bg-transparent border-0'>
-                        <label className='mb-2 font-weight-700 font-18-100'> Strain</label>
+                        <label className='mb-2 font-weight-700 font-18-100'>Strain</label>
                         <select className='auth-input height-56 bg-white'>
                             <option defaultValue>Select Strain</option>
                             <option>Option 1</option>

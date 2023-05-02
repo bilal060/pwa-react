@@ -204,9 +204,12 @@ const UserProfile = (props) => {
                                     <label className='mb-2 font-weight-600 font-18-100'> Select a Strain</label>
                                     <select className='auth-input height-56 bg-white'>
                                         <option defaultValue>Select an Item</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        <option>Big Buddha Cheese</option>
+                                        <option>Girl Scout Cookies</option>
+                                        <option>Blue Cheese</option>
+                                        <option>Grease Monkey</option>
+                                        <option>Rocksar</option>
+                                        <option>Pennywise</option>
                                     </select>
                                 </div>
                                 <div className='col-md-6  bg-transparent border-0 mb-4'>
@@ -214,30 +217,36 @@ const UserProfile = (props) => {
                                     <input type='text' className='auth-input height-56 bg-white' />
                                 </div>
                                 <div className='col-md-6  bg-transparent border-0 mb-4'>
-                                    <label className='mb-2 font-weight-600 font-18-100'>Select if the strain was grown or purchased</label>
+                                    <label className='mb-2 font-weight-600 font-18-100'>Grown or purchased</label>
                                     <select className='auth-input height-56 bg-white'>
-                                        <option defaultValue>Select an option</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        <option defaultValue>Select</option>
+                                        <option>Indoor - Hydroponic</option>
+                                        <option>Indoor - Soil</option>
+                                        <option>Outdoor - Hydroponic</option>
+                                        <option>Outdoor - Soil</option>
+                                        <option>Dispensary Purchased</option>
+                                        <option>Seeds</option>
+
                                     </select>
                                 </div>
                                 <div className='col-md-6  bg-transparent border-0 mb-4'>
                                     <label className='mb-2 font-weight-600 font-18-100'>Strain</label>
                                     <select className='auth-input height-56 bg-white'>
-                                        <option defaultValue>Select an option</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        <option defaultValue>Select</option>
+                                        <option>Indica</option>
+                                        <option>Sativa</option>
+                                        <option>Hybrid</option>
+                                        <option>CBD</option>
+
                                     </select>
                                 </div>
                                 <div className='col-md-6  bg-transparent border-0 mb-4'>
                                     <label className='mb-2 font-weight-600 font-18-100'>Quantity available for sharing</label>
                                     <select className='auth-input height-56 bg-white'>
-                                        <option defaultValue>Select an option</option>
-                                        <option>Option 1</option>
-                                        <option>Option 2</option>
-                                        <option>Option 3</option>
+                                        <option defaultValue>Select</option>
+                                        <option>1-7 Grams</option>
+                                        <option>7-14 Grams</option>
+                                        <option>14-30 Grams</option>
                                     </select>
                                 </div>
                                 <div className='col-md-6  bg-transparent border-0 mb-4'>
