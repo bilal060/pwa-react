@@ -18,6 +18,10 @@
     color: white;
 }
 
+.social-content {
+    padding: 95px;
+}
+
 .auth-model-heading {
     font-style: normal;
     font-weight: 700;
@@ -133,7 +137,7 @@
     font-size: 18px;
     line-height: 100%;
     text-align: center;
-    color: #BE3F3F;
+    color: #BE3F3F !important;
 }
 
 .view-map-btn {
@@ -251,7 +255,7 @@
     content: '';
     display: block;
     position: absolute;
-    top: 7px;
+    top: 4px;
     left: 8px;
     width: 5px;
     height: 11px;
@@ -342,6 +346,7 @@
     display: flex;
     height: 80px;
     box-shadow: 0px 2px 19px rgba(0, 0, 0, 0.05);
+
 }
 
 .app-header .headlink .product-item {
@@ -537,6 +542,151 @@
 }
 
 /* all-product-section */
+
+.filter-model {
+    min-width: 521px
+}
+
+.btn-group>.btn.active {
+    background-color: #5D8B2F !important;
+    color: rgb(255, 255, 255);
+    outline: 0 !important;
+    font-weight: 700;
+}
+
+.btn-group>.btn {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    background-color: #848484 !important;
+}
+
+.checkbox-btn {
+    margin: 4px;
+    background-color: #848484;
+    border-radius: 8px;
+    border: 1px solid #fff;
+    overflow: hidden;
+    float: left;
+}
+
+.checkbox-btn label {
+    float: left;
+    line-height: 3.0em;
+    width: 100%;
+    height: 3.0em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px;
+}
+
+.checkbox-btn label span {
+    text-align: center;
+    padding: 3px 0;
+    display: block;
+    padding: 6px 16px 6px 16px;
+}
+
+.checkbox-btn label input {
+    position: absolute;
+    display: none;
+    color: #fff !important;
+}
+
+.checkbox-btn label input+span {
+    color: #fff;
+}
+
+.checkbox-btn input:checked+span {
+    color: white !important;
+    background-color: #5D8B2F !important;
+}
+
+
+
+input[type="range"] {
+    width: 300px;
+    margin: 18px 0;
+    -webkit-appearance: none;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+input[type="range"]+label {
+    background-color: #fff;
+    position: absolute;
+    top: -25px;
+    left: 110px;
+    width: 80px;
+    padding: 5px 0;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Chrome & Safari */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #5D8B2F;
+    border-radius: 4px;
+    width: 100%;
+    height: 10px;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #5D8B2F;
+    margin-top: -7px;
+    cursor: pointer;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+    background: #5D8B2F;
+    border-radius: 4px;
+    width: 100%;
+    height: 14px;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #5D8B2F;
+    margin-top: -7px;
+    cursor: pointer;
+}
+
+/* IE */
+input[type="range"]::-ms-track {
+    background: #5D8B2F;
+    border-radius: 4px;
+    width: 100%;
+    height: 14px;
+    cursor: pointer;
+}
+
+input[type="range"]::-ms-thumb {
+    -webkit-appearance: none;
+    height: 24px;
+    width: 24px;
+    background: #fff;
+    border-radius: 50%;
+    border: 1px solid #5D8B2F;
+    margin-top: -7px;
+    cursor: pointer;
+}
+
 .all-product-section {
     padding: 80px 0;
 }
@@ -1251,6 +1401,96 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     background-color: transparent !important;
 }
 
+.height-42 {
+    height: 42px !important;
+}
+
+
+/* social screens */
+.self-summary {
+    border-width: 0.5px 0px;
+    border-style: solid;
+    border-color: #2D2D2D;
+    background: #1D1D1D !important;
+    box-shadow: 0px 1.95882px 19.5882px rgba(0, 0, 0, 0.09);
+    border-radius: 15.6706px;
+}
+
+.border-grey {
+    border-color: #6B6B6B !important;
+}
+
+.cut-text {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.subscription-offer {
+    background: transparent !important;
+    border: 1px solid #2D2D2D !important;
+    box-shadow: 0px 1.95882px 19.5882px rgba(0, 0, 0, 0.09) !important;
+    border-radius: 15.6706px !important;
+}
+
+.most-popular {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    margin: auto 0 !important;
+
+}
+
+.most-popular span {
+    background: #FFFFFF;
+    padding: 4.88px 12.86px;
+    border-radius: 19.3925px;
+}
+
+.subscription .btn-group .btn {
+    background: transparent !important;
+    border: 1px solid #2D2D2D !important;
+    box-shadow: 0px 1.95882px 19.5882px rgba(0, 0, 0, 0.09) !important;
+    border-radius: 15.6706px !important;
+}
+
+.subscription .btn-group .btn.active {
+    border: 1px solid #2D2D2D !important;
+    background: rgba(93, 139, 47, 0.6) !important;
+    border: 1px solid #2D2D2D !important;
+    box-shadow: 0px 1.95882px 19.5882px rgba(0, 0, 0, 0.09) !important;
+    border-radius: 15.6706px !important;
+}
+
+.subscription .btn-group .btn.active .border-grey {
+    border-color: white !important;
+}
+
+.social-content textarea.auth-input-textarea {
+    border-radius: 12px !important;
+}
+
+.border-bottom.border-06 {
+    border-bottom: 0.6px solid #272727 !important;
+}
+
+.looking-for .btn-group .btn {
+    background-color: #1D1D1D !important;
+    color: white !important;
+}
+
+.looking-for .btn-group .btn svg {
+    display: none;
+}
+
+.looking-for .btn-group .btn.active svg {
+    display: block;
+}
 @media screen and (min-width:991px) {
     .w-lg-40 {
         width: 40% !important;
@@ -1324,7 +1564,16 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
         width: 100vw;
     }
 
+    .custom-model.filter-model {
+        width: 100vw;
+    }
+
+
     .custom-model.user-model .modal-content {
+        width: 100vw;
+    }
+
+    .custom-model.filter-model .modal-content {
         width: 100vw;
     }
 
@@ -1372,6 +1621,10 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
         border-radius: 5px !important;
     }
 
+    .filter-model .auth-input {
+        border-radius: 5px !important;
+    }
+
     .product-user-profile .upload-file::before {
         border-radius: 5px !important;
     }
@@ -1388,6 +1641,10 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 
     .height-56 {
         height: 40px !important
+    }
+
+    .height-42 {
+        height: 36px !important
     }
 
     .registration-layout .green-btn {
@@ -1488,6 +1745,9 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
         height: 100%;
     }
 
+    .app-header {
+        border-radius: 0px 0px 16px 16px;
+    }
 
     .mob-app-header {
         background: #FFFFFF;
@@ -1542,6 +1802,15 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
         overflow-y: auto;
         width: 100%;
         padding: 54px 24px 97px 24px;
+    }
+
+    .registration-layout .social-content {
+        background: #00000085 !important;
+        height: 100%;
+        overflow-y: auto;
+        width: 100%;
+        /* padding: 54px 24px 97px 24px; */
+        padding: 0 !important;
     }
 
     .custom-w {
