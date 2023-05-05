@@ -17,7 +17,7 @@ const SocialSignUp = () => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/socialsummary");
+    navigate("/social/summary");
     console.log(loginDetails);
   };
   return (

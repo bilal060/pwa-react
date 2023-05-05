@@ -10,7 +10,7 @@ const SocialSubscription = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/subscription");
+    navigate("/social/catch");
   };
 
   const [type, setType] = useState("");

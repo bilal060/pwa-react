@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import socialuser from "../../assets/Images/social-user.svg";
 const SocialUploadPicture = () => {
   const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/socialprofile");
+    navigate("/social/profile");
   };
 
   const [file, setFile] = useState(socialuser);
@@ -25,7 +25,7 @@ const SocialUploadPicture = () => {
     }
   };
   return (
-    <div className="max-width-521 min-width-521 py-4 px-4">
+    <div className="py-4 px-4">
       <h3 className="font-24-social font-weight-700 text-center text-white mb-4 pb-3">
         Notice
       </h3>

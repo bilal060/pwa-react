@@ -6,10 +6,10 @@ const SocialUserDetail = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/socialuserbio");
+    navigate("/social/userbio");
   };
   return (
-    <div className="max-width-521 min-width-521 px-3 py-4">
+    <div className=" px-3 py-4">
       <h2 className="auth-model-heading mb-4">User</h2>
       <p className="font-14 font-weight-500 text-primary-red pb-4 mb-3">
         Warning: you must be at atleast 18 years old to sign up for app.

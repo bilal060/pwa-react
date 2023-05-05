@@ -11,7 +11,7 @@ const SocialProfile = () => {
   };
   return (
     // <div className="auth-model">
-      <div className="max-width-521 min-width-521 py-4 px-0">
+      <div className=" py-4 px-0">
               <div className="self-summary text-white m-3 p-3 d-flex flex-column align-items-center gap-4">
                   <img src={userprofile} alt = ""/>
           <h2 className="auth-model-heading px-4 text-left ">User</h2>

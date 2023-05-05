@@ -8,10 +8,10 @@ const SocialSummary = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/socialuserdetail");
+    navigate("/social/userdetail");
   };
   return (
-    <div className="max-width-521 min-width-521 px-3 py-4 h-100">
+    <div className="px-3 py-4 h-100">
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
           <label className="text-white mb-2 font-weight-600 font-18-100">

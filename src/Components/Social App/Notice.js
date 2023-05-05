@@ -6,11 +6,11 @@ const SocialNotice = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/socialuploadpicture");
+    navigate("/social/uploadpicture");
   };
 
   return (
-    <div className="max-width-521 min-width-521 py-4 px-4">
+    <div className=" py-4 px-4">
       <h3 className="font-24-social font-weight-700 text-center text-white mb-4 pb-3">
         Notice
       </h3>

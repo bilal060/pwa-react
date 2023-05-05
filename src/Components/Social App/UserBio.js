@@ -6,7 +6,7 @@ const SocialUserBio = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/subscription");
+    navigate("/social/subscription");
   };
   return (
       <div className="max-width-521 min-width-521 py-4 px-0">

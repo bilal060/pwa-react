@@ -55,24 +55,25 @@ const products = [
     link: "/home/headshop",
   },
 ];
+ const head = [
+   "/home",
+   "/aboutus",
+   "/home/seed",
+   "/home/buds",
+   "/home/dispensary",
+   "/home/cannabis",
+   "/home/headshop",
+   "/home/seed/map",
+   "/home/buds/map",
+   "/home/dispensary/map",
+   "/home/cannabis/map",
+   "/home/headshop/map",
+ ];
+
 const AppHeader = (props) => {
   const Location = useLocation();
   const { isOpen, setIsOpen } = props;
 
-  const head = [
-    "/home",
-    "/aboutus",
-    "/home/seed",
-    "/home/buds",
-    "/home/dispensary",
-    "/home/cannabis",
-    "/home/headshop",
-    "/home/seed/map",
-    "/home/buds/map",
-    "/home/dispensary/map",
-    "/home/cannabis/map",
-    "/home/headshop/map",
-  ];
   return (
     <div
       className={`app-header  flex-column justify-content-center ${
@@ -84,9 +85,10 @@ const AppHeader = (props) => {
           <DashboardLogo />
           <h3 className="app-heading">GROW AND SHARE</h3>
         </div>
-        <Link to={"/social"} className="d-sm-none d-block text-black">
+        <Link to={"/social/signup"} className="d-sm-none d-block text-black">
           Social Links
         </Link>
+
         <div className="d-flex gap-lg-3 headlink d-lg-flex d-none h-100">
           {headLinks.map((data, index) => {
             return (

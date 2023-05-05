@@ -9,7 +9,7 @@ const NotFound = () => {
   const location = useLocation();
 
   return (
-    <div className="max-width-521">
+    <div className="max-width-521 h-100 mx-auto d-flex justify-content-center align-items-center">
       <div className="d-flex flex-column align-items-center">
         <svg
           width="445"
