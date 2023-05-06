@@ -3,7 +3,7 @@ import "../Components.css";
 import LogoIcon from "../../assets/Images/Logo";
 import MenuIcon from "../../assets/Images/menuIcon";
 import ResponsiveLogo from "../../assets/Images/responsiveLogo";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const SocialAuthLayout = (props) => {
   const { children } = props;
   const location = useLocation();
@@ -17,6 +17,38 @@ const SocialAuthLayout = (props) => {
             <p className="text-white font-10">Diversity Your Supply</p>
           </div>
         </div>
+        <Link
+          to={"/home"}
+          className="d-sm-none d-flex gap-1 align-items-center text-white text-primary-green font-weight-600"
+        >
+          Home
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            xmlnsXlink="http://www.w3.org/1999/xlink"
+            version="1.1"
+            id="Layer_1"
+            x="0px"
+            y="0px"
+            width={14}
+            height={24}
+            viewBox="0 0 122.88 112.07"
+            style={{ enableBackground: "new 0 0 122.88 112.07" }}
+            xmlSpace="preserve"
+          >
+            <style
+              type="text/css"
+              dangerouslySetInnerHTML={{
+                __html: ".st0{fill-rule:evenodd;clip-rule:evenodd;}",
+              }}
+            />
+            <g>
+              <path
+                fill="white"
+                d="M61.44,0L0,60.18l14.99,7.87L61.04,19.7l46.85,48.36l14.99-7.87L61.44,0L61.44,0z M18.26,69.63L18.26,69.63 L61.5,26.38l43.11,43.25h0v0v42.43H73.12V82.09H49.49v29.97H18.26V69.63L18.26,69.63L18.26,69.63z"
+              />
+            </g>
+          </svg>
+        </Link>
         <MenuIcon />
       </div>
 

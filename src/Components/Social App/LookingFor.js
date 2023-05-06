@@ -23,9 +23,11 @@ const LookingFor = () => {
               required
             >
               <option value="">I’M LOOKING FOR</option>
-              <option value="option1">Option1</option>
-              <option value="option2">Option2</option>
-              <option value="option3">Option3</option>
+              <option value="option1">Man</option>
+              <option value="option2">Women</option>
+              <option value="option3">Couples</option>
+              <option value="option4">Trans</option>
+              <option value="option5">Other</option>
             </select>
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
@@ -34,9 +36,15 @@ const LookingFor = () => {
               required
             >
               <option value="">Age range</option>
-              <option value="option1">Option1</option>
-              <option value="option2">Option2</option>
-              <option value="option3">Option3</option>
+              <option value="option1">26</option>
+              <option value="option2">27</option>
+              <option value="option3">28</option>
+              <option value="option4">29</option>
+              <option value="option5">30</option>
+              <option value="option6">31</option>
+              <option value="option7">32</option>
+              <option value="option8">33</option>
+              <option value="option9">34</option>
             </select>
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
@@ -45,9 +53,13 @@ const LookingFor = () => {
               required
             >
               <option value="">Location</option>
-              <option value="option1">Option1</option>
-              <option value="option2">Option2</option>
-              <option value="option3">Option3</option>
+              <option value="option1">United States</option>
+              <option value="option2">Canada</option>
+              <option value="option3">united Kingdom</option>
+              <option value="option4">Australia</option>
+              <option value="option5">Afghanistan</option>
+              <option value="option6">Albania</option>
+              <option value="option7">ALgeria</option>
             </select>
           </div>
         </div>
