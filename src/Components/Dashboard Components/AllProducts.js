@@ -78,29 +78,6 @@ const allProducts = [
         rating: '5.0',
         totalReviews: '(56 Reviews)'
     },
-    // {
-    //     id: 1,
-    //     name: 'Toronto, Ontario',
-    //     img: cannabis1,
-    //     distance: '3 km Away',
-    //     location: '789 Yonge St, Toronto, Canada',
-    //     fees: 'Fees: $10:00',
-    //     timing: 'Timings: 09:00  To  17:00 ',
-    //     rating: '5.0',
-    //     totalReviews: '(56 Reviews)'
-    // },
-    // {
-    //     id: 1,
-    //     name: 'Toronto, Ontario',
-    //     img: cannabis2,
-    //     distance: '3 km Away',
-    //     location: '789 Yonge St, Toronto, Canada',
-    //     fees: 'Fees: $10:00',
-    //     timing: 'Timings: 09:00  To  17:00 ',
-    //     rating: '5.0',
-    //     totalReviews: '(56 Reviews)'
-    // },
-
 ]
 const ShowAllProducts = () => {
 

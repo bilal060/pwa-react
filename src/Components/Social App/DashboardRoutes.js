@@ -3,6 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import NotFound from "../../Pages/Not Found";
 import SocialDashboard from "./Dashboard";
 import SocialPosts from "./Posts";
+import SocialMatch from "./SocialMatch";
 
 const SocialDashboardRoutes = () => {
   const [windowSize, setWindowSize] = useState([
@@ -29,6 +30,7 @@ const SocialDashboardRoutes = () => {
           <>
             <Route path="/social/dashboard" element={<SocialDashboard />} />
             <Route path="/social/posts" element={<SocialPosts />} />
+            <Route path="/social/match" element={<SocialMatch />} />
           </>
         ) : (
           ""

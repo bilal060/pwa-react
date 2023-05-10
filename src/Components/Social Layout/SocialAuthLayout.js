@@ -3,14 +3,30 @@ import "../Components.css";
 import LogoIcon from "../../assets/Images/Logo";
 import MenuIcon from "../../assets/Images/menuIcon";
 import ResponsiveLogo from "../../assets/Images/responsiveLogo";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 const SocialAuthLayout = (props) => {
   const { children } = props;
+  const navigate = useNavigate();
   const location = useLocation();
   return (
     <div className="registration-layout d-flex flex-column justify-content-start align-items-center">
       <div className="d-sm-none d-flex justify-content-between align-items-center w-100 mobile-header">
         <div className="d-flex flex justify-content-center align-items-center gap-2">
+          <svg
+            onClick={() => navigate(-1)}
+            width={12}
+            height={27}
+            viewBox="0 0 12 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fillRule="evenodd"
+              clipRule="evenodd"
+              d="M11.6137 26.0731C12.1288 25.504 12.1288 24.5812 11.6137 24.0121L3.0135 14.5098C2.51295 13.9568 2.51295 13.0432 3.0135 12.4902L11.6137 2.98793C12.1288 2.41879 12.1288 1.49601 11.6137 0.926861C11.0985 0.357712 10.2634 0.357712 9.74825 0.926861L1.14809 10.4291C-0.382695 12.1205 -0.382695 14.8795 1.14809 16.5709L9.74825 26.0731C10.2634 26.6423 11.0985 26.6423 11.6137 26.0731Z"
+              fill="#6B6B6B"
+            />
+          </svg>
           <ResponsiveLogo />
           <div>
             <h3 className="text-white font-18-100 mb-2">GROW AND SHARE</h3>

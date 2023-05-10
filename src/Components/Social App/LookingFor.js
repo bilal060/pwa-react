@@ -19,7 +19,7 @@ const LookingFor = () => {
         <div className="self-summary rounded-0">
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <select
-              className="auth-input border-0 w-100 border-bottom rounded-0 border-06"
+              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
               required
             >
               <option value="">I’M LOOKING FOR</option>
@@ -32,7 +32,7 @@ const LookingFor = () => {
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <select
-              className="auth-input border-0 w-100 border-bottom rounded-0 border-06"
+              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
               required
             >
               <option value="">Age range</option>
@@ -49,7 +49,7 @@ const LookingFor = () => {
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <select
-              className="auth-input border-0 w-100 border-bottom rounded-0 border-06"
+              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
               required
             >
               <option value="">Location</option>
@@ -71,7 +71,7 @@ const LookingFor = () => {
             className="btn-group btn-group-toggle flex-column w-100"
             data-toggle="buttons"
           >
-            <label className="btn subscription-offer p-0 w-100 font-14 bg-grey active d-flex align-items-center rounded-0 text-left border-bottom border-06">
+            <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
               <input
                 type="radio"
                 name="options"
@@ -82,12 +82,12 @@ const LookingFor = () => {
                 onChange={handleSort}
                 value="Grams"
               />
-              <div className="py-3 font-14 mb px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
+              <div className="py-3 font-14-100 h-100 px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 LAST ONLINE
                 <SelectedTick />
               </div>
             </label>
-            <label className="btn subscription-offer p-0 w-100 font-14 bg-grey active d-flex align-items-center rounded-0 text-left">
+            <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
               <input
                 type="radio"
                 name="options"
@@ -98,7 +98,7 @@ const LookingFor = () => {
                 onChange={handleSort}
                 value="Grams"
               />
-              <div className="py-3 font-14 mb px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
+              <div className="py-3 font-14-100 h-100 px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 NEWEST
                 <SelectedTick />
               </div>
@@ -118,27 +118,18 @@ const LookingFor = () => {
             className="btn-group btn-group-toggle flex-column w-100"
             data-toggle="buttons-1"
           >
-            <label className="btn subscription-offer p-0 w-100 font-14 bg-grey active d-flex align-items-center rounded-0 text-left border-bottom border-06">
-              <input
-                type="radio"
-                name="options"
-                id="lastonline"
-                autoComplete="off"
-                readOnly
-                checked={sort === "Grams"}
-                onChange={handleSort}
-                value="Grams"
-              />
+            <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
+              <input type="checkbox" name="options" id="lastonline" readOnly />
               <div className="py-3 font-14 mb px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 My match’s role
                 <svg
-                  width="12"
-                  height="15"
+                  width={12}
+                  height={15}
                   viewBox="0 0 12 15"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clip-path="url(#clip0_4_585)">
+                  <g clipPath="url(#clip0_4_585)">
                     <path
                       opacity="0.3"
                       d="M1.5 13.5716H10.5V6.42871H1.5V13.5716ZM6 8.57157C6.825 8.57157 7.5 9.21443 7.5 10.0001C7.5 10.7859 6.825 11.4287 6 11.4287C5.175 11.4287 4.5 10.7859 4.5 10.0001C4.5 9.21443 5.175 8.57157 6 8.57157Z"
@@ -151,33 +142,29 @@ const LookingFor = () => {
                   </g>
                   <defs>
                     <clipPath id="clip0_4_585">
-                      <rect width="12" height="15" fill="white" />
+                      <rect width={12} height={15} fill="white" />
                     </clipPath>
                   </defs>
                 </svg>
               </div>
             </label>
-            <label className="btn subscription-offer p-0 w-100 font-14 bg-grey active d-flex align-items-center rounded-0 text-left">
+            <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
               <input
-                type="radio"
+                type="checkbox"
                 name="options"
-                id="Grams"
                 autoComplete="off"
                 readOnly
-                checked={sort === "newest"}
-                onChange={handleSort}
-                value="Grams"
               />
               <div className="py-3 font-14 mb px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 Photo only
                 <svg
-                  width="12"
-                  height="15"
+                  width={12}
+                  height={15}
                   viewBox="0 0 12 15"
                   fill="none"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g clip-path="url(#clip0_4_585)">
+                  <g clipPath="url(#clip0_4_585)">
                     <path
                       opacity="0.3"
                       d="M1.5 13.5716H10.5V6.42871H1.5V13.5716ZM6 8.57157C6.825 8.57157 7.5 9.21443 7.5 10.0001C7.5 10.7859 6.825 11.4287 6 11.4287C5.175 11.4287 4.5 10.7859 4.5 10.0001C4.5 9.21443 5.175 8.57157 6 8.57157Z"
@@ -190,7 +177,7 @@ const LookingFor = () => {
                   </g>
                   <defs>
                     <clipPath id="clip0_4_585">
-                      <rect width="12" height="15" fill="white" />
+                      <rect width={12} height={15} fill="white" />
                     </clipPath>
                   </defs>
                 </svg>

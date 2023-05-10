@@ -36,7 +36,7 @@ function App() {
     "/home/headshop/map",
   ];
   const chat = ["/chat"];
-  const social = ["/social/dashboard", "/social/posts"];
+  const social = ["/social/dashboard", "/social/posts", "/social/match"];
   const socialauth = [
     "/social/signup",
     "/social/summary",
@@ -46,7 +46,7 @@ function App() {
     "/social/subscription",
     "/social/uploadpicture",
     "/social/profile",
-    "/social/catch",
+    "/social/lookingfor",
   ];
 
   const location = useLocation();

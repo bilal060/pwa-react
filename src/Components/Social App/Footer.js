@@ -16,13 +16,15 @@ const SocialFooter = () => {
         location.pathname.includes("/social/posts")
           ? "post-footer"
           : "social-footer"
+      } ${
+        location.pathname.includes("/social/match") ? "d-none" : ""
       }  d-sm-none`}
     >
       {!location.pathname.includes("/social/posts") ? (
         <>
           <div className="d-flex flex-column gap-2 align-items-center h-100">
             <ColorPlateIcon />
-            <p className="font-12 font-weight-700">Hobbies</p>
+            <p className="font-12 font-weight-700">Colors</p>
           </div>
           <div className="d-flex flex-column gap-2 align-items-center h-100">
             <UserStartIcon />
@@ -30,7 +32,7 @@ const SocialFooter = () => {
           </div>
           <div className="d-flex flex-column gap-2 align-items-center h-100">
             <SocialFilterIcon />
-            <p className="font-12 font-weight-700">Hobbies</p>
+            <p className="font-12 font-weight-700">Filter</p>
           </div>
         </>
       ) : (
