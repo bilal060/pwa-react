@@ -21,7 +21,7 @@ const SocialSignUp = () => {
     console.log(loginDetails);
   };
   return (
-    <div className="auth-model mx-4 my-5">
+    <div className="auth-model mx-4 my-5 ">
       <div className="max-width-521 min-width-521 px-3 py-4">
         <form onSubmit={(e) => submitHandler(e)}>
           <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">

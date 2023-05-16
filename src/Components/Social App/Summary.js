@@ -11,7 +11,7 @@ const SocialSummary = () => {
     navigate("/social/userdetail");
   };
   return (
-    <div className="px-3 py-4 h-100">
+    <div className="px-3 py-4 h-100 ">
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
           <label className="text-white mb-2 font-weight-600 font-18-100">
@@ -24,7 +24,7 @@ const SocialSummary = () => {
             placeholder="Tell me about yourself!"
           />
         </div>
-        <p className="font-14 font-weight-500 text-white">
+        <p className="font-15 line-height-140 font-weight-500 text-white">
           Note: It’s NOT allowed to post any inappropriate content, such as
           pornographic content
         </p>

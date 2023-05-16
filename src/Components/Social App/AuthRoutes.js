@@ -32,7 +32,7 @@ const SocialAuthRoutes = () => {
     <div
       className={`${
         !location.pathname.includes("/social") ? "auth-model" : ""
-      } `}
+      } social-screens`}
     >
       <Routes>
         <Route path="*" element={<NotFound />} />

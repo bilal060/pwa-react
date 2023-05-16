@@ -49,6 +49,9 @@
     color: #BEBEBE;
 }
 
+.social-screens .auth-input,.auth-input-textarea ,.password-input{
+    font-size: 16px !important;
+}
 .auth-input {
     height: 56px;
     background-color: #1D1D1D !important;
@@ -1414,6 +1417,12 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 
 
 /* social screens */
+.settings-authprofile{
+    position: absolute;
+    right: 16px;
+    top: 16px;
+
+}
 .self-summary {
     border-width: 0.5px 0px;
     border-style: solid;
@@ -1927,6 +1936,10 @@ div.subs {
 }
 
 @media screen and (max-width:576px) {
+    .app-header .app-heading {
+        font-size: 16px !important;
+    }
+
     .map-comp-dropmenu {
         max-width: 270px !important;
     }

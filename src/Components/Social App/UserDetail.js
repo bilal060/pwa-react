@@ -9,10 +9,13 @@ const SocialUserDetail = () => {
     navigate("/social/userbio");
   };
   return (
-    <div className="max-width-521 min-width-521 px-3 py-4">
-      <h2 className="auth-model-heading mb-4">User</h2>
-      <p className="font-14 font-weight-500 text-primary-red pb-4 mb-3">
-        Warning: you must be at atleast 18 years old to sign up for app.
+    <div className="max-width-521 min-width-521 px-3 py-4 ">
+      <h2 className="font-weight-700 text-white text-center font-24-social mb-4">
+        User
+      </h2>
+      <p className="font-14 font-weight-500 text-primary-red pb-4 mb-2">
+        <span className="font-weight-700">Warning:</span> you must be at atleast
+        18 years old to sign up for app.
       </p>
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
@@ -76,7 +79,7 @@ const SocialUserDetail = () => {
           </select>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-4 pt-3">
-          <button className="green-btn custom-w min-width-208">Next</button>
+          <button className="green-btn custom-w min-width-208">Continue</button>
         </div>
       </form>
     </div>

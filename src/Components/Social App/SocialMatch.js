@@ -15,7 +15,7 @@ import MultiRangeSlider from "multi-range-slider-react";
 import LocationIcon from "../../assets/Images/Location";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import Slider from "react-slick";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const db = [
   {
@@ -148,6 +148,7 @@ const SocialMatch = () => {
     setCvv(event.target.value.slice(0, limit));
   };
 
+  // exp date
   const [ExpMonth, setExpMonth] = useState("");
   const [ExpYear, setExpYear] = useState("");
 

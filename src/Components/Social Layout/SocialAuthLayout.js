@@ -4,6 +4,9 @@ import LogoIcon from "../../assets/Images/Logo";
 import MenuIcon from "../../assets/Images/menuIcon";
 import ResponsiveLogo from "../../assets/Images/responsiveLogo";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+
+const authFooter = ["/social/profile", "/social/userbio"];
+
 const SocialAuthLayout = (props) => {
   const { children } = props;
   const navigate = useNavigate();
@@ -71,7 +74,7 @@ const SocialAuthLayout = (props) => {
       <div
         className={`${
           location.pathname.includes("/social")
-            ? location.pathname.includes("/social/profile")
+            ? authFooter.includes(location.pathname)
               ? "social-content-footer"
               : "social-content"
             : "content"
@@ -84,7 +87,7 @@ const SocialAuthLayout = (props) => {
         </div>
         {children}
       </div>
-      {location.pathname.includes("/social/profile") && (
+      {authFooter.includes(location.pathname) && (
         <div className="socil-auth-footer w-100 d-sm-none d-block">
           <div className="sub d-sm-none d-flex">
             <span>

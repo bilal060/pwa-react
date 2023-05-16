@@ -38,7 +38,6 @@ const RegistrationRoutes = () => {
     };
   }, []);
   const location = useLocation();
- 
 
   return (
     <div
@@ -77,7 +76,7 @@ const RegistrationRoutes = () => {
               element={<SocialUploadPicture />}
             />
             <Route path="/social/profile" element={<SocialProfile />} />
-            <Route path="/social/catch" element={<LookingFor />} />
+            <Route path="/social/lookingfor" element={<LookingFor />} />
           </>
         ) : (
           ""
