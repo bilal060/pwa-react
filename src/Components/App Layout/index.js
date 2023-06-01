@@ -14,6 +14,7 @@ import User from "../../assets/Images/sidelink-user.svg";
 import SideLinkSettings from "../../assets/Images/sideLinkSettings";
 import selectafter from "../../assets/Images/select-after.svg";
 import MobMapIcon from "../../assets/Images/mobMap";
+import Hooks from "../../hooks";
 
 const sideLinks = [
   {
@@ -66,6 +67,7 @@ const AppLayout = (props) => {
     "/home/headshop/map",
   ];
   const navigate = useNavigate();
+  const { Logout } = Hooks();
 
   return (
     <div className="app-layout">
@@ -110,7 +112,7 @@ const AppLayout = (props) => {
                   </Link>
                 );
               })}
-              <p className="side-link border-0" onClick={() => navigate("/login")}>
+              <p className="side-link border-0 curser-pointer" onClick={() => Logout()}>
                 Login/Logout
               </p>
             </div>
@@ -135,15 +137,33 @@ const AppLayout = (props) => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li>
-                  <div className="dropdown-item">Action</div>
-                </li>
-                <li>
-                  <div className="dropdown-item">Another action</div>
-                </li>
-                <li>
-                  <div className="dropdown-item">Something else here</div>
-                </li>
+                <Link
+                  to={"/favourite"}
+                  className={`${
+                    "/favourite" === Location.pathname
+                      ? "product-item-active "
+                      : ""
+                  } dropdown-item`}
+                >
+                  Favourites
+                </Link>
+                <Link
+                  to={"/contactus"}
+                  className={`${
+                    "/contactus" === Location.pathname
+                      ? "product-item-active "
+                      : ""
+                  } dropdown-item`}
+                >
+                  Contact Support
+                </Link>
+                <div
+                  onClick={() => Logout()}
+                  to={"/login"}
+                  className={` dropdown-item`}
+                >
+                  Logout
+                </div>
               </ul>
             </div>
 

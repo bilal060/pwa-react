@@ -9,6 +9,7 @@ import BudsIcon from "../../assets/Images/Buds";
 import MobSearchIcon from "../../assets/Images/MobSearch";
 import MenuBarIcon from "../../assets/Images/MenuBar";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
+import Hooks from "../../hooks";
 
 const headLinks = [
   {
@@ -73,7 +74,7 @@ const head = [
 const AppHeader = (props) => {
   const Location = useLocation();
   const { isOpen, setIsOpen } = props;
-  console.log(Location);
+  const { Logout } = Hooks();
 
   const navigate = useNavigate();
   return (
@@ -180,9 +181,13 @@ const AppHeader = (props) => {
             >
               Contact Support
             </Link>
-            <Link to={"/login"} className={` dropdown-item`}>
+            <div
+              onClick={() => Logout()}
+              to={"/login"}
+              className={` dropdown-item`}
+            >
               Logout
-            </Link>
+            </div>
           </ul>
         </div>
         <span
