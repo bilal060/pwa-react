@@ -275,7 +275,8 @@ a {
 .font-weight-900 {
   font-weight: 900;
 }
-.line-height-140{
+
+.line-height-140 {
   line-height: 140.5% !important;
 }
 
@@ -349,7 +350,7 @@ select {
 
 .react-calendar__tile--active {
   background-color: #5D8B2F !important;
-  border-radius: 50% !important;
+  /* border-radius: 50% !important; */
 }
 
 .react-calendar__tile--now {
@@ -559,4 +560,9 @@ select {
     font-size: 18px !important;
     line-height: 22px;
   }
+}
+
+.Toastify__toast-body {
+  display: flex;
+  gap: 8px !important;
 }

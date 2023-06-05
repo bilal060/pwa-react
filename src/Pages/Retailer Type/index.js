@@ -1,14 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { PostRetailerType } from "../../Api";
 
 const RetailerType = () => {
+  const [retailerType, setRetailerType] = useState({
+    retailerType: "",
+  });
+  const [userData, setuserData] = useState();
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setRetailerType((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setuserData(JSON.parse(currentUser));
+  }, []);
+
+  const RetailerTypeUrl = `${process.env.REACT_APP_API_URI}users/updateUser/${userData?._id}`;
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/age");
+    PostRetailerType(RetailerTypeUrl, retailerType);
   };
   return (
     <div className="max-width-521">
@@ -16,19 +34,29 @@ const RetailerType = () => {
         What type of Retailer are you?
       </h2>
       <form onSubmit={(e) => submitHandler(e)}>
-        <select className="auth-input">
-          <option defaultValue value="">
-            - Select Retailer Type -
-          </option>
-          <option value="Option1">Option 1</option>
-          <option value="Option2">Option 2</option>
-          <option value="Option3">Option 3</option>
+        <select
+          className="auth-input"
+          required
+          onChange={(e) => formHandler(e)}
+          name="retailerType"
+        >
+          <option value="">- Select Retailer Type -</option>
+          <option value="Dispensary">Dispensary</option>
+          <option value="HeadShop">HeadShop</option>
+          <option value="CannabisLounge">Cannabis Lounge</option>
+          <option value="SeedStore">Seed Store</option>
         </select>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between  mt-4 pt-3">
-          <button className="green-btn-outline " onClick={() => goBack()}>
+          <button
+            className="green-btn-outline "
+            onClick={() => goBack()}
+            type="button"
+          >
             Back
           </button>
-          <button className="green-btn ">Next</button>
+          <button className="green-btn" type="submit">
+            Next
+          </button>
         </div>
       </form>
     </div>

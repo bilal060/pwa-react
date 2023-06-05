@@ -1423,6 +1423,9 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
     top: 16px;
 
 }
+.cr-p {
+    cursor: pointer !important;
+}
 .self-summary {
     border-width: 0.5px 0px;
     border-style: solid;

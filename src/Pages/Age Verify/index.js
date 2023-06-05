@@ -20,12 +20,6 @@ const AgeVerifyPage = () => {
         reside.
       </p>
       <form onSubmit={(e) => submitHandler(e)}>
-        {/* <select className="auth-input my-3">
-            <option>Pakistan</option>
-            <option>Usa</option>
-            <option>Canada</option>
-            <option>Uae</option>
-          </select> */}
         <select className="auth-input my-3" required>
           <option value="">Where are you from?</option>
           <option value="18">Alberta</option>
@@ -73,7 +67,9 @@ const AgeVerifyPage = () => {
           required={true}
         />
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between mt-5">
-          <button className="green-btn-outline ">Exit</button>
+          <button className="green-btn-outline" onClick={() => navigate(-1)}>
+            Back
+          </button>
           <button className="green-btn">Next</button>
         </div>
       </form>

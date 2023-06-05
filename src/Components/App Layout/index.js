@@ -112,7 +112,7 @@ const AppLayout = (props) => {
                   </Link>
                 );
               })}
-              <p className="side-link border-0 curser-pointer" onClick={() => Logout()}>
+              <p className="side-link border-0 cr-p" onClick={() => Logout()}>
                 Login/Logout
               </p>
             </div>
