@@ -1,32 +1,95 @@
 import React, { useState } from "react";
 import UploadIcon from "../../assets/Images/Upload";
 import { useNavigate } from "react-router-dom";
+import AddIcon from "../../assets/Images/Add";
+import { useEffect } from "react";
+import { PostResponse } from "../../Api";
 
 const ResponsivePage = () => {
+  const [myArray, setMyArray] = useState([]);
+  const [addMorebtn, setAddMoreBtn] = useState(false);
+  const [id, setId] = useState();
   const [file, setFile] = useState(null);
-  const [fileName, setFileName] = useState("");
+  const [response, setResponse] = useState({
+    userId: "",
+    strainType: "",
+    grownType: "",
+    photo: "",
+  });
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setResponse((prevState) => ({
+      ...prevState,
+      userId: JSON.parse(currentUser)._id,
+    }));
+    setId(JSON.parse(currentUser)._id);
+  }, []);
 
   const attachFile = (e) => {
     if (e.target.files) {
-      setFileName(e.target.files[0]?.name);
       let imageFile = e.target.files[0];
-      var reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-      reader.onloadend = function (e) {
-        var myImage = new Image();
-        myImage.src = e.target.result;
-        setFile(myImage.src);
-        return myImage;
-      };
+      setResponse((prevState) => ({
+        ...prevState,
+        photo: imageFile,
+      }));
+      setFile(imageFile.name);
     }
   };
+
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setResponse((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
+
+  // const data = [
+  //   {
+  //     userId: "647dac834cf8185f7467eb3c",
+  //     strainType: "Sativa",
+  //     grownType: "Grown",
+  //     photo: response.photo,
+  //   },
+  // ];
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/terms");
+    const data = new FormData();
+
+    if (addMorebtn) {
+      setMyArray((prev) => [...prev, response]);
+      myArray.forEach((mapData) => {
+        console.log(mapData);
+        data.append("userId", id);
+        data.append("strainType", mapData.strainType);
+        data.append("grownType", mapData.grownType);
+        data.append("photo", mapData.photo);
+      });
+    } else {
+      data.append("userId", id);
+      data.append("strainType", response.strainType);
+      data.append("grownType", response.grownType);
+      data.append("photo", response.photo);
+    }
+
+    PostResponse(data);
+  };
+
+  const addMore = () => {
+    setAddMoreBtn(true);
+    setMyArray((prev) => [...prev, response]);
+    setResponse({
+      strainType: "",
+      grownType: "",
+      photo: "",
+    });
+    setFile(null);
   };
   return (
     <div className="max-width-521">
@@ -38,7 +101,13 @@ const ResponsivePage = () => {
           <label className="text-white mb-2 font-weight-600 font-18-100">
             Which Strain type do you have?
           </label>
-          <select className="auth-input" required>
+          <select
+            className="auth-input"
+            required
+            name="strainType"
+            onChange={(e) => formHandler(e)}
+            value={response.strainType}
+          >
             <option value={""}>Strain Type</option>
             <option value={"Sativa"}>Sativa</option>
             <option value={"Indica"}>Indica</option>
@@ -51,13 +120,19 @@ const ResponsivePage = () => {
           <label className="text-white mb-2 font-weight-600 font-18-100">
             Grown or Purchased?
           </label>
-          <select className="auth-input" required>
+          <select
+            className="auth-input"
+            required
+            name="grownType"
+            onChange={(e) => formHandler(e)}
+            value={response.grownType}
+          >
             <option value={""}>- Select Option -</option>
             <option value={"Dispensary"}>Dispensary</option>
             <option value={"Grown"}>Grown</option>
           </select>
         </div>
-        <label className="upload-file cr-p w-100">
+        <label className="upload-file cr-p w-100 mb-4">
           <input
             type="file"
             className="d-none"
@@ -67,15 +142,29 @@ const ResponsivePage = () => {
           <div className="d-flex justify-content-center align-items-center h-100 w-100 gap-2">
             <UploadIcon />
             <p className="font-16 font-weight-500">
-              {fileName === "" ? "Choose File / Drag & Drop Here" : fileName}
+              {file === null ? "Choose File / Drag & Drop Here" : file}
             </p>
           </div>
         </label>
+        <button
+          className="add-more bg-transparent border-white text-white gap-2"
+          onClick={() => addMore()}
+          type="button"
+        >
+          <AddIcon />
+          Add More
+        </button>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between  mt-4 pt-3">
-          <button className="green-btn-outline " onClick={() => goBack()}>
+          <button
+            className="green-btn-outline "
+            onClick={() => goBack()}
+            type="button"
+          >
             Back
           </button>
-          <button className="green-btn ">Next</button>
+          <button className="green-btn " type="submit">
+            Next
+          </button>
         </div>
       </form>
       <p className="text-center text-grey mt-5 font-16">

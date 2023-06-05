@@ -2,7 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
-const PostAddressUrl = `${process.env.REACT_APP_API_URI}address`;
+const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
 
 export const PostLoginData = async (loginDetails, rememberCheck) => {
   try {
@@ -10,7 +10,6 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
     localStorage.clear();
 
     if (rememberCheck) {
-      // sessionStorage.setItem("rememberMe", rememberCheck);
       sessionStorage.setItem(
         "remember-user",
         rememberCheck ? JSON.stringify(fetchData.data.data.user) : ""
@@ -22,24 +21,28 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData.data.data.user));
     toast.success("Welcome");
-    window.location.href = "/home";
+    setTimeout(() => {
+      window.location.href = "/home";
+    }, 1000);
   } catch (error) {
     toast.error(error?.message);
     console.log(error);
-    alert("Unable to login. Please try after some time.");
   }
 };
 export const PostSignUp = async (signInDetails) => {
   try {
     const fetchData = await axios.post(SignUpUrl, signInDetails);
-    console.log(fetchData);
     localStorage.clear();
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
     if (signInDetails.userType === "Retailer") {
-      window.location.href = "/retailer";
+      setTimeout(() => {
+        window.location.href = "/retailer";
+      }, 1000);
     } else {
-      window.location.href = "/address";
+      setTimeout(() => {
+        window.location.href = "/address";
+      }, 1000);
     }
     toast.success("  Sign up Successful");
   } catch (error) {
@@ -52,9 +55,10 @@ export const PostSignUp = async (signInDetails) => {
 export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
   try {
     const fetchData = await axios.patch(RetailerTypeUrl, retailerType);
-    console.log(fetchData);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
-    window.location.href = "/address";
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
     toast.success("Retailer Type Added Successfully");
   } catch (error) {
     toast.error(error?.message);
@@ -62,12 +66,27 @@ export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
   }
 };
 
-export const PostAddress = async (address) => {
+export const PostAddress = async (adressUrl, address) => {
   try {
-    const fetchData = await axios.post(PostAddressUrl, address);
-    console.log(fetchData);
-    window.location.href = "/response";
+    await axios.patch(adressUrl, address);
+    setTimeout(() => {
+      window.location.href = "/response";
+    }, 1000);
     toast.success("Address Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+
+export const PostResponse = async (newArray) => {
+  try {
+    console.log(newArray);
+    await axios.post(PostResponseUrl, newArray);
+    setTimeout(() => {
+      window.location.href = "/terms";
+    }, 1000);
+    toast.success("Response Added Successfully");
   } catch (error) {
     toast.error(error?.message);
     console.log(error);

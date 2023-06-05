@@ -9,29 +9,34 @@ import "react-phone-number-input/style.css";
 import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 import { useRef } from "react";
 import { PostAddress } from "../../Api";
+import { useEffect } from "react";
 
 const AddAddressPage = () => {
   const [value, setvalue] = useState("");
   const [country, setCountry] = useState("US");
   const [address, setAddress] = useState({
-    address: "",
-    long: "",
+    addressname: "",
+    lng: "",
     lat: "",
     postalCode: "",
-    city: "Lahore",
-    state: "Punjab",
-    country: "Pakistan",
     phone: "",
   });
+  const [userData, setuserData] = useState();
 
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
 
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setuserData(JSON.parse(currentUser));
+  }, []);
+
+  const addressUrl = `${process.env.REACT_APP_API_URI}users/updateUser/${userData?._id}`;
   const submitHandler = (e) => {
     e.preventDefault();
-    PostAddress(address);
+    PostAddress(addressUrl, address);
   };
 
   const inputRef = useRef();
@@ -40,8 +45,8 @@ const AddAddressPage = () => {
     if (place) {
       setAddress((prevState) => ({
         ...prevState,
-        address: place.formatted_address,
-        long: place.geometry.location.lat(),
+        addressname: place.formatted_address,
+        lng: place.geometry.location.lat(),
         lat: place.geometry.location.lng(),
       }));
     }
@@ -120,7 +125,6 @@ const AddAddressPage = () => {
                 }
                 inputProps={{
                   name: "phone",
-                  required: true,
                 }}
                 buttonClass="d-none"
                 inputClass="bg-transparent outline-0 p-0 m-0 border-0 shadow-none custom-phone-input-1 font-18-100"
