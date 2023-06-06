@@ -31,7 +31,7 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
         rememberCheck ? JSON.stringify(fetchData.data.data.user) : ""
       );
     } else {
-      localStorage.removeItem("remember-user");
+      sessionStorage.removeItem("remember-user");
     }
 
     localStorage.setItem("user-token", fetchData.data.token);
@@ -61,6 +61,7 @@ export const PostSignUp = async (signInDetails) => {
       }, 1000);
     }
     toast.success("  Sign up Successful");
+    sessionStorage.removeItem("remember-age");
   } catch (error) {
     toast.error(error?.message);
     console.log(error);
