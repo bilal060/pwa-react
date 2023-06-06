@@ -1,14 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import CalendarIcon from "../../assets/Images/Calendar";
 import { useNavigate } from "react-router-dom";
+import { VerifyAge } from "../../Api";
 
 const AgeVerifyPage = () => {
-  const [value, onChange] = useState();
+  const [value, onChange] = useState("");
+  const [ageVerify, setAgeVerify] = useState({
+    date: "",
+    province: value,
+  });
+  useEffect(() => {
+    setAgeVerify((prevState) => ({
+      ...prevState,
+      date: value,
+    }));
+    return () => {
+      setAgeVerify((prevState) => ({
+        ...prevState,
+        date: value,
+      }));
+    };
+  }, [value]);
+
+  console.log(value);
   const navigate = useNavigate();
+
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setAgeVerify((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
   const submitHandler = (e) => {
+    console.log(ageVerify);
     e.preventDefault();
-    navigate("/address");
+    VerifyAge(ageVerify);
   };
   return (
     <div className="max-width-521">
@@ -20,9 +48,24 @@ const AgeVerifyPage = () => {
         reside.
       </p>
       <form onSubmit={(e) => submitHandler(e)}>
-        <select className="auth-input my-3" required>
+        <select
+          className="auth-input my-3"
+          required
+          name="province"
+          onChange={(e) => formHandler(e)}
+        >
           <option value="">Where are you from?</option>
-          <option value="18">Alberta</option>
+          <option value="AB">AB</option>
+          <option value="NS">NS</option>
+          <option value="Nb">Nb</option>
+          <option value="ON">ON</option>
+          <option value="MB">MB</option>
+          <option value="SK">SK</option>
+          <option value="BC">BC</option>
+          <option value="YT">YT</option>
+          <option value="NU">NU</option>
+          <option value="Quebec">Quebec</option>
+          {/* <option value="18">Alberta</option>
           <option value="21">Alaska</option>
           <option value="21">Arizona</option>
           <option value="19">British Columbia</option>
@@ -52,7 +95,7 @@ const AgeVerifyPage = () => {
           <option value="21">Virginia</option>
           <option value="21">Washington</option>
           <option value="19">Saskatchewan</option>
-          <option value="19">Yukon</option>
+          <option value="19">Yukon</option> */}
         </select>
         <DatePicker
           onChange={onChange}

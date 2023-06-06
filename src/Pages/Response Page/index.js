@@ -50,14 +50,6 @@ const ResponsivePage = () => {
     navigate(-1);
   };
 
-  // const data = [
-  //   {
-  //     userId: "647dac834cf8185f7467eb3c",
-  //     strainType: "Sativa",
-  //     grownType: "Grown",
-  //     photo: response.photo,
-  //   },
-  // ];
   const submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();

@@ -3,6 +3,22 @@ import { toast } from "react-toastify";
 const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
 const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
+const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
+const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
+
+export const VerifyAge = async (data) => {
+  try {
+    const postData = await axios.post(VerifyAgeUrl, data);
+    sessionStorage.setItem("remember-age", JSON.stringify(postData.data));
+    setTimeout(() => {
+      window.location.href = "/signup";
+    }, 1000);
+    toast.success("Age Verified Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
 
 export const PostLoginData = async (loginDetails, rememberCheck) => {
   try {
@@ -15,7 +31,7 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
         rememberCheck ? JSON.stringify(fetchData.data.data.user) : ""
       );
     } else {
-      sessionStorage.clear();
+      localStorage.removeItem("remember-user");
     }
 
     localStorage.setItem("user-token", fetchData.data.token);
@@ -87,6 +103,19 @@ export const PostResponse = async (newArray) => {
       window.location.href = "/terms";
     }, 1000);
     toast.success("Response Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+
+export const PostDispensary = async (data) => {
+  try {
+    await axios.post(PostDispensaryUrl, data);
+    // setTimeout(() => {
+    //   window.location.href = "/home";
+    // }, 1000);
+    toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error?.message);
     console.log(error);

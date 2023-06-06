@@ -13,11 +13,9 @@ const LoginPage = () => {
   });
 
   useEffect(() => {
-    // const rememberMe = sessionStorage.getItem("rememberMe") === "true";
     const user = sessionStorage.getItem("remember-user");
     const data = JSON.parse(user);
     setloginDetails({ email: data?.email });
-    // setRememberCheck(rememberMe);
     console.log(data);
   }, []);
 
@@ -117,7 +115,7 @@ const LoginPage = () => {
         </LoginSocialGoogle>
         <Link
           className="text-white d-flex justify-content-center align-items-center gap-1 font-weight-500 font-18"
-          to="/signup"
+          to="/age"
         >
           Don’t have an account?
           <span className="text-primary-green font-weight-700">Register</span>

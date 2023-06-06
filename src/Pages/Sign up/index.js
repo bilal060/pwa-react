@@ -2,14 +2,32 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ShowPassword from "../../assets/Images/ShowPassword";
 import { PostSignUp } from "../../Api";
+import { useEffect } from "react";
 const SignUpPage = () => {
   const [signInDetails, setsignInDetails] = useState({
     fullName: "",
     email: "",
     password: "",
     passwordConfirm: "",
-    userType: "Retailer",
+    userType: "",
+    age: "",
+    province: "",
   });
+  useEffect(() => {
+    const user = sessionStorage.getItem("remember-age");
+    setsignInDetails((prevState) => ({
+      ...prevState,
+      province: JSON.parse(user)?.province,
+      age: JSON.parse(user)?.age,
+    }));
+    return () =>
+      setsignInDetails((prevState) => ({
+        ...prevState,
+        province: JSON.parse(user)?.province,
+        age: JSON.parse(user)?.age,
+      }));
+  }, []);
+
   const [passwordShown1, setPasswordShown1] = useState(false);
   const [passwordShown2, setPasswordShown2] = useState(false);
   const [termCheck, setTermCheck] = useState(false);
@@ -30,6 +48,7 @@ const SignUpPage = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     setpasswordCheck(true);
+    console.log(signInDetails);
     if (signInDetails.password === signInDetails.passwordConfirm) {
       PostSignUp(signInDetails);
     } else return;
