@@ -4,7 +4,7 @@ import AddIcon from "../../assets/Images/Add";
 import { useNavigate } from "react-router-dom";
 import { PostDispensary } from "../../Api";
 
-const DispensaryType = () => {
+const SeedStore = () => {
   const [file, setFile] = useState(null);
   const [addMorebtn, setAddMoreBtn] = useState(false);
   const [arrayData, setArrayData] = useState([]);
@@ -124,9 +124,11 @@ const DispensaryType = () => {
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Quantity -</option>
-              <option value={"1-7"}>3-5 Grams</option>
-              <option value={"4-14"}>5-10 Grams</option>
-              <option value={"14-30"}>10-15 Grams</option>
+              <option value={"1-5"}>1-5 </option>
+              <option value={"4-10"}>5-10 </option>
+              <option value={"10-15"}>10-15</option>
+              <option value={"15-20"}>15-20</option>
+              <option value={"20-30"}>20-30</option>
             </select>
           </div>
         </div>
@@ -221,4 +223,4 @@ const DispensaryType = () => {
   );
 };
 
-export default DispensaryType;
+export default SeedStore;

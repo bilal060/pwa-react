@@ -41,10 +41,10 @@ const RetailerType = () => {
           name="retailerType"
         >
           <option value="">- Select Retailer Type -</option>
-          <option value="Dispensary">Dispensary</option>
-          <option value="HeadShop">HeadShop</option>
-          <option value="CannabisLounge">Cannabis Lounge</option>
-          <option value="SeedStore">Seed Store</option>
+          <option value="dispensary">Dispensary</option>
+          <option value="headshop">HeadShop</option>
+          <option value="cannabis">Cannabis Lounge</option>
+          <option value="seedstore">Seed Store</option>
         </select>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between  mt-4 pt-3">
           <button

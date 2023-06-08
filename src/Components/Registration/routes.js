@@ -21,6 +21,7 @@ import SocialNotice from "../Social App/Notice";
 import SocialUploadPicture from "../Social App/UploadPicture";
 import SocialProfile from "../Social App/SocialProfile";
 import LookingFor from "../Social App/LookingFor";
+import SeedStore from "../../Pages/Seed Store";
 
 const RegistrationRoutes = () => {
   const [windowSize, setWindowSize] = useState([
@@ -53,6 +54,7 @@ const RegistrationRoutes = () => {
         <Route path="/retailer" element={<RetailerType />} />
         <Route path="/dispensary" element={<DispensaryType />} />
         <Route path="/headshop" element={<HeadShop />} />
+        <Route path="/seedstore" element={<SeedStore />} />
         <Route path="/cannabis" element={<CannabisLounge />} />
         <Route path="/address" element={<AddAddressPage />} />
         <Route path="/response" element={<ResponsivePage />} />

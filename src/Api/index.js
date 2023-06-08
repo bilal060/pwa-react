@@ -1,10 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
 const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
 const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
 const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
-const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
+const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
+const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -74,7 +76,7 @@ export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
     const fetchData = await axios.patch(RetailerTypeUrl, retailerType);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
     setTimeout(() => {
-      window.location.href = "/address";
+      window.location.href = `/${retailerType.retailerType}`;
     }, 1000);
     toast.success("Retailer Type Added Successfully");
   } catch (error) {
@@ -113,10 +115,34 @@ export const PostResponse = async (newArray) => {
 export const PostDispensary = async (data) => {
   try {
     await axios.post(PostDispensaryUrl, data);
-    // setTimeout(() => {
-    //   window.location.href = "/home";
-    // }, 1000);
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
     toast.success("Dispensary Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+export const PostHeadShop = async (data) => {
+  try {
+    await axios.post(PostHeadShopUrl, data);
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
+    toast.success("Head Shop Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+export const PostCannabis = async (data) => {
+  try {
+    await axios.post(PostCannabisUrl, data);
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
+    toast.success("Cannabis Added Successfully");
   } catch (error) {
     toast.error(error?.message);
     console.log(error);
