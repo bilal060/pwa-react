@@ -2,22 +2,18 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-// import Input from "react-phone-number-input/input";
 import "react-phone-number-input/style.css";
-// import { getCountries, getCountryCallingCode } from "react-phone-number-input";
-// import en from "react-phone-number-input/locale/en";
 import { StandaloneSearchBox, LoadScript } from "@react-google-maps/api";
 import { useRef } from "react";
 import { PostAddress } from "../../Api";
 import { useEffect } from "react";
 
+const libraries = ["places"];
 const AddAddressPage = () => {
   const [value, setvalue] = useState("");
   const [country, setCountry] = useState("US");
   const [address, setAddress] = useState({
     addressname: "",
-    lng: "",
-    lat: "",
     postalCode: "",
     phone: "",
   });
@@ -46,8 +42,8 @@ const AddAddressPage = () => {
       setAddress((prevState) => ({
         ...prevState,
         addressname: place.formatted_address,
-        lng: place.geometry.location.lat(),
-        lat: place.geometry.location.lng(),
+        // lng: place.geometry.location.lat(),
+        // lat: place.geometry.location.lng(),
       }));
     }
   };
@@ -65,7 +61,7 @@ const AddAddressPage = () => {
         <div className="mb-5">
           <LoadScript
             googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
-            libraries={["places"]}
+            libraries={libraries}
           >
             <StandaloneSearchBox
               onLoad={(ref) => (inputRef.current = ref)}
@@ -107,12 +103,6 @@ const AddAddressPage = () => {
             </label>
 
             <div className="custom-phone-input auth-input d-flex align-items-center">
-              {/* <CountrySelect
-                labels={en}
-                value={country}
-                onChange={setCountry}
-                className="bg-transparent outline-0 border-0 custom-phone-dropdown-btn font-18-100"
-              /> */}
               <PhoneInput
                 countrySelectProps={{ unicodeFlags: false }}
                 country={country}
@@ -154,19 +144,3 @@ const AddAddressPage = () => {
 };
 
 export default AddAddressPage;
-
-// const CountrySelect = ({ value, onChange, labels, ...rest }) => (
-//   <select
-//     {...rest}
-//     value={value.match(/[A-Z]/g).join("")}
-//     onChange={(event) => onChange(event.target.value || undefined)}
-//   >
-//     <option value="">{labels["ZZ"]}</option>
-//     {getCountries().map((country) => (
-//       <option key={country} value={country}>
-//         {labels[country].match(/[A-Z]/g).join("")} +
-//         {getCountryCallingCode(country)}
-//       </option>
-//     ))}
-//   </select>
-// );

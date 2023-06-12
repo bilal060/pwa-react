@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import UploadIcon from "../../assets/Images/Upload";
 import AddIcon from "../../assets/Images/Add";
 import { useNavigate } from "react-router-dom";
-import { PostDispensary } from "../../Api";
+import { PostSeedStore } from "../../Api";
 
 const SeedStore = () => {
   const [file, setFile] = useState(null);
   const [addMorebtn, setAddMoreBtn] = useState(false);
   const [arrayData, setArrayData] = useState([]);
   const [id, setId] = useState();
-  const [dispensary, setDispensary] = useState({
+  const [seedStore, setSeedStore] = useState({
     postStrain: "",
     quantity: "",
     cost: "",
@@ -19,7 +19,7 @@ const SeedStore = () => {
   });
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
-    setDispensary((prevState) => ({
+    setSeedStore((prevState) => ({
       ...prevState,
       userId: JSON.parse(currentUser)._id,
     }));
@@ -28,7 +28,7 @@ const SeedStore = () => {
 
   const formHandler = (e) => {
     const { name, value } = e.target;
-    setDispensary((prevState) => ({
+    setSeedStore((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -37,7 +37,7 @@ const SeedStore = () => {
   const attachFile = (e) => {
     if (e.target.files) {
       let imageFile = e.target.files[0];
-      setDispensary((prevState) => ({
+      setSeedStore((prevState) => ({
         ...prevState,
         photo: imageFile,
       }));
@@ -52,8 +52,8 @@ const SeedStore = () => {
 
   const addMore = () => {
     setAddMoreBtn(true);
-    setArrayData((prev) => [...prev, dispensary]);
-    setDispensary({
+    setArrayData((prev) => [...prev, seedStore]);
+    setSeedStore({
       postStrain: "",
       quantity: "",
       cost: "",
@@ -66,9 +66,9 @@ const SeedStore = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+    setArrayData((prev) => [...prev, seedStore]);
     const data = new FormData();
     if (addMorebtn) {
-      setArrayData((prev) => [...prev, dispensary]);
       arrayData.forEach((mapData) => {
         data.append("userId", id);
         data.append("postStrain", mapData.postStrain);
@@ -80,14 +80,14 @@ const SeedStore = () => {
       });
     } else {
       data.append("userId", id);
-      data.append("postStrain", dispensary.postStrain);
-      data.append("quantity", dispensary.quantity);
-      data.append("cost", dispensary.cost);
-      data.append("strainName", dispensary.strainName);
-      data.append("description", dispensary.description);
-      data.append("photo", dispensary.photo);
+      data.append("postStrain", seedStore.postStrain);
+      data.append("quantity", seedStore.quantity);
+      data.append("cost", seedStore.cost);
+      data.append("strainName", seedStore.strainName);
+      data.append("description", seedStore.description);
+      data.append("photo", seedStore.photo);
     }
-    PostDispensary(data);
+    PostSeedStore(data);
   };
 
   return (
@@ -102,7 +102,7 @@ const SeedStore = () => {
               className="auth-input"
               required
               name="postStrain"
-              value={dispensary.postStrain}
+              value={seedStore.postStrain}
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Strain -</option>
@@ -119,7 +119,7 @@ const SeedStore = () => {
             <select
               className="auth-input"
               required
-              value={dispensary.quantity}
+              value={seedStore.quantity}
               name="quantity"
               onChange={(e) => formHandler(e)}
             >
@@ -143,7 +143,7 @@ const SeedStore = () => {
               className="auth-input"
               placeholder="$ Enter Cost"
               required
-              value={dispensary.cost}
+              value={seedStore.cost}
               name="cost"
             />
           </div>
@@ -157,7 +157,7 @@ const SeedStore = () => {
               className="auth-input"
               placeholder="Enter Strain Name"
               required
-              value={dispensary.strainName}
+              value={seedStore.strainName}
               name="strainName"
             />
           </div>
@@ -172,7 +172,7 @@ const SeedStore = () => {
             placeholder="Enter description here..."
             required
             name="description"
-            value={dispensary.description}
+            value={seedStore.description}
           />
         </div>
 

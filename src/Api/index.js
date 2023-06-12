@@ -7,6 +7,7 @@ const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
 const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
+const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -112,6 +113,19 @@ export const PostResponse = async (newArray) => {
   }
 };
 
+export const PostSeedStore = async (data) => {
+  try {
+    await axios.post(PostSeedStoreUrl, data);
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
+    toast.success("Seed Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+
 export const PostDispensary = async (data) => {
   try {
     await axios.post(PostDispensaryUrl, data);
@@ -143,6 +157,16 @@ export const PostCannabis = async (data) => {
       window.location.href = "/address";
     }, 1000);
     toast.success("Cannabis Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+
+export const EditUser = async (EditProfileUrl, editedData) => {
+  try {
+    await axios.patch(EditProfileUrl, editedData);
+    toast.success("User Edited Successfully");
   } catch (error) {
     toast.error(error?.message);
     console.log(error);
