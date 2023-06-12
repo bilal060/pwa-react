@@ -8,6 +8,7 @@ const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
+const GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -101,7 +102,6 @@ export const PostAddress = async (adressUrl, address) => {
 
 export const PostResponse = async (newArray) => {
   try {
-    console.log(newArray);
     await axios.post(PostResponseUrl, newArray);
     setTimeout(() => {
       window.location.href = "/terms";

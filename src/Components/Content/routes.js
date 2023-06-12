@@ -166,7 +166,8 @@ const ContentRoutes = () => {
         />
 
         <Route
-          path="/home/seed/seedinfo"
+          exact
+          path="/home/seed/seedinfo/:id"
           element={<ProtectedRoutes component={<ProductUserProfile />} />}
         />
         <Route

@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { Router, useLocation } from "react-router-dom";
 import "../src/Pages/common.css";
 import RegistrationRoutes from "./Components/Registration/routes";
 import RegistrationLayout from "./Components/Registration";
@@ -10,6 +10,7 @@ import SocialLayout from "./Components/Social Layout";
 import SocialAuthLayout from "./Components/Social Layout/SocialAuthLayout";
 import SocialAuthRoutes from "./Components/Social App/AuthRoutes";
 import SocialDashboardRoutes from "./Components/Social App/DashboardRoutes";
+import NavigationRoutes from "./Routes/NavigationRoutes";
 
 function App() {
   const homepage = [
@@ -25,7 +26,7 @@ function App() {
     "/favourite/userprofile",
     "/favourite/userprofile/edit",
     "/favourite/userprofile/delete",
-    "/home/seed/seedinfo",
+    "/home/seed/seedinfo/:id",
     "/home/dispensary/detail",
     "/home/cannabis/detail",
     "/home/headshop/detail",
@@ -49,37 +50,38 @@ function App() {
     "/social/lookingfor",
   ];
 
-  const location = useLocation();
+  // const location = useLocation();
+  return <NavigationRoutes />;
 
-  if (homepage.includes(location.pathname)) {
-    return (
-      <AppLayout>
-        <ContentRoutes />
-      </AppLayout>
-    );
-  }
-  if (chat.includes(location.pathname)) {
-    return <Chat />;
-  }
-  if (social.includes(location.pathname)) {
-    return (
-      <SocialLayout>
-        <SocialDashboardRoutes />
-      </SocialLayout>
-    );
-  }
-  if (socialauth.includes(location.pathname)) {
-    return (
-      <SocialAuthLayout>
-        <SocialAuthRoutes />
-      </SocialAuthLayout>
-    );
-  } else
-    return (
-      <RegistrationLayout>
-        <RegistrationRoutes />
-      </RegistrationLayout>
-    );
+  // if (homepage.includes(location.pathname)) {
+  //   return (
+  //     <AppLayout>
+  //       <ContentRoutes />
+  //     </AppLayout>
+  //   );
+  // }
+  // if (chat.includes(location.pathname)) {
+  //   return <Chat />;
+  // }
+  // if (social.includes(location.pathname)) {
+  //   return (
+  //     <SocialLayout>
+  //       <SocialDashboardRoutes />
+  //     </SocialLayout>
+  //   );
+  // }
+  // if (socialauth.includes(location.pathname)) {
+  //   return (
+  //     <SocialAuthLayout>
+  //       <SocialAuthRoutes />
+  //     </SocialAuthLayout>
+  //   );
+  // } else
+  //   return (
+  //     <RegistrationLayout>
+  //       <RegistrationRoutes />
+  //     </RegistrationLayout>
+  //   );
 }
 
 export default App;

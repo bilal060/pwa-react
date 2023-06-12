@@ -49,9 +49,12 @@
     color: #BEBEBE;
 }
 
-.social-screens .auth-input,.auth-input-textarea ,.password-input{
+.social-screens .auth-input,
+.auth-input-textarea,
+.password-input {
     font-size: 16px !important;
 }
+
 .auth-input {
     height: 56px;
     background-color: #1D1D1D !important;
@@ -332,19 +335,39 @@
 .max-width-521 {
     max-width: 521px;
     padding: 40px;
+    background: rgba(255, 255, 255, 0.09);
+    -webkit-backdrop-filter: blur(36.7143px);
+    backdrop-filter: blur(36.7143px);
+    border-radius: 24px;
+    color: white;
 }
 
 .min-width-521 {
     min-width: 521px;
+    background: rgba(255, 255, 255, 0.09);
+    -webkit-backdrop-filter: blur(36.7143px);
+    backdrop-filter: blur(36.7143px);
+    border-radius: 24px;
+    color: white;
 }
 
 .max-width-792 {
     max-width: 792px;
     padding: 40px;
+    background: rgba(255, 255, 255, 0.09);
+    -webkit-backdrop-filter: blur(36.7143px);
+    backdrop-filter: blur(36.7143px);
+    border-radius: 24px;
+    color: white;
 }
 
 .min-width-792 {
     min-width: 792px;
+    background: rgba(255, 255, 255, 0.09);
+    -webkit-backdrop-filter: blur(36.7143px);
+    backdrop-filter: blur(36.7143px);
+    border-radius: 24px;
+    color: white;
 }
 
 
@@ -1417,15 +1440,17 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 
 
 /* social screens */
-.settings-authprofile{
+.settings-authprofile {
     position: absolute;
     right: 16px;
     top: 16px;
 
 }
+
 .cr-p {
     cursor: pointer !important;
 }
+
 .self-summary {
     border-width: 0.5px 0px;
     border-style: solid;

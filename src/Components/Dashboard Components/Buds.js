@@ -12,6 +12,9 @@ import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
 import BudsIcon from "../../assets/Images/Buds";
 import BudCount from "../../assets/Images/BudCount";
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
 
 const budsData = [
   {
@@ -95,7 +98,23 @@ const budsData = [
     totalReviews: "(56 Reviews)",
   },
 ];
+
+const GetBudsUrl = `${process.env.REACT_APP_API_URI}buds`;
 const Buds = () => {
+  const [buds, setBuds] = useState([]);
+  const Getbuds = async () => {
+    try {
+      const fetchData = await axios.get(GetBudsUrl);
+      console.log(fetchData.data.data);
+
+      setBuds(fetchData.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    Getbuds();
+  }, []);
   return (
     <div className="seeds-card-main row m-0">
       {budsData.map((data, index) => {
