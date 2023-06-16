@@ -1,6 +1,5 @@
 import React from "react";
 import DistanceIcon from "../../assets/Images/Distance";
-import CountIcon from "../../assets/Images/Count";
 import RatingIcon from "../../assets/Images/Rating";
 import LocationIcon from "../../assets/Images/Location";
 import SendMailIcon from "../../assets/Images/SendMail";
@@ -10,11 +9,10 @@ import seed3 from "../../assets/Images/seed3.svg";
 import seed4 from "../../assets/Images/seed4.svg";
 import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
-import BudsIcon from "../../assets/Images/Buds";
 import BudCount from "../../assets/Images/BudCount";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
+import Axios from "../../axios/Axios";
 
 const budsData = [
   {
@@ -104,7 +102,7 @@ const Buds = () => {
   const [buds, setBuds] = useState([]);
   const Getbuds = async () => {
     try {
-      const fetchData = await axios.get(GetBudsUrl);
+      const fetchData = await Axios.get(GetBudsUrl);
       console.log(fetchData.data.data);
 
       setBuds(fetchData.data.data);

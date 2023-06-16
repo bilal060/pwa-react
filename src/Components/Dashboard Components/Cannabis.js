@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from "react";
-import cannabis1 from "../../assets/Images/cannabis1.svg";
-import cannabis2 from "../../assets/Images/cannabis2.svg";
-import cannabis3 from "../../assets/Images/cannabis3.svg";
-import cannabis4 from "../../assets/Images/cannabis4.svg";
-
 import DistanceIcon from "../../assets/Images/Distance";
 import RatingIcon from "../../assets/Images/Rating";
 import LocationIcon from "../../assets/Images/Location";
@@ -12,121 +7,31 @@ import TimerIcon from "../../assets/Images/Timer";
 import PriceIcon from "../../assets/Images/Price";
 import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
+import Axios from "../../axios/Axios";
 
-const cannabisData = [
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis1,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis2,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis3,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis4,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis1,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis2,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis3,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis4,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-  },
-];
-
-const GetCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const Cannabis = () => {
   const [cannabis, setCannabis] = useState([]);
 
-  const GetCannabis = async () => {
+  const GetCannabis = async (GetCannabisUrl) => {
     try {
-      const fetchData = await axios.get(GetCannabisUrl);
-      console.log(fetchData.data.data);
-      setCannabis(fetchData.data.data);
+      const fetchData = await Axios.get(GetCannabisUrl);
+      setCannabis(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
   useEffect(() => {
-    GetCannabis();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetCannabis(GetCannabisUrl);
   }, []);
 
   return (
     <div className="seeds-card-main row m-0">
-      {cannabis.map((data, index) => {
+      {(cannabis || []).result?.map((data, index) => {
         return (
           <div
             className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
@@ -135,7 +40,7 @@ const Cannabis = () => {
             <div className="seed-card position-relative text-black">
               <img
                 className="w-100 intro-img"
-                src={`http://localhost:4000/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                 alt=""
               />
               <span className="like-post">
@@ -163,7 +68,9 @@ const Cannabis = () => {
                 )}
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
                   <LocationIcon />
-                  <span className="cut-text">{data.userId.address.addressname}</span>
+                  <span className="cut-text">
+                    {data.userId?.location?.address}
+                  </span>
                 </span>
                 <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
                   <div className="d-flex gap-2 align-items-center flex-wrap">
@@ -178,7 +85,7 @@ const Cannabis = () => {
                     </span>
                   </div>
                   <Link
-                    to={`/home/cannabis/${data._id}`}
+                    to={`/home/cannabisLounge/${data._id}`}
                     className="green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3 text-white"
                   >
                     {" "}

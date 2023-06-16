@@ -302,7 +302,7 @@ const HeadShopMap = () => {
                       {markersData.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap />
+                  {/* <GoogleMap /> */}
                 </div>
               </div>
             );

@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import seed1 from "../../assets/Images/seed1.svg";
 import seed2 from "../../assets/Images/seed2.svg";
 import seed3 from "../../assets/Images/seed3.svg";
+
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-import BudCount from "../../assets/Images/BudCount";
-import { useState } from "react";
-import { useEffect } from "react";
+
+import GoogleMap from "./GoogleMap";
 import { markersData } from "./fakeData";
+import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 
 const seedsDetail = [
@@ -66,28 +67,37 @@ const seedData = [
   },
 ];
 
-const BudsMap = () => {
-  const [crimes, setcrimes] = useState([]);
+const AllProductMapView = () => {
+  const [allProduct, setAllProduct] = useState([]);
 
-  const API_URI =
-    "https://data.police.uk/api/crimes-street/all-crime?poly=52.268,0.543:52.794,0.238:52.130,0.478";
-  const getAlerts = async () => {
+  const GetAllProduct = async (GetAllProductUrl) => {
     try {
-      const fetchData = await Axios.get(API_URI);
-      setcrimes(fetchData);
+      const fetchData = await Axios.get(GetAllProductUrl);
+      console.log(fetchData.data);
+      setAllProduct(fetchData.data);
     } catch (error) {
+      toast.error(error?.message);
       console.log(error);
     }
   };
+
   useEffect(() => {
-    getAlerts();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetAllProduct(GetAllProductUrl);
   }, []);
 
-  // console.log(markersData)
-  const points = (crimes.data || []).map((crime) => ({
-    id: crime.id,
-    lat: crime.location.latitude,
-    lng: crime.location.longitude,
+  const points = (allProduct.results || []).map((crime) => ({
+    type: "Feature",
+    properties: { cluster: false, crimeId: crime.id, category: crime.category },
+    geometry: {
+      type: "Point",
+      coordinates: [
+        parseFloat(crime.location.longitude),
+        parseFloat(crime.location.latitude),
+      ],
+    },
   }));
 
   return (
@@ -99,7 +109,7 @@ const BudsMap = () => {
           role="tablist"
           aria-orientation="vertical"
         >
-          {seedData.map((data, index) => {
+          {(allProduct || []).result?.map((data, index) => {
             return (
               <div
                 key={index}
@@ -151,7 +161,28 @@ const BudsMap = () => {
                             {data.distance}
                           </span>
                           <span className="d-flex gap-1 align-items-center font-18 font-weight-500">
-                            <BudCount />
+                            <svg
+                              width={18}
+                              height={20}
+                              viewBox="0 0 18 20"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M12.603 0C9.62311 0 7.20508 2.35236 7.20508 5.25131C7.20508 8.15027 9.62311 10.5026 12.603 10.5026C15.5829 10.5026 18.0009 8.15027 18.0009 5.25131C18.0009 2.35236 15.5829 0 12.603 0Z"
+                                fill="#5D8B2F"
+                              />
+                              <path
+                                opacity="0.6"
+                                d="M3.34108 11.0098C1.50498 11.0098 0 12.4641 0 14.2601C0 16.0561 1.49495 17.5105 3.34108 17.5105C5.17717 17.5105 6.68218 16.0561 6.68218 14.2601C6.68218 12.4641 5.17717 11.0098 3.34108 11.0098Z"
+                                fill="#5D8B2F"
+                              />
+                              <path
+                                opacity="0.4"
+                                d="M13.6358 14.5146C12.0806 14.5146 10.8164 15.7445 10.8164 17.2574C10.8164 18.7704 12.0806 20.0002 13.6358 20.0002C15.1909 20.0002 16.4551 18.7704 16.4551 17.2574C16.4551 15.7445 15.1909 14.5146 13.6358 14.5146Z"
+                                fill="#5D8B2F"
+                              />
+                            </svg>
                             {data.count}
                           </span>
                         </div>
@@ -172,7 +203,7 @@ const BudsMap = () => {
                           </span>
                         </div>
                         <Link
-                          to={"/home/bud/seedinfo"}
+                          to={"/home/seed/seedinfo"}
                           className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                         >
                           {" "}
@@ -268,4 +299,4 @@ const BudsMap = () => {
   );
 };
 
-export default BudsMap;
+export default AllProductMapView;

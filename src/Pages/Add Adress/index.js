@@ -10,10 +10,8 @@ import { useEffect } from "react";
 
 const libraries = ["places"];
 const AddAddressPage = () => {
-  const [value, setvalue] = useState("");
-  const [country, setCountry] = useState("US");
   const [address, setAddress] = useState({
-    addressname: "",
+    address: "",
     postalCode: "",
     phone: "",
   });
@@ -41,7 +39,7 @@ const AddAddressPage = () => {
     if (place) {
       setAddress((prevState) => ({
         ...prevState,
-        addressname: place.formatted_address,
+        address: place.formatted_address,
         // lng: place.geometry.location.lat(),
         // lat: place.geometry.location.lng(),
       }));
@@ -105,8 +103,6 @@ const AddAddressPage = () => {
             <div className="custom-phone-input auth-input d-flex align-items-center">
               <PhoneInput
                 countrySelectProps={{ unicodeFlags: false }}
-                country={country}
-                value={value}
                 onChange={(value) =>
                   setAddress((prevState) => ({
                     ...prevState,

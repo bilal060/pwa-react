@@ -37,6 +37,7 @@ import BudSeedPage from "../Pages/Bud Seed";
 import TermsConditionsPage from "../Pages/Terms and Conditions";
 import NotFound from "../Pages/Not Found";
 import RegistrationLayout from "../Components/Registration";
+import AllProductMapView from "../Components/ViewMap/ShowAllProduct";
 
 const NavigationRoutes = () => {
   return (
@@ -157,6 +158,20 @@ const NavigationRoutes = () => {
                 <AppLayout>
                   <HomePage>
                     <ShowAllProducts />
+                  </HomePage>
+                </AppLayout>
+              }
+            />
+          }
+        />
+        <Route
+          path="/home/map"
+          element={
+            <ProtectedRoutes
+              component={
+                <AppLayout>
+                  <HomePage>
+                    <AllProductMapView />
                   </HomePage>
                 </AppLayout>
               }
@@ -336,7 +351,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/home/cannabis/:id"
+          path="/home/cannabisLounge/:id"
           element={
             <ProtectedRoutes
               component={
@@ -348,7 +363,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/home/headshop/:id"
+          path="/home/headShop/:id"
           element={
             <ProtectedRoutes
               component={

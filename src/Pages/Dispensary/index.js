@@ -17,6 +17,7 @@ const DispensaryType = () => {
     description: "",
     photo: "",
   });
+  let arrayTest = [];
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     setDispensary((prevState) => ({
@@ -52,7 +53,8 @@ const DispensaryType = () => {
 
   const addMore = () => {
     setAddMoreBtn(true);
-    setArrayData((prev) => [...prev, dispensary]);
+    arrayTest.push(dispensary);
+    // setArrayData((prev) => [...prev, dispensary]);
     setDispensary({
       postStrain: "",
       quantity: "",
@@ -67,28 +69,34 @@ const DispensaryType = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
-    if (addMorebtn) {
-      setArrayData((prev) => [...prev, dispensary]);
-      arrayData.forEach((mapData) => {
-        data.append("userId", id);
-        data.append("postStrain", mapData.postStrain);
-        data.append("quantity", mapData.quantity);
-        data.append("cost", mapData.cost);
-        data.append("strainName", mapData.strainName);
-        data.append("description", mapData.description);
-        data.append("photo", mapData.photo);
-      });
-    } else {
+    arrayTest.push(dispensary);
+
+    // if (addMorebtn) {
+    // setArrayData((prev) => [...prev, dispensary]);
+
+    arrayTest.forEach((mapData) => {
+      console.log(mapData);
       data.append("userId", id);
-      data.append("postStrain", dispensary.postStrain);
-      data.append("quantity", dispensary.quantity);
-      data.append("cost", dispensary.cost);
-      data.append("strainName", dispensary.strainName);
-      data.append("description", dispensary.description);
-      data.append("photo", dispensary.photo);
-    }
+      data.append("postStrain", mapData.postStrain);
+      data.append("quantity", mapData.quantity);
+      data.append("cost", mapData.cost);
+      data.append("strainName", mapData.strainName);
+      data.append("description", mapData.description);
+      data.append("photo", mapData.photo);
+    });
+    // } else {
+    //   data.append("userId", id);
+    //   data.append("postStrain", dispensary.postStrain);
+    //   data.append("quantity", dispensary.quantity);
+    //   data.append("cost", dispensary.cost);
+    //   data.append("strainName", dispensary.strainName);
+    //   data.append("description", dispensary.description);
+    //   data.append("photo", dispensary.photo);
+    // }
     PostDispensary(data);
   };
+  console.log(arrayData);
+  console.log(addMorebtn);
 
   return (
     <div className="max-width-792">

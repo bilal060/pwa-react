@@ -4,121 +4,35 @@ import RatingIcon from "../../assets/Images/Rating";
 import LocationIcon from "../../assets/Images/Location";
 import SendMailIcon from "../../assets/Images/SendMail";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
-import dispensary1 from "../../assets/Images/dispensary1.svg";
-import dispensary2 from "../../assets/Images/dispensary2.svg";
-import dispensary3 from "../../assets/Images/dispensary3.svg";
-import dispensary4 from "../../assets/Images/dispensary4.svg";
 import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import Axios from "../../axios/Axios";
 
-// const dispensaryData = [
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary1,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary2,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary3,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary4,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary1,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary2,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary3,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: dispensary4,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "Super Store",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-// ];
-
-const GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 const Dispensary = () => {
   const [dispensary, setDispensary] = useState([]);
 
-  const GetDispensary = async () => {
+  const GetDispensary = async (GetDispensaryUrl) => {
     try {
-      const fetchData = await axios.get(GetDispensaryUrl);
-      console.log(fetchData.data.data);
-      setDispensary(fetchData.data.data);
+      const fetchData = await Axios.get(GetDispensaryUrl);
+      setDispensary(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
   useEffect(() => {
-    GetDispensary();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetDispensary(GetDispensaryUrl);
   }, []);
 
   return (
     <div className="seeds-card-main row m-0">
-      {dispensary.map((data, index) => {
+      {(dispensary || []).result?.map((data, index) => {
         return (
           <div
             className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
@@ -127,7 +41,7 @@ const Dispensary = () => {
             <div className="seed-card position-relative ">
               <img
                 className="w-100 intro-img rounded-3"
-                src={`http://localhost:4000/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                 alt=""
               />
               <span className="like-post">
@@ -140,7 +54,7 @@ const Dispensary = () => {
                 <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                     <DistanceIcon />
-                    {data.postStrain}
+                    <span>{data.distance} away</span>
                   </span>
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                     <DispensryProductIcon />
@@ -151,7 +65,7 @@ const Dispensary = () => {
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
                   <LocationIcon />
                   <span className="cut-text">
-                    {data.userId?.address?.addressname}
+                    {data.userId?.location?.address}
                   </span>
                 </span>
                 <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">

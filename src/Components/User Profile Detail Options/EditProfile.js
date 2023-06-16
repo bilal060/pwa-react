@@ -5,8 +5,6 @@ import { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "react-phone-number-input/style.css";
-import { getCountries, getCountryCallingCode } from "react-phone-number-input";
-import en from "react-phone-number-input/locale/en";
 import BackIcon from "../../assets/Images/back";
 import { useEffect } from "react";
 import { EditUser } from "../../Api";
@@ -15,11 +13,8 @@ import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 
 const libraries = ["places"];
 const EditProfile = () => {
-  const [value, setvalue] = useState("");
-  const [country, setCountry] = useState("US");
-
   const [editedData, setEditedData] = useState({
-    addressname: "",
+    address: "",
     fullName: "",
     phone: "",
     photo: "",
@@ -47,7 +42,14 @@ const EditProfile = () => {
         ...prevState,
         photo: imageFile,
       }));
-      setFile(imageFile.name);
+      var reader = new FileReader();
+      reader.readAsDataURL(imageFile);
+      reader.onloadend = function (e) {
+        var myImage = new Image();
+        myImage.src = e.target.result;
+        setFile(myImage.src);
+        return myImage;
+      };
     }
   };
   const submitHandler = (e) => {
@@ -67,8 +69,8 @@ const EditProfile = () => {
       data.append("photo", editedData.photo);
       allowEdit = true;
     }
-    if (editedData.addressname) {
-      data.append("addressname", editedData.addressname);
+    if (editedData.address) {
+      data.append("address", editedData.address);
       allowEdit = true;
     }
     if (allowEdit) {
@@ -81,7 +83,7 @@ const EditProfile = () => {
     if (place) {
       setEditedData((prevState) => ({
         ...prevState,
-        addressname: place.formatted_address,
+        address: place.formatted_address,
       }));
     }
   };
@@ -148,8 +150,6 @@ const EditProfile = () => {
                       <div className="custom-phone-input auth-input bg-white mb-4 d-flex align-items-center">
                         <PhoneInput
                           countrySelectProps={{ unicodeFlags: false }}
-                          country={country}
-                          value={value}
                           onChange={(value) =>
                             setEditedData((prevState) => ({
                               ...prevState,
@@ -211,19 +211,19 @@ const EditProfile = () => {
                     Phone Number
                   </label>
                   <div className="custom-phone-input bg-white auth-input d-flex align-items-center mb-4 w-100 height-56">
-                    <CountrySelect
-                      labels={en}
-                      value={country}
-                      onChange={setCountry}
-                      className="bg-transparent outline-0 border-0 custom-phone-dropdown-btn font-18-100"
-                    />
                     <PhoneInput
                       countrySelectProps={{ unicodeFlags: false }}
-                      country={country}
-                      value={value}
-                      onChange={setvalue}
+                      onChange={(value) =>
+                        setEditedData((prevState) => ({
+                          ...prevState,
+                          phone: value,
+                        }))
+                      }
+                      inputProps={{
+                        name: "phone",
+                      }}
                       buttonClass="d-none"
-                      inputClass="bg-transparent outline-0 shadow-none custom-phone-input-1 font-18-100 w-100"
+                      inputClass="bg-transparent outline-0 p-0 m-0 border-0 shadow-none custom-phone-input-1 font-18-100"
                     />
                   </div>
                 </div>
@@ -253,19 +253,3 @@ const EditProfile = () => {
 };
 
 export default EditProfile;
-
-const CountrySelect = ({ value, onChange, labels, ...rest }) => (
-  <select
-    {...rest}
-    value={value.match(/[A-Z]/g).join("")}
-    onChange={(event) => onChange(event.target.value || undefined)}
-  >
-    <option value="">{labels["ZZ"]}</option>
-    {getCountries().map((country) => (
-      <option key={country} value={country}>
-        {labels[country].match(/[A-Z]/g).join("")} +
-        {getCountryCallingCode(country)}
-      </option>
-    ))}
-  </select>
-);

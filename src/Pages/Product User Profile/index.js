@@ -5,100 +5,83 @@ import CountIcon from "../../assets/Images/Count";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import SendMailIcon from "../../assets/Images/SendMail";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
-import seed4 from "../../assets/Images/seed4.svg";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import MobHeartIcon from "../../assets/Images/MobHeart";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import HeartIcon from "../../assets/Images/Heart";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import ConcreteIcon from "../../assets/Images/Concrete";
-import FlavorIcon from "../../assets/Images/Flavor";
 import QuantityIcon from "../../assets/Images/Quantity";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import Axios from "../../axios/Axios";
 
-const images = [
-  {
-    original: seed1,
-    thumbnail: seed1,
-  },
-  {
-    original: seed1,
-    thumbnail: seed1,
-  },
-  {
-    original: seed1,
-    thumbnail: seed1,
-  },
-  {
-    original: seed1,
-    thumbnail: seed1,
-  },
-];
-
-const seedData = [
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed3,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed4,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-];
-
-const ProductUserProfile = (props) => {
+const ProductUserProfile = () => {
   const routeParams = useParams();
-  const GetSeedUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}`;
-
   const [seed, setSeed] = useState([]);
-  const GetSeeds = async () => {
+  const [others, setOthers] = useState([]);
+  const [api_url, setapi_url] = useState("");
+  const [selectedQuantity, setselectedQuantity] = useState("");
+  const [selectedStrain, setselectedStrain] = useState("");
+
+  // const GetSeeds = async (GetSeedUrl) => {
+  //   try {
+  //     const fetchData = await Axios.get(GetSeedUrl);
+  //     setSeed(fetchData.data.data);
+  //     setapi_url(
+  //       `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${fetchData.data.data.userId?._id}`
+  //     );
+  //     let GetOthersUrl = `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${fetchData.data.data.userId?._id}`;
+  //     GetOthersByUser(GetOthersUrl);
+  //   } catch (error) {
+  //     toast.error(error?.message);
+  //     console.log(error);
+  //   }
+  // };
+
+  const GetSeeds = (GetSeedUrl) => {
+    Axios.get(GetSeedUrl)
+      .then((response) => {
+        setSeed(response.data.data);
+        setapi_url(
+          `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${response.data.data.userId?._id}`
+        );
+        GetOthersByUser(
+          `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${response.data.data.userId?._id}`
+        );
+      })
+      .catch((error) => {
+        toast.error(error?.message);
+        console.log(error);
+      });
+  };
+
+  const GetOthersByUser = async (GetOthersUrl) => {
     try {
-      const fetchData = await axios.get(GetSeedUrl);
-      console.log(fetchData.data.data);
-      setSeed(fetchData.data.data);
+      const fetchData = await Axios.get(GetOthersUrl);
+      setOthers(fetchData.data.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
   useEffect(() => {
-    GetSeeds();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSeedUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetSeeds(GetSeedUrl);
   }, []);
 
-  const navigate = useNavigate();
 
-  // const { data, ProductType } = props;
+  const navigate = useNavigate();
+  const images = [
+    {
+      original: `${process.env.REACT_APP_PORT}/${seed?.photo}`,
+      thumbnail: `${process.env.REACT_APP_PORT}/${seed?.photo}`,
+    },
+  ];
+
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -146,7 +129,7 @@ const ProductUserProfile = (props) => {
                       </span>
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                         <DistanceIcon />
-                        <span>3 km Away</span>
+                        <span>{seed.distance}</span>
                       </span>
                     </div>
                     <div>
@@ -161,14 +144,14 @@ const ProductUserProfile = (props) => {
                       </div>
                       <span className="d-flex  gap-2 align-items-center font-18 font-weight-500">
                         <CountIcon />
-                        <span>{seed.quantity}</span>
+                        <span>{seed.quantity} Seeds</span>
                       </span>
                     </div>
                   </div>
 
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
                     <LocationIcon />
-                    <span> {seed.userId?.address?.addressname}</span>
+                    <span> {seed.userId?.location?.address}</span>
                   </span>
                 </div>
                 <p className="font-24 font-weight-700">
@@ -230,7 +213,7 @@ const ProductUserProfile = (props) => {
 
               <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-5 pb-4">
                 <LocationIcon />
-                <span>{seed.userId?.address?.addressname}</span>
+                <span>{seed.userId?.location?.address}</span>
               </span>
               <button className="green-btn w-auto ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 user">
                 {" "}
@@ -242,6 +225,7 @@ const ProductUserProfile = (props) => {
             </div>
           </div>
         </div>
+
         <h3 className="d-flex gap-2 align-items-center flex-wrap font-32 font-weight-700 pt-3 mt-5 ms-12 bordered-heading">
           Other Strains Available Shared By:
           <span className="text-primary-green">{seed?.userId?.fullName}</span>
@@ -250,56 +234,91 @@ const ProductUserProfile = (props) => {
         <div className="row m-0 pt-4">
           <div className="col-lg-3 col-md-6  bg-transparent border-0 mb-3">
             <label className="mb-2 font-weight-700 font-18-100">Quantity</label>
-            <select className="auth-input height-56 bg-white">
-              <option defaultValue>Quantity</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select
+              className="auth-input height-56 bg-white"
+              value={selectedQuantity}
+              onChange={(e) => {
+                setselectedQuantity(e.target.value);
+                GetOthersByUser(
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }seedStore/userseedStore?quantity=${e.target.value}${
+                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
+                  }&userId=${seed?.userId?._id}`
+                );
+              }}
+            >
+              <option value={""}>- Select Quantity -</option>
+              <option value={"1-5"}>1-5 </option>
+              <option value={"4-10"}>5-10 </option>
+              <option value={"10-15"}>10-15</option>
+              <option value={"15-20"}>15-20</option>
+              <option value={"20-30"}>20-30</option>
             </select>
           </div>
           <div className="col-lg-3 col-md-6  bg-transparent border-0">
             <label className="mb-2 font-weight-700 font-18-100"> Strain</label>
-            <select className="auth-input height-56 bg-white">
-              <option defaultValue>Select Strain</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select
+              className="auth-input height-56 bg-white"
+              value={selectedStrain}
+              onChange={(e) => {
+                setselectedStrain(e.target.value);
+                GetOthersByUser(
+                  `${process.env.REACT_APP_API_URI}seedStore/userseedStore?${
+                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
+                  }postStrain=${e.target.value}&userId=${seed?.userId?._id}`
+                );
+              }}
+            >
+              <option value={""}>- Select Strain -</option>
+              <option value="Sativa">Sativa</option>
+              <option value="Indica">Indica</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="CBD">CBD</option>
             </select>
           </div>
         </div>
         <div className="seeds-card-main row m-0 pt-5">
-          {seedData.map((data, index) => {
+          {(others || [])?.map((data, index) => {
             return (
               <div
                 className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
                 key={index}
               >
                 <Link
-                  to={"/home/seed/seedinfo"}
+                  to={`/home/seed/${data._id}`}
                   className="seed-card position-relative text-black"
                 >
-                  <img className="w-100 intro-img" src={data.img} alt="" />
+                  <img
+                    className="w-100 intro-img"
+                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                    alt=""
+                  />
                   <span className="like-post">
                     <HeartIcon />
                   </span>
                   <div className="ps-sm-0 ps-3">
                     <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                      {data.name}
+                      {data.strainName}
                     </p>
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
-                      <QuantityIcon />
-                      {data.quantity}
-                    </span>
+
                     <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <ConcreteIcon />
-                        {data.thc}
+                        <QuantityIcon />
+                        {data.strainName}
                       </span>
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <FlavorIcon />
-                        {data.cbd}
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500 ">
+                        <CountIcon />
+                        <span>{data.quantity} Seeds</span>
                       </span>
                     </div>
+                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                      <LocationIcon />
+                      <span className="cut-text">
+                        {" "}
+                        {data.userId?.location?.address}
+                      </span>
+                    </span>
                   </div>
                 </Link>
               </div>

@@ -3,121 +3,39 @@ import DistanceIcon from "../../assets/Images/Distance";
 import CountIcon from "../../assets/Images/Count";
 import RatingIcon from "../../assets/Images/Rating";
 import LocationIcon from "../../assets/Images/Location";
-import SendMailIcon from "../../assets/Images/SendMail";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
-import seed4 from "../../assets/Images/seed4.svg";
 import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import axios from "axios";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
+import Axios from "../../axios/Axios";
 
-// const seedData = [
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed1,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed2,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed3,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed4,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed1,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed2,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed3,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-//   {
-//     id: 1,
-//     name: "Toronto, Ontario     ",
-//     img: seed4,
-//     distance: "3 km Away",
-//     location: "Indica, White Rhino",
-//     count: "20 Seeds",
-//     rating: "5.0",
-//     totalReviews: "(56 Reviews)",
-//   },
-// ];
-
-const GetSeedsUrl = `${process.env.REACT_APP_API_URI}seedStore`;
 const Seeds = () => {
   const [seeds, setSeeds] = useState([]);
-  const GetSeeds = async () => {
+  const GetSeeds = async (GetSeedsUrl) => {
     try {
-      const fetchData = await axios.get(GetSeedsUrl);
-      console.log(fetchData.data.data);
-      setSeeds(fetchData.data.data);
+      const fetchData = await Axios.get(GetSeedsUrl);
+      console.log(fetchData.data);
+      setSeeds(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
+  // useEffect(() => {
+  //   GetSeeds();
+  // }, []);
   useEffect(() => {
-    GetSeeds();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=seedStore&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetSeeds(GetSeedsUrl);
   }, []);
+
   return (
     <div className="seeds-card-main row m-0">
-      {seeds.map((data, index) => {
+      {(seeds || []).result?.map((data, index) => {
         return (
           <div
             className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
@@ -126,7 +44,7 @@ const Seeds = () => {
             <div className="seed-card position-relative text-black">
               <img
                 className="w-100 intro-img"
-                src={`http://localhost:4000/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                 alt=""
               />
               <span className="like-post">
@@ -139,11 +57,11 @@ const Seeds = () => {
                 <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                     <DistanceIcon />
-                    {data.postStrain}
+                    {data.distance}
                   </span>
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500 ">
                     <CountIcon />
-                    {data.quantity}
+                    <span>{data.quantity} Seeds</span>
                   </span>
                 </div>
 
@@ -151,7 +69,7 @@ const Seeds = () => {
                   <LocationIcon />
                   <span className="cut-text">
                     {" "}
-                    {data.userId?.address?.addressname}
+                    {data.userId?.location?.address}
                   </span>
                 </span>
                 <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">

@@ -16,14 +16,13 @@ import FlavorIcon from "../../assets/Images/Flavor";
 import TimerIcon from "../../assets/Images/Timer";
 import PhonebtnIcon from "../../assets/Images/Phonebtn";
 import "react-image-gallery/styles/css/image-gallery.css";
-import ImageGallery from "react-image-gallery";
 import VaporizeIcon from "../../assets/Images/Vaporize";
 import GrinderIcon from "../../assets/Images/Grinder";
 import PapersIcon from "../../assets/Images/Papers";
 import BongRigsIcon from "../../assets/Images/BongRigs";
 import PriceIcon from "../../assets/Images/Price";
-import axios from "axios";
 import { toast } from "react-toastify";
+import Axios from "../../axios/Axios";
 
 const seedData = [
   {
@@ -59,33 +58,15 @@ const seedData = [
     flavor: "Flavour: Mint",
   },
 ];
-const images = [
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-];
+
 
 const HeadProfileDetail = () => {
   const routeParams = useParams();
-  const GetHeadShopUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}`;
 
   const [headShop, setheadShop] = useState([]);
-  const GetHeadShops = async () => {
+  const GetHeadShops = async (GetHeadShopsUrl) => {
     try {
-      const fetchData = await axios.get(GetHeadShopUrl);
+      const fetchData = await Axios.get(GetHeadShopsUrl);
       console.log(fetchData.data.data);
       setheadShop(fetchData.data.data);
     } catch (error) {
@@ -94,7 +75,10 @@ const HeadProfileDetail = () => {
     }
   };
   useEffect(() => {
-    GetHeadShops();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetHeadShopsUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetHeadShops(GetHeadShopsUrl);
   }, []);
   const navigate = useNavigate();
 
@@ -115,88 +99,80 @@ const HeadProfileDetail = () => {
           &gt;
           <span className="text-grey"> {headShop.productName}</span>
         </div>
-        <div className="row m-0">
-          <div className="col-12">
-            <div className="seed-card product-profile d-flex flex-lg-row flex-column align-items-start justify-content-between gap-5">
-              <ImageGallery
-                items={images}
-                showFullscreenButton={false}
-                showPlayButton={false}
-                autoPlay={false}
-                additionalClass="rounded-5"
-                showIndex={true}
-                renderRightNav={(onClick, disabled) => (
-                  <RightNav onClick={onClick} disabled={disabled} />
-                )}
-                renderLeftNav={(onClick, disabled) => (
-                  <LeftNav onClick={onClick} disabled={disabled} />
-                )}
-              />
-              <div className="ps-sm-0 ps-3">
-                <div className="border-smx-bottom mb-4">
-                  <p className="mb-3 pb-3 font-32 font-weight-900">
-                    {headShop.brandName}
-                  </p>
-                  <div className="d-flex gap-sm-5 gap-3 align-items-sm-center gap-2 mb-sm-4 mb-3 flex-sm-row flex-column">
-                    <div>
-                      <span className="d-flex gap-2 align-items-center font-18 mb-sm-4 mb-3 font-weight-500">
-                        <DispensryProductIcon />
-                        <span>{headShop.accessories}</span>
-                      </span>
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <DistanceIcon />
-                        <span>3 km Away</span>
-                      </span>
-                    </div>
-                    <div>
-                      <div className="d-flex gap-2 align-items-center flex-wrap mb-sm-4 mb-3">
-                        <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
-                          <RatingIcon />
-                          <span>5.0</span>
-                        </span>
-                        <span className="font-14-100 text-grey font-weight-400">
-                          <span>(56 Reviews)</span>
-                        </span>
-                      </div>
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <TimerIcon />
-                        <span>Store Hours: 09:00 To 17:00 </span>
-                      </span>
-                    </div>
-                  </div>
-
-                  <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
-                    <LocationIcon />
-                    <span>{headShop.userId?.address?.addressname}</span>
-                  </span>
-                </div>
-                <p className="font-24 font-weight-700">{headShop.brandName}</p>
-                <p className="mt-3 font-18 font-weight-500">
-                  Super Stores are highly rated retailers committed to great
-                  customer services, and prices. They have received more than
-                  ten 5 star ratings.
+        <div className="row m-0 seed-card flex-row">
+          <div className="col-lg-5 ps-0">
+            <img
+              className="w-100"
+              src={`${process.env.REACT_APP_PORT}/${headShop?.photo}`}
+              alt=""
+            />
+          </div>
+          <div className="col-lg-7 pe-0 ps-lg-3 ps-0 pt-lg-0 pt-5">
+            <div className="ps-sm-0 ps-3">
+              <div className="border-smx-bottom mb-4">
+                <p className="mb-3 pb-3 font-32 font-weight-900">
+                  {headShop.brandName}
                 </p>
-
-                <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
-                  <button className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                    {" "}
-                    <span>Mark Favourite</span>{" "}
-                    <span className="icon-green-bg">
-                      <MobHeartIcon />
+                <div className="d-flex gap-sm-5 gap-3 align-items-sm-center gap-2 mb-sm-4 mb-3 flex-sm-row flex-column">
+                  <div>
+                    <span className="d-flex gap-2 align-items-center font-18 mb-sm-4 mb-3 font-weight-500">
+                      <DispensryProductIcon />
+                      <span>{headShop.accessories}</span>
                     </span>
-                  </button>
-                  <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                    {" "}
-                    <span>Call Store </span>{" "}
-                    <span className="icon-green-bg bg-light-green">
-                      <PhonebtnIcon />
+                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                      <DistanceIcon />
+                      <span>{headShop.distance} Away</span>
                     </span>
-                  </button>
+                  </div>
+                  <div>
+                    <div className="d-flex gap-2 align-items-center flex-wrap mb-sm-4 mb-3">
+                      <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                        <RatingIcon />
+                        <span>5.0</span>
+                      </span>
+                      <span className="font-14-100 text-grey font-weight-400">
+                        <span>(56 Reviews)</span>
+                      </span>
+                    </div>
+                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                      <TimerIcon />
+                      <span>Store Hours: 09:00 To 17:00 </span>
+                    </span>
+                  </div>
                 </div>
+
+                <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
+                  <LocationIcon />
+                  <span>{headShop.userId?.location?.address}</span>
+                </span>
+              </div>
+              <p className="font-24 font-weight-700">{headShop.brandName}</p>
+              <p className="mt-3 font-18 font-weight-500">
+                Super Stores are highly rated retailers committed to great
+                customer services, and prices. They have received more than ten
+                5 star ratings.
+              </p>
+
+              <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
+                <button className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
+                  {" "}
+                  <span>Mark Favourite</span>{" "}
+                  <span className="icon-green-bg">
+                    <MobHeartIcon />
+                  </span>
+                </button>
+                <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
+                  {" "}
+                  <span>Call Store </span>{" "}
+                  <span className="icon-green-bg bg-light-green">
+                    <PhonebtnIcon />
+                  </span>
+                </button>
               </div>
             </div>
           </div>
         </div>
+
         <h3 className="font-32 font-weight-700 pt-3 mt-5 ms-12 allproduct-heading">
           Accessories
         </h3>

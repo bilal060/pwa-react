@@ -22,6 +22,8 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import CountIcon from "../../assets/Images/Count";
+import Axios from "../../axios/Axios";
 
 const seedData = [
   {
@@ -57,45 +59,50 @@ const seedData = [
     cbd: "CBD: 1%",
   },
 ];
-const images = [
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-  {
-    original: dispensary1,
-    thumbnail: dispensary1,
-  },
-];
 
 const DispensaryProfileDetail = () => {
   const routeParams = useParams();
-  const GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}`;
-
   const [dispensary, setDispensary] = useState([]);
-  const GetDispensarys = async () => {
+  const [others, setOthers] = useState([]);
+  const [selectedQuantity, setselectedQuantity] = useState("");
+  const [selectedStrain, setselectedStrain] = useState("");
+  const navigate = useNavigate();
+
+  const GetDispensarys = async (GetDispensaryUrl) => {
     try {
-      const fetchData = await axios.get(GetDispensaryUrl);
-      console.log(fetchData.data.data);
+      const fetchData = await Axios.get(GetDispensaryUrl);
       setDispensary(fetchData.data.data);
+      let GetOthersUrl = `${process.env.REACT_APP_API_URI}dispensary/userdispensary?userId=${fetchData.data.data.userId?._id}`;
+      GetOthersByUser(GetOthersUrl);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
+
+  const GetOthersByUser = async (GetOthersUrl) => {
+    try {
+      const fetchData = await Axios.get(GetOthersUrl);
+      setOthers(fetchData.data.data);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    GetDispensarys();
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetDispensarys(GetDispensaryUrl);
   }, []);
 
-  const navigate = useNavigate();
+  const images = [
+    {
+      original: `${process.env.REACT_APP_PORT}/${dispensary?.photo}`,
+      thumbnail: `${process.env.REACT_APP_PORT}/${dispensary?.photo}`,
+    },
+  ];
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -144,7 +151,7 @@ const DispensaryProfileDetail = () => {
                     </span>
                     <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                       <DistanceIcon />
-                      <span>3 km Away</span>
+                      <span>{dispensary.distance} Away</span>
                     </span>
                   </div>
                   <div>
@@ -166,7 +173,7 @@ const DispensaryProfileDetail = () => {
 
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
                   <LocationIcon />
-                  <span>{dispensary.userId?.address?.addressname}</span>
+                  <span>{dispensary.userId?.location?.address}</span>
                 </span>
               </div>
               <p className="font-24 font-weight-700">
@@ -205,56 +212,86 @@ const DispensaryProfileDetail = () => {
         <div className="row m-0 pt-4">
           <div className="col-lg-3 col-md-6  bg-transparent border-0 mb-3">
             <label className="mb-2 font-weight-700 font-18-100">Quantity</label>
-            <select className="auth-input height-56 bg-white">
-              <option defaultValue>Quantity</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <select
+              className="auth-input height-56 bg-white"
+              value={selectedQuantity}
+              onChange={(e) => {
+                setselectedQuantity(e.target.value);
+                GetOthersByUser(
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }dispensary/userdispensary?quantity=${e.target.value}${
+                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
+                  }&userId=${dispensary?.userId?._id}`
+                );
+              }}
+            >
+              <option value={""}>- Select Quantity -</option>
+              <option value={"1-7"}>1-7 Grams</option>
+              <option value={"7-14"}>7-14 Grams</option>
+              <option value={"14-30"}>14-30 Grams</option>
             </select>
           </div>
           <div className="col-lg-3 col-md-6  bg-transparent border-0">
-            <label className="mb-2 font-weight-700 font-18-100">Strain</label>
-            <select className="auth-input height-56 bg-white">
-              <option defaultValue>Select Strain</option>
-              <option>Option 1</option>
-              <option>Option 2</option>
-              <option>Option 3</option>
+            <label className="mb-2 font-weight-700 font-18-100"> Strain</label>
+            <select
+              className="auth-input height-56 bg-white"
+              value={selectedStrain}
+              onChange={(e) => {
+                setselectedStrain(e.target.value);
+                GetOthersByUser(
+                  `${process.env.REACT_APP_API_URI}dispensary/userdispensary?${
+                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
+                  }postStrain=${e.target.value}&userId=${
+                    dispensary?.userId?._id
+                  }`
+                );
+              }}
+            >
+              <option value={""}>- Select Strain -</option>
+              <option value="Sativa">Sativa</option>
+              <option value="Indica">Indica</option>
+              <option value="Hybrid">Hybrid</option>
+              <option value="CBD">CBD</option>
             </select>
           </div>
         </div>
         <div className="seeds-card-main row m-0 pt-5">
-          {seedData.map((data, index) => {
+          {(others || [])?.map((data, index) => {
             return (
               <div
                 className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
                 key={index}
               >
                 <Link
-                  to={"/home/seed/seedinfo"}
+                  to={`/home/dispensary/${data._id}`}
                   className="seed-card position-relative text-black"
                 >
-                  <img className="w-100 intro-img" src={data.img} alt="" />
+                  <img
+                    className="w-100 intro-img"
+                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                    alt=""
+                  />
                   <span className="like-post">
                     <HeartIcon />
                   </span>
                   <div className="ps-sm-0 ps-3">
                     <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                      {data.name}
+                      {data.strainName}
                     </p>
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
-                      <QuantityIcon />
-                      {data.quantity}
-                    </span>
+
                     <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <ConcreteIcon />
-                        {data.thc}
-                      </span>
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <FlavorIcon />
-                        {data.cbd}
+                        <QuantityIcon />
+                        {data.strainName}
                       </span>
                     </div>
+                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                      <LocationIcon />
+                      <span className="cut-text">
+                        {data.userId?.location?.address}
+                      </span>
+                    </span>
                   </div>
                 </Link>
               </div>

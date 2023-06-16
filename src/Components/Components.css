@@ -2264,3 +2264,67 @@ div.subs {
     }
 
 }
+
+.radio-label {
+    cursor: pointer;
+}
+
+.radio-button {
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+    color: #666;
+}
+
+[type="radio"]:not(:checked)+.radio-button::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    background-color: #999;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    display: none;
+}
+
+.radio-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #6B6B6B;
+    border-radius: 6px;
+    background: #fff;
+    background: #CDCDCD !important;
+}
+
+
+input[type="radio"]:checked+.radio-button::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 4px;
+    left: 8px;
+    width: 5px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+input[type="radio"]:checked+.radio-button::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #5D8B2F;
+    border-radius: 6px;
+    background: #fff;
+    background: #5D8B2F !important;
+}

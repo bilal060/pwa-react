@@ -1,5 +1,5 @@
-import axios from "axios";
 import { toast } from "react-toastify";
+import Axios from "../axios/Axios";
 const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
 const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
@@ -8,11 +8,10 @@ const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
-const GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 
 export const VerifyAge = async (data) => {
   try {
-    const postData = await axios.post(VerifyAgeUrl, data);
+    const postData = await Axios.post(VerifyAgeUrl, data);
     sessionStorage.setItem("remember-age", JSON.stringify(postData.data));
     setTimeout(() => {
       window.location.href = "/signup";
@@ -26,7 +25,7 @@ export const VerifyAge = async (data) => {
 
 export const PostLoginData = async (loginDetails, rememberCheck) => {
   try {
-    const fetchData = await axios.post(LoginUrl, loginDetails);
+    const fetchData = await Axios.post(LoginUrl, loginDetails);
     localStorage.clear();
 
     if (rememberCheck) {
@@ -51,7 +50,7 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
 };
 export const PostSignUp = async (signInDetails) => {
   try {
-    const fetchData = await axios.post(SignUpUrl, signInDetails);
+    const fetchData = await Axios.post(SignUpUrl, signInDetails);
     localStorage.clear();
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
@@ -75,7 +74,7 @@ export const PostSignUp = async (signInDetails) => {
 
 export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
   try {
-    const fetchData = await axios.patch(RetailerTypeUrl, retailerType);
+    const fetchData = await Axios.patch(RetailerTypeUrl, retailerType);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
     setTimeout(() => {
       window.location.href = `/${retailerType.retailerType}`;
@@ -89,7 +88,8 @@ export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
 
 export const PostAddress = async (adressUrl, address) => {
   try {
-    await axios.patch(adressUrl, address);
+    const fetchData = await Axios.patch(adressUrl, address);
+    localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
     setTimeout(() => {
       window.location.href = "/response";
     }, 1000);
@@ -102,7 +102,7 @@ export const PostAddress = async (adressUrl, address) => {
 
 export const PostResponse = async (newArray) => {
   try {
-    await axios.post(PostResponseUrl, newArray);
+    await Axios.post(PostResponseUrl, newArray);
     setTimeout(() => {
       window.location.href = "/terms";
     }, 1000);
@@ -115,7 +115,7 @@ export const PostResponse = async (newArray) => {
 
 export const PostSeedStore = async (data) => {
   try {
-    await axios.post(PostSeedStoreUrl, data);
+    await Axios.post(PostSeedStoreUrl, data);
     setTimeout(() => {
       window.location.href = "/address";
     }, 1000);
@@ -128,10 +128,10 @@ export const PostSeedStore = async (data) => {
 
 export const PostDispensary = async (data) => {
   try {
-    await axios.post(PostDispensaryUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    await Axios.post(PostDispensaryUrl, data);
+    // setTimeout(() => {
+    //   window.location.href = "/address";
+    // }, 1000);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error?.message);
@@ -140,7 +140,7 @@ export const PostDispensary = async (data) => {
 };
 export const PostHeadShop = async (data) => {
   try {
-    await axios.post(PostHeadShopUrl, data);
+    await Axios.post(PostHeadShopUrl, data);
     setTimeout(() => {
       window.location.href = "/address";
     }, 1000);
@@ -152,7 +152,7 @@ export const PostHeadShop = async (data) => {
 };
 export const PostCannabis = async (data) => {
   try {
-    await axios.post(PostCannabisUrl, data);
+    await Axios.post(PostCannabisUrl, data);
     setTimeout(() => {
       window.location.href = "/address";
     }, 1000);
@@ -165,7 +165,11 @@ export const PostCannabis = async (data) => {
 
 export const EditUser = async (EditProfileUrl, editedData) => {
   try {
-    await axios.patch(EditProfileUrl, editedData);
+    const fetchData = await Axios.patch(EditProfileUrl, editedData);
+    localStorage.setItem(
+      "userdata",
+      JSON.stringify(fetchData?.data?.updateUser)
+    );
     toast.success("User Edited Successfully");
   } catch (error) {
     toast.error(error?.message);

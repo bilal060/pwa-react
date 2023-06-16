@@ -10,7 +10,7 @@
   <link rel="icon" href="%PUBLIC_URL%/logo.png" />
 
   <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <title>PWA APP</title>
+  <title>Grow And Share</title>
   <!-- bootstrap -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -36,11 +36,97 @@
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" />
 
+  <style>
+    .api-loading-bg {
+      width: 100vw !important;
+      height: 100vh !important;
+      background-color: #fff;
+      z-index: 9999;
+      opacity: 1;
+      display: none;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      margin: auto !important;
+      justify-content: center;
+      align-items: center;
+    }
 
+    .api-loading-bg span {
+      vertical-align: middle;
+      border-radius: 100%;
+
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin: 3px 2px;
+      -webkit-animation: api-loading-bg 0.8s linear infinite alternate;
+      animation: api-loading-bg 0.8s linear infinite alternate;
+    }
+
+    .api-loading-bg span:nth-child(1) {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+      background: rgba(93, 139, 47, 0.6);
+    }
+
+    .api-loading-bg span:nth-child(2) {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+      background: rgba(93, 139, 47, 0.8);
+    }
+
+    .api-loading-bg span:nth-child(3) {
+      -webkit-animation-delay: -0.26666s;
+      animation-delay: -0.26666s;
+      background: rgba(93, 139, 47, 1);
+    }
+
+    .api-loading-bg span:nth-child(4) {
+      -webkit-animation-delay: -0.8s;
+      animation-delay: -0.8s;
+      background: rgba(93, 139, 47, 0.8);
+    }
+
+    .api-loading-bg span:nth-child(5) {
+      -webkit-animation-delay: -1s;
+      animation-delay: -1s;
+      background: rgba(93, 139, 47, 0.4);
+    }
+
+    @keyframes api-loading-bg {
+      from {
+        transform: scale(0, 0);
+      }
+
+      to {
+        transform: scale(1, 1);
+      }
+    }
+
+    @-webkit-keyframes api-loading-bg {
+      from {
+        -webkit-transform: scale(0, 0);
+      }
+
+      to {
+        -webkit-transform: scale(1, 1);
+      }
+    }
+  </style>
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div class="api-loading-bg">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <div id="root"></div>
 </body>
 
