@@ -24,6 +24,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import CountIcon from "../../assets/Images/Count";
 import Axios from "../../axios/Axios";
+import { MarkFavourite } from "../../Api";
 
 const seedData = [
   {
@@ -184,16 +185,23 @@ const DispensaryProfileDetail = () => {
               </p>
 
               <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
-                <button className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Mark Favourite</span>{" "}
+                <button
+                  onClick={() =>
+                    MarkFavourite(
+                      dispensary.userId._id,
+                      dispensary._id,
+                      dispensary.category
+                    )
+                  }
+                  className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
+                >
+                  <span>Mark Favourite</span>
                   <span className="icon-green-bg">
                     <MobHeartIcon />
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Call Store </span>{" "}
+                  <span>Call Store </span>
                   <span className="icon-green-bg bg-light-green">
                     <PhonebtnIcon />
                   </span>
@@ -272,9 +280,6 @@ const DispensaryProfileDetail = () => {
                     src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                     alt=""
                   />
-                  <span className="like-post">
-                    <HeartIcon />
-                  </span>
                   <div className="ps-sm-0 ps-3">
                     <p className="my-sm-4 mb-3 font-24 font-weight-700">
                       {data.strainName}

@@ -8,6 +8,7 @@ const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
 const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
+const FavouriteUrl = `${process.env.REACT_APP_API_URI}users/markFavourite`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -129,9 +130,9 @@ export const PostSeedStore = async (data) => {
 export const PostDispensary = async (data) => {
   try {
     await Axios.post(PostDispensaryUrl, data);
-    // setTimeout(() => {
-    //   window.location.href = "/address";
-    // }, 1000);
+    setTimeout(() => {
+      window.location.href = "/address";
+    }, 1000);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error?.message);
@@ -176,3 +177,20 @@ export const EditUser = async (EditProfileUrl, editedData) => {
     console.log(error);
   }
 };
+
+export const MarkFavourite = async (userId, pId, category) => {
+  try {
+    // console.log(userId, pId, category);
+    const data = {
+      userId: userId,
+      pId: pId,
+      category: category,
+    };
+    await Axios.post(FavouriteUrl, data);
+    toast.success("Added to Favourite");
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    console.log(error);
+  }
+};
+

@@ -9,6 +9,7 @@ import HeartIcon from "../../assets/Images/Heart";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
+import { MarkFavourite } from "../../Api";
 
 const Cannabis = () => {
   const [cannabis, setCannabis] = useState([]);
@@ -43,7 +44,12 @@ const Cannabis = () => {
                 src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                 alt=""
               />
-              <span className="like-post">
+              <span
+                className="like-post cr-p"
+                onClick={() =>
+                  MarkFavourite(data.userId._id, data._id, data.category)
+                }
+              >
                 <HeartIcon />
               </span>
               <div className="ps-sm-0 ps-3">

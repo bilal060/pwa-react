@@ -10,14 +10,20 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Axios from "../../axios/Axios";
+import { MarkFavourite } from "../../Api";
 
 const ShowAllProducts = () => {
   const [data, setData] = useState([]);
+  const [favourite, setFavourite] = useState({
+    userId: "",
+    pId: "",
+    category: "",
+  });
 
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
       const fetchData = await Axios.get(GetAllProductUrl);
-      console.log(fetchData.data);
+      // console.log(fetchData.data);
       setData(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
@@ -46,7 +52,12 @@ const ShowAllProducts = () => {
                 src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                 alt=""
               />
-              <span className="like-post">
+              <span
+                className="like-post cr-p"
+                onClick={() =>
+                  MarkFavourite(data.userId._id, data._id, data.category)
+                }
+              >
                 <HeartIcon />
               </span>
               <div className="ps-sm-0 ps-3">
@@ -59,13 +70,6 @@ const ShowAllProducts = () => {
                     {data.distance} Away
                   </span>
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                    {/* {data.type === "dispensary" ? (
-                      <DispensryProductIcon />
-                    ) : (
-                      <>
-                        {data.type === "seed" ? <CountIcon /> : <PriceIcon />}
-                      </>
-                    )} */}
                     {data.quantity ? (
                       <CountIcon />
                     ) : (

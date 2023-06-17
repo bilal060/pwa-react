@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import HeartIcon from "../../assets/Images/Heart";
+import { MarkFavourite } from "../../Api";
 
 const CannabisProfileDetail = () => {
   const routeParams = useParams();
@@ -137,16 +138,23 @@ const CannabisProfileDetail = () => {
               </p>
 
               <div className="d-md-flex d-none flex-sm-row flex-column justify-content-between align-items-center gap-4 mt-5 pt-4">
-                <button className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Mark Favourite</span>{" "}
+                <button
+                  onClick={() =>
+                    MarkFavourite(
+                      cannabis.userId._id,
+                      cannabis._id,
+                      cannabis.category
+                    )
+                  }
+                  className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
+                >
+                  <span>Mark Favourite</span>
                   <span className="icon-green-bg">
                     <MobHeartIcon />
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Call Store </span>{" "}
+                  <span>Call Store </span>
                   <span className="icon-green-bg bg-light-green">
                     <PhonebtnIcon />
                   </span>
@@ -253,9 +261,6 @@ const CannabisProfileDetail = () => {
                     src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                     alt=""
                   />
-                  <span className="like-post">
-                    <HeartIcon />
-                  </span>
                   <div className="ps-sm-0 ps-3">
                     <p className="my-sm-4 mb-3 font-24 font-weight-700">
                       {data.brandName}

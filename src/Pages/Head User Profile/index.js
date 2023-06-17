@@ -23,6 +23,7 @@ import BongRigsIcon from "../../assets/Images/BongRigs";
 import PriceIcon from "../../assets/Images/Price";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
+import { MarkFavourite } from "../../Api";
 
 const seedData = [
   {
@@ -58,7 +59,6 @@ const seedData = [
     flavor: "Flavour: Mint",
   },
 ];
-
 
 const HeadProfileDetail = () => {
   const routeParams = useParams();
@@ -154,16 +154,23 @@ const HeadProfileDetail = () => {
               </p>
 
               <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
-                <button className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Mark Favourite</span>{" "}
+                <button
+                  onClick={() =>
+                    MarkFavourite(
+                      headShop.userId._id,
+                      headShop._id,
+                      headShop.category
+                    )
+                  }
+                  className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
+                >
+                  <span>Mark Favourite</span>
                   <span className="icon-green-bg">
                     <MobHeartIcon />
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  {" "}
-                  <span>Call Store </span>{" "}
+                  <span>Call Store </span>
                   <span className="icon-green-bg bg-light-green">
                     <PhonebtnIcon />
                   </span>
