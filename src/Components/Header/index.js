@@ -174,12 +174,14 @@ const AppHeader = (props) => {
               Favourites
             </Link>
             <Link
-              to={"/contactus"}
+              to={"/myaccount"}
               className={`${
-                "/contactus" === Location.pathname ? "product-item-active " : ""
+                "/myaccount" === Location.pathname
+                  ? "product-item-active "
+                  : ""
               } dropdown-item`}
             >
-              Contact Support
+              My Account
             </Link>
             <div
               onClick={() => Logout()}

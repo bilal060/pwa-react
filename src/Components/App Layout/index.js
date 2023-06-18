@@ -148,14 +148,14 @@ const AppLayout = (props) => {
                   Favourites
                 </Link>
                 <Link
-                  to={"/contactus"}
+                  to={"/myaccount "}
                   className={`${
-                    "/contactus" === Location.pathname
+                    "/myaccount " === Location.pathname
                       ? "product-item-active "
                       : ""
                   } dropdown-item`}
                 >
-                  Contact Support
+                  My Account
                 </Link>
                 <div
                   onClick={() => Logout()}

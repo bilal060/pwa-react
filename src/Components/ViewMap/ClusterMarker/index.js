@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import React from "react";
+import PropTypes from "prop-types";
+import { List } from "immutable";
 
-import Marker from '../Marker';
+import Marker from "../Marker";
 
-import MarkerGroup from './MarkerGroup';
-import MarkerCounter from './MarkerCounter';
+import MarkerGroup from "./MarkerGroup";
+import MarkerCounter from "./MarkerCounter";
 
 class ClusterMarker extends React.PureComponent {
   // eslint-disable-line react/prefer-stateless-function
@@ -16,7 +16,7 @@ class ClusterMarker extends React.PureComponent {
   render() {
     return (
       <MarkerGroup length={this.props.points.length}>
-        {this.state.clusterFaceMarkers.map(marker =>
+        {this.state.clusterFaceMarkers.map((marker) => (
           <Marker
             key={marker.id}
             lat={marker.lat}
@@ -24,11 +24,10 @@ class ClusterMarker extends React.PureComponent {
             name={marker.id}
             inGroup
           />
+        ))}
+        {this.props.points.length > 2 && (
+          <MarkerCounter>+{this.props.points.length - 2}</MarkerCounter>
         )}
-        {this.props.points.length > 2 &&
-          <MarkerCounter>
-            +{this.props.points.length - 2}
-          </MarkerCounter>}
       </MarkerGroup>
     );
   }

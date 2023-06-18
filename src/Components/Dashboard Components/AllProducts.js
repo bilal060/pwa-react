@@ -36,6 +36,7 @@ const ShowAllProducts = () => {
     let data = JSON.parse(currentUser);
     let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetAllProduct(GetAllProductUrl);
+    
   }, []);
 
   return (
@@ -115,8 +116,7 @@ const ShowAllProducts = () => {
                     to={`/home/${data.category}/${data._id}`}
                     className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                   >
-                    {" "}
-                    <span>View Profile </span>{" "}
+                    <span>View Profile </span>
                     <span className="icon-green-bg bg-light-green">
                       <FavouriteIcon />
                     </span>

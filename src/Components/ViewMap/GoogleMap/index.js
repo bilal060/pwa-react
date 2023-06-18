@@ -6,7 +6,7 @@ import Marker from "../Marker";
 import ClusterMarker from "../ClusterMarker";
 
 import mapStyles from "./mapStyles.json";
-import { markersData, susolvkaCoords } from "../fakeData";
+import { susolvkaCoords } from "../fakeData";
 
 import MapWrapper from "./MapWrapper";
 
@@ -29,12 +29,9 @@ export class GoogleMap extends React.PureComponent {
     },
     clusters: [],
   };
-  // componentDidUpdate = () => {
-  //   console.log(this.props.points, "sdfsdfd");
-  // };
-
+ 
   getClusters = () => {
-    const clusters = supercluster(markersData, {
+    const clusters = supercluster(this.props.markersData, {
       minZoom: 0,
       maxZoom: 16,
       radius: 60,
@@ -83,7 +80,7 @@ export class GoogleMap extends React.PureComponent {
           yesIWantToUseGoogleMapApiInternals
         >
           {this.state.clusters.map((item) => {
-            console.log(item);
+
             if (item.numPoints === 1) {
               return (
                 <Marker

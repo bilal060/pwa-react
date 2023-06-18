@@ -12,7 +12,6 @@ import DispensaryMap from "../Components/ViewMap/Dispensary";
 import Cannabis from "../Components/Dashboard Components/Cannabis";
 import CannabisMap from "../Components/ViewMap/Cannabis";
 import HeadShopMap from "../Components/ViewMap/HeadShop";
-import ProductUserProfile from "../Pages/Product User Profile";
 import DispensaryProfileDetail from "../Pages/Dispensary User Profile";
 import CannabisProfileDetail from "../Pages/Cannabis User Profile";
 import HeadProfileDetail from "../Pages/Head User Profile";
@@ -38,6 +37,8 @@ import TermsConditionsPage from "../Pages/Terms and Conditions";
 import NotFound from "../Pages/Not Found";
 import RegistrationLayout from "../Components/Registration";
 import AllProductMapView from "../Components/ViewMap/ShowAllProduct";
+import SeedUserProfile from "../Pages/Seed User Profile";
+import ProductUserProfile from "../Pages/Product User Profile";
 
 const NavigationRoutes = () => {
   return (
@@ -332,7 +333,7 @@ const NavigationRoutes = () => {
             <ProtectedRoutes
               component={
                 <AppLayout>
-                  <ProductUserProfile />
+                  <SeedUserProfile />
                 </AppLayout>
               }
             />
@@ -387,7 +388,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/favourite/userprofile"
+          path="/myaccount"
           element={
             <ProtectedRoutes
               component={
@@ -399,7 +400,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/favourite/userprofile/edit"
+          path="/myaccount/edit"
           element={
             <ProtectedRoutes
               component={
@@ -411,12 +412,24 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/favourite/userprofile/delete"
+          path="/myaccount/delete"
           element={
             <ProtectedRoutes
               component={
                 <AppLayout>
                   <DeleteProfile />
+                </AppLayout>
+              }
+            />
+          }
+        />
+        <Route
+          path="/profile/:id"
+          element={
+            <ProtectedRoutes
+              component={
+                <AppLayout>
+                  <ProductUserProfile />
                 </AppLayout>
               }
             />
