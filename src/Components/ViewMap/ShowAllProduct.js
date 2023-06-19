@@ -33,12 +33,20 @@ const seedsDetail = [
 ];
 
 const AllProductMapView = () => {
+  const [center, setCenter] = useState({
+    lat: "",
+    lng: "",
+  });
   const [allProduct, setAllProduct] = useState([]);
 
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
       const fetchData = await Axios.get(GetAllProductUrl);
       setAllProduct(fetchData.data);
+      setCenter({
+        lat: fetchData.data.result[0].userId?.location?.coordinates[0],
+        lng: fetchData.data.result[0].userId?.location?.coordinates[1],
+      });
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
@@ -54,7 +62,11 @@ const AllProductMapView = () => {
 
   const points = (allProduct.result || []).map((crime) => ({
     type: "Feature",
-    properties: { cluster: false, crimeId: crime.id, category: crime.category },
+    properties: {
+      cluster: false,
+      crimeId: crime._id,
+      category: crime.category,
+    },
     geometry: {
       type: "Point",
       coordinates: [
@@ -62,20 +74,27 @@ const AllProductMapView = () => {
         parseFloat(crime?.userId?.location?.coordinates[1]),
       ],
     },
+    category: crime.category,
   }));
 
   const markersData = (allProduct.result || []).map((crime) => ({
     id: crime._id,
     lat: crime?.userId?.location?.coordinates[0],
     lng: crime?.userId?.location?.coordinates[1],
+    category: crime.category,
   }));
+  const handleClick = (lat, lng) => {
+    // setZoom(19);
+    // setCenter({ lat, lng });
+  };
+  console.log(markersData);
 
   return (
     <div>
       <div className="row flex-md-row flex-column-reverse seed-card p-0 flex-row ms-12 me-12">
         <div className="col-md-6 p-0 bg-transparent ">
           <div
-            className="nav flex-column nav-pills map-card-col"
+            className="nav flex-column nav-pills map-card-col nav-card-map"
             id="v-pills-tab"
             role="tablist"
             aria-orientation="vertical"
@@ -93,6 +112,12 @@ const AllProductMapView = () => {
                   role="tab"
                   aria-controls={`v-pills-${data.id}`}
                   aria-selected="true"
+                  onClick={() =>
+                    handleClick(
+                      data?.userId?.location?.coordinates[0],
+                      data?.userId?.location?.coordinates[1]
+                    )
+                  }
                 >
                   <div className="flex-column">
                     <div className="position-relative text-black d-flex flex-lg-row flex-md-column justify-content-between gap-sm-4 ga-2">
@@ -167,18 +192,19 @@ const AllProductMapView = () => {
                           <div className="d-flex gap-2 align-items-center flex-wrap">
                             <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
                               <RatingIcon />
-                              <span>5.0</span>
+                              <span>{data.userId.ratingsAverage}</span>
                             </span>
                             <span className="font-14-100 text-grey font-weight-400">
-                              <span>(56 Reviews)</span>
+                              <span>
+                                ({data.userId.ratingsQuantity} Reviews)
+                              </span>
                             </span>
                           </div>
                           <Link
                             to={"/home/seed/seedinfo"}
                             className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                           >
-                            {" "}
-                            <span>View Profile </span>{" "}
+                            <span>View Profile </span>
                             <span className="icon-green-bg bg-light-green">
                               <FavouriteIcon />
                             </span>
@@ -197,11 +223,10 @@ const AllProductMapView = () => {
                         </span>
                       </div>
                       <Link
-                        to={"/favourite/userprofile"}
+                        to={`/home/${data.category}/${data._id}`}
                         className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                       >
-                        {" "}
-                        <span>View Profile </span>{" "}
+                        <span>View Profile </span>
                         <span className="icon-green-bg bg-light-green">
                           <FavouriteIcon />
                         </span>
@@ -260,7 +285,11 @@ const AllProductMapView = () => {
                       {allProduct.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap points={points} markersData={markersData} />
+                  <GoogleMap
+                    points={points}
+                    markersData={markersData}
+                    center={center}
+                  />
                 </div>
               </div>
             );

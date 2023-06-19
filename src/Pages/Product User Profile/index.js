@@ -23,6 +23,7 @@ import { toast } from "react-toastify";
 import Rating from "react-rating";
 import ratingEmpty from "../../assets/Images/ratingEmpty.svg";
 import ratingFull from "../../assets/Images/ratingFull.svg";
+import { PostReview } from "../../Api";
 
 const seedData = [
   {
@@ -108,7 +109,9 @@ const filter = [
 
 const ProductUserProfile = (props) => {
   const routeParams = useParams();
+  const GetUserUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.id}`;
   const [userData, setUserData] = useState([]);
+  const [sharedByUser, setSharedByUser] = useState([]);
   const [category, setCategory] = useState("");
   const [ratingData, setRatingData] = useState({
     ProductUserId: "",
@@ -120,15 +123,27 @@ const ProductUserProfile = (props) => {
       ...prevState,
       rating: rating,
     }));
+    PostReview(ratingData);
+    GetUser(GetUserUrl);
   };
 
-  const GetUserData = async (GetFavouriteUrl) => {
+  const GetSharedByUser = async (GetSeedUrl) => {
     try {
-      const fetchData = await Axios.get(GetFavouriteUrl);
-      setUserData(fetchData.data);
-      console.log(fetchData.data);
+      const fetchData = await Axios.get(GetSeedUrl);
+      setSharedByUser(fetchData.data.data);
     } catch (error) {
-      toast.error(error?.response.data.message);
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  const GetUser = async (GetOthersUrl) => {
+    try {
+      const fetchData = await Axios.get(GetOthersUrl);
+      setUserData(fetchData.data.data.doc);
+      console.log(fetchData.data.data.doc);
+    } catch (error) {
+      toast.error(error?.message);
       console.log(error);
     }
   };
@@ -136,8 +151,15 @@ const ProductUserProfile = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    const GetUserDataUrl = `${process.env.REACT_APP_API_URI}users/?userId=${data._id}&category=${category}`;
-    GetUserData(GetUserDataUrl);
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    // GetSharedByUser(GetSharedByUserUrl);
+
+    GetUser(GetUserUrl);
+    setRatingData((prevState) => ({
+      ...prevState,
+      ProductUserId: routeParams.id,
+      LoginUserId: data._id,
+    }));
   }, []);
 
   return (
@@ -149,14 +171,14 @@ const ProductUserProfile = (props) => {
               <div className="d-flex flex-lg-column justify-content-lg-center gap-4 justify-content-start align-items-lg-center mb-lg-5 mb-3">
                 <img src={productuser} alt="" className="mb-md-4 " />
                 <div className="d-flex flex-column gap-3 align-items-lg-center">
-                  <p className="font-24 font-weight-600">Tony Stark</p>
+                  <p className="font-24 font-weight-600">{userData.fullName}</p>
                   <div className="d-flex gap-2 align-items-center flex-wrap">
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-600">
+                    <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      <span>5.0</span>
+                      <span>{userData.ratingsAverage}</span>
                     </span>
                     <span className="font-18-100 text-grey font-weight-400">
-                      <span>(56 Reviews)</span>
+                      <span>({userData.ratingsQuantity} Reviews)</span>
                     </span>
                   </div>
                 </div>
@@ -165,17 +187,17 @@ const ProductUserProfile = (props) => {
               <div className="d-flex align-items-center mb-3 flex-wrap gap-3">
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                   <DispensryProductIcon />
-                  <span>Super Sharer</span>
+                  <span>{userData.userType}</span>
                 </span>
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                   <StrainAvailableIcon />
-                  <span>54 Strains</span>
+                  <span>{userData.__v} Strains</span>
                 </span>
               </div>
 
               <span className="d-flex gap-2 align-items-center font-18 font-weight-500 pb-4">
                 <LocationIcon />
-                <span>789 Yonge St, Toronto, ON M4W 2G8, Canada</span>
+                <span>{userData.location?.address}</span>
               </span>
               <h3 className="fw-bolder fs-5 mb-3 d-flex align-items-center gap-2">
                 Rate User

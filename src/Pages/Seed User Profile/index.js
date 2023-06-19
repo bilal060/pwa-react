@@ -291,7 +291,7 @@ const SeedUserProfile = () => {
                 key={index}
               >
                 <Link
-                  to={`/home/seed/${data._id}`}
+                  to={`/home/${data.category}/${data._id}`}
                   className="seed-card position-relative text-black"
                 >
                   <img
@@ -317,7 +317,6 @@ const SeedUserProfile = () => {
                     <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
                       <LocationIcon />
                       <span className="cut-text">
-                        {" "}
                         {data.userId?.location?.address}
                       </span>
                     </span>

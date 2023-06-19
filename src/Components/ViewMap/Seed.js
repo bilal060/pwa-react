@@ -67,36 +67,19 @@ const seedData = [
 ];
 
 const SeedMap = () => {
-  const [crimes, setcrimes] = useState([]);
-
-  const API_URI =
-    "https://data.police.uk/api/crimes-street/all-crime?poly=52.268,0.543:52.794,0.238:52.130,0.478";
-  const getAlerts = async () => {
-    try {
-      const fetchData = await Axios.get(API_URI);
-      setcrimes(fetchData);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    getAlerts();
-  }, []);
-
   const [seeds, setSeeds] = useState([]);
+
   const GetSeeds = async (GetSeedsUrl) => {
     try {
       const fetchData = await Axios.get(GetSeedsUrl);
-      console.log(fetchData.data);
       setSeeds(fetchData.data);
+      console.log(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
     }
   };
-  useEffect(() => {
-    GetSeeds();
-  }, []);
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
@@ -106,22 +89,38 @@ const SeedMap = () => {
 
   const points = (seeds.result || []).map((crime) => ({
     type: "Feature",
-    properties: { cluster: false, crimeId: crime.id, category: crime.category },
+    properties: {
+      cluster: false,
+      crimeId: crime._id,
+      category: crime.category,
+    },
     geometry: {
       type: "Point",
       coordinates: [
-        parseFloat(crime.userId.location.coordinates[0]),
-        parseFloat(crime.userId.location.coordinates[1]),
+        parseFloat(crime?.userId?.location?.coordinates[0]),
+        parseFloat(crime?.userId?.location?.coordinates[1]),
       ],
     },
+    category: crime.category,
   }));
-  console.log(points);
+
+  const markersData = (seeds.result || []).map((crime) => ({
+    id: crime._id,
+    lat: crime?.userId?.location?.coordinates[0],
+    lng: crime?.userId?.location?.coordinates[1],
+    category: crime.category,
+  }));
+  const handleClick = (lat, lng) => {
+    // setZoom(19);
+    // setCenter({ lat, lng });
+  };
+  console.log(markersData);
 
   return (
     <div>
       <div className="row flex-md-row flex-column-reverse seed-card p-0 flex-row ms-12 me-12">
         <div
-          className="col-md-6 p-0 nav flex-column nav-pills map-card-col"
+          className="col-md-6 p-0 nav flex-column nav-pills map-card-col nav-card-map"
           id="v-pills-tab"
           role="tablist"
           aria-orientation="vertical"
@@ -205,7 +204,7 @@ const SeedMap = () => {
                         </div>
                         <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                           <LocationIcon />
-                          <span className="cut-text">
+                          <span className="">
                             {data.userId?.location?.address}
                           </span>
                         </span>
@@ -215,18 +214,17 @@ const SeedMap = () => {
                         <div className="d-flex gap-2 align-items-center flex-wrap">
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
                             <RatingIcon />
-                            <span>5.0</span>
+                            <span>{data.userId.ratingsAverage}</span>
                           </span>
                           <span className="font-14-100 text-grey font-weight-400">
-                            <span>(56 Reviews)</span>
+                            <span>({data.userId.ratingsQuantity} Reviews)</span>
                           </span>
                         </div>
                         <Link
-                          to={"/home/seed/seedinfo"}
+                          to={`/home/${data.category}/${data._id}`}
                           className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                         >
-                          {" "}
-                          <span>View Profile </span>{" "}
+                          <span>View Profile </span>
                           <span className="icon-green-bg bg-light-green">
                             <FavouriteIcon />
                           </span>
@@ -248,8 +246,7 @@ const SeedMap = () => {
                       to={"/favourite/userprofile"}
                       className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                     >
-                      {" "}
-                      <span>View Profile </span>{" "}
+                      <span>View Profile </span>
                       <span className="icon-green-bg bg-light-green">
                         <FavouriteIcon />
                       </span>
@@ -307,7 +304,7 @@ const SeedMap = () => {
                       {seeds.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap points={points} />
+                  <GoogleMap points={points} markersData={markersData} />
                 </div>
               </div>
             );

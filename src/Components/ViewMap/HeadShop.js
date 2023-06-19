@@ -15,6 +15,10 @@ import FlavorIcon from "../../assets/Images/Flavor";
 import ConcreteIcon from "../../assets/Images/Concrete";
 import GoogleMap from "./GoogleMap";
 import { markersData } from "./fakeData";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import Axios from "../../axios/Axios";
+import { useState } from "react";
 
 const seedsDetail = [
   {
@@ -143,13 +147,49 @@ const AnyReactComponent = ({ img }) => (
 );
 
 const HeadShopMap = () => {
-  const defaultProps = {
-    center: {
-      lat: -33.91722,
-      lng: 151.23064,
-    },
-    zoom: 16,
+  const [headShop, setHeadShop] = useState([]);
+
+  const GetHeadShop = async (GetHeadShopUrl) => {
+    try {
+      const fetchData = await Axios.get(GetHeadShopUrl);
+      setHeadShop(fetchData.data);
+      console.log(fetchData.data);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
   };
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetHeadShop(GetHeadShopUrl);
+  }, []);
+
+  const points = (headShop.result || []).map((crime) => ({
+    type: "Feature",
+    properties: {
+      cluster: false,
+      crimeId: crime._id,
+      category: crime.category,
+    },
+    geometry: {
+      type: "Point",
+      coordinates: [
+        parseFloat(crime?.userId?.location?.coordinates[0]),
+        parseFloat(crime?.userId?.location?.coordinates[1]),
+      ],
+    },
+    category: crime.category,
+  }));
+
+  const markersData = (headShop.result || []).map((crime) => ({
+    id: crime._id,
+    lat: crime?.userId?.location?.coordinates[0],
+    lng: crime?.userId?.location?.coordinates[1],
+    category: crime.category,
+  }));
 
   return (
     <div>
@@ -160,7 +200,7 @@ const HeadShopMap = () => {
           role="tablist"
           aria-orientation="vertical"
         >
-          {seedData.map((data, index) => {
+          {(headShop || []).result?.map((data, index) => {
             return (
               <div
                 key={index}
@@ -178,31 +218,31 @@ const HeadShopMap = () => {
                   <div className="position-relative text-black d-flex flex-lg-row flex-md-column justify-content-between gap-sm-4 ga-2">
                     <img
                       className="w-lg-40-100-40 intro-img h-100"
-                      src={data.img}
+                      src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                       alt=""
                     />
                     <div className="ps-sm-0 ps-3 w-100 d-flex flex-column justify-content-between">
                       <div>
                         <p className="mb-3 font-24 font-weight-700">
-                          {data.name}
+                          {data.productName}
                         </p>
                         <div className="d-flex gap-3 align-items-sm-center flex-sm-row flex-column mb-sm-3 mb-2 flex-wrap">
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                             <PriceIcon />
-                            {data.price}
+                            <span> Price: ${data.cost}</span>
                           </span>
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                             <ConcreteIcon />
-                            {data.concrete}
+                            {data.type}
                           </span>
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                             <FlavorIcon />
-                            {data.flavor}
+                            {data.accessories}
                           </span>
                         </div>
                         <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                           <LocationIcon />
-                          <span>789 Yonge St, Toronto, ON M4W 2G8, Canada</span>
+                          <span>{data.userId?.location.address}</span>
                         </span>
                       </div>
 
@@ -210,10 +250,12 @@ const HeadShopMap = () => {
                         <div className="d-flex gap-2 align-items-center flex-wrap">
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
                             <RatingIcon />
-                            <span>5.0</span>
+                            <span>{data.userId?.ratingsAverage}</span>
                           </span>
                           <span className="font-14-100 text-grey font-weight-400">
-                            <span>(56 Reviews)</span>
+                            <span>
+                              ({data.userId?.ratingsQuantity} Reviews)
+                            </span>
                           </span>
                         </div>
                         <Link
@@ -302,7 +344,7 @@ const HeadShopMap = () => {
                       {markersData.length} People Sharing Seeds
                     </button>
                   </div>
-                  {/* <GoogleMap /> */}
+                  <GoogleMap points={points} markersData={markersData} />
                 </div>
               </div>
             );

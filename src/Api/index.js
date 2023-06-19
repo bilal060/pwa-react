@@ -9,6 +9,7 @@ const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
 const FavouriteUrl = `${process.env.REACT_APP_API_URI}users/markFavourite`;
+const PostReviewUrl = `${process.env.REACT_APP_API_URI}users/createReview`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -194,3 +195,12 @@ export const MarkFavourite = async (userId, pId, category) => {
   }
 };
 
+export const PostReview = async (ratingData) => {
+  try {
+    await Axios.post(PostReviewUrl, ratingData);
+    toast.success("Review Posted Successfully");
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    console.log(error);
+  }
+};

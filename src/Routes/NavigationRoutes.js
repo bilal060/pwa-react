@@ -328,7 +328,7 @@ const NavigationRoutes = () => {
 
         <Route
           exact
-          path="/home/seed/:id"
+          path="/home/seedStore/:id"
           element={
             <ProtectedRoutes
               component={

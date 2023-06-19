@@ -11,7 +11,7 @@ import { susolvkaCoords } from "../fakeData";
 import MapWrapper from "./MapWrapper";
 
 const MAP = {
-  defaultZoom: 8,
+  defaultZoom: 12,
   defaultCenter: susolvkaCoords,
   options: {
     styles: mapStyles,
@@ -29,7 +29,7 @@ export class GoogleMap extends React.PureComponent {
     },
     clusters: [],
   };
- 
+
   getClusters = () => {
     const clusters = supercluster(this.props.markersData, {
       minZoom: 0,
@@ -47,8 +47,9 @@ export class GoogleMap extends React.PureComponent {
             lat: wy,
             lng: wx,
             numPoints,
-            id: `${numPoints}_${points[0].id}`,
+            id: `${points[0].id}`,
             points,
+            // data: points,
           }))
         : [],
     });
@@ -68,6 +69,12 @@ export class GoogleMap extends React.PureComponent {
       }
     );
   };
+  handleMarkerClick() {
+    MAP.defaultZoom = 19;
+  }
+  // componentDidUpdate() {
+  //   console.log(this.state.clusters);
+  // }
 
   render() {
     return (
@@ -77,16 +84,19 @@ export class GoogleMap extends React.PureComponent {
           defaultCenter={MAP.defaultCenter}
           options={MAP.options}
           onChange={this.handleMapChange}
+          onGoogleApiLoaded={this.handleMapChange}
           yesIWantToUseGoogleMapApiInternals
         >
           {this.state.clusters.map((item) => {
-
             if (item.numPoints === 1) {
               return (
                 <Marker
                   key={item.id}
                   lat={item.points[0].lat}
                   lng={item.points[0].lng}
+                  pId={item.id}
+                  category={item.points[0].category}
+                  onClick={this.handleMarkerClick}
                 />
               );
             }
@@ -97,6 +107,7 @@ export class GoogleMap extends React.PureComponent {
                 lat={item.lat}
                 lng={item.lng}
                 points={item.points}
+                category={item.points[0].category}
               />
             );
           })}

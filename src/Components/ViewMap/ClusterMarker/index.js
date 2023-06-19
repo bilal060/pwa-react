@@ -13,6 +13,9 @@ class ClusterMarker extends React.PureComponent {
     clusterFaceMarkers: this.props.points.slice(0, 2),
   };
 
+  // componentDidMount() {
+  //   console.log(this.state.clusterFaceMarkers);
+  // }
   render() {
     return (
       <MarkerGroup length={this.props.points.length}>
@@ -21,8 +24,9 @@ class ClusterMarker extends React.PureComponent {
             key={marker.id}
             lat={marker.lat}
             lng={marker.lng}
-            name={marker.id}
+            pId={marker.id}
             inGroup
+            category={marker.category}
           />
         ))}
         {this.props.points.length > 2 && (

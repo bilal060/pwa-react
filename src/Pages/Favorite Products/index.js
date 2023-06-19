@@ -68,7 +68,7 @@ const FavoriteProduct = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=${data._id}&category=${userInfo.category}`;
+    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=${data._id}&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetMarkFavourite(GetFavouriteUrl);
   }, [userInfo]);
 
@@ -126,7 +126,7 @@ const FavoriteProduct = (props) => {
           })}
         </ul>
         <div className="seeds-card-main row m-0">
-          {(favouriteData || []).findproduct?.map((data, index) => {
+          {(favouriteData || []).findProduct?.map((data, index) => {
             return (
               <div className="col-xl-6 mb-4 seed-card-col" key={index}>
                 <div className="seed-card flex-column">
@@ -260,7 +260,6 @@ const FavoriteProduct = (props) => {
             );
           })}
         </div>
-        y
       </div>
     </div>
   );
