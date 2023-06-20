@@ -6,20 +6,16 @@ import CountIcon from "../../assets/Images/Count";
 import TimerIcon from "../../assets/Images/Timer";
 import HeartIcon from "../../assets/Images/Heart";
 import PriceIcon from "../../assets/Images/Price";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 
-const ShowAllProducts = () => {
+const ShowAllProducts = ({ match }) => {
   const [data, setData] = useState([]);
-  const [favourite, setFavourite] = useState({
-    userId: "",
-    pId: "",
-    category: "",
-  });
-
+  const routeParams = useParams();
+  console.log(routeParams.radius);
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
       const fetchData = await Axios.get(GetAllProductUrl);
@@ -36,12 +32,12 @@ const ShowAllProducts = () => {
     let data = JSON.parse(currentUser);
     let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetAllProduct(GetAllProductUrl);
-    
   }, []);
 
   return (
     <div className="seeds-card-main row m-0">
       {(data || []).result?.map((data, index) => {
+        console.log(data);
         return (
           <div
             className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col h-100"
@@ -50,7 +46,9 @@ const ShowAllProducts = () => {
             <div className="seed-card h-100 position-relative">
               <img
                 className="w-100 intro-img"
-                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${
+                  Array.isArray(data.photo) ? data.photo[0] : data.photo
+                }`}
                 alt=""
               />
               <span
@@ -104,12 +102,10 @@ const ShowAllProducts = () => {
                   <div className="d-flex gap-2 align-items-center flex-wrap">
                     <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      5.0
-                      {/* {data.rating} */}
+                      {data.userId.ratingsAverage}
                     </span>
                     <span className="font-14-100 text-grey font-weight-400">
-                      {/* {data.totalReviews} */}
-                      (56 Reviews)
+                      ({data.userId.ratingsQuantity} Reviews)
                     </span>
                   </div>
                   <Link

@@ -13,8 +13,6 @@ import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 
-
-
 const HeadShop = () => {
   const [headShop, setHeadShop] = useState([]);
 
@@ -85,12 +83,10 @@ const HeadShop = () => {
                   <div className="d-flex gap-2 align-items-center flex-wrap">
                     <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      5.0
-                      {/* {data.rating} */}
+                      {data.userId.ratingsAverage}
                     </span>
                     <span className="font-14-100 text-grey font-weight-400">
-                      {/* {data.totalReviews} */}
-                      (56 Reviews)
+                      ({data.userId.ratingsQuantity} Reviews)
                     </span>
                   </div>
                   <Link

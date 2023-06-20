@@ -152,7 +152,7 @@ const NavigationRoutes = () => {
         />
         <Route path="*" element={<NotFound />} />
         <Route
-          path="/home"
+          path="/home/:radius?"
           element={
             <ProtectedRoutes
               component={
@@ -269,7 +269,7 @@ const NavigationRoutes = () => {
         />
 
         <Route
-          path="/home/cannabis"
+          path="/home/cannabis/:radius?"
           element={
             <ProtectedRoutes
               component={

@@ -72,15 +72,26 @@ const SeedUserProfile = () => {
     let data = JSON.parse(currentUser);
     let GetSeedUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetSeeds(GetSeedUrl);
-  }, []);
+  }, [routeParams.id]);
 
   const navigate = useNavigate();
-  const images = [
-    {
-      original: `${process.env.REACT_APP_PORT}/${seed?.photo}`,
-      thumbnail: `${process.env.REACT_APP_PORT}/${seed?.photo}`,
-    },
-  ];
+
+  const images = [];
+  if (seed?.photo) {
+    if (Array.isArray(seed.photo)) {
+      seed.photo.forEach((data) => {
+        images.push({
+          original: `${process.env.REACT_APP_PORT}/${data}`,
+          thumbnail: `${process.env.REACT_APP_PORT}/${data}`,
+        });
+      });
+    } else {
+      images.push({
+        original: `${process.env.REACT_APP_PORT}/${seed.photo}`,
+        thumbnail: `${process.env.REACT_APP_PORT}/${seed.photo}`,
+      });
+    }
+  }
 
   return (
     <div className="product-user-profile">
@@ -296,7 +307,7 @@ const SeedUserProfile = () => {
                 >
                   <img
                     className="w-100 intro-img"
-                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                    src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
                     alt=""
                   />
                   <div className="ps-sm-0 ps-3">

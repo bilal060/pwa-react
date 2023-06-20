@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
@@ -42,6 +42,24 @@ const products = [
 const AllProducts = (props) => {
   const { children } = props;
   const Location = useLocation();
+  const [filter, setFilter] = useState({
+    radius: "",
+    area: "",
+    quantity: "",
+  });
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setFilter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    window.location.href = `${window.location.href}/radius=${filter.radius}`;
+    console.log(window.location.href);
+    console.log(filter);
+  };
   return (
     <div className="all-product-section ">
       <div className="allproduct-mob d-sm-block d-none">
@@ -160,55 +178,70 @@ const AllProducts = (props) => {
                 <CrossBorderIcon />
               </span>
             </div>
-            <div className="d-flex flex-column align-items-start justify-content-center mb-5 mt-4 pt-2">
-              <p className="font-32 font-weight-800 text-center mb-4">
-                Filter your search
-              </p>
-
-              <div className="p-0 bg-transparent border-0 mb-4">
-                <label className="mb-2 font-weight-600 font-18-100">
-                  Search an area
-                </label>
-                <input
-                  className="auth-input bg-white auth-input height-42"
-                  placeholder="Enter here..."
-                />
-              </div>
-              <span className="my-2"></span>
-
-              {/* <ProgressSteps /> */}
-              <div className="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
-                <label className="font-weight-600 font-18-100">Distance</label>
-
-                <input
-                  type="range"
-                  className="form-control-range w-100"
-                  min="0"
-                  max="48"
-                  step="12"
-                ></input>
-                <p className="rangetext d-flex w-100 justify-content-between ">
-                  <span>0-3km</span>
-                  <span>0-8km</span>
-                  <span>0-15km</span>
-                  <span>0-25km</span>
-                  <span>0-50km</span>
+            <form onSubmit={(e) => submitHandler(e)}>
+              <div className="d-flex flex-column align-items-start justify-content-center mb-5 mt-4 pt-2">
+                <p className="font-32 font-weight-800 text-center mb-4">
+                  Filter your search
                 </p>
+
+                <div className="p-0 bg-transparent border-0 mb-4">
+                  <label className="mb-2 font-weight-600 font-18-100">
+                    Search an area
+                  </label>
+                  <input
+                    className="auth-input bg-white auth-input height-42"
+                    placeholder="Enter here..."
+                    name="area"
+                    onChange={(e) => formHandler(e)}
+                  />
+                </div>
+                <span className="my-2"></span>
+
+                {/* <ProgressSteps /> */}
+                <div className="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
+                  <label className="font-weight-600 font-18-100">
+                    Distance
+                  </label>
+
+                  <input
+                    type="range"
+                    className="form-control-range w-100"
+                    min="0"
+                    max="50"
+                    step="10"
+                    name="radius"
+                    value={filter.radius}
+                    onChange={(e) => formHandler(e)}
+                  ></input>
+                  <p className="rangetext d-flex w-100 justify-content-between ">
+                    <span>All</span>
+                    <span></span>
+                    <span>0-10km</span>
+                    <span>0-20km</span>
+                    <span>0-30km</span>
+                    <span>0-40km</span>
+                    <span>0-50km</span>
+                  </p>
+                </div>
+                <span className="my-3"></span>
+                <WeightFilter />
               </div>
-              <span className="my-3"></span>
-              <WeightFilter />
-            </div>
-            <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center w-100 mt-4">
-              <button
-                className="green-btn-outline text-primary-green custom-w min-width-208 height-42"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <button className="green-btn custom-w min-width-208 height-42">
-                Apply
-              </button>
-            </div>
+              <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center w-100 mt-4">
+                <button
+                  className="green-btn-outline text-primary-green custom-w min-width-208 height-42"
+                  data-bs-dismiss="modal"
+                  type="button"
+                >
+                  Cancel
+                </button>
+                <button
+                  className="green-btn custom-w min-width-208 height-42"
+                  type="submit"
+                >
+                  Apply
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

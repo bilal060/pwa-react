@@ -45,7 +45,7 @@ const Seeds = () => {
             <div className="seed-card position-relative text-black">
               <img
                 className="w-100 intro-img"
-                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
                 alt=""
               />
               <span
@@ -74,7 +74,6 @@ const Seeds = () => {
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
                   <LocationIcon />
                   <span className="cut-text">
-                    {" "}
                     {data.userId?.location?.address}
                   </span>
                 </span>
@@ -82,20 +81,17 @@ const Seeds = () => {
                   <div className="d-flex gap-2 align-items-center flex-wrap">
                     <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      {/* {data.rating} */}
-                      5.0
+                      {data.userId.ratingsAverage}
                     </span>
                     <span className="font-14-100 text-grey font-weight-400">
-                      {/* {data.totalReviews} */}
-                      (56 Reviews)
+                      ({data.userId.ratingsQuantity} Reviews)
                     </span>
                   </div>
                   <Link
-                    to={`/home/seed/${data._id}`}
+                    to={`/home/seedStore/${data._id}`}
                     className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                   >
-                    {" "}
-                    <span>View Profile </span>{" "}
+                    <span>View Profile </span>
                     <span className="icon-green-bg bg-light-green">
                       <FavouriteIcon />
                     </span>

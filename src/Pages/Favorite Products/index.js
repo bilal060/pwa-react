@@ -133,7 +133,9 @@ const FavoriteProduct = (props) => {
                   <div className="position-relative text-black d-flex flex-md-row flex-sm-column justify-content-between gap-sm-4 ga-2">
                     <img
                       className="w-lg-40 intro-img"
-                      src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                      src={`${process.env.REACT_APP_PORT}/${
+                        Array.isArray(data.photo) ? data.photo[0] : data.photo
+                      }`}
                       alt=""
                     />
                     <span className="favourite-post">

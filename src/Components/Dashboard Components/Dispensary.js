@@ -42,7 +42,7 @@ const Dispensary = () => {
             <div className="seed-card position-relative ">
               <img
                 className="w-100 intro-img rounded-3"
-                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
                 alt=""
               />
               <span
@@ -60,7 +60,7 @@ const Dispensary = () => {
                 <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                     <DistanceIcon />
-                    <span>{data.distance} away</span>
+                    <span>{data.distance} Away</span>
                   </span>
                   <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                     <DispensryProductIcon />
@@ -78,12 +78,10 @@ const Dispensary = () => {
                   <div className="d-flex gap-2 align-items-center flex-wrap">
                     <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      5.0
-                      {/* {data.rating} */}
+                      {data.userId.ratingsAverage}
                     </span>
                     <span className="font-14-100 text-grey font-weight-400">
-                      {/* {data.totalReviews} */}
-                      (56 Reviews)
+                      ({data.userId.ratingsQuantity} Reviews)
                     </span>
                   </div>
                   <Link

@@ -1,14 +1,9 @@
 import React, { useEffect, useState } from "react";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
-
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-
 import GoogleMap from "./GoogleMap";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
@@ -27,41 +22,6 @@ const seedsDetail = [
   {
     id: 3,
     name: "Raza Awan",
-    active: false,
-  },
-];
-const seedData = [
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: seed1,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "20 Seeds",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-  {
-    id: 2,
-    name: "Toronto, Ontario",
-    img: seed2,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "20 Seeds",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Toronto, Ontario",
-    img: seed3,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "20 Seeds",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
     active: false,
   },
 ];
@@ -110,11 +70,6 @@ const SeedMap = () => {
     lng: crime?.userId?.location?.coordinates[1],
     category: crime.category,
   }));
-  const handleClick = (lat, lng) => {
-    // setZoom(19);
-    // setCenter({ lat, lng });
-  };
-  console.log(markersData);
 
   return (
     <div>
@@ -234,12 +189,12 @@ const SeedMap = () => {
                   </div>
                   <div className="d-xl-none d-flex flex-row justify-content-between align-items-end gap-xl-3 gap-2 mt-3 flex-wrap">
                     <div className="d-flex gap-2 align-items-center">
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
+                      <span className="d-flex gap-2 align-items-center font-24 font-weight-700 text-black">
                         <RatingIcon />
-                        <span className="text-black">5.0</span>
+                        {data.userId.ratingsAverage}
                       </span>
                       <span className="font-14-100 text-grey font-weight-400">
-                        <span>(56 Reviews)</span>
+                        ({data.userId.ratingsQuantity} Reviews)
                       </span>
                     </div>
                     <Link

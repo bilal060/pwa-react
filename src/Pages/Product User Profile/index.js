@@ -2,17 +2,9 @@ import React from "react";
 import productuser from "../../assets/Images/productuser-1.svg";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
-import seed4 from "../../assets/Images/seed4.svg";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
-import ConcreteIcon from "../../assets/Images/Concrete";
-import FlavorIcon from "../../assets/Images/Flavor";
-import QuantityIcon from "../../assets/Images/Quantity";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import StrainAvailableIcon from "../../assets/Images/StrainAvailable";
 import SeedICon from "../../assets/Images/Seed";
 import DispensaryIcon from "../../assets/Images/Dispensary";
 import CannbisIcon from "../../assets/Images/Cannbis";
@@ -24,57 +16,9 @@ import Rating from "react-rating";
 import ratingEmpty from "../../assets/Images/ratingEmpty.svg";
 import ratingFull from "../../assets/Images/ratingFull.svg";
 import { PostReview } from "../../Api";
-
-const seedData = [
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed3,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed4,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-];
+import DistanceIcon from "../../assets/Images/Distance";
+import CountIcon from "../../assets/Images/Count";
+import PriceIcon from "../../assets/Images/Price";
 
 const filter = [
   {
@@ -127,10 +71,11 @@ const ProductUserProfile = (props) => {
     GetUser(GetUserUrl);
   };
 
-  const GetSharedByUser = async (GetSeedUrl) => {
+  const GetSharedByUser = async (GetSharedByUserUrl) => {
     try {
-      const fetchData = await Axios.get(GetSeedUrl);
-      setSharedByUser(fetchData.data.data);
+      const fetchData = await Axios.get(GetSharedByUserUrl);
+      console.log(fetchData.data);
+      setSharedByUser(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
@@ -151,16 +96,15 @@ const ProductUserProfile = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
-    // GetSharedByUser(GetSharedByUserUrl);
-
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&collection=${category}&userId=${routeParams.id}`;
+    GetSharedByUser(GetSharedByUserUrl);
     GetUser(GetUserUrl);
     setRatingData((prevState) => ({
       ...prevState,
       ProductUserId: routeParams.id,
       LoginUserId: data._id,
     }));
-  }, []);
+  }, [category, GetUserUrl, routeParams.id]);
 
   return (
     <div className="product-user-profile">
@@ -190,8 +134,42 @@ const ProductUserProfile = (props) => {
                   <span>{userData.userType}</span>
                 </span>
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                  <StrainAvailableIcon />
-                  <span>{userData.__v} Strains</span>
+                  <svg
+                    width={18}
+                    height={18}
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      opacity="0.4"
+                      d="M9.01101 0C9.67221 0.38157 10.2144 0.898813 10.5894 1.50576C10.9645 2.11271 11.1607 2.79056 11.1607 3.47907C11.1607 4.16759 10.9645 4.84544 10.5894 5.45238C10.2144 6.05933 9.67221 6.57657 9.01101 6.95814C8.34982 6.57657 7.80761 6.05933 7.43259 5.45238C7.05756 4.84544 6.86133 4.16759 6.86133 3.47907C6.86133 2.79056 7.05756 2.11271 7.43259 1.50576C7.80761 0.898813 8.34982 0.38157 9.01101 0Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      d="M2.40141 7.85023C3.84226 8.58371 5.55755 8.56388 6.95266 7.96917C6.90895 7.28092 6.66606 6.61328 6.24639 6.02779C5.82671 5.4423 5.24376 4.9578 4.55125 4.61895C3.86129 4.27905 3.08591 4.09052 2.29266 4.06979C1.4994 4.04906 0.712332 4.19675 0 4.50001C0.114353 5.84803 0.960565 7.13657 2.40141 7.85023Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      opacity="0.4"
+                      d="M4.57273 13.3808C6.01358 12.6473 6.88266 11.3786 6.97414 10.0306C6.26499 9.7177 5.47636 9.56458 4.68096 9.58536C3.88557 9.60615 3.10901 9.80018 2.4229 10.1496C0.982049 10.883 0.112967 12.1518 0.0214844 13.4998C1.41659 14.0945 3.10901 14.1143 4.57273 13.3808Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      d="M11.1611 14.5307C11.1598 13.8437 10.9628 13.1677 10.5878 12.5626C10.2128 11.9574 9.67127 11.4418 9.01128 11.0615C8.35029 11.4409 7.808 11.9563 7.43284 12.5617C7.05768 13.167 6.86133 13.8435 6.86133 14.5307C6.86133 15.2179 7.05768 15.8943 7.43284 16.4997C7.808 17.105 8.35029 17.6204 9.01128 17.9998C9.67286 17.621 10.2156 17.1057 10.5908 16.5002C10.966 15.8947 11.162 15.218 11.1611 14.5307Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      opacity="0.4"
+                      d="M15.5981 10.1495C14.1573 9.41607 12.442 9.43589 11.0469 10.0306C11.0906 10.7189 11.3335 11.3865 11.7531 11.972C12.1728 12.5575 12.7558 13.042 13.4483 13.3808C14.8891 14.1143 16.6044 14.0945 17.9995 13.4998C17.9558 12.8115 17.7129 12.1439 17.2933 11.5584C16.8736 10.9729 16.2906 10.4884 15.5981 10.1495Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      d="M13.4483 4.61879C12.7641 4.96604 12.1878 5.45261 11.7694 6.03636C11.3509 6.62012 11.1029 7.28347 11.0469 7.969C11.756 8.28191 12.5447 8.43504 13.3401 8.41425C14.1354 8.39346 14.912 8.19944 15.5981 7.85006C17.039 7.11658 17.9081 5.84786 17.9995 4.49984C16.6044 3.90513 14.912 3.88531 13.4483 4.61879Z"
+                      fill="#5D8B2F"
+                    />
+                  </svg>
+                  <span>{sharedByUser.length} Strains</span>
                 </span>
               </div>
 
@@ -252,31 +230,62 @@ const ProductUserProfile = (props) => {
               })}
             </ul>
             <div className="seeds-card-main row m-0 pt-5">
-              {seedData.map((data, index) => {
+              {(sharedByUser || []).result?.map((data, index) => {
                 return (
                   <div
                     className="col-xl-4 col-md-12  mb-4 seed-card-col"
                     key={index}
                   >
-                    <div className="seed-card position-relative text-black">
-                      <img className="w-100 intro-img" src={data.img} alt="" />
+                    <div className="seed-card h-100 position-relative">
+                      <img
+                        className="w-100 intro-img"
+                        src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                        alt=""
+                      />
+
                       <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-600">
+                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
                           {data.name}
                         </p>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 mb-3">
-                          <QuantityIcon />
-                          {data.quantity}
+                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                            <DistanceIcon />
+                            {data.distance} Away
+                          </span>
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                            {data.quantity ? (
+                              <CountIcon />
+                            ) : (
+                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
+                            )}
+
+                            {data.quantity ? (
+                              `Seeds: ${data.quantity}`
+                            ) : (
+                              <>
+                                {data.cost
+                                  ? `Fees: $${data.cost}`
+                                  : `Entry Fee: $${data.entryFee}`}
+                              </>
+                            )}
+                          </span>
+                        </div>
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                          <LocationIcon />
+                          <span className="cut-text">
+                            {data.userId?.location?.address}
+                          </span>
                         </span>
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <ConcreteIcon />
-                            {data.thc}
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <FlavorIcon />
-                            {data.cbd}
-                          </span>
+                        <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                          <div className="d-flex gap-2 align-items-center flex-wrap">
+                            <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                              <RatingIcon />
+                              {data.userId.ratingsAverage}
+                            </span>
+                            <span className="font-14-100 text-grey font-weight-400">
+                              ({data.userId.ratingsQuantity} Reviews)
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>

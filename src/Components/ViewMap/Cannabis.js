@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from "react";
-import cannabis1 from "../../assets/Images/cannabis1.svg";
-import cannabis2 from "../../assets/Images/cannabis2.svg";
-import cannabis3 from "../../assets/Images/cannabis3.svg";
-import mapSeed1 from "../../assets/Images/mapSeed1.svg";
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-import GoogleMapReact from "google-map-react";
-import SeedICon from "../../assets/Images/Seed";
-import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import PriceIcon from "../../assets/Images/Price";
-import TimerIcon from "../../assets/Images/Timer";
 import GoogleMap from "./GoogleMap";
-import { markersData } from "./fakeData";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 
@@ -35,114 +26,7 @@ const seedsDetail = [
     active: false,
   },
 ];
-const seedData = [
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: cannabis1,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-  {
-    id: 2,
-    name: "Toronto, Ontario",
-    img: cannabis2,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Toronto, Ontario",
-    img: cannabis3,
-    distance: "3 km Away",
-    location: "789 Yonge St, Toronto, Canada",
-    fees: "Fees: $10:00",
-    timing: "Timings: 09:00  To  17:00 ",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-];
 
-const defaultMapOptions = {
-  fullscreenControl: false,
-  zoomControl: false,
-};
-const AnyReactComponent = ({ img }) => (
-  <div>
-    <div className="dropdown">
-      <div
-        className="p-0 map-dropbtn"
-        id="dropdownMenuButton"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <SeedICon />
-      </div>
-      <div
-        className="dropdown-menu map-comp-dropmenu"
-        aria-labelledby="dropdownMenuButton"
-      >
-        <img className="w-lg-40-100-40 h-100" src={mapSeed1} alt="" />
-
-        <div className="p-3">
-          <p className="mb-3 font-18 font-weight-700">Cannabis Name</p>
-          <div className="d-flex gap-5 align-items-center mb-3 pb-1">
-            <span className="d-flex gap-2 align-items-center font-13  font-weight-500 ">
-              <svg
-                width={13}
-                height={18}
-                viewBox="0 0 13 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  opacity="0.4"
-                  d="M6.50284 0C4.08381 0 2.11719 1.91701 2.11719 4.27503C2.11719 6.58804 3.97301 8.46005 6.39205 8.54105C6.46591 8.53205 6.53977 8.53205 6.59517 8.54105C6.61364 8.54105 6.62287 8.54105 6.64133 8.54105C6.65057 8.54105 6.65057 8.54105 6.6598 8.54105C9.02344 8.46005 10.8793 6.58804 10.8885 4.27503C10.8885 1.91701 8.92187 0 6.50284 0Z"
-                  fill="#5D8B2F"
-                />
-                <path
-                  d="M11.1903 10.9352C8.61435 9.26119 4.41335 9.26119 1.81889 10.9352C0.646307 11.7002 0 12.7352 0 13.8422C0 14.9492 0.646307 15.9752 1.80966 16.7312C3.10227 17.5772 4.80114 18.0002 6.5 18.0002C8.19886 18.0002 9.89773 17.5772 11.1903 16.7312C12.3537 15.9662 13 14.9402 13 13.8242C12.9908 12.7172 12.3537 11.6912 11.1903 10.9352Z"
-                  fill="#5D8B2F"
-                />
-              </svg>
-              <span>Tony Stark</span>
-            </span>
-
-            <span className="d-flex gap-2 align-items-center font-13 font-weight-700">
-              <RatingIcon />
-              <span>5.0</span>
-            </span>
-          </div>
-          <div className="d-flex gap-5 align-items-center mb-3 pb-1">
-            <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
-              <DistanceIcon />3 km Away
-            </span>
-            <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
-              <DispensryProductIcon />
-              Super Store
-            </span>
-          </div>
-          <span className="d-flex gap-2 align-items-center font-13 font-weight-500">
-            <LocationIcon />
-            <span>789 Yonge St, Toronto, ON M4W 2G8, Canada</span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-);
 
 const CannabisMap = () => {
   const [cannabis, setCannabis] = useState([]);
@@ -269,12 +153,12 @@ const CannabisMap = () => {
                   </div>
                   <div className="d-xl-none d-flex flex-row justify-content-between align-items-end gap-xl-3 gap-2 mt-3 flex-wrap">
                     <div className="d-flex gap-2 align-items-center">
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
+                      <span className="d-flex gap-2 align-items-center font-24 font-weight-700 text-black">
                         <RatingIcon />
-                        <span className="text-black">5.0</span>
+                        {data.userId.ratingsAverage}
                       </span>
                       <span className="font-14-100 text-grey font-weight-400">
-                        <span>(56 Reviews)</span>
+                        ({data.userId.ratingsQuantity} Reviews)
                       </span>
                     </div>
                     <Link

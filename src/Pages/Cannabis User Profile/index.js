@@ -37,7 +37,7 @@ const CannabisProfileDetail = () => {
     try {
       const fetchData = await Axios.get(GetCannabissUrl);
       setCannabis(fetchData.data.data);
-      let GetOthersUrl = `${process.env.REACT_APP_API_URI}cannabisLoung/userCannabisLounge/?userId=${fetchData.data.data.userId?._id}`;
+      let GetOthersUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/userCannabisLounge/?userId=${fetchData.data.data.userId?._id}`;
       GetOthersByUser(GetOthersUrl);
     } catch (error) {
       toast.error(error?.message);
@@ -57,9 +57,9 @@ const CannabisProfileDetail = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabissUrl = `${process.env.REACT_APP_API_URI}cannabisLoung/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetCannabissUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetCannabiss(GetCannabissUrl);
-  }, []);
+  }, [routeParams.id]);
 
   const navigate = useNavigate();
   return (

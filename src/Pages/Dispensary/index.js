@@ -18,6 +18,8 @@ const DispensaryType = () => {
     photo: "",
   });
   let arrayTest = [];
+  const [selectedImages, setSelectedImages] = useState([]);
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     setDispensary((prevState) => ({
@@ -40,10 +42,12 @@ const DispensaryType = () => {
       let imageFile = e.target.files[0];
       setDispensary((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
 
   const navigate = useNavigate();
@@ -71,33 +75,32 @@ const DispensaryType = () => {
     const data = new FormData();
     arrayTest.push(dispensary);
 
-    // if (addMorebtn) {
-    // setArrayData((prev) => [...prev, dispensary]);
+    if (addMorebtn) {
+      setArrayData((prev) => [...prev, dispensary]);
 
-    arrayTest.forEach((mapData) => {
-      console.log(mapData);
+      arrayTest.forEach((mapData, index) => {
+        console.log(mapData);
+        data.append("userId", id);
+        data.append("postStrain", mapData.postStrain);
+        data.append("quantity", mapData.quantity);
+        data.append("cost", mapData.cost);
+        data.append("strainName", mapData.strainName);
+        data.append("description", mapData.description);
+        data.append(`photo-${index}`, mapData.photo);
+        mapData.photo.map((file) => data.append(`photo-${index}`, file));
+      });
+    } else {
       data.append("userId", id);
-      data.append("postStrain", mapData.postStrain);
-      data.append("quantity", mapData.quantity);
-      data.append("cost", mapData.cost);
-      data.append("strainName", mapData.strainName);
-      data.append("description", mapData.description);
-      data.append("photo", mapData.photo);
-    });
-    // } else {
-    //   data.append("userId", id);
-    //   data.append("postStrain", dispensary.postStrain);
-    //   data.append("quantity", dispensary.quantity);
-    //   data.append("cost", dispensary.cost);
-    //   data.append("strainName", dispensary.strainName);
-    //   data.append("description", dispensary.description);
-    //   data.append("photo", dispensary.photo);
-    // }
+      data.append("postStrain", dispensary.postStrain);
+      data.append("quantity", dispensary.quantity);
+      data.append("cost", dispensary.cost);
+      data.append("strainName", dispensary.strainName);
+      data.append("description", dispensary.description);
+      dispensary.photo.map((file) => data.append("photo", file));
+    }
     PostDispensary(data);
   };
-  console.log(arrayData);
-  console.log(addMorebtn);
-
+  console.log(selectedImages);
   return (
     <div className="max-width-792">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -191,8 +194,10 @@ const DispensaryType = () => {
               type="file"
               className="d-none"
               accept=".jpg, .jpeg, .png"
+              multiple
               onChange={(e) => attachFile(e)}
             />
+
             <div className="d-flex justify-content-center align-items-center h-100 w-100 gap-2">
               <UploadIcon />
               <p className="font-16 font-weight-500">

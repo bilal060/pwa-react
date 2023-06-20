@@ -39,7 +39,7 @@ const SeedStore = () => {
       let imageFile = e.target.files[0];
       setSeedStore((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
       setFile(imageFile.name);
     }
@@ -68,15 +68,21 @@ const SeedStore = () => {
     e.preventDefault();
     setArrayData((prev) => [...prev, seedStore]);
     const data = new FormData();
+
     if (addMorebtn) {
-      arrayData.forEach((mapData) => {
+      arrayData.forEach((mapData, index) => {
         data.append("userId", id);
         data.append("postStrain", mapData.postStrain);
         data.append("quantity", mapData.quantity);
         data.append("cost", mapData.cost);
         data.append("strainName", mapData.strainName);
         data.append("description", mapData.description);
-        data.append("photo", mapData.photo);
+
+        if (Array.isArray(mapData.photo)) {
+          mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
+        } else {
+          data.append(`photo-${index}`, mapData.photo);
+        }
       });
     } else {
       data.append("userId", id);
@@ -85,8 +91,16 @@ const SeedStore = () => {
       data.append("cost", seedStore.cost);
       data.append("strainName", seedStore.strainName);
       data.append("description", seedStore.description);
-      data.append("photo", seedStore.photo);
+
+      if (Array.isArray(seedStore.photo)) {
+        seedStore.photo.forEach((file, fileIndex) =>
+          data.append(`photo-${fileIndex}`, file)
+        );
+      } else {
+        data.append("photo", seedStore.photo);
+      }
     }
+
     PostSeedStore(data);
   };
 
@@ -186,6 +200,7 @@ const SeedStore = () => {
               className="d-none"
               accept=".jpg, .jpeg, .png"
               onChange={(e) => attachFile(e)}
+              multiple
             />
             <div className="d-flex justify-content-center align-items-center h-100 w-100 gap-2">
               <UploadIcon />

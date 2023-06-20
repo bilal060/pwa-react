@@ -5,7 +5,7 @@ const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
 const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
 const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
-const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLoung`;
+const PostCannabisUrl = `${process.env.REACT_APP_API_URI}cannabisLounge`;
 const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
 const FavouriteUrl = `${process.env.REACT_APP_API_URI}users/markFavourite`;
@@ -131,9 +131,9 @@ export const PostSeedStore = async (data) => {
 export const PostDispensary = async (data) => {
   try {
     await Axios.post(PostDispensaryUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "/address";
+    // }, 1000);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error?.message);

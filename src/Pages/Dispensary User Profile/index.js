@@ -96,14 +96,25 @@ const DispensaryProfileDetail = () => {
     let data = JSON.parse(currentUser);
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetDispensarys(GetDispensaryUrl);
-  }, []);
+  }, [routeParams.id]);
 
-  const images = [
-    {
-      original: `${process.env.REACT_APP_PORT}/${dispensary?.photo}`,
-      thumbnail: `${process.env.REACT_APP_PORT}/${dispensary?.photo}`,
-    },
-  ];
+  const images = [];
+  if (dispensary?.photo) {
+    if (Array.isArray(dispensary.photo)) {
+      dispensary.photo.forEach((data) => {
+        images.push({
+          original: `${process.env.REACT_APP_PORT}/${data}`,
+          thumbnail: `${process.env.REACT_APP_PORT}/${data}`,
+        });
+      });
+    } else {
+      images.push({
+        original: `${process.env.REACT_APP_PORT}/${dispensary.photo}`,
+        thumbnail: `${process.env.REACT_APP_PORT}/${dispensary.photo}`,
+      });
+    }
+  }
+
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -277,7 +288,7 @@ const DispensaryProfileDetail = () => {
                 >
                   <img
                     className="w-100 intro-img"
-                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                    src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
                     alt=""
                   />
                   <div className="ps-sm-0 ps-3">

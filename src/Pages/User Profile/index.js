@@ -2,14 +2,10 @@ import React from "react";
 import productuser from "../../assets/Images/productuser-1.svg";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
-import seed4 from "../../assets/Images/seed4.svg";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
-import ConcreteIcon from "../../assets/Images/Concrete";
-import FlavorIcon from "../../assets/Images/Flavor";
-import QuantityIcon from "../../assets/Images/Quantity";
+// import ConcreteIcon from "../../assets/Images/Concrete";
+// import FlavorIcon from "../../assets/Images/Flavor";
+// import QuantityIcon from "../../assets/Images/Quantity";
 import DeleteIcon from "../../assets/Images/Delete";
 import EditIcon from "../../assets/Images/Edit";
 import AddIcon from "../../assets/Images/Add";
@@ -17,61 +13,17 @@ import UploadIcon from "../../assets/Images/Upload";
 import { useState } from "react";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { Link } from "react-router-dom";
-
-const seedData = [
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed3,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed4,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: seed1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: seed2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-];
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import CountIcon from "../../assets/Images/Count";
+import DistanceIcon from "../../assets/Images/Distance";
+import PriceIcon from "../../assets/Images/Price";
 
 const UserProfile = (props) => {
-  // const { data, ProductType } = props;
   const [fileName, setFileName] = useState("");
+  const [userData, setUserData] = useState([]);
+  const [sharedByUser, setSharedByUser] = useState([]);
 
   const attachFile = (e) => {
     if (e.target.files) {
@@ -86,6 +38,36 @@ const UserProfile = (props) => {
       };
     }
   };
+  const GetSharedByUser = async (GetSharedByUserUrl) => {
+    try {
+      const fetchData = await Axios.get(GetSharedByUserUrl);
+      console.log(fetchData.data);
+      setSharedByUser(fetchData.data);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  const GetUser = async (GetOthersUrl) => {
+    try {
+      const fetchData = await Axios.get(GetOthersUrl);
+      setUserData(fetchData.data.data.doc);
+      console.log(fetchData.data.data.doc);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&userId=${data._id}`;
+    GetSharedByUser(GetSharedByUserUrl);
+    const GetUserUrl = `${process.env.REACT_APP_API_URI}users/${data._id}`;
+    GetUser(GetUserUrl);
+  }, []);
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -95,14 +77,14 @@ const UserProfile = (props) => {
               <div className="d-flex flex-lg-column justify-content-lg-center gap-4 justify-content-start align-items-lg-center mb-lg-5 mb-3">
                 <img src={productuser} alt="" className="mb-md-4 " />
                 <div className="d-flex flex-column gap-3 align-items-lg-center">
-                  <p className="font-24 font-weight-600">Tony Stark</p>
+                  <p className="font-24 font-weight-600">{userData.fullName}</p>
                   <div className="d-flex gap-2 align-items-center flex-wrap">
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-600">
+                    <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      <span>5.0</span>
+                      <span>{userData.ratingsAverage}</span>
                     </span>
                     <span className="font-18-100 text-grey font-weight-400">
-                      <span>(56 Reviews)</span>
+                      <span>({userData.ratingsQuantity} Reviews)</span>
                     </span>
                   </div>
                 </div>
@@ -111,7 +93,7 @@ const UserProfile = (props) => {
               <div className="d-flex align-items-center mb-3 flex-wrap gap-3">
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                   <DispensryProductIcon />
-                  <span>Super Sharer</span>
+                  <span>{userData.userType}</span>
                 </span>
                 <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                   <svg
@@ -149,14 +131,13 @@ const UserProfile = (props) => {
                       fill="#5D8B2F"
                     />
                   </svg>
-
-                  <span>54 Strains</span>
+                  <span>{sharedByUser.length} Strains</span>
                 </span>
               </div>
 
-              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-md-5 pb-4">
+              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 pb-4">
                 <LocationIcon />
-                <span>789 Yonge St, Toronto, ON M4W 2G8, Canada</span>
+                <span>{userData.location?.address}</span>
               </span>
               <Link
                 to={"/myaccount/edit"}
@@ -195,31 +176,62 @@ const UserProfile = (props) => {
               </button>
             </div>
             <div className="seeds-card-main row m-0 pt-5">
-              {seedData.map((data, index) => {
+              {(sharedByUser || []).result?.map((data, index) => {
                 return (
                   <div
                     className="col-xl-4 col-md-12  mb-4 seed-card-col"
                     key={index}
                   >
-                    <div className="seed-card position-relative text-black">
-                      <img className="w-100 intro-img" src={data.img} alt="" />
+                    <div className="seed-card h-100 position-relative">
+                      <img
+                        className="w-100 intro-img"
+                        src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                        alt=""
+                      />
+
                       <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-600">
+                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
                           {data.name}
                         </p>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 mb-3">
-                          <QuantityIcon />
-                          {data.quantity}
+                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                            <DistanceIcon />
+                            {data.distance} Away
+                          </span>
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                            {data.quantity ? (
+                              <CountIcon />
+                            ) : (
+                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
+                            )}
+
+                            {data.quantity ? (
+                              `Seeds: ${data.quantity}`
+                            ) : (
+                              <>
+                                {data.cost
+                                  ? `Fees: $${data.cost}`
+                                  : `Entry Fee: $${data.entryFee}`}
+                              </>
+                            )}
+                          </span>
+                        </div>
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                          <LocationIcon />
+                          <span className="cut-text">
+                            {data.userId?.location?.address}
+                          </span>
                         </span>
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <ConcreteIcon />
-                            {data.thc}
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <FlavorIcon />
-                            {data.cbd}
-                          </span>
+                        <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                          <div className="d-flex gap-2 align-items-center flex-wrap">
+                            <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                              <RatingIcon />
+                              {data.userId.ratingsAverage}
+                            </span>
+                            <span className="font-14-100 text-grey font-weight-400">
+                              ({data.userId.ratingsQuantity} Reviews)
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>

@@ -6,13 +6,15 @@ import SendMailIcon from "../../assets/Images/SendMail";
 import TimerIcon from "../../assets/Images/Timer";
 import PriceIcon from "../../assets/Images/Price";
 import HeartIcon from "../../assets/Images/Heart";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 
 const Cannabis = () => {
   const [cannabis, setCannabis] = useState([]);
+  const routeParams = useParams();
+  console.log(routeParams.radius);
 
   const GetCannabis = async (GetCannabisUrl) => {
     try {
@@ -26,7 +28,7 @@ const Cannabis = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, []);
 
@@ -82,12 +84,10 @@ const Cannabis = () => {
                   <div className="d-flex gap-2 align-items-center flex-wrap">
                     <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                       <RatingIcon />
-                      5.0
-                      {/* {data.rating} */}
+                      {data.userId.ratingsAverage}
                     </span>
                     <span className="font-14-100 text-grey font-weight-400">
-                      {/* {data.totalReviews} */}
-                      (56 Reviews)
+                      ({data.userId.ratingsQuantity} Reviews)
                     </span>
                   </div>
                   <Link
