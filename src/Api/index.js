@@ -1,5 +1,6 @@
 import { toast } from "react-toastify";
 import Axios from "../axios/Axios";
+import axios from "axios";
 const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
 const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
@@ -12,6 +13,7 @@ const FavouriteUrl = `${process.env.REACT_APP_API_URI}users/markFavourite`;
 const PostReviewUrl = `${process.env.REACT_APP_API_URI}users/createReview`;
 const CreateChatUrl = `${process.env.REACT_APP_API_URI}conversations`;
 const PostMessageUrl = `${process.env.REACT_APP_API_URI}messages`;
+const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -223,10 +225,24 @@ export const CreateChat = async (senderId, receiverId) => {
   }
 };
 
-export const PostMessage = async (sendMessage) => {
+export const PostMessage = async (sendMessage, token) => {
   try {
     console.log(sendMessage);
-    await Axios.post(PostMessageUrl, sendMessage);
+    await axios.post(PostMessageUrl, sendMessage, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    console.log(error);
+  }
+};
+
+export const PostMedia = async (sendMedia, token) => {
+  try {
+    console.log(sendMedia);
+    await axios.post(PostMediaUrl, sendMedia, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);

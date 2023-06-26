@@ -120,7 +120,7 @@ const sideLinks = [
   },
   {
     name: "Dispensary",
-    link: "/home/dispensary",
+    link: "/home/dispensaries",
   },
   {
     name: "Cannabis Lounge",
@@ -128,7 +128,7 @@ const sideLinks = [
   },
   {
     name: "Head Store",
-    link: "/home/headshop",
+    link: "/home/headshops",
   },
   {
     name: "About us",

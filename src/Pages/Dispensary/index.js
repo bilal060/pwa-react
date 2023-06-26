@@ -58,6 +58,7 @@ const DispensaryType = () => {
   useEffect(() => {
     console.log(arrayData);
   }, [arrayData]);
+  
   const addMore = () => {
     setAddMoreBtn(true);
     setArrayData((prev) => [...prev, dispensary]);
