@@ -4,125 +4,26 @@ import MobSearchIcon from "../../assets/Images/MobSearch";
 import User from "../../assets/Images/sidelink-user.svg";
 import DashboardLogo from "../../assets/Images/DashboardLogo";
 import SideLinkSettings from "../../assets/Images/sideLinkSettings";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CrossIcon from "../../assets/Images/Cross";
 import selectafter from "../../assets/Images/select-after.svg";
 import { useEffect } from "react";
 import MenuBarIcon from "../../assets/Images/MenuBar";
 import AppFooter from "../../Components/Footer";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
+import Hooks from "../../hooks";
+import TimeAgo from "javascript-time-ago";
+import en from "javascript-time-ago/locale/en";
+import { useRef } from "react";
+import { PostMessage } from "../../Api";
+import Socket from "../../Socket";
 
-const chats = [
-  {
-    name: "Raza Awan",
-    id: 1,
-    lastmessage: "okk",
-    active: true,
-  },
-  {
-    name: "Raza Awan",
-    id: 2,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 3,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 4,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 5,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 6,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 7,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 8,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 9,
-    lastmessage: "okk",
-    active: false,
-  },
-  {
-    name: "Raza Awan",
-    id: 10,
-    lastmessage: "okk",
-    active: false,
-  },
-];
 const chatsdetail = [
   {
     id: 1,
     name: "Raza Awan",
     active: true,
-  },
-  {
-    id: 2,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 3,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 4,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 5,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 6,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 7,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 8,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 9,
-    name: "Raza Awan",
-    active: false,
-  },
-  {
-    id: 10,
-    name: "Raza Awan",
-    active: false,
   },
 ];
 const sideLinks = [
@@ -154,25 +55,41 @@ const sideLinks = [
     name: "About us",
     link: "aboutus",
   },
-  {
-    name: "Login/Logout",
-    link: "/logout",
-  },
 ];
+
 const Chat = () => {
   const [responsiveChat, setResponsiveChat] = useState(false);
   const [recentChats, setrecentChats] = useState(true);
-
-  const current = new Date();
-  const time = current.toLocaleTimeString("en-US", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const [recentChatsData, setrecentChatsData] = useState([]);
+  const [selectedChatData, setSelectedChatData] = useState([]);
+  const [currentUserData, setcurrentUserData] = useState([]);
+  const [message, setMessage] = useState("");
+  const params = useParams();
+  const { Logout } = Hooks();
+  TimeAgo.addLocale(en);
+  const timeAgo = new TimeAgo("en-US");
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const [windowSize, setWindowSize] = useState([
     window.innerWidth,
     window.innerHeight,
   ]);
+  const [sendMessage, setSendMessage] = useState({
+    conversationId: "",
+    sender: "",
+    message: "",
+  });
+  const [currentChat, setCurrentChat] = useState(null);
+
+  const scrollRef = useRef();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [selectedChatData]);
+
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowSize([window.innerWidth, window.innerHeight]);
@@ -190,9 +107,90 @@ const Chat = () => {
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
-  }, [windowSize[0]]);
+  }, [windowSize, recentChats]);
 
-  const navigate = useNavigate();
+  const GetRecentChats = async (GetRecentChatsUrl) => {
+    try {
+      const fetchData = await Axios.get(GetRecentChatsUrl);
+      setrecentChatsData(fetchData.data.userConversations);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  const GetSelectedChat = async (GetSelectedChatUrl) => {
+    try {
+      const fetchData = await Axios.get(GetSelectedChatUrl);
+      setSelectedChatData(fetchData.data);
+      console.log(fetchData.data);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    setcurrentUserData(data);
+    let GetRecentChatsUrl = `${process.env.REACT_APP_API_URI}conversations/${params.id}`;
+    setSendMessage((prevState) => ({
+      ...prevState,
+      sender: data._id,
+    }));
+    GetRecentChats(GetRecentChatsUrl);
+  }, [params.id]);
+
+  const GetChatData = (id) => {
+    let GetSelectedChatUrl = `${process.env.REACT_APP_API_URI}messages/${id}`;
+    GetSelectedChat(GetSelectedChatUrl);
+  };
+
+  const SendMessageHandler = async () => {
+    setSendMessage((prevState) => ({
+      ...prevState,
+      conversationId: selectedChatData._id,
+    }));
+
+    const messageData = {
+      conversationId: sendMessage?.conversationId,
+      sender: sendMessage?.sender,
+      message: sendMessage?.message,
+      createdAt: new Date(),
+    };
+
+    if (currentChat !== null) {
+      PostMessage(messageData);
+    } else {
+      toast.error("Please select a chat");
+    }
+
+    setSendMessage((prevState) => ({
+      ...prevState,
+      message: "",
+    }));
+
+    selectedChatData.messages((pre) => [...pre, messageData]);
+    setMessage("");
+
+    const receiverId =
+      (await selectedChatData.messages) !== undefined &&
+      selectedChatData.messages[0].conversationId.members.find(
+        (member) => member !== currentUserData._id
+      );
+    Socket.emit("sendMessage", {
+      senderId: sendMessage?.sender,
+      receiverId: receiverId,
+      message: sendMessage?.message,
+      createdAt: new Date(),
+    });
+  };
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      SendMessageHandler();
+    }
+  };
 
   return (
     <>
@@ -273,6 +271,9 @@ const Chat = () => {
                   </Link>
                 );
               })}
+              <p className="side-link border-0 cr-p" onClick={() => Logout()}>
+                Login/Logout
+              </p>
             </div>
           </div>
           <div className="d-flex align-items-center justify-content-between gap-2 pt-4 section-2">
@@ -295,15 +296,33 @@ const Chat = () => {
                 className="dropdown-menu"
                 aria-labelledby="dropdownMenuButton1"
               >
-                <li>
-                  <div className="dropdown-item">Action</div>
-                </li>
-                <li>
-                  <div className="dropdown-item">Another action</div>
-                </li>
-                <li>
-                  <div className="dropdown-item">Something else here</div>
-                </li>
+                <Link
+                  to={"/favourite"}
+                  className={`${
+                    "/favourite" === Location.pathname
+                      ? "product-item-active "
+                      : ""
+                  } dropdown-item`}
+                >
+                  Favourites
+                </Link>
+                <Link
+                  to={"/myaccount "}
+                  className={`${
+                    "/myaccount " === Location.pathname
+                      ? "product-item-active "
+                      : ""
+                  } dropdown-item`}
+                >
+                  My Account
+                </Link>
+                <div
+                  onClick={() => Logout()}
+                  to={"/login"}
+                  className={` dropdown-item`}
+                >
+                  Logout
+                </div>
               </ul>
             </div>
 
@@ -344,19 +363,25 @@ const Chat = () => {
                           role="tablist"
                           aria-orientation="vertical"
                         >
-                          {chats.map((data, index) => {
+                          {(recentChatsData || [])?.map((data, index) => {
                             return (
                               <>
                                 <button
+                                  onClick={() => {
+                                    GetChatData(data._id);
+                                    setSendMessage((prevState) => ({
+                                      ...prevState,
+                                      conversationId: data._id,
+                                    }));
+                                    setCurrentChat(data);
+                                  }}
                                   key={index}
-                                  className={`${
-                                    data.active ? "active" : ""
-                                  } nav-link w-100  product-item bg-white  rounded-0 w-100 justify-content-start h-auto`}
-                                  id={`v-pills-${data.id}-tab`}
+                                  className={`nav-link w-100  product-item bg-white  rounded-0 w-100 justify-content-start h-auto`}
+                                  id={`v-pills-${data._id}-tab`}
                                   data-toggle="pill"
-                                  href={`#v-pills-${data.id}`}
+                                  href={`#v-pills-${data._id}`}
                                   role="tab"
-                                  aria-controls={`v-pills-${data.id}`}
+                                  aria-controls={`v-pills-${data._id}`}
                                   aria-selected="true"
                                 >
                                   <div
@@ -371,10 +396,22 @@ const Chat = () => {
                                     <div className="user-name py-4 w-100 d-flex flex-column gap-2 justify-content-start align-items-start">
                                       <div className="d-flex align-items-center justify-content-between w-100 gap-2">
                                         <h3 className="font-18 font-weight-700">
-                                          {data.name}
+                                          {data.members.map((user, index) => {
+                                            if (
+                                              user._id !== currentUserData._id
+                                            ) {
+                                              return (
+                                                <p key={index}>
+                                                  {user.fullName}
+                                                </p>
+                                              );
+                                            }
+                                          })}
                                         </h3>
                                         <p className="font-12 font-weight-500">
-                                          {time}
+                                          {timeAgo.format(
+                                            new Date(data.createdAt)
+                                          )}
                                         </p>
                                       </div>
                                       <p className="font-14 font-weight-500">
@@ -398,10 +435,22 @@ const Chat = () => {
                                     <div className="user-name py-4 w-100 d-flex flex-column gap-2 justify-content-start align-items-start">
                                       <div className="d-flex align-items-center justify-content-between w-100 gap-2">
                                         <h3 className="font-18 font-weight-700">
-                                          {data.name}
+                                          {data.members.map((user) => {
+                                            if (
+                                              user._id !== currentUserData._id
+                                            ) {
+                                              return (
+                                                <p key={index}>
+                                                  {user.fullName}
+                                                </p>
+                                              );
+                                            }
+                                          })}
                                         </h3>
                                         <p className="font-12 font-weight-500">
-                                          {time}
+                                          {timeAgo.format(
+                                            new Date(data.createdAt)
+                                          )}
                                         </p>
                                       </div>
                                       <p className="font-14 font-weight-500">
@@ -466,7 +515,15 @@ const Chat = () => {
                               />
                               <div className="w-100 d-flex flex-column justify-content-start align-items-start">
                                 <h3 className="font-18 font-weight-700">
-                                  Tony Stark
+                                  {currentChat
+                                    ? currentChat?.members.map((user) => {
+                                        if (user._id !== currentUserData._id) {
+                                          return (
+                                            <p key={index}>{user.fullName}</p>
+                                          );
+                                        }
+                                      })
+                                    : "Username"}
                                 </h3>
 
                                 <div className="d-flex justify-content-start align-items-center gap-2">
@@ -493,41 +550,31 @@ const Chat = () => {
                             </div>
                             <div className="chat-detail-body">
                               <div className="new-msg d-flex flex-column gap-3 ">
-                                <div className="send-msg">
-                                  <div className="msg">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    <span className="d-flex justify-content-end font-12 pt-1 text-grey">
-                                      {time}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="rcv-msg">
-                                  <div className="msg">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    <span className="d-flex justify-content-end font-12 pt-1 text-grey">
-                                      {time}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="send-msg">
-                                  <div className="msg">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    <span className="d-flex justify-content-end font-12 pt-1 text-grey">
-                                      {time}
-                                    </span>
-                                  </div>
-                                </div>
-                                <div className="rcv-msg">
-                                  <div className="msg">
-                                    Lorem ipsum dolor sit amet consectetur.
-                                    <span className="d-flex justify-content-end font-12 pt-1 text-grey">
-                                      {time}
-                                    </span>
-                                  </div>
-                                </div>
+                                {selectedChatData?.messages?.length > 0 &&
+                                  (selectedChatData || [])?.messages.map(
+                                    (chat, index) => {
+                                      return (
+                                        <div
+                                          ref={scrollRef}
+                                          key={index}
+                                          className={`${
+                                            chat.sender === currentUserData._id
+                                              ? "send-msg"
+                                              : "rcv-msg"
+                                          }`}
+                                        >
+                                          <div className="msg">
+                                            {chat.message}
+                                            <span className="d-flex justify-content-end font-12 pt-1 text-grey">
+                                              {timeAgo.format(
+                                                new Date(chat.createdAt)
+                                              )}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      );
+                                    }
+                                  )}
                               </div>
                             </div>
                             <div className="d-flex align-items-center chatbox-footer">
@@ -556,12 +603,22 @@ const Chat = () => {
                               </div>
                               <div className="send-message-box w-100">
                                 <textarea
+                                  onChange={(e) =>
+                                    setSendMessage((prevState) => ({
+                                      ...prevState,
+                                      message: e.target.value,
+                                    }))
+                                  }
+                                  value={sendMessage.message}
+                                  onKeyDown={handleKeyPress}
                                   placeholder="Type a message"
                                   className="chatbox w-100"
                                   name="chatbox"
                                   minLength="2"
                                 ></textarea>
                                 <svg
+                                  onClick={() => SendMessageHandler()}
+                                  className="cr-p"
                                   width={24}
                                   height={24}
                                   viewBox="0 0 24 24"

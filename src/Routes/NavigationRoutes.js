@@ -39,6 +39,7 @@ import RegistrationLayout from "../Components/Registration";
 import AllProductMapView from "../Components/ViewMap/ShowAllProduct";
 import SeedUserProfile from "../Pages/Seed User Profile";
 import ProductUserProfile from "../Pages/Product User Profile";
+import Chat from "../Pages/Chat";
 
 const NavigationRoutes = () => {
   return (
@@ -180,7 +181,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/home/seed"
+          path="/home/seed/:radius?"
           element={
             <ProtectedRoutes
               component={
@@ -240,7 +241,7 @@ const NavigationRoutes = () => {
         />
 
         <Route
-          path="/home/dispensary"
+          path="/home/dispensary/:radius?"
           element={
             <ProtectedRoutes
               component={
@@ -298,7 +299,7 @@ const NavigationRoutes = () => {
         />
 
         <Route
-          path="/home/headshop"
+          path="/home/headshops/:radius?"
           element={
             <ProtectedRoutes
               component={
@@ -312,7 +313,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/home/headshop/map"
+          path="/home/headshops/map"
           element={
             <ProtectedRoutes
               component={
@@ -434,6 +435,11 @@ const NavigationRoutes = () => {
               }
             />
           }
+        />
+
+        <Route
+          path="/chat/:id"
+          element={<ProtectedRoutes component={<Chat />} />}
         />
       </Routes>
     </div>

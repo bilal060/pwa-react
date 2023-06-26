@@ -88,7 +88,7 @@ const DispensaryMap = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetSeeds(GetDispensaryUrl);
   }, []);
 
@@ -141,11 +141,15 @@ const DispensaryMap = () => {
               >
                 <div className="flex-column">
                   <div className="position-relative text-black d-flex flex-lg-row flex-md-column justify-content-between gap-sm-4 ga-2">
-                    <img
-                      className="w-lg-40-100-40 intro-img h-100"
-                      src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                      alt=""
-                    />
+                    <div>
+                      <img
+                        className="w-100 intro-img"
+                        src={`${process.env.REACT_APP_PORT}/${
+                          Array.isArray(data.photo) ? data.photo[0] : data.photo
+                        }`}
+                        alt=""
+                      />
+                    </div>
                     <div className="ps-sm-0 ps-3 w-100 d-flex flex-column justify-content-between">
                       <div>
                         <p className="mb-3 font-24 font-weight-700">

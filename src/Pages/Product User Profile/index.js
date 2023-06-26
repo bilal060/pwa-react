@@ -96,7 +96,7 @@ const ProductUserProfile = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/test/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&collection=${category}&userId=${routeParams.id}`;
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&collection=${category}&userId=${routeParams.id}`;
     GetSharedByUser(GetSharedByUserUrl);
     GetUser(GetUserUrl);
     setRatingData((prevState) => ({

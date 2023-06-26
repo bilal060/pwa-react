@@ -28,7 +28,13 @@ const Cannabis = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/test/?collection=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&`
+        : `getAllData/?`
+    }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, []);
 
@@ -41,66 +47,72 @@ const Cannabis = () => {
             key={index}
           >
             <div className="seed-card position-relative text-black">
-              <img
-                className="w-100 intro-img"
-                src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                alt=""
-              />
-              <span
-                className="like-post cr-p"
-                onClick={() =>
-                  MarkFavourite(data.userId._id, data._id, data.category)
-                }
-              >
-                <HeartIcon />
-              </span>
-              <div className="ps-sm-0 ps-3">
-                <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                  {data.brandName}
-                </p>
-                <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                  <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                    <DistanceIcon />
-                    {data.distance}
-                  </span>
-                  <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                    <PriceIcon />
-                    <span>Fees: ${data.entryFee}</span>
+              <div className="row m-0 flex-sm-column w-100">
+                <div className="col-4 col-sm-12 p-0">
+                  <img
+                    className="w-100 intro-img"
+                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                    alt=""
+                  />
+                  <span
+                    className="like-post cr-p"
+                    onClick={() =>
+                      MarkFavourite(data.userId._id, data._id, data.category)
+                    }
+                  >
+                    <HeartIcon />
                   </span>
                 </div>
-                {data.timing && (
-                  <span className="d-flex gap-2 align-items-center font-18 font-weight-500  mb-sm-3 mb-2">
-                    <TimerIcon />
-                    {data.timing}
-                  </span>
-                )}
-                <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
-                  <LocationIcon />
-                  <span className="cut-text">
-                    {data.userId?.location?.address}
-                  </span>
-                </span>
-                <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
-                  <div className="d-flex gap-2 align-items-center flex-wrap">
-                    <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
-                      <RatingIcon />
-                      {data.userId.ratingsAverage}
+                <div className="col-8 col-sm-12 p-0">
+                  <div className="ps-sm-0 ps-3">
+                    <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                      {data.brandName}
+                    </p>
+                    <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                        <DistanceIcon />
+                        {data.distance}
+                      </span>
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                        <PriceIcon />
+                        <span>Fees: ${data.entryFee}</span>
+                      </span>
+                    </div>
+                    {data.timing && (
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500  mb-sm-3 mb-2">
+                        <TimerIcon />
+                        {data.timing}
+                      </span>
+                    )}
+                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                      <LocationIcon />
+                      <span className="cut-text">
+                        {data.userId?.location?.address}
+                      </span>
                     </span>
-                    <span className="font-14-100 text-grey font-weight-400">
-                      ({data.userId.ratingsQuantity} Reviews)
-                    </span>
+                    <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                      <div className="d-flex gap-2 align-items-center flex-wrap">
+                        <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                          <RatingIcon />
+                          {data.userId.ratingsAverage}
+                        </span>
+                        <span className="font-14-100 text-grey font-weight-400">
+                          ({data.userId.ratingsQuantity} Reviews)
+                        </span>
+                      </div>
+                      <Link
+                        to={`/home/cannabisLounge/${data._id}`}
+                        className="green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3 text-white"
+                      >
+                        {" "}
+                        <span>View Store</span>
+                        <span className="send-message">
+                          <SendMailIcon />
+                        </span>
+                      </Link>
+                      {/* <Link to={'/chat'} className='text-white green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></Link> */}
+                    </div>
                   </div>
-                  <Link
-                    to={`/home/cannabisLounge/${data._id}`}
-                    className="green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3 text-white"
-                  >
-                    {" "}
-                    <span>View Store</span>
-                    <span className="send-message">
-                      <SendMailIcon />
-                    </span>
-                  </Link>
-                  {/* <Link to={'/chat'} className='text-white green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></Link> */}
                 </div>
               </div>
             </div>

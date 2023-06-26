@@ -68,7 +68,7 @@ const FavoriteProduct = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=${data._id}&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=6491756f93c8104a08c91883&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetMarkFavourite(GetFavouriteUrl);
   }, [userInfo]);
 
@@ -131,27 +131,29 @@ const FavoriteProduct = (props) => {
               <div className="col-xl-6 mb-4 seed-card-col" key={index}>
                 <div className="seed-card flex-column">
                   <div className="position-relative text-black d-flex flex-md-row flex-sm-column justify-content-between gap-sm-4 ga-2">
-                    <img
-                      className="w-lg-40 intro-img"
-                      src={`${process.env.REACT_APP_PORT}/${
-                        Array.isArray(data.photo) ? data.photo[0] : data.photo
-                      }`}
-                      alt=""
-                    />
-                    <span className="favourite-post">
-                      <svg
-                        width={20}
-                        height={18}
-                        viewBox="0 0 20 18"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
-                          fill="#BE3F3F"
-                        />
-                      </svg>
-                    </span>
+                    <div className=" w-lg-40">
+                      <img
+                        className="intro-img"
+                        src={`${process.env.REACT_APP_PORT}/${
+                          Array.isArray(data.photo) ? data.photo[0] : data.photo
+                        }`}
+                        alt=""
+                      />
+                      <span className="favourite-post">
+                        <svg
+                          width={20}
+                          height={18}
+                          viewBox="0 0 20 18"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                            fill="#BE3F3F"
+                          />
+                        </svg>
+                      </span>
+                    </div>
                     <div className="ps-sm-0 ps-3 w-100 d-flex flex-column justify-content-between">
                       <div>
                         <p className="mb-sm-4 mb-3 font-24 font-weight-700">

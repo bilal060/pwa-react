@@ -10,6 +10,8 @@ const PostHeadShopUrl = `${process.env.REACT_APP_API_URI}headShop`;
 const PostSeedStoreUrl = `${process.env.REACT_APP_API_URI}seedStore`;
 const FavouriteUrl = `${process.env.REACT_APP_API_URI}users/markFavourite`;
 const PostReviewUrl = `${process.env.REACT_APP_API_URI}users/createReview`;
+const CreateChatUrl = `${process.env.REACT_APP_API_URI}conversations`;
+const PostMessageUrl = `${process.env.REACT_APP_API_URI}messages`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -199,6 +201,32 @@ export const PostReview = async (ratingData) => {
   try {
     await Axios.post(PostReviewUrl, ratingData);
     toast.success("Review Posted Successfully");
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    console.log(error);
+  }
+};
+export const CreateChat = async (senderId, receiverId) => {
+  try {
+    const data = {
+      senderId: senderId,
+      receiverId: receiverId,
+    };
+    await Axios.post(CreateChatUrl, data);
+    toast.success("Chat Posted Successfully");
+    setTimeout(() => {
+      window.location.href = `/chat/${senderId}`;
+    }, 1000);
+  } catch (error) {
+    toast.error(error?.response.data.message);
+    console.log(error);
+  }
+};
+
+export const PostMessage = async (sendMessage) => {
+  try {
+    console.log(sendMessage);
+    await Axios.post(PostMessageUrl, sendMessage);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);

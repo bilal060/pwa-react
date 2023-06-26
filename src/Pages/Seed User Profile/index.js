@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
-import { MarkFavourite } from "../../Api";
+import { CreateChat, MarkFavourite } from "../../Api";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 
 const SeedUserProfile = () => {
@@ -25,21 +25,10 @@ const SeedUserProfile = () => {
   const [api_url, setapi_url] = useState("");
   const [selectedQuantity, setselectedQuantity] = useState("");
   const [selectedStrain, setselectedStrain] = useState("");
-
-  // const GetSeeds = async (GetSeedUrl) => {
-  //   try {
-  //     const fetchData = await Axios.get(GetSeedUrl);
-  //     setSeed(fetchData.data.data);
-  //     setapi_url(
-  //       `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${fetchData.data.data.userId?._id}`
-  //     );
-  //     let GetOthersUrl = `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${fetchData.data.data.userId?._id}`;
-  //     GetOthersByUser(GetOthersUrl);
-  //   } catch (error) {
-  //     toast.error(error?.message);
-  //     console.log(error);
-  //   }
-  // };
+  const [chatData, setChatData] = useState({
+    senderId: "",
+    receiverId: "",
+  });
 
   const GetSeeds = (GetSeedUrl) => {
     Axios.get(GetSeedUrl)
@@ -71,6 +60,10 @@ const SeedUserProfile = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     let GetSeedUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    setChatData((prevState) => ({
+      ...prevState,
+      senderId: data._id,
+    }));
     GetSeeds(GetSeedUrl);
   }, [routeParams.id]);
 
@@ -184,12 +177,17 @@ const SeedUserProfile = () => {
                       <MobHeartIcon />
                     </span>
                   </button>
-                  <button className="green-btn ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-sm-2 gap-2">
+                  <div
+                    onClick={() =>
+                      CreateChat(chatData.senderId, seed.userId._id)
+                    }
+                    className="green-btn text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-sm-2 gap-2"
+                  >
                     <span>Messaege </span>
                     <span className="send-message">
                       <SendMailIcon />
                     </span>
-                  </button>
+                  </div>
                 </div>
               </div>
             </div>

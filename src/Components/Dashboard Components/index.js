@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
 import BudsIcon from "../../assets/Images/Buds";
 import CannbisIcon from "../../assets/Images/Cannbis";
@@ -40,10 +40,11 @@ const products = [
 ];
 
 const AllProducts = (props) => {
+  const params = useParams();
   const { children } = props;
   const Location = useLocation();
   const [filter, setFilter] = useState({
-    radius: "",
+    radius: 0,
     area: "",
     quantity: "",
   });
@@ -56,9 +57,24 @@ const AllProducts = (props) => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    window.location.href = `${window.location.href}/radius=${filter.radius}`;
-    console.log(window.location.href);
-    console.log(filter);
+
+    const hasRadius = "radius" in params;
+    console.log(hasRadius);
+    if (hasRadius) {
+      let url = window.location.href;
+      let modifiedUrl = url.split("radius=")[0];
+      window.location.href = `${modifiedUrl}${params.radius ? "" : ""}radius=${
+        filter.radius
+      }`;
+    } else {
+      window.location.href = `${window.location.href}/${
+        params.radius ? "" : ""
+      }radius=${filter.radius}`;
+    }
+
+    // window.location.href = `${window.location.href}/${
+    //   params.radius ? "" : ""
+    //   }radius=${filter.radius}`;
   };
   return (
     <div className="all-product-section ">

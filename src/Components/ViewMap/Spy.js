@@ -63,8 +63,10 @@ function Spy(props) {
         aria-labelledby="dropdownMenuButton"
       >
         <img
-          className="w-lg-40-100-40 h-100"
-          src={`${process.env.REACT_APP_PORT}/${data?.photo}`}
+          className="w-100 intro-img"
+          src={`${process.env.REACT_APP_PORT}/${
+            Array.isArray(data.photo) ? data.photo[0] : data.photo
+          }`}
           alt=""
         />
 
