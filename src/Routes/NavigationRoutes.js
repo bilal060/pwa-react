@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
 import ShowAllProducts from "../Components/Dashboard Components/AllProducts";
@@ -40,13 +40,40 @@ import AllProductMapView from "../Components/ViewMap/ShowAllProduct";
 import SeedUserProfile from "../Pages/Seed User Profile";
 import ProductUserProfile from "../Pages/Product User Profile";
 import Chat from "../Pages/Chat";
+import SocialAuthLayout from "../Components/Social Layout/SocialAuthLayout";
+import SocialSignUp from "../Components/Social App/SocialSignup";
+import SocialSummary from "../Components/Social App/Summary";
+import SocialUserDetail from "../Components/Social App/UserDetail";
+import SocialUserBio from "../Components/Social App/UserBio";
+import SocialNotice from "../Components/Social App/Notice";
+import SocialSubscription from "../Components/Social App/SocialSubscription";
+import SocialUploadPicture from "../Components/Social App/UploadPicture";
+import LookingFor from "../Components/Social App/LookingFor";
+import SocialProfile from "../Components/Social App/SocialProfile";
+import SocialLayout from "../Components/Social Layout";
+import SocialDashboard from "../Components/Social App/Dashboard";
+import SocialPosts from "../Components/Social App/Posts";
+import SocialMatch from "../Components/Social App/SocialMatch";
 
 const NavigationRoutes = () => {
+  const [windowSize, setWindowSize] = useState([
+    window.innerWidth,
+    window.innerHeight,
+  ]);
+  useEffect(() => {
+    const handleWindowResize = () => {
+      setWindowSize([window.innerWidth, window.innerHeight]);
+    };
+    window.addEventListener("resize", handleWindowResize);
+
+    return () => {
+      window.removeEventListener("resize", handleWindowResize);
+    };
+  }, []);
   return (
     <div>
       <Routes>
         {/* Registration  */}
-
         <Route
           path="/"
           element={
@@ -194,7 +221,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/home/seed/map"
           element={
@@ -209,7 +235,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/home/buds"
           element={
@@ -224,7 +249,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/home/buds/map"
           element={
@@ -239,9 +263,8 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
-          path="/home/dispensary/:radius?"
+          path="/home/dispensaries/:radius?"
           element={
             <ProtectedRoutes
               component={
@@ -255,7 +278,7 @@ const NavigationRoutes = () => {
           }
         />
         <Route
-          path="/home/dispensary/map"
+          path="/home/dispensaries/map"
           element={
             <ProtectedRoutes
               component={
@@ -268,7 +291,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/home/cannabis/:radius?"
           element={
@@ -297,7 +319,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/home/headshops/:radius?"
           element={
@@ -326,7 +347,6 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           exact
           path="/home/seedStore/:id"
@@ -436,11 +456,113 @@ const NavigationRoutes = () => {
             />
           }
         />
-
         <Route
           path="/chat/:id"
           element={<ProtectedRoutes component={<Chat />} />}
         />
+
+        {windowSize[0] <= 576 ? (
+          <>
+            <Route
+              path="/social/signup"
+              element={
+                <SocialAuthLayout>
+                  <SocialSignUp />{" "}
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/summary"
+              element={
+                <SocialAuthLayout>
+                  <SocialSummary />{" "}
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/userdetail"
+              element={
+                <SocialAuthLayout>
+                  <SocialUserDetail />{" "}
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/userbio"
+              element={
+                <SocialAuthLayout>
+                  <SocialUserBio />{" "}
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/notice"
+              element={
+                <SocialAuthLayout>
+                  <SocialNotice />{" "}
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/subscription"
+              element={
+                <SocialAuthLayout>
+                  <SocialSubscription />
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/uploadpicture"
+              element={
+                <SocialAuthLayout>
+                  <SocialUploadPicture />
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/profile"
+              element={
+                <SocialAuthLayout>
+                  <SocialProfile />
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/lookingfor"
+              element={
+                <SocialAuthLayout>
+                  <LookingFor />
+                </SocialAuthLayout>
+              }
+            />
+            <Route
+              path="/social/dashboard"
+              element={
+                <SocialLayout>
+                  <SocialDashboard />
+                </SocialLayout>
+              }
+            />
+            <Route
+              path="/social/posts"
+              element={
+                <SocialLayout>
+                  <SocialPosts />
+                </SocialLayout>
+              }
+            />
+            <Route
+              path="/social/match"
+              element={
+                <SocialLayout>
+                  <SocialMatch />
+                </SocialLayout>
+              }
+            />
+          </>
+        ) : (
+          ""
+        )}
       </Routes>
     </div>
   );

@@ -57,14 +57,14 @@ const AppLayout = (props) => {
     "/aboutus",
     "/home/seed",
     "/home/buds",
-    "/home/dispensary",
+    "/home/dispensaries",
     "/home/cannabis",
-    "/home/headshop",
+    "/home/headshops",
     "/home/seed/map",
     "/home/buds/map",
-    "/home/dispensary/map",
+    "/home/dispensaries/map",
     "/home/cannabis/map",
-    "/home/headshop/map",
+    "/home/headshops/map",
   ];
   const navigate = useNavigate();
   const { Logout } = Hooks();

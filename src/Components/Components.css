@@ -1283,6 +1283,10 @@ input[type="range"]::-ms-thumb {
     max-width: 100%;
 }
 
+.send-msg .msg .chat-image {
+    max-width: 300px;
+}
+
 .send-msg {
     display: flex;
     justify-content: flex-end;
@@ -1863,6 +1867,17 @@ div.subs {
     border-radius: 10px;
 }
 
+.recent-chats-detail .product-item {
+    background-color: white !important;
+    border-radius: 0 !important;
+    height: 100% !important;
+}
+
+.recent-chats-detail .product-item.active {
+    background: #5D8B2F !important;
+}
+
+
 @keyframes popup {
     0% {
         transform: scale(1, 1)
@@ -1910,6 +1925,10 @@ div.subs {
 }
 
 @media screen and (max-width:767px) {
+    .send-msg .msg .chat-image {
+        max-width: 250px;
+    }
+
     .map-card-col .map-link:first-child {
         border-radius: 0 !important;
     }
@@ -1986,6 +2005,10 @@ div.subs {
 }
 
 @media screen and (max-width:576px) {
+    .send-msg .msg .chat-image {
+        max-width: 200px;
+    }
+
     .app-header .app-heading {
         font-size: 16px !important;
     }
@@ -2118,7 +2141,7 @@ div.subs {
     }
 
     .seed-card .green-btn {
-        height: 34px !important;
+        /* height: 34px !important; */
         border-radius: 5px !important;
     }
 

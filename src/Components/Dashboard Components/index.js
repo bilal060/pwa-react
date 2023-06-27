@@ -25,7 +25,7 @@ const products = [
   {
     name: "Dispensary",
     icon: <DispensaryIcon />,
-    link: "/home/dispensary",
+    link: "/home/dispensaries",
   },
   {
     name: "Cannabis Lounge",
@@ -35,7 +35,7 @@ const products = [
   {
     name: "Head Shop",
     icon: <HeadShopIcon />,
-    link: "/home/headshop",
+    link: "/home/headshops",
   },
 ];
 

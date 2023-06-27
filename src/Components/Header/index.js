@@ -18,7 +18,7 @@ const headLinks = [
   },
   {
     name: "Dispensary",
-    link: "/home/dispensary",
+    link: "/home/dispensaries",
   },
   {
     name: "Cannabis Lounge",
@@ -26,7 +26,7 @@ const headLinks = [
   },
   {
     name: "Head Shop",
-    link: "/home/headshop",
+    link: "/home/headshops",
   },
 ];
 const products = [
@@ -43,7 +43,7 @@ const products = [
   {
     name: "Dispensary",
     icon: <DispensaryIcon />,
-    link: "/home/dispensary",
+    link: "/home/dispensaries",
   },
   {
     name: "Cannabis Lounge",
@@ -53,7 +53,7 @@ const products = [
   {
     name: "Head Shop",
     icon: <HeadShopIcon />,
-    link: "/home/headshop",
+    link: "/home/headshops",
   },
 ];
 const head = [
@@ -61,14 +61,14 @@ const head = [
   "/aboutus",
   "/home/seed",
   "/home/buds",
-  "/home/dispensary",
+  "/home/dispensaries",
   "/home/cannabis",
-  "/home/headshop",
+  "/home/headshops",
   "/home/seed/map",
   "/home/buds/map",
-  "/home/dispensary/map",
+  "/home/dispensaries/map",
   "/home/cannabis/map",
-  "/home/headshop/map",
+  "/home/headshops/map",
 ];
 
 const AppHeader = (props) => {
