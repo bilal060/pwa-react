@@ -37,6 +37,9 @@ const DispensaryType = () => {
     }));
   };
 
+  const clearSavedData = () => {
+    localStorage.setItem("savedDataCount", "0");
+  };
   const attachFile = (e) => {
     if (e.target.files) {
       let imageFile = e.target.files[0];
@@ -58,7 +61,7 @@ const DispensaryType = () => {
   useEffect(() => {
     console.log(arrayData);
   }, [arrayData]);
-  
+
   const addMore = () => {
     setAddMoreBtn(true);
     setArrayData((prev) => [...prev, dispensary]);
@@ -71,61 +74,31 @@ const DispensaryType = () => {
       photo: "",
     });
     setFile(null);
+    const savedDataCount =
+      JSON.parse(localStorage.getItem("savedDataCount")) || 0;
+    localStorage.setItem("savedDataCount", JSON.stringify(savedDataCount + 1));
   };
-
   const submitHandler = (e) => {
     e.preventDefault();
-
+    const updatedArrayData = [...arrayData, dispensary];
     let data = new FormData();
-    if (addMorebtn) {
-      arrayData.forEach((mapData, index) => {
-        data.append("userId", id);
-        data.append("postStrain", mapData.postStrain);
-        data.append("quantity", mapData.quantity);
-        data.append("cost", mapData.cost);
-        data.append("strainName", mapData.strainName);
-        data.append("description", mapData.description);
-        if (Array.isArray(mapData.photo)) {
-          mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
-        } else {
-          data.append(`photo-${index}`, mapData.photo);
-        }
-      });
+    updatedArrayData.forEach((mapData, index) => {
       data.append("userId", id);
-      data.append("postStrain", dispensary.postStrain);
-      data.append("quantity", dispensary.quantity);
-      data.append("cost", dispensary.cost);
-      data.append("strainName", dispensary.strainName);
-      data.append("description", dispensary.description);
-      if (Array.isArray(dispensary.photo)) {
-        dispensary.photo.forEach((file, fileIndex) =>
-          data.append(`photo-${fileIndex}`, file)
-        );
-      } else {
-        data.append("photo", dispensary.photo);
-      }
-    } else {
-      data.append("userId", id);
-      data.append("postStrain", dispensary.postStrain);
-      data.append("quantity", dispensary.quantity);
-      data.append("cost", dispensary.cost);
-      data.append("strainName", dispensary.strainName);
-      data.append("description", dispensary.description);
-      if (Array.isArray(dispensary.photo)) {
-        dispensary.photo.forEach((file, fileIndex) =>
-          data.append(`photo-${fileIndex}`, file)
-        );
-      } else {
-        data.append("photo", dispensary.photo);
-      }
-    }
+      data.append("postStrain", mapData.postStrain);
+      data.append("quantity", mapData.quantity);
+      data.append("cost", mapData.cost);
+      data.append("strainName", mapData.strainName);
+      data.append("description", mapData.description);
 
+      if (Array.isArray(mapData.photo)) {
+        mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
+      } else {
+        data.append(`photo-${index}`, mapData.photo);
+      }
+    });
     console.log(data);
     PostDispensary(data);
 
-    // Clear form data and navigate to the next page or perform other actions
-    setArrayData([]);
-    setAddMoreBtn(false);
     setDispensary({
       postStrain: "",
       quantity: "",
@@ -135,8 +108,12 @@ const DispensaryType = () => {
       photo: "",
     });
     setFile(null);
+    setArrayData([]);
+    setAddMoreBtn(false);
+    clearSavedData();
   };
-
+  const savedDataCount =
+    JSON.parse(localStorage.getItem("savedDataCount")) || 0;
   return (
     <div className="max-width-792">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -247,7 +224,7 @@ const DispensaryType = () => {
             type="button"
           >
             <AddIcon />
-            Add More Strain
+            Add More Strain {savedDataCount}
           </button>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-5">

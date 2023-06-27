@@ -109,9 +109,9 @@ export const PostAddress = async (adressUrl, address) => {
 export const PostResponse = async (newArray) => {
   try {
     await Axios.post(PostResponseUrl, newArray);
-    setTimeout(() => {
-      window.location.href = "/terms";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "/terms";
+    // }, 1000);
     toast.success("Response Added Successfully");
   } catch (error) {
     toast.error(error?.message);
@@ -122,9 +122,9 @@ export const PostResponse = async (newArray) => {
 export const PostSeedStore = async (data) => {
   try {
     await Axios.post(PostSeedStoreUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "/address";
+    // }, 1000);
     toast.success("Seed Added Successfully");
   } catch (error) {
     toast.error(error?.message);

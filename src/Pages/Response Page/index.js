@@ -50,27 +50,48 @@ const ResponsivePage = () => {
     navigate(-1);
   };
 
+  const clearSavedData = () => {
+    localStorage.setItem("savedDataCount", "0");
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     const data = new FormData();
 
     if (addMorebtn) {
-      setMyArray((prev) => [...prev, response]);
-      myArray.forEach((mapData) => {
+      const updatedArray = [...myArray, response];
+      setMyArray(updatedArray);
+
+      updatedArray.forEach((mapData, index) => {
         console.log(mapData);
         data.append("userId", id);
         data.append("strainType", mapData.strainType);
         data.append("grownType", mapData.grownType);
-        data.append("photo", mapData.photo);
+
+        if (Array.isArray(mapData.photo)) {
+          mapData.photo.forEach((file, fileIndex) =>
+            data.append(`photo-${index}-${fileIndex}`, file)
+          );
+        } else {
+          data.append(`photo-${index}`, mapData.photo);
+        }
       });
     } else {
       data.append("userId", id);
       data.append("strainType", response.strainType);
       data.append("grownType", response.grownType);
-      data.append("photo", response.photo);
+
+      if (Array.isArray(response.photo)) {
+        response.photo.forEach((file, fileIndex) =>
+          data.append(`photo-${fileIndex}`, file)
+        );
+      } else {
+        data.append("photo", response.photo);
+      }
     }
 
     PostResponse(data);
+    clearSavedData();
   };
 
   const addMore = () => {
@@ -82,7 +103,13 @@ const ResponsivePage = () => {
       photo: "",
     });
     setFile(null);
+    const savedDataCount =
+      JSON.parse(localStorage.getItem("savedDataCount")) || 0;
+    localStorage.setItem("savedDataCount", JSON.stringify(savedDataCount + 1));
   };
+
+  const savedDataCount =
+    JSON.parse(localStorage.getItem("savedDataCount")) || 0;
   return (
     <div className="max-width-521">
       <h2 className="auth-model-heading mb-4 pb-3">
@@ -144,7 +171,7 @@ const ResponsivePage = () => {
           type="button"
         >
           <AddIcon />
-          Add More
+          Add More {savedDataCount}
         </button>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between  mt-4 pt-3">
           <button

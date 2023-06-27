@@ -44,7 +44,9 @@ const SeedStore = () => {
       setFile(imageFile.name);
     }
   };
-
+  const clearSavedData = () => {
+    localStorage.setItem("savedDataCount", "0");
+  };
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -62,48 +64,46 @@ const SeedStore = () => {
       photo: "",
     });
     setFile(null);
+    const savedDataCount =
+      JSON.parse(localStorage.getItem("savedDataCount")) || 0;
+    localStorage.setItem("savedDataCount", JSON.stringify(savedDataCount + 1));
   };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setArrayData((prev) => [...prev, seedStore]);
+    const updatedArrayData = [...arrayData, seedStore];
+
     const data = new FormData();
-
-    if (addMorebtn) {
-      arrayData.forEach((mapData, index) => {
-        data.append("userId", id);
-        data.append("postStrain", mapData.postStrain);
-        data.append("quantity", mapData.quantity);
-        data.append("cost", mapData.cost);
-        data.append("strainName", mapData.strainName);
-        data.append("description", mapData.description);
-
-        if (Array.isArray(mapData.photo)) {
-          mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
-        } else {
-          data.append(`photo-${index}`, mapData.photo);
-        }
-      });
-    } else {
+    updatedArrayData.forEach((mapData, index) => {
       data.append("userId", id);
-      data.append("postStrain", seedStore.postStrain);
-      data.append("quantity", seedStore.quantity);
-      data.append("cost", seedStore.cost);
-      data.append("strainName", seedStore.strainName);
-      data.append("description", seedStore.description);
+      data.append("postStrain", mapData.postStrain);
+      data.append("quantity", mapData.quantity);
+      data.append("cost", mapData.cost);
+      data.append("strainName", mapData.strainName);
+      data.append("description", mapData.description);
 
-      if (Array.isArray(seedStore.photo)) {
-        seedStore.photo.forEach((file, fileIndex) =>
-          data.append(`photo-${fileIndex}`, file)
-        );
+      if (Array.isArray(mapData.photo)) {
+        mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
       } else {
-        data.append("photo", seedStore.photo);
+        data.append(`photo-${index}`, mapData.photo);
       }
-    }
+    });
 
     PostSeedStore(data);
+    setSeedStore({
+      postStrain: "",
+      quantity: "",
+      cost: "",
+      strainName: "",
+      description: "",
+      photo: "",
+    });
+    setFile(null);
+    setArrayData([]);
+    clearSavedData();
   };
-
+  const savedDataCount =
+    JSON.parse(localStorage.getItem("savedDataCount")) || 0;
   return (
     <div className="max-width-792">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -215,7 +215,7 @@ const SeedStore = () => {
             type="button"
           >
             <AddIcon />
-            Add More Strain
+            Add More Strain {savedDataCount}
           </button>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-5">
