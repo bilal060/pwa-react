@@ -1,15 +1,88 @@
-import React from "react";
+import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
+import React, { useEffect, useRef, useState } from "react";
+import DatePicker from "react-date-picker";
 import { useNavigate } from "react-router-dom";
+import CalendarIcon from "../../assets/Images/Calendar";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
 
+const libraries = ["places"];
 const SocialUserDetail = () => {
+  const [value, onChange] = useState("");
   const navigate = useNavigate();
+  const [userData, setuserData] = useState();
+  const [userDetail, setuserDetail] = useState({
+    age: "",
+    role: "",
+    address: "",
+  });
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setuserData(JSON.parse(currentUser));
+    let userData = JSON.parse(currentUser);
+    setuserDetail({
+      age: "",
+      role: userData.userType,
+      address: userData.location.address,
+    });
+  }, []);
+  useEffect(() => {
+    setuserDetail((prevState) => ({
+      ...prevState,
+      age: value,
+    }));
+    return () => {
+      setuserDetail((prevState) => ({
+        ...prevState,
+        age: value,
+      }));
+    };
+  }, [value]);
+
+  const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${userData?._id}`;
+
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setuserDetail((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const inputRef = useRef();
+  const handlePlaceChanged = () => {
+    const [place] = inputRef.current.getPlaces();
+    if (place) {
+      setuserDetail((prevState) => ({
+        ...prevState,
+        address: place.formatted_address,
+      }));
+    }
+  };
+
+  const AddUserDetail = async (EditProfileUrl) => {
+    try {
+      const fetchData = await Axios.patch(EditProfileUrl, userDetail);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.updateUser)
+      );
+      navigate("/social/userbio");
+      toast.success("Detail Added Successfully");
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/userbio");
+    if (userData) {
+      navigate("/social/userbio");
+    } else AddUserDetail(EditProfileUrl);
   };
   return (
-    <div className="max-width-521 min-width-521 px-3 py-4 ">
+    <div className="max-width-521 min-width-521 mx-3 my-4 ">
       <h2 className="font-weight-700 text-white text-center font-24-social mb-4">
         User
       </h2>
@@ -22,61 +95,61 @@ const SocialUserDetail = () => {
           <label className="text-white mb-2 font-weight-600 font-18-100">
             Your Age
           </label>
-          <select className="auth-input" required>
-            <option value="">Select an option</option>
-            <option value="option1">26</option>
-            <option value="option2">27</option>
-            <option value="option3">28</option>
-            <option value="option1">29</option>
-            <option value="option2">30</option>
-            <option value="option3">31</option>
-            <option value="option1">32</option>
-            <option value="option2">33</option>
-            <option value="option3">34</option>
-          </select>
+          <DatePicker
+            onChange={onChange}
+            value={value}
+            className="auth-input"
+            clearIcon={false}
+            format="y-M-d"
+            dayPlaceholder="DD"
+            yearPlaceholder="YYYY"
+            monthPlaceholder="MM"
+            calendarIcon={<CalendarIcon />}
+            required={true}
+            readOnly={userData ? true : false}
+          />
         </div>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
           <label className="text-white mb-2 font-weight-600 font-18-100">
             Your Role
           </label>
-          <select className="auth-input" required>
-            <option value="">Select an option</option>
-            <option value="option1">Dom</option>
-            <option value="option2">Master/Mistress</option>
-            <option value="option3">Switch</option>
-            <option value="option3">Sub</option>
-            <option value="option3">Slave</option>
-            <option value="option3">Fetishist(Legal only)</option>
-            <option value="option3">Pet</option>
-            <option value="option3">Open/Bull</option>
-            <option value="option3">Vanilla</option>
-            <option value="option3">Top</option>
-            <option value="option3">Middle</option>
-            <option value="option3">Unsure</option>
-            <option value="option3">All-Rounder</option>
-            <option value="option3">Pet</option>
-            <option value="option3">Bottom</option>
-            <option value="option3">Sadist</option>
-            <option value="option3">Masochist</option>
-            <option value="option3">Primal</option>
-            <option value="option3">Open/Bull</option>
-            <option value="option3">Vanilla</option>
+          <select
+            required
+            className="auth-input"
+            name="role"
+            value={userDetail.role}
+            onChange={(e) => formHandler(e)}
+            disabled={userData ? true : false}
+          >
+            <option value="">- Select Type -</option>
+            <option value="Retailer">Retailer</option>
+            <option value="Consumer">Consumer</option>
           </select>
         </div>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
-          <label className="text-white mb-2 font-weight-600 font-18-100">
-            Your Location
-          </label>
-          <select className="auth-input" required>
-            <option value="">Type Location</option>
-            <option value="option1">United States</option>
-            <option value="option2">Canada</option>
-            <option value="option3">united Kingdom</option>
-            <option value="option4">Australia</option>
-            <option value="option5">Afghanistan</option>
-            <option value="option6">Albania</option>
-            <option value="option7">ALgeria</option>
-          </select>
+          <LoadScript
+            googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+            libraries={libraries}
+          >
+            <StandaloneSearchBox
+              onLoad={(ref) => (inputRef.current = ref)}
+              onPlacesChanged={handlePlaceChanged}
+            >
+              <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+                <label className="text-white mb-2 font-weight-600 font-18-100">
+                  Your Location
+                </label>
+                <input
+                  disabled={userData ? true : false}
+                  type="text"
+                  required
+                  className="auth-input"
+                  placeholder="Enter Address"
+                  value={userDetail.address}
+                />
+              </div>
+            </StandaloneSearchBox>
+          </LoadScript>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-4 pt-3">
           <button className="green-btn custom-w min-width-208">Continue</button>

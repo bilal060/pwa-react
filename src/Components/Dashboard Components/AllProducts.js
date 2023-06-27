@@ -15,6 +15,8 @@ import { MarkFavourite } from "../../Api";
 const ShowAllProducts = ({ match }) => {
   const [data, setData] = useState([]);
   const routeParams = useParams();
+  const { radius } = routeParams;
+  console.log(routeParams);
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
       const fetchData = await Axios.get(GetAllProductUrl);

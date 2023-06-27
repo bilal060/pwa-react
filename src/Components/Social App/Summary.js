@@ -1,15 +1,50 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
 
 const SocialSummary = () => {
+  const [userData, setuserData] = useState();
+  const [summary, setSummary] = useState({
+    selfSummary: userData?.selfSummary,
+  });
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setuserData(JSON.parse(currentUser));
+    setSummary({
+      selfSummary: JSON.parse(currentUser).selfSummary,
+    });
+  }, []);
+  const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${userData?._id}`;
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
   };
+  const EditUser = async (EditProfileUrl) => {
+    try {
+      const fetchData = await Axios.patch(EditProfileUrl, summary);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.updateUser)
+      );
+      navigate("/social/userdetail");
+      toast.success("Summary Added Successfully");
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/userdetail");
+    if (userData) {
+      navigate("/social/userdetail");
+    } else EditUser(EditProfileUrl);
   };
+  console.log(userData);
   return (
     <div className="px-3 py-4 h-100 ">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -18,6 +53,9 @@ const SocialSummary = () => {
             Your self-summary
           </label>
           <textarea
+            readOnly={userData ? true : false}
+            value={summary.selfSummary}
+            onChange={(e) => setSummary({ selfSummary: e.target.value })}
             required
             className="auth-input-textarea border-grey"
             type="email"
@@ -32,8 +70,10 @@ const SocialSummary = () => {
           <button className="green-btn-outline " onClick={() => goBack()}>
             Back
           </button>
-          <button className="green-btn ">Next</button>
-        </div>{" "}
+          <button className="green-btn " type="submit">
+            Next
+          </button>
+        </div>
       </form>
     </div>
   );

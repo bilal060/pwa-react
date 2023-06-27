@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
@@ -8,9 +8,9 @@ import HeadShopIcon from "../../assets/Images/HeadShop";
 import DispensaryIcon from "../../assets/Images/Dispensary";
 import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
-import ProgressSteps from "../Filter Components/ProgressBar";
-import WeightFilter from "../Filter Components/WeightFilter";
+import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 
+const libraries = ["places"];
 const products = [
   {
     name: "Seeds",
@@ -43,6 +43,11 @@ const AllProducts = (props) => {
   const params = useParams();
   const { children } = props;
   const Location = useLocation();
+  const [type, setType] = useState("Grams");
+  const handleChange = (event) => {
+    setType(event.target.value);
+  };
+
   const [filter, setFilter] = useState({
     radius: 0,
     area: "",
@@ -61,21 +66,52 @@ const AllProducts = (props) => {
     const hasRadius = "radius" in params;
     console.log(hasRadius);
     if (hasRadius) {
+      console.log("hasRadius");
       let url = window.location.href;
       let modifiedUrl = url.split("radius=")[0];
-      window.location.href = `${modifiedUrl}${params.radius ? "" : ""}radius=${
-        filter.radius
-      }`;
-    } else {
-      window.location.href = `${window.location.href}/${
-        params.radius ? "" : ""
-      }radius=${filter.radius}`;
-    }
+      const params = new URLSearchParams();
+      params.set("radius", filter.radius);
+      params.set("address", filter.area);
+      params.set("quantity", filter.quantity);
 
-    // window.location.href = `${window.location.href}/${
-    //   params.radius ? "" : ""
-    //   }radius=${filter.radius}`;
+      window.location.href = `${modifiedUrl}${params.radius ? "" : params}`;
+    } else {
+      if (filter.area !== "") {
+        console.log("filter.radius");
+        const params = new URLSearchParams();
+        params.set("radius", filter.radius);
+        params.set("address", filter.area);
+        if (filter.quantity !== "") {
+          params.set("quantity", filter.quantity);
+        }
+        const queryString = params.toString();
+        console.log(queryString);
+        window.location.href = `${window.location.href}/${queryString}`;
+      }
+    }
+    // if (filter.quantity !== "") {
+    //   const params = new URLSearchParams();
+    //   params.set("radius", filter.radius);
+    //   params.set("address", filter.area);
+    //   params.set("quantity", filter.quantity);
+    //   const queryString = params.toString();
+    //   window.location.href = `${window.location.href}/${queryString}`;
+    // }
   };
+
+  const inputRef1 = useRef();
+  const handlePlaceChanged = () => {
+    const [place] = inputRef1.current.getPlaces();
+    if (place) {
+      setFilter((prevState) => ({
+        ...prevState,
+        area: place.formatted_address,
+      }));
+    }
+  };
+
+  const filtertheFilter = ["/home/cannabis", "/home/headshops"];
+
   return (
     <div className="all-product-section ">
       <div className="allproduct-mob d-sm-block d-none">
@@ -199,27 +235,41 @@ const AllProducts = (props) => {
                 <p className="font-32 font-weight-800 text-center mb-4">
                   Filter your search
                 </p>
-
                 <div className="p-0 bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Search an area
-                  </label>
-                  <input
-                    className="auth-input bg-white auth-input height-42"
-                    placeholder="Enter here..."
-                    name="area"
-                    onChange={(e) => formHandler(e)}
-                  />
+                  <LoadScript
+                    googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+                    libraries={libraries}
+                  >
+                    <StandaloneSearchBox
+                      onLoad={(ref) => (inputRef1.current = ref)}
+                      onPlacesChanged={handlePlaceChanged}
+                    >
+                      <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+                        <label className="mb-2 font-weight-600 font-18-100">
+                          Search an area
+                        </label>
+                        <input
+                          type="text"
+                          className="auth-input bg-white auth-input height-42"
+                          placeholder="Enter here..."
+                          name="area"
+                          onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                            }
+                          }}
+                        />
+                      </div>
+                    </StandaloneSearchBox>
+                  </LoadScript>
                 </div>
-                <span className="my-2"></span>
-
-                {/* <ProgressSteps /> */}
-                <div className="d-flex flex-column align-items-start justify-content-center w-100 gap-2">
+                <div className="d-flex flex-column align-items-start justify-content-center w-100 gap-2 mb-4">
                   <label className="font-weight-600 font-18-100">
                     Distance
                   </label>
 
                   <input
+                    disabled={filter.area === "" ? true : false}
                     type="range"
                     className="form-control-range w-100"
                     min="0"
@@ -239,8 +289,108 @@ const AllProducts = (props) => {
                     <span>0-50km</span>
                   </p>
                 </div>
-                <span className="my-3"></span>
-                <WeightFilter />
+                <div
+                  className={
+                    filtertheFilter.includes(Location.pathname)
+                      ? "d-none"
+                      : "w-100"
+                  }
+                >
+                  <div
+                    className="btn-group btn-group-toggle my-4"
+                    data-toggle="buttons"
+                  >
+                    <label className="btn font-14 bg-grey active d-flex align-items-center">
+                      <input
+                        disabled={filter.area === "" ? true : false}
+                        type="radio"
+                        name="options"
+                        id="Grams"
+                        autoComplete="off"
+                        readOnly
+                        checked={type === "Grams"}
+                        onChange={handleChange}
+                        value="Grams"
+                      />
+                      <span className="pl-2">Grams</span>
+                    </label>
+                    <label className="btn font-14 bg-grey d-flex align-items-center">
+                      <input
+                        disabled={filter.area === "" ? true : false}
+                        type="radio"
+                        name="options"
+                        id="Seeds"
+                        value="Seeds"
+                        autoComplete="off"
+                        checked={type === "Seeds"}
+                        onChange={handleChange}
+                      />
+                      <span className="pl-2">Seeds</span>
+                    </label>
+                  </div>
+                  {/* 
+                  <div>
+                    <p className="mb-2 font-weight-600 font-18-100">{type}</p>
+                    <div className="d-flex align-items-center justify-content-between gap-2">
+                      <div className="d-flex flex-column align-items-center justify-content-center w-100 gap-2">
+                        <input
+                          type="range"
+                          disabled={filter.area === "" ? true : false}
+                          className="form-control-range w-100"
+                          min="0"
+                          max="30"
+                          step="10"
+                          name="quantity"
+                          onChange={(e) => formHandler(e)}
+                        ></input>
+                        <p className="rangetext d-flex w-100 justify-content-between">
+                          <span>
+                            All {type === "Seeds" ? "Seeds" : "Grams"}
+                          </span>
+                          <span></span>
+                          <span>
+                            1-10 {type === "Seeds" ? "Seeds" : "Grams"}
+                          </span>
+                          <span>
+                            10-20 {type === "Seeds" ? "Seeds" : "Grams"}
+                          </span>
+                          <span>
+                            20-30 {type === "Seeds" ? "Seeds" : "Grams"}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div> */}
+                  <div className="form-control h-auto p-0 bg-transparent border-0">
+                    <label className="mb-2 font-weight-600 font-18-100">
+                      Search by Quantity
+                    </label>
+                    <select
+                      className="auth-input bg-white"
+                      required
+                      name="quantity"
+                      onChange={(e) => formHandler(e)}
+                      disabled={filter.area === "" ? true : false}
+                    >
+                      <option value={""}>- Select Quantity -</option>
+                      <option value={"1-5"}>
+                        1-5 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"5-10"}>
+                        5-10 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"10-15"}>
+                        10-15 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"15-20"}>
+                        15-20 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"20-30"}>
+                        20-30 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                    </select>
+                  </div>
+                </div>
               </div>
               <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center w-100 mt-4">
                 <button
