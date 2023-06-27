@@ -77,7 +77,7 @@ const SocialUserDetail = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData) {
+    if (userData?.hasOwnProperty("age", "role")) {
       navigate("/social/userbio");
     } else AddUserDetail(EditProfileUrl);
   };
@@ -119,7 +119,7 @@ const SocialUserDetail = () => {
             name="role"
             value={userDetail.role}
             onChange={(e) => formHandler(e)}
-            disabled={userData ? true : false}
+            disabled={userData?.role.length !== 0 ? true : false}
           >
             <option value="">- Select Type -</option>
             <option value="Retailer">Retailer</option>
@@ -140,7 +140,7 @@ const SocialUserDetail = () => {
                   Your Location
                 </label>
                 <input
-                  disabled={userData ? true : false}
+                  disabled={userData?.hasOwnProperty("address") ? true : false}
                   type="text"
                   required
                   className="auth-input"

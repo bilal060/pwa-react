@@ -40,11 +40,11 @@ const SocialSummary = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData) {
+    if (userData?.hasOwnProperty("summary")) {
       navigate("/social/userdetail");
     } else EditUser(EditProfileUrl);
   };
-  console.log(userData);
+  console.log(userData?.hasOwnProperty("summary"));
   return (
     <div className="px-3 py-4 h-100 ">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -53,7 +53,7 @@ const SocialSummary = () => {
             Your self-summary
           </label>
           <textarea
-            readOnly={userData ? true : false}
+            readOnly={userData?.hasOwnProperty("summary") ? true : false}
             value={summary.selfSummary}
             onChange={(e) => setSummary({ selfSummary: e.target.value })}
             required

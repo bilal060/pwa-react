@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SocialPostSignUp } from "../../Api";
 
 const SocialSignUp = () => {
   const [signUpDetails, setsignUpDetails] = useState({
@@ -31,7 +32,9 @@ const SocialSignUp = () => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/summary");
+    if (userData) {
+      navigate("/social/summary");
+    } else SocialPostSignUp(signUpDetails);
     console.log(signUpDetails);
   };
   return (

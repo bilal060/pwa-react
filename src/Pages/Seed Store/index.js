@@ -79,9 +79,7 @@ const SeedStore = () => {
         data.append("description", mapData.description);
 
         if (Array.isArray(mapData.photo)) {
-          mapData.photo.forEach((file, indexNo) =>
-            data.append(`photo-${indexNo}`, file)
-          );
+          mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
         } else {
           data.append(`photo-${index}`, mapData.photo);
         }
