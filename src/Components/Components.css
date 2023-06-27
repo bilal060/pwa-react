@@ -1876,7 +1876,9 @@ div.subs {
 .recent-chats-detail .product-item.active {
     background: #5D8B2F !important;
 }
-
+.bg-white{
+    background-color: white !important;
+}
 
 @keyframes popup {
     0% {

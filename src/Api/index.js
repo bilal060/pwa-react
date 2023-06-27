@@ -15,6 +15,9 @@ const CreateChatUrl = `${process.env.REACT_APP_API_URI}conversations`;
 const PostMessageUrl = `${process.env.REACT_APP_API_URI}messages`;
 const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 
+//
+const SocialSignUpUrl = `${process.env.REACT_APP_API_URI}users/socialSignup`;
+
 export const VerifyAge = async (data) => {
   try {
     const postData = await Axios.post(VerifyAgeUrl, data);
@@ -246,5 +249,24 @@ export const PostMedia = async (sendMedia, token) => {
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
+  }
+};
+
+// Social
+export const SocialPostSignUp = async (signUpDetails) => {
+  try {
+    const fetchData = await Axios.post(SocialSignUpUrl, signUpDetails);
+    localStorage.clear();
+    localStorage.setItem("user-token", fetchData.data.token);
+    localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
+    setTimeout(() => {
+      window.location.href = "/social/summary";
+    }, 1000);
+    toast.success("Sign up Successful");
+    sessionStorage.removeItem("remember-age");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+    localStorage.clear();
   }
 };

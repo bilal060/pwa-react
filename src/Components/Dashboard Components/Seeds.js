@@ -15,6 +15,7 @@ import { MarkFavourite } from "../../Api";
 const Seeds = () => {
   const [seeds, setSeeds] = useState([]);
   const routeParams = useParams();
+  console.log(routeParams);
 
   const GetSeeds = async (GetSeedsUrl) => {
     try {

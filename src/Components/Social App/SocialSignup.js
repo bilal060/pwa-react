@@ -1,24 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { SocialPostSignUp } from "../../Api";
 
 const SocialSignUp = () => {
-  const [loginDetails, setloginDetails] = useState({
+  const [signUpDetails, setsignUpDetails] = useState({
     email: "",
+    fullName: "",
     password: "",
   });
 
   const formHandler = (e) => {
     const { name, value } = e.target;
-    setloginDetails((prevState) => ({
+    setsignUpDetails((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
+
+  const [userData, setuserData] = useState();
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    setuserData(JSON.parse(currentUser));
+    let userData = JSON.parse(currentUser);
+    setsignUpDetails({
+      email: userData?.email,
+      fullName: userData?.fullName,
+      password: userData?.password,
+    });
+  }, []);
+
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/summary");
-    console.log(loginDetails);
+    if (userData) {
+      navigate("/social/summary");
+    } else SocialPostSignUp(signUpDetails);
+    console.log(signUpDetails);
   };
   return (
     <div className="auth-model mx-4 my-5 ">
@@ -29,10 +46,14 @@ const SocialSignUp = () => {
               What’s your email?
             </label>
             <input
+              readOnly={userData ? true : false}
               className="auth-input"
               type="email"
               placeholder="Email"
               required
+              value={signUpDetails.email}
+              name="email"
+              onChange={(e) => formHandler(e)}
             />
           </div>
 
@@ -41,10 +62,14 @@ const SocialSignUp = () => {
               Choose a username
             </label>
             <input
+              readOnly={userData ? true : false}
               className="auth-input"
               type="text"
               placeholder="Username"
               required
+              name="fullName"
+              value={signUpDetails.fullName}
+              onChange={(e) => formHandler(e)}
             />
           </div>
 
@@ -54,11 +79,13 @@ const SocialSignUp = () => {
             </label>
             <div className="auth-input d-flex align-items-center justify-content-between w-100">
               <input
+                readOnly={userData ? true : false}
                 name="password"
                 required
                 type={"password"}
                 placeholder="Password"
                 className="password-input w-75"
+                value={signUpDetails.password}
                 onChange={(e) => formHandler(e)}
               />
             </div>
