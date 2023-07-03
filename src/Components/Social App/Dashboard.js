@@ -1,49 +1,39 @@
-import React from "react";
-import socialhome1 from "../../assets/Images/social-home-1.svg";
-import socialhome2 from "../../assets/Images/social-home-2.svg";
-import socialhome3 from "../../assets/Images/social-home-3.svg";
-import socialhome4 from "../../assets/Images/social-home-4.svg";
+import React, { useEffect, useState } from "react";
 
 import AddSocialUserIcon from "./AddSocialUser";
 import SocialChatIcon from "./SocialChatIcon";
-
-const homeData = [
-  {
-    name: "Rach_sammy",
-    address: "33, Women, Owen Soun..",
-    img: socialhome1,
-  },
-  {
-    name: "Rach_sammy",
-    address: "33, Women, Owen Soun..",
-    img: socialhome2,
-  },
-  {
-    name: "Rach_sammy",
-    address: "33, Women, Owen Soun..",
-    img: socialhome3,
-  },
-  {
-    name: "Rach_sammy",
-    address: "33, Women, Owen Soun..",
-    img: socialhome4,
-  },
-];
+import Axios from "../../axios/Axios";
 
 const SocialDashboard = () => {
+
+  const [allUsers, setAllUsers] = useState([]);
+
+  useEffect(() => {
+    Axios.get(`${process.env.REACT_APP_API_URI}users`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("user-token")}` },
+    })
+      .then(response => {
+        console.log(response.data);
+        setAllUsers(response.data.data.docs);
+      })
+      .catch(error => {
+        console.log(error.response.data.message);
+      })
+  }, []);
+
   return (
     <div className="container">
       <div className="row m-0 px-1">
-        {homeData.map((data, index) => {
+        {allUsers.length > 0 && allUsers.map((data, index) => {
           return (
             <div className="col-6 px-2 mb-4" key={index}>
               <div className="social-card text-center">
-                <img src={data.img} alt="" className="w-100 mb-3" />
+                <img src={`${process.env.REACT_APP_API_URI}${data.photo}`} alt="" className="w-100 mb-3" />
                 <h3 className="font-16-social font-weight-700 text-dark-black mb-2">
-                  {data.name}
+                  {data.fullName}
                 </h3>
                 <p className="font-12 font-weight-500 mt-1 cut-text">
-                  {data.address}
+                  {data.location.address}
                 </p>
                 <div className="d-flex justify-content-around align-items-center mt-2 pt-1">
                   <span>
