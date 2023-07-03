@@ -19,6 +19,8 @@ const CannabisProfileDetail = () => {
   const routeParams = useParams();
   const [cannabis, setCannabis] = useState([]);
   const [others, setOthers] = useState([]);
+  const [currentuserData, setcurrentuserData] = useState();
+
   const [api_url, setapi_url] = useState("");
   const [filter, setFilter] = useState({
     event: "",
@@ -57,6 +59,7 @@ const CannabisProfileDetail = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetCannabissUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetCannabiss(GetCannabissUrl);
   }, [routeParams.id]);
@@ -141,7 +144,7 @@ const CannabisProfileDetail = () => {
                 <button
                   onClick={() =>
                     MarkFavourite(
-                      cannabis.userId._id,
+                      currentuserData._id,
                       cannabis._id,
                       cannabis.category
                     )

@@ -15,7 +15,7 @@ import { MarkFavourite } from "../../Api";
 const Seeds = () => {
   const [seeds, setSeeds] = useState([]);
   const routeParams = useParams();
-  console.log(routeParams);
+  const [currentuserData, setcurrentuserData] = useState();
 
   const GetSeeds = async (GetSeedsUrl) => {
     try {
@@ -33,6 +33,7 @@ const Seeds = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
       routeParams.radius
         ? `getDataByRadius?${routeParams.radius}&`
@@ -62,7 +63,11 @@ const Seeds = () => {
                   <span
                     className="like-post cr-p"
                     onClick={() =>
-                      MarkFavourite(data.userId._id, data._id, data.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        data._id,
+                        data.category
+                      )
                     }
                   >
                     <HeartIcon />

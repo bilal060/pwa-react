@@ -16,6 +16,7 @@ import { MarkFavourite } from "../../Api";
 const HeadShop = () => {
   const [headShop, setHeadShop] = useState([]);
   const routeParams = useParams();
+  const [currentuserData, setcurrentuserData] = useState();
 
   const GetHeadShop = async (GetHeadShopUrl) => {
     try {
@@ -29,6 +30,7 @@ const HeadShop = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
       routeParams.radius
         ? `getDataByRadius?${routeParams.radius}&`
@@ -58,7 +60,11 @@ const HeadShop = () => {
                   <span
                     className="like-post cr-p"
                     onClick={() =>
-                      MarkFavourite(data.userId._id, data._id, data.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        data._id,
+                        data.category
+                      )
                     }
                   >
                     <HeartIcon />

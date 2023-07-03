@@ -15,6 +15,7 @@ import { MarkFavourite } from "../../Api";
 const Dispensary = () => {
   const [dispensary, setDispensary] = useState([]);
   const routeParams = useParams();
+  const [currentuserData, setcurrentuserData] = useState();
 
   const GetDispensary = async (GetDispensaryUrl) => {
     try {
@@ -28,6 +29,7 @@ const Dispensary = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
       routeParams.radius
         ? `getDataByRadius?${routeParams.radius}&`
@@ -57,7 +59,11 @@ const Dispensary = () => {
                   <span
                     className="like-post cr-p"
                     onClick={() =>
-                      MarkFavourite(data.userId._id, data._id, data.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        data._id,
+                        data.category
+                      )
                     }
                   >
                     <HeartIcon />

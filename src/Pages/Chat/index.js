@@ -149,7 +149,7 @@ const Chat = () => {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSelectedChatData(fetchData?.data.messages);
-      console.log(fetchData.data);
+      // console.log(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
@@ -220,20 +220,46 @@ const Chat = () => {
   };
 
   const SendMediaHandler = async () => {
+    setSendMessage((prevState) => ({
+      ...prevState,
+      conversationId: selectedChatData._id,
+    }));
     if (currentChat !== null) {
       if (mediaFile !== null) {
+        var objectUrl = URL.createObjectURL(mediaFile);
+        const messageData = {
+          conversationId: sendMessage?.conversationId,
+          sender: sendMessage?.sender,
+          message: objectUrl,
+          createdAt: new Date(),
+        };
         const sendMedia = new FormData();
         sendMedia.append("chat_img", mediaFile);
         sendMedia.append("conversationId", sendMessage?.conversationId);
         sendMedia.append("sender", sendMessage?.sender);
         PostMedia(sendMedia, token);
+
+        setSelectedChatData((pre) => [...pre, messageData]);
+
+        const receiverId =
+          (await selectedChatData) !== undefined &&
+          selectedChatData[0].conversationId.members.find(
+            (member) => member !== currentUserData._id
+          );
+        Socket.emit("sendMessage", {
+          senderId: sendMessage?.sender,
+          receiverId: receiverId,
+          message: objectUrl,
+          createdAt: new Date(),
+        });
         setMediaFile(null);
+        console.log(messageData);
       }
     } else {
       toast.error("Please select a chat");
     }
   };
-  console.log(recentChatsData);
+  // console.log(recentChatsData);
 
   return (
     <>
@@ -594,12 +620,15 @@ const Chat = () => {
                                           <div className="msg h-100">
                                             {chat.message.includes(
                                               "uploads\\chat\\"
-                                            ) ? (
+                                            ) ||
+                                            chat.message.includes("blob") ? (
                                               <img
                                                 className="w-100 chat-image mb-2 rounded-3"
                                                 src={`${
-                                                  process.env.REACT_APP_PORT
-                                                }/${
+                                                  chat.message.includes("blob")
+                                                    ? ""
+                                                    : `${process.env.REACT_APP_PORT}/`
+                                                }${
                                                   Array.isArray(chat.message)
                                                     ? chat.message[0]
                                                     : chat.message
