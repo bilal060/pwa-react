@@ -68,7 +68,7 @@ const FavoriteProduct = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=6491756f93c8104a08c91883&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=${data._id}&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetMarkFavourite(GetFavouriteUrl);
   }, [userInfo]);
 
