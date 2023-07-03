@@ -17,7 +17,6 @@ const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 
 //
 const SocialSignUpUrl = `${process.env.REACT_APP_API_URI}users/socialSignup`;
-const PlansUrl = `${process.env.REACT_APP_API_URI}plan/`;
 
 export const VerifyAge = async (data) => {
   try {
@@ -270,16 +269,4 @@ export const SocialPostSignUp = async (signUpDetails) => {
     console.log(error);
     localStorage.clear();
   }
-};
-
-export const getAllPlans = async (token) => {
-  Axios.get(PlansUrl, {
-    headers: { Authorization: `Bearer ${token}` },
-  })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.log(error.response.data);
-    });
 };
