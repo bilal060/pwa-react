@@ -1,13 +1,43 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { SocialPostSignUp } from "../../Api";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
 
 const SocialSignUp = () => {
+  const navigate = useNavigate();
   const [signUpDetails, setsignUpDetails] = useState({
     email: "",
     fullName: "",
     password: "",
   });
+
+  const [currentuserData, setcurrentuserData] = useState();
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
+    let GetUserUrl = `${process.env.REACT_APP_API_URI}users/${data?._id}`;
+    GetUser(GetUserUrl);
+    setsignUpDetails({
+      email: data?.email,
+      fullName: data?.fullName,
+    });
+  }, []);
+
+  const GetUser = async (GetUserUrl) => {
+    try {
+      const fetchData = await Axios.get(GetUserUrl);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.data?.doc)
+      );
+      setcurrentuserData(fetchData?.data?.data?.doc);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
 
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -17,22 +47,9 @@ const SocialSignUp = () => {
     }));
   };
 
-  const [userData, setuserData] = useState();
-  useEffect(() => {
-    const currentUser = localStorage.getItem("userdata");
-    setuserData(JSON.parse(currentUser));
-    let userData = JSON.parse(currentUser);
-    setsignUpDetails({
-      email: userData?.email,
-      fullName: userData?.fullName,
-      password: userData?.password,
-    });
-  }, []);
-
-  const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData) {
+    if (currentuserData) {
       navigate("/social/summary");
     } else SocialPostSignUp(signUpDetails);
     console.log(signUpDetails);
@@ -46,7 +63,7 @@ const SocialSignUp = () => {
               What’s your email?
             </label>
             <input
-              readOnly={userData ? true : false}
+              readOnly={currentuserData ? true : false}
               className="auth-input"
               type="email"
               placeholder="Email"
@@ -62,7 +79,7 @@ const SocialSignUp = () => {
               Choose a username
             </label>
             <input
-              readOnly={userData ? true : false}
+              readOnly={currentuserData ? true : false}
               className="auth-input"
               type="text"
               placeholder="Username"
@@ -73,23 +90,24 @@ const SocialSignUp = () => {
             />
           </div>
 
-          <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
-            <label className="text-white mb-2 font-weight-600 font-18-100">
-              Enter your password
-            </label>
-            <div className="auth-input d-flex align-items-center justify-content-between w-100">
-              <input
-                readOnly={userData ? true : false}
-                name="password"
-                required
-                type={"password"}
-                placeholder="Password"
-                className="password-input w-75"
-                value={signUpDetails.password}
-                onChange={(e) => formHandler(e)}
-              />
+          {!currentuserData && (
+            <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+              <label className="text-white mb-2 font-weight-600 font-18-100">
+                Enter your password
+              </label>
+              <div className="auth-input d-flex align-items-center justify-content-between w-100">
+                <input
+                  name="password"
+                  required
+                  type={"password"}
+                  placeholder="Password"
+                  className="password-input w-75"
+                  value={signUpDetails.password}
+                  onChange={(e) => formHandler(e)}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <button className="green-btn">Next</button>
         </form>

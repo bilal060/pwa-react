@@ -219,9 +219,9 @@ export const CreateChat = async (senderId, receiverId) => {
     };
     await Axios.post(CreateChatUrl, data);
     toast.success("Chat Posted Successfully");
-    setTimeout(() => {
-      window.location.href = `/chat/${senderId}`;
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = `/chat/${senderId}`;
+    // }, 1000);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
