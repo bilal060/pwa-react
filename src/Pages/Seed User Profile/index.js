@@ -23,6 +23,7 @@ const SeedUserProfile = () => {
   const [seed, setSeed] = useState([]);
   const [others, setOthers] = useState([]);
   const [api_url, setapi_url] = useState("");
+  const [currentuserData, setcurrentuserData] = useState();
   const [selectedQuantity, setselectedQuantity] = useState("");
   const [selectedStrain, setselectedStrain] = useState("");
   const [chatData, setChatData] = useState({
@@ -59,6 +60,7 @@ const SeedUserProfile = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetSeedUrl = `${process.env.REACT_APP_API_URI}seedStore/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     setChatData((prevState) => ({
       ...prevState,
@@ -168,7 +170,11 @@ const SeedUserProfile = () => {
                 <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-4 mt-5 pt-4">
                   <button
                     onClick={() =>
-                      MarkFavourite(seed.userId._id, seed._id, seed.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        seed._id,
+                        seed.category
+                      )
                     }
                     className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                   >

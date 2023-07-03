@@ -60,6 +60,8 @@ const HeadProfileDetail = () => {
     accessories: "",
     type: "",
   });
+  const [currentuserData, setcurrentuserData] = useState();
+
   const [others, setOthers] = useState([]);
 
   const formHandler = (e) => {
@@ -96,6 +98,7 @@ const HeadProfileDetail = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetHeadShopsUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetHeadShops(GetHeadShopsUrl);
   }, [routeParams.id]);
@@ -180,7 +183,7 @@ const HeadProfileDetail = () => {
                 <button
                   onClick={() =>
                     MarkFavourite(
-                      headShop.userId._id,
+                      currentuserData._id,
                       headShop._id,
                       headShop.category
                     )
@@ -315,7 +318,7 @@ const HeadProfileDetail = () => {
                           className="like-post cr-p"
                           onClick={() =>
                             MarkFavourite(
-                              data.userId._id,
+                              currentuserData._id,
                               data._id,
                               data.category
                             )

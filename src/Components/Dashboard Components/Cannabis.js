@@ -15,6 +15,7 @@ const Cannabis = () => {
   const [cannabis, setCannabis] = useState([]);
   const routeParams = useParams();
   console.log(routeParams.radius);
+  const [currentuserData, setcurrentuserData] = useState();
 
   const GetCannabis = async (GetCannabisUrl) => {
     try {
@@ -28,6 +29,7 @@ const Cannabis = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
       routeParams.radius
         ? `getDataByRadius?${routeParams.radius}&`
@@ -57,7 +59,11 @@ const Cannabis = () => {
                   <span
                     className="like-post cr-p"
                     onClick={() =>
-                      MarkFavourite(data.userId._id, data._id, data.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        data._id,
+                        data.category
+                      )
                     }
                   >
                     <HeartIcon />

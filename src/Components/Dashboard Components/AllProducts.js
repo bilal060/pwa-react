@@ -16,6 +16,7 @@ const ShowAllProducts = ({ match }) => {
   const [data, setData] = useState([]);
   const routeParams = useParams();
   const { radius } = routeParams;
+  const [currentuserData, setcurrentuserData] = useState();
   console.log(routeParams);
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
@@ -31,6 +32,7 @@ const ShowAllProducts = ({ match }) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
       routeParams.radius
         ? `getDataByRadius?${routeParams.radius}&`
@@ -62,7 +64,11 @@ const ShowAllProducts = ({ match }) => {
                   <span
                     className="like-post cr-p"
                     onClick={() =>
-                      MarkFavourite(data.userId._id, data._id, data.category)
+                      MarkFavourite(
+                        currentuserData._id,
+                        data._id,
+                        data.category
+                      )
                     }
                   >
                     <HeartIcon />

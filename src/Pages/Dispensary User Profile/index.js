@@ -68,6 +68,7 @@ const DispensaryProfileDetail = () => {
   const [selectedQuantity, setselectedQuantity] = useState("");
   const [selectedStrain, setselectedStrain] = useState("");
   const navigate = useNavigate();
+  const [currentuserData, setcurrentuserData] = useState();
 
   const GetDispensarys = async (GetDispensaryUrl) => {
     try {
@@ -94,6 +95,7 @@ const DispensaryProfileDetail = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetDispensarys(GetDispensaryUrl);
   }, [routeParams.id]);
@@ -199,7 +201,7 @@ const DispensaryProfileDetail = () => {
                 <button
                   onClick={() =>
                     MarkFavourite(
-                      dispensary.userId._id,
+                      currentuserData._id,
                       dispensary._id,
                       dispensary.category
                     )
