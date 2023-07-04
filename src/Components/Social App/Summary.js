@@ -6,18 +6,36 @@ import Axios from "../../axios/Axios";
 import { toast } from "react-toastify";
 
 const SocialSummary = () => {
-  const [userData, setuserData] = useState();
+  const [currentuserData, setcurrentuserData] = useState();
   const [summary, setSummary] = useState({
-    selfSummary: userData?.selfSummary,
+    selfSummary: currentuserData?.selfSummary,
   });
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
-    setuserData(JSON.parse(currentUser));
+    let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
     setSummary({
       selfSummary: JSON.parse(currentUser).selfSummary,
     });
+    let GetUserUrl = `${process.env.REACT_APP_API_URI}users/${data?._id}`;
+    GetUser(GetUserUrl);
   }, []);
-  const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${userData?._id}`;
+
+  const GetUser = async (GetUserUrl) => {
+    try {
+      const fetchData = await Axios.get(GetUserUrl);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.data?.doc)
+      );
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
+  const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${currentuserData?._id}`;
 
   const navigate = useNavigate();
   const goBack = () => {
@@ -40,11 +58,10 @@ const SocialSummary = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (userData?.hasOwnProperty("summary")) {
+    if (currentuserData?.hasOwnProperty("summary")) {
       navigate("/social/userdetail");
     } else EditUser(EditProfileUrl);
   };
-  console.log(userData?.hasOwnProperty("summary"));
   return (
     <div className="px-3 py-4 h-100 ">
       <form onSubmit={(e) => submitHandler(e)}>
@@ -53,7 +70,9 @@ const SocialSummary = () => {
             Your self-summary
           </label>
           <textarea
-            readOnly={userData?.hasOwnProperty("summary") ? true : false}
+            readOnly={
+              currentuserData?.hasOwnProperty("selfSummary") ? true : false
+            }
             value={summary.selfSummary}
             onChange={(e) => setSummary({ selfSummary: e.target.value })}
             required

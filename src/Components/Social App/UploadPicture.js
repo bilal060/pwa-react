@@ -29,6 +29,7 @@ const SocialUploadPicture = () => {
       let userData = JSON.parse(currentUser);
       setuserData(JSON.parse(currentUser));
       setMediaFile(userData?.photo);
+      navigate("/social/profile");
     } catch (error) {
       toast.error(error?.message);
       console.log(error);
@@ -37,7 +38,7 @@ const SocialUploadPicture = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    
+
     if (mediaFile !== null) {
       setMediaFile(e.target.files[0]);
       const imageData = new FormData();

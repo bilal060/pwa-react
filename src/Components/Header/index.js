@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DashboardLogo from "../../assets/Images/DashboardLogo";
 import SeedICon from "../../assets/Images/Seed";
 import DispensaryIcon from "../../assets/Images/Dispensary";
@@ -10,6 +10,8 @@ import MobSearchIcon from "../../assets/Images/MobSearch";
 import MenuBarIcon from "../../assets/Images/MenuBar";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Hooks from "../../hooks";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
 
 const headLinks = [
   {
@@ -75,8 +77,32 @@ const AppHeader = (props) => {
   const Location = useLocation();
   const { isOpen, setIsOpen } = props;
   const { Logout } = Hooks();
-
+  
   const navigate = useNavigate();
+  
+  const [currentuserData, setcurrentuserData] = useState();
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
+  }, []);
+
+  let GetUserUrl = `${process.env.REACT_APP_API_URI}users/${currentuserData?._id}`;
+
+  const GetUser = async () => {
+    try {
+      const fetchData = await Axios.get(GetUserUrl);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.data?.doc)
+      );
+      navigate("/social/signup");
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
+
   return (
     <div
       className={`app-header  flex-column justify-content-center ${
@@ -108,7 +134,7 @@ const AppHeader = (props) => {
           <h3 className="app-heading">GROW AND SHARE</h3>
         </div>
         <Link
-          to={"/social/signup"}
+          onClick={() => GetUser()}
           className="d-sm-none d-flex gap-1 align-items-center text-primary-green font-weight-600"
         >
           <span className="w-max-content">Social</span>
@@ -176,9 +202,7 @@ const AppHeader = (props) => {
             <Link
               to={"/myaccount"}
               className={`${
-                "/myaccount" === Location.pathname
-                  ? "product-item-active "
-                  : ""
+                "/myaccount" === Location.pathname ? "product-item-active " : ""
               } dropdown-item`}
             >
               My Account
