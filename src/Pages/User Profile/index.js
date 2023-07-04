@@ -358,7 +358,7 @@ const UserProfile = (props) => {
                     <div className="col-md-6  bg-transparent border-0">
                       <div className="p-0 bg-transparent border-0 mb-4">
                         <textarea
-                          className="auth-input-textarea bg-transparent"
+                          className="auth-input-textarea bg-white"
                           placeholder="Enter description here..."
                         />
                       </div>

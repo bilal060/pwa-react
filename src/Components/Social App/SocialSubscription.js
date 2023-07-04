@@ -34,7 +34,7 @@ const SocialSubscription = () => {
   }, []);
 
   return (
-    <div className="max-width-521 min-width-521 pb-5 px-0 subscription">
+    <div className="max-width-521 min-width-521 my-4 mx-3 px-0 subscription">
       <form onSubmit={(e) => submitHandler(e)} className="px-4 mt-4 pt-3">
         <div className="self-summary border-0 rounded-4 p-4 d-flex flex-column gap-4 mb-4">
           <p className="font-weight-700 text-white">Subscription benefits:</p>
@@ -63,7 +63,7 @@ const SocialSubscription = () => {
           data-toggle="buttons"
         >
           {allPlans.length > 0 && allPlans.map((plan, index) => {
-            return <label key={index} className="btn subscription-offer p-0 w-100 font-14 bg-grey active d-flex align-items-center">
+            return <label key={index} className="btn subscription-offer p-0 w-100 font-14 bg-grey d-flex align-items-center">
               <input
                 type="radio"
                 name="options"

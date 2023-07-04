@@ -1,12 +1,40 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const SocialNotice = () => {
   const navigate = useNavigate();
+  const [currentuserData, setcurrentuserData] = useState();
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    setcurrentuserData(data);
+    let GetUserUrl = `${process.env.REACT_APP_API_URI}users/${data?._id}`;
+    GetUser(GetUserUrl);
+  }, []);
+
+  const GetUser = async (GetUserUrl) => {
+    try {
+      const fetchData = await Axios.get(GetUserUrl);
+      localStorage.setItem(
+        "userdata",
+        JSON.stringify(fetchData?.data?.data?.doc)
+      );
+      setcurrentuserData(fetchData?.data?.data?.doc);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/uploadpicture");
+    currentuserData.photo
+      ? navigate("/social/profile")
+      : navigate("/social/uploadpicture");
   };
 
   return (
