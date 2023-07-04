@@ -44,7 +44,7 @@ const HeadShop = () => {
 
   return (
     <div className="seeds-card-main row m-0">
-      {headShop?.result?.length === 0 ? (
+      {headShop?.result?.length !== 0 ? (
         (headShop || []).result?.map((data, index) => {
           return (
             <div

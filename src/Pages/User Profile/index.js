@@ -178,7 +178,7 @@ const UserProfile = (props) => {
               </button>
             </div>
             <div className="seeds-card-main row m-0 pt-5">
-              {sharedByUser?.result?.length === 0 ? (
+              {sharedByUser?.result?.length !== 0 ? (
                 (sharedByUser || []).result?.map((data, index) => {
                   return (
                     <div

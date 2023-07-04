@@ -126,7 +126,7 @@ const FavoriteProduct = (props) => {
           })}
         </ul>
         <div className="seeds-card-main row m-0">
-          {favouriteData?.findProduct?.length === 0 ? (
+          {favouriteData?.findProduct?.length!== 0 ?  (
             (favouriteData || []).findProduct?.map((data, index) => {
               return (
                 <div className="col-xl-6 mb-4 seed-card-col" key={index}>

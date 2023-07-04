@@ -43,7 +43,7 @@ const Cannabis = () => {
 
   return (
     <div className="seeds-card-main row m-0">
-      {cannabis?.result?.length === 0 ? (
+      {cannabis?.result?.length !== 0 ? (
         (cannabis || []).result?.map((data, index) => {
           return (
             <div

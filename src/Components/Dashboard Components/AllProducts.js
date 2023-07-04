@@ -45,7 +45,7 @@ const ShowAllProducts = ({ match }) => {
 
   return (
     <div className="seeds-card-main row m-0">
-      {data?.result?.length === 0 ? (
+      {data?.result?.length !== 0 ? (
         (data || []).result?.map((data, index) => {
           return (
             <div

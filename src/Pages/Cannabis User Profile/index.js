@@ -250,7 +250,7 @@ const CannabisProfileDetail = () => {
         </div>
 
         <div className="seeds-card-main row m-0 pt-5">
-          {others?.length === 0 ? (
+          {others?.length !== 0 ? (
             (others || [])?.map((data, index) => {
               return (
                 <div

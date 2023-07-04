@@ -43,7 +43,7 @@ const Dispensary = () => {
 
   return (
     <div className="seeds-card-main row m-0">
-      {dispensary?.result?.length === 0 ? (
+      {dispensary?.result?.length !== 0 ? (
         (dispensary || []).result?.map((data, index) => {
           return (
             <div
