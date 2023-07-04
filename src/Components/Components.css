@@ -1876,9 +1876,12 @@ div.subs {
 .recent-chats-detail .product-item.active {
     background: #5D8B2F !important;
 }
-.bg-white{
+
+.bg-white {
     background-color: white !important;
 }
+
+
 
 @keyframes popup {
     0% {
@@ -1916,6 +1919,13 @@ div.subs {
     }
 }
 
+@media screen and (min-width:767px) {
+    .cards-image-style {
+        height: 200px !important;
+    }
+}
+
+
 @media screen and (max-width:991px) {
     .min-width-792 {
         min-width: auto !important;
@@ -1927,6 +1937,10 @@ div.subs {
 }
 
 @media screen and (max-width:767px) {
+.cards-image-style {
+        max-height: 400px !important;
+    }
+
     .send-msg .msg .chat-image {
         max-width: 250px;
     }
@@ -1968,7 +1982,7 @@ div.subs {
     }
 
     .like-post {
-        right: 6% !important;
+        /* right: 6% !important; */
     }
 
     .favourite-post {
@@ -2062,13 +2076,13 @@ div.subs {
 
 
     .like-post {
-        left: 38% !important;
+        /* left: 38% !important; */
     }
 
-    .favourite-post {
+    /* .favourite-post {
         left: 2% !important;
         top: 5% !important;
-    }
+    } */
 
     .height-56 {
         height: 40px !important
@@ -2278,7 +2292,7 @@ div.subs {
 @media screen and (max-width:436px) and (min-width:399px) {
 
     .like-post {
-        left: 27% !important;
+        /* left: 27% !important; */
     }
 
     .seed-card .intro-img {
@@ -2300,7 +2314,7 @@ div.subs {
 
 @media screen and (max-width:400px) {
     .like-post {
-        left: 24% !important;
+        /* left: 24% !important; */
     }
 
     .seed-card .intro-img {

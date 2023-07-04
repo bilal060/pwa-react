@@ -57,14 +57,14 @@ const AgeVerifyPage = () => {
           <option value="">Where are you from?</option>
           <option value="AB">AB</option>
           <option value="NS">NS</option>
-          <option value="Nb">Nb</option>
+          <option value="NB">NB</option>
           <option value="ON">ON</option>
           <option value="MB">MB</option>
           <option value="SK">SK</option>
           <option value="BC">BC</option>
           <option value="YT">YT</option>
           <option value="NU">NU</option>
-          <option value="Quebec">Quebec</option>
+          {/* <option value="Quebec">Quebec</option> */}
           {/* <option value="18">Alberta</option>
           <option value="21">Alaska</option>
           <option value="21">Arizona</option>

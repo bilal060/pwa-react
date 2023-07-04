@@ -114,10 +114,10 @@ const sideLinks = [
     name: "Seed Store",
     link: "/home/seed",
   },
-  {
-    name: "Buds",
-    link: "/home/buds",
-  },
+  // {
+  //   name: "Buds",
+  //   link: "/home/buds",
+  // },
   {
     name: "Dispensary",
     link: "/home/dispensaries",

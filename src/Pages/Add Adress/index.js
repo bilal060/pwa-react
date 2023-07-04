@@ -40,8 +40,6 @@ const AddAddressPage = () => {
       setAddress((prevState) => ({
         ...prevState,
         address: place.formatted_address,
-        // lng: place.geometry.location.lat(),
-        // lat: place.geometry.location.lng(),
       }));
     }
   };
@@ -83,7 +81,7 @@ const AddAddressPage = () => {
               Postal Code
             </label>
             <input
-              type="number"
+              type="text"
               required
               className="auth-input"
               placeholder="Enter Postal Code"

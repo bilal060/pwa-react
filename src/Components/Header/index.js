@@ -37,11 +37,11 @@ const products = [
     icon: <SeedICon />,
     link: "/home/seed",
   },
-  {
-    name: "Buds",
-    icon: <BudsIcon />,
-    link: "/home/buds",
-  },
+  // {
+  //   name: "Buds",
+  //   icon: <BudsIcon />,
+  //   link: "/home/buds",
+  // },
   {
     name: "Dispensary",
     icon: <DispensaryIcon />,

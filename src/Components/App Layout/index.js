@@ -25,10 +25,10 @@ const sideLinks = [
     name: "Seed Store",
     link: "/home/seed",
   },
-  {
-    name: "Buds",
-    link: "/home/buds",
-  },
+  // {
+  //   name: "Buds",
+  //   link: "/home/buds",
+  // },
   {
     name: "Dispensary",
     link: "/home/dispensary",
@@ -271,9 +271,9 @@ const AppLayout = (props) => {
               </div>
               <div className="d-flex align-items-center justify-content-between h-100 section-2">
                 <Link
-                  to={"/dispensary"}
+                  to={"/home/dispensaries"}
                   className={`${
-                    Location.pathname.includes("/dispensary")
+                    Location.pathname.includes("/dispensaries")
                       ? "mob-footer-link-active"
                       : ""
                   } mob-footer-link`}
@@ -281,9 +281,9 @@ const AppLayout = (props) => {
                   <MobDispensaryIcon />
                 </Link>
                 <Link
-                  to={"/settings"}
+                  // to={"/myaccount"}
                   className={`${
-                    Location.pathname.includes("/settings")
+                    Location.pathname.includes("/myaccount")
                       ? "mob-footer-link-active"
                       : ""
                   } mob-footer-link`}
@@ -291,9 +291,9 @@ const AppLayout = (props) => {
                   <MobSettingsIcon />
                 </Link>
                 <Link
-                  to={"/user"}
+                  to={"/myaccount"}
                   className={`${
-                    Location.pathname.includes("/user")
+                    Location.pathname.includes("/myaccount")
                       ? "mob-footer-link-active"
                       : ""
                   } mob-footer-link`}

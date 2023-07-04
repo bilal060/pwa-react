@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import CountIcon from "../../assets/Images/Count";
 import DistanceIcon from "../../assets/Images/Distance";
 import PriceIcon from "../../assets/Images/Price";
+import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const UserProfile = (props) => {
   const [fileName, setFileName] = useState("");
@@ -176,68 +177,87 @@ const UserProfile = (props) => {
               </button>
             </div>
             <div className="seeds-card-main row m-0 pt-5">
-              {(sharedByUser || []).result?.map((data, index) => {
-                return (
-                  <div
-                    className="col-xl-4 col-md-12  mb-4 seed-card-col"
-                    key={index}
-                  >
-                    <div className="seed-card h-100 position-relative">
-                      <img
-                        className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                        alt=""
-                      />
+              {sharedByUser?.result?.length === 0 ? (
+                (sharedByUser || []).result?.map((data, index) => {
+                  return (
+                    <div
+                      className="col-xl-4 col-md-12  mb-4 seed-card-col"
+                      key={index}
+                    >
+                      <div className="seed-card w-100 position-relative">
+                        <div className="row m-0 flex-sm-column w-100">
+                          <div className="col-4 col-sm-12 p-0">
+                            <img
+                              className="w-100 intro-img cards-image-style"
+                              src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                              alt=""
+                            />
+                          </div>
+                          <div className="col-8 col-sm-12 p-0">
+                            <div className="ps-sm-0 ps-3">
+                              <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                                {data.name}
+                              </p>
+                              <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                                  <DistanceIcon />
+                                  {data.distance} Away
+                                </span>
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                                  {data.quantity ? (
+                                    <CountIcon />
+                                  ) : (
+                                    <>
+                                      {data.cost ? (
+                                        <PriceIcon />
+                                      ) : (
+                                        <PriceIcon />
+                                      )}
+                                    </>
+                                  )}
 
-                      <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                          {data.name}
-                        </p>
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <DistanceIcon />
-                            {data.distance} Away
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            {data.quantity ? (
-                              <CountIcon />
-                            ) : (
-                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
-                            )}
-
-                            {data.quantity ? (
-                              `Seeds: ${data.quantity}`
-                            ) : (
-                              <>
-                                {data.cost
-                                  ? `Fees: $${data.cost}`
-                                  : `Entry Fee: $${data.entryFee}`}
-                              </>
-                            )}
-                          </span>
-                        </div>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
-                          <LocationIcon />
-                          <span className="cut-text">
-                            {data.userId?.location?.address}
-                          </span>
-                        </span>
-                        <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
-                          <div className="d-flex gap-2 align-items-center flex-wrap">
-                            <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
-                              <RatingIcon />
-                              {data.userId.ratingsAverage}
-                            </span>
-                            <span className="font-14-100 text-grey font-weight-400">
-                              ({data.userId.ratingsQuantity} Reviews)
-                            </span>
+                                  {data.quantity ? (
+                                    `Seeds: ${data.quantity}`
+                                  ) : (
+                                    <>
+                                      {data.cost
+                                        ? `Fees: $${data.cost}`
+                                        : `Entry Fee: $${data.entryFee}`}
+                                    </>
+                                  )}
+                                </span>
+                              </div>
+                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                                <LocationIcon />
+                                <span className="cut-text">
+                                  {data.userId?.location?.address}
+                                </span>
+                              </span>
+                              <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                                <div className="d-flex gap-2 align-items-center flex-wrap">
+                                  <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                                    <RatingIcon />
+                                    {data.userId.ratingsAverage}
+                                  </span>
+                                  <span className="font-14-100 text-grey font-weight-400">
+                                    ({data.userId.ratingsQuantity} Reviews)
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  );
+                })
+              ) : (
+                <div className="d-flex justify-content-center w-100">
+                  <div className="w-50">
+                    <EmptyDataImage />
                   </div>
-                );
-              })}
+                </div>
+              )}
             </div>
           </div>
         </div>
