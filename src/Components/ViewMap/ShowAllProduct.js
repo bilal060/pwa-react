@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import seed1 from "../../assets/Images/seed1.svg";
-import seed2 from "../../assets/Images/seed2.svg";
-import seed3 from "../../assets/Images/seed3.svg";
 
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
@@ -10,7 +7,7 @@ import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 
 import GoogleMap from "./GoogleMap";
-import { markersData } from "./fakeData";
+import GoogleMapNew from "./GoogleMap/GoogleMapNew";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 
@@ -82,12 +79,13 @@ const AllProductMapView = () => {
     lat: crime?.userId?.location?.coordinates[0],
     lng: crime?.userId?.location?.coordinates[1],
     category: crime.category,
+    name: crime.fullName
   }));
   const handleClick = (lat, lng) => {
     // setZoom(19);
     // setCenter({ lat, lng });
   };
-  console.log(markersData);
+  console.log(allProduct.result);
 
   return (
     <div>
@@ -103,9 +101,8 @@ const AllProductMapView = () => {
               return (
                 <div
                   key={index}
-                  className={`${
-                    data.active ? "active" : ""
-                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${data.active ? "active" : ""
+                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -124,11 +121,10 @@ const AllProductMapView = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${
-                            Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
-                          }`}
+                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                            ? data.photo[0]
+                            : data.photo
+                            }`}
                           alt=""
                         />
                       </div>
@@ -249,9 +245,8 @@ const AllProductMapView = () => {
             return (
               <div
                 key={index}
-                className={`${
-                  chatsdetail.active ? "active show" : ""
-                } tab-pane h-100 w-100 fade  chat-detail`}
+                className={`${chatsdetail.active ? "active show" : ""
+                  } tab-pane h-100 w-100 fade  chat-detail`}
                 id={`v-pills-${chatsdetail.id}`}
                 role="tabpanel"
                 aria-labelledby={`v-pills-${chatsdetail.id}-tab`}
@@ -291,11 +286,7 @@ const AllProductMapView = () => {
                       {allProduct.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap
-                    points={points}
-                    markersData={markersData}
-                    center={center}
-                  />
+                  <GoogleMapNew markersData={allProduct.result} />
                 </div>
               </div>
             );
