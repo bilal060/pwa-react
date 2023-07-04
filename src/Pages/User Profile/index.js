@@ -20,6 +20,7 @@ import DispensaryFrom from "../../Components/FilterForm/DispensaryFrom";
 import SeedstoreForm from "../../Components/FilterForm/SeedstoreForm";
 import HeadshopForm from "../../Components/FilterForm/HeadshopForm";
 import CannbisFrom from "../../Components/FilterForm/CannbisFrom";
+import "../../Components/FilterForm/modelform.css";
 const UserProfile = (props) => {
   const [fileName, setFileName] = useState("");
   const [userData, setUserData] = useState([]);
@@ -260,7 +261,7 @@ const UserProfile = (props) => {
               </span>
             </div>
 
-            <h3 className="font-32 font-weight-600 allproduct-heading mb-5">
+            <h3 className="font-32 font-weight-600 allproduct-heading mb-2">
               Post a Strain
             </h3>
 

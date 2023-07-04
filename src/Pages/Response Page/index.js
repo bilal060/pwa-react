@@ -171,7 +171,7 @@ const ResponsivePage = () => {
           type="button"
         >
           <AddIcon />
-          Add More {savedDataCount}
+          Add More
         </button>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between  mt-4 pt-3">
           <button
