@@ -280,51 +280,6 @@ const UserProfile = (props) => {
             ) : (
               <div>User is not a retailer.</div>
             )}
-            <div className="col-md-12  bg-transparent border-0 mb-4 p-0">
-                  <div className="row m-0">
-                    <label className="mb-2 font-weight-600 font-18-100">
-                      Description
-                    </label>
-
-                    <div className="col-md-6  bg-transparent border-0">
-                      <div className="p-0 bg-transparent border-0 mb-4">
-                        <textarea
-                          className="auth-input-textarea bg-white"
-                          placeholder="Enter description here..."
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6  bg-transparent border-0">
-                      <button className="add-more bg-transparent text-black border-dark gap-2">
-                        <AddIcon />
-                        Add More Strain
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-12  d-flex justify-content-end p-0">
-                  <div className="row m-0 justify-content-end w-100">
-                    <div className="col-md-3 col-sm-6 mb-sm-0 mb-3 bg-transparent border-0">
-                      <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between">
-                        <button
-                          className="green-btn-outline text-primary-green "
-                          data-bs-dismiss="modal"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6  bg-transparent border-0">
-                      <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between">
-                        <button className="green-btn ">Post</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center"></div>
-                </div>
-              </div>
-            </form>
           </div>
         </div>
       </div>
