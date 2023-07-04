@@ -6,7 +6,6 @@ import DispensaryIcon from "../../assets/Images/Dispensary";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
-import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import StrainAvailableIcon from "../../assets/Images/StrainAvailable";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import { Link } from "react-router-dom";

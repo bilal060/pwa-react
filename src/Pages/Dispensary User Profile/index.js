@@ -19,10 +19,8 @@ import PhonebtnIcon from "../../assets/Images/Phonebtn";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import CountIcon from "../../assets/Images/Count";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 

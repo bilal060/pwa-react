@@ -65,37 +65,6 @@ const AgeVerifyPage = () => {
           <option value="YT">YT</option>
           <option value="NU">NU</option>
           <option value="Quebec">Quebec</option>
-          {/* <option value="18">Alberta</option>
-          <option value="21">Alaska</option>
-          <option value="21">Arizona</option>
-          <option value="19">British Columbia</option>
-          <option value="19">California</option>
-          <option value="21">Colorado</option>
-          <option value="21">Connecticut</option>
-          <option value="21">Illinois</option>
-          <option value="21">Maine</option>
-          <option value="21">Massachusetts</option>
-          <option value="21">Michigan</option>
-          <option value="21">Montana</option>
-          <option value="19">Manitoba</option>
-          <option value="21">Nevada</option>
-          <option value="21">New Jersey</option>
-          <option value="21">New Mexico</option>
-          <option value="21">New York</option>
-          <option value="19">New Brunswick</option>
-          <option value="19">Newfoundland &amp; Labrador</option>
-          <option value="19">Northwest Territories</option>
-          <option value="19">Nova Scotia</option>
-          <option value="19">Nunavut</option>
-          <option value="19">Ontario</option>
-          <option value="21">Oregon</option>
-          <option value="19">Prince Edward Island</option>
-          <option value="21">Quebec</option>
-          <option value="21">Vermont</option>
-          <option value="21">Virginia</option>
-          <option value="21">Washington</option>
-          <option value="19">Saskatchewan</option>
-          <option value="19">Yukon</option> */}
         </select>
         <DatePicker
           onChange={onChange}
