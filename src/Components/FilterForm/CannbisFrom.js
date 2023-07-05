@@ -213,7 +213,7 @@ const CannbisFrom = () => {
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-end  mt-4">
           <button
-            className="green-btn-outline custom-w min-width-208"
+            className="green-btn-outlines custom-w min-width-208"
             type="button"
             data-bs-dismiss="modal"
           >
