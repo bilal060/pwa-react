@@ -13,12 +13,11 @@ import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import PriceIcon from "../../assets/Images/Price";
 import FlavorIcon from "../../assets/Images/Flavor";
 import ConcreteIcon from "../../assets/Images/Concrete";
-import GoogleMap from "./GoogleMap";
-import { markersData } from "./fakeData";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 import { useState } from "react";
+import GoogleMapNew from "./GoogleMap/GoogleMapNew";
 
 const seedsDetail = [
   {
@@ -37,49 +36,7 @@ const seedsDetail = [
     active: false,
   },
 ];
-const seedData = [
-  {
-    id: 1,
-    name: "Toronto, Ontario",
-    img: headshop1,
-    price: "Price: $153",
-    location: "789 Yonge St, Toronto, Canada",
-    concrete: "Concentrate: 5%",
-    flavor: "Flavour: Mint",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-  {
-    id: 2,
-    name: "Toronto, Ontario",
-    img: headshop2,
-    price: "Price: $153",
-    location: "789 Yonge St, Toronto, Canada",
-    concrete: "Concentrate: 5%",
-    flavor: "Flavour: Mint",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: true,
-  },
-  {
-    id: 3,
-    name: "Toronto, Ontario",
-    img: headshop3,
-    price: "Price: $153",
-    location: "789 Yonge St, Toronto, Canada",
-    concrete: "Concentrate: 5%",
-    flavor: "Flavour: Mint",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-];
 
-const defaultMapOptions = {
-  fullscreenControl: false,
-  zoomControl: false,
-};
 const AnyReactComponent = ({ img }) => (
   <div>
     <div className="dropdown">
@@ -167,23 +124,6 @@ const HeadShopMap = () => {
     GetHeadShop(GetHeadShopUrl);
   }, []);
 
-  const points = (headShop.result || []).map((crime) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      crimeId: crime._id,
-      category: crime.category,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [
-        parseFloat(crime?.userId?.location?.coordinates[0]),
-        parseFloat(crime?.userId?.location?.coordinates[1]),
-      ],
-    },
-    category: crime.category,
-  }));
-
   const markersData = (headShop.result || []).map((crime) => ({
     id: crime._id,
     lat: crime?.userId?.location?.coordinates[0],
@@ -204,9 +144,8 @@ const HeadShopMap = () => {
             return (
               <div
                 key={index}
-                className={`${
-                  data.active ? "active" : ""
-                } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                className={`${data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                 id={`v-pills-${data.id}-tab`}
                 data-toggle="pill"
                 href={`#v-pills-${data.id}`}
@@ -219,9 +158,8 @@ const HeadShopMap = () => {
                     <div>
                       <img
                         className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${
-                          Array.isArray(data.photo) ? data.photo[0] : data.photo
-                        }`}
+                        src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
+                          }`}
                         alt=""
                       />
                     </div>
@@ -301,14 +239,13 @@ const HeadShopMap = () => {
             );
           })}
         </div>
-        <div className="col-md-6 p-0 mb-md-0 mb-4 p-3 ps-0">
+        <div className="col-md-6 p-0 mb-md-0 mb-4">
           {seedsDetail.map((chatsdetail, index) => {
             return (
               <div
                 key={index}
-                className={`${
-                  chatsdetail.active ? "active show" : ""
-                } tab-pane h-100 w-100 fade  chat-detail`}
+                className={`${chatsdetail.active ? "active show" : ""
+                  } tab-pane h-100 w-100 fade  chat-detail`}
                 id={`v-pills-${chatsdetail.id}`}
                 role="tabpanel"
                 aria-labelledby={`v-pills-${chatsdetail.id}-tab`}
@@ -348,7 +285,7 @@ const HeadShopMap = () => {
                       {markersData.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap points={points} markersData={markersData} />
+                  <GoogleMapNew markersData={headShop.result} />
                 </div>
               </div>
             );

@@ -25,13 +25,14 @@ const EditProfile = () => {
   const goBack = () => {
     navigate(-1);
   };
+  const [file, setFile] = useState();
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
+    const data = JSON.parse(currentUser);
     setuserData(JSON.parse(currentUser));
+    setFile(`${process.env.REACT_APP_PORT}/${data?.photo}`);
   }, []);
-
-  const [file, setFile] = useState(productuser);
 
   const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${userData?._id}`;
 
@@ -112,8 +113,12 @@ const EditProfile = () => {
             <form onSubmit={(e) => submitHandler(e)}>
               <div className="seed-card flex-column mt-lg-5 mt-3">
                 <div className="d-flex flex-column justify-content-lg-center justify-content-between align-items-center">
-                  <div className="d-flex flex-column gap-4 w-50 mb-sm-5">
-                    <img src={file} alt="" />
+                  <div className="d-flex flex-column gap-4 w-50 mb-sm-5 align-items-center">
+                    <img
+                      src={file}
+                      alt=""
+                      className="mb-md-4 user-profile-image"
+                    />
                     <label className="green-btn-outline text-primary-green height-56 cr-p d-flex justify-content-center align-items-center">
                       <input
                         type="file"

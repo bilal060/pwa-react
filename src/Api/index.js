@@ -255,9 +255,9 @@ export const CreateChat = async (senderId, receiverId) => {
     };
     await Axios.post(CreateChatUrl, data);
     toast.success("Chat Posted Successfully");
-    // setTimeout(() => {
-    //   window.location.href = `/chat/${senderId}`;
-    // }, 1000);
+    setTimeout(() => {
+      window.location.href = `/chat/${senderId}`;
+    }, 1000);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
@@ -305,4 +305,29 @@ export const SocialPostSignUp = async (signUpDetails) => {
     console.log(error);
     localStorage.clear();
   }
+};
+
+export const createSubscription = (data) => {
+  Axios.post(`${process.env.REACT_APP_API_URI}subscription`, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user-token")}` },
+  })
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const googleLogin = (data, navigate) => {
+  Axios.post(`${process.env.REACT_APP_API_URI}users/google-login`, data)
+    .then(response => {
+      localStorage.setItem("user-token", response.data.token);
+      localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
+      navigate("/home");
+      toast.success("Welcome");
+    })
+    .catch(error => {
+      toast.error(error.response.data.message);
+    });
 };

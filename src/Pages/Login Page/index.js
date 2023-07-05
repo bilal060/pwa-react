@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ShowPassword from "../../assets/Images/ShowPassword";
 import GoogleIcon from "../../assets/Images/Google";
-import { toast } from "react-toastify";
 import { LoginSocialGoogle } from "reactjs-social-login";
-import { PostLoginData } from "../../Api";
+import { PostLoginData, googleLogin } from "../../Api";
 
 const LoginPage = () => {
   const [loginDetails, setloginDetails] = useState({
@@ -94,13 +93,14 @@ const LoginPage = () => {
           client_id={
             "643396070667-bfebpofn127mm7krc7c4iamdu5ejckig.apps.googleusercontent.com"
           }
-          scope="openid profile email"
           discoveryDocs="claims_supported"
           access_type="offline"
           onResolve={({ provider, data }) => {
-            localStorage.setItem("user-token", data.access_token);
-            navigate("/home");
-            toast.success("Welcome");
+            const apiData = {
+              access_token: data.access_token,
+              email: data.email
+            };
+            googleLogin(apiData, navigate);
           }}
           onReject={(error) => {
             console.log(error);

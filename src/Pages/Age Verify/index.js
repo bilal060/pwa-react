@@ -55,16 +55,19 @@ const AgeVerifyPage = () => {
           onChange={(e) => formHandler(e)}
         >
           <option value="">Where are you from?</option>
-          <option value="AB">AB</option>
-          <option value="NS">NS</option>
-          <option value="NB">NB</option>
-          <option value="ON">ON</option>
-          <option value="MB">MB</option>
-          <option value="SK">SK</option>
-          <option value="BC">BC</option>
-          <option value="YT">YT</option>
-          <option value="NU">NU</option>
-          <option value="Quebec">Quebec</option>
+          <option value="AB">Alberta(AB)</option>
+          <option value="BC">British Columbia(BC)</option>
+          <option value="MB">Manitoba(MB)</option>
+          <option value="NB">New Brunswick(NB)</option>
+          <option value="NL">Newfoundland and Labrador(NL)</option>
+          <option value="NT">Northwest Territories(NT)</option>
+          <option value="NS">Nova Scotia(NS)</option>
+          <option value="NU">Nunavut(NU)</option>
+          <option value="ON">Ontario(ON)</option>
+          <option value="PE">Prince Edward Island (PE)</option>
+          <option value="Quebec">Quebec(QC)</option>
+          <option value="SK">Saskatchewan(SK)</option>
+          <option value="YT">Yukon(YT)</option>
         </select>
         <DatePicker
           onChange={onChange}

@@ -2,21 +2,17 @@ import React from "react";
 import dispensary1 from "../../assets/Images/dispensary1.svg";
 import dispensary2 from "../../assets/Images/dispensary2.svg";
 import dispensary3 from "../../assets/Images/dispensary3.svg";
-import mapSeed1 from "../../assets/Images/mapSeed1.svg";
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-import GoogleMapReact from "google-map-react";
-import SeedICon from "../../assets/Images/Seed";
-import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import GoogleMap from "./GoogleMap";
-import { markersData } from "./fakeData";
 import { useState } from "react";
 import Axios from "../../axios/Axios";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import GoogleMapNew from './GoogleMap/GoogleMapNew';
 
 const seedsDetail = [
   {
@@ -129,9 +125,8 @@ const DispensaryMap = () => {
             return (
               <div
                 key={index}
-                className={`${
-                  data.active ? "active" : ""
-                } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                className={`${data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                 id={`v-pills-${data.id}-tab`}
                 data-toggle="pill"
                 href={`#v-pills-${data.id}`}
@@ -144,9 +139,8 @@ const DispensaryMap = () => {
                     <div>
                       <img
                         className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${
-                          Array.isArray(data.photo) ? data.photo[0] : data.photo
-                        }`}
+                        src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
+                          }`}
                         alt=""
                       />
                     </div>
@@ -261,14 +255,13 @@ const DispensaryMap = () => {
             );
           })}
         </div>
-        <div className="col-md-6 p-0 mb-md-0 mb-4 p-3 ps-0">
+        <div className="col-md-6 p-0 mb-md-0 mb-4">
           {seedsDetail.map((chatsdetail, index) => {
             return (
               <div
                 key={index}
-                className={`${
-                  chatsdetail.active ? "active show" : ""
-                } tab-pane h-100 w-100 fade  chat-detail`}
+                className={`${chatsdetail.active ? "active show" : ""
+                  } tab-pane h-100 w-100 fade  chat-detail`}
                 id={`v-pills-${chatsdetail.id}`}
                 role="tabpanel"
                 aria-labelledby={`v-pills-${chatsdetail.id}-tab`}
@@ -308,7 +301,7 @@ const DispensaryMap = () => {
                       {dispensary.length} People Sharing Seeds
                     </button>
                   </div>
-                  <GoogleMap points={points} markersData={markersData} />
+                  <GoogleMapNew markersData={dispensary.result} />
                 </div>
               </div>
             );

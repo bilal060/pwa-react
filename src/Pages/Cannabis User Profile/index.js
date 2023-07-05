@@ -12,7 +12,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
-import HeartIcon from "../../assets/Images/Heart";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 
@@ -22,7 +21,6 @@ const CannabisProfileDetail = () => {
   const [others, setOthers] = useState([]);
   const [currentuserData, setcurrentuserData] = useState();
 
-  const [api_url, setapi_url] = useState("");
   const [filter, setFilter] = useState({
     event: "",
     foodOfferd: "",

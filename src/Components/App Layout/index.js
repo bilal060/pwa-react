@@ -66,7 +66,6 @@ const AppLayout = (props) => {
     "/home/cannabis/map",
     "/home/headshops/map",
   ];
-  const navigate = useNavigate();
   const { Logout } = Hooks();
 
   return (

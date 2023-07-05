@@ -78,7 +78,7 @@ const ShowAllProducts = ({ match }) => {
                   <div className="col-8 col-sm-12 p-0">
                     <div className="ps-sm-0 ps-3">
                       <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                        {data.name}
+                        {data.strainName || data.productName || data.event}
                       </p>
                       <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
                         <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
@@ -143,8 +143,10 @@ const ShowAllProducts = ({ match }) => {
           );
         })
       ) : (
-        <div className="d-flex justify-content-center w-75">
-          <EmptyDataImage />
+        <div className="d-flex justify-content-center w-100">
+          <div className="w-50">
+            <EmptyDataImage />
+          </div>
         </div>
       )}
     </div>
