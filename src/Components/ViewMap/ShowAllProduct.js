@@ -240,7 +240,7 @@ const AllProductMapView = () => {
             })}
           </div>
         </div>
-        <div className="col-md-6 p-0 mb-md-0 mb-4 p-3 ps-0">
+        <div className="col-md-6 p-0 mb-md-0 mb-4 ">
           {seedsDetail.map((chatsdetail, index) => {
             return (
               <div

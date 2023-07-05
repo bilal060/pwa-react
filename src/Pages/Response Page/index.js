@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import AddIcon from "../../assets/Images/Add";
 import { useEffect } from "react";
 import { PostResponse } from "../../Api";
+import Axios from "../../axios/Axios";
+import { toast } from "react-toastify";
 
 const ResponsivePage = () => {
   const [myArray, setMyArray] = useState([]);
   const [addMorebtn, setAddMoreBtn] = useState(false);
   const [id, setId] = useState();
   const [file, setFile] = useState(null);
+  const [allStrains, setAllStrains] = useState();
   const [response, setResponse] = useState({
     userId: "",
     strainType: "",
@@ -27,7 +30,20 @@ const ResponsivePage = () => {
       userId: JSON.parse(currentUser)._id,
     }));
     setId(JSON.parse(currentUser)._id);
+    GetAllStrains();
   }, []);
+
+  const GetAllStrains = async () => {
+    try {
+      const fetchData = await Axios.get(
+        `${process.env.REACT_APP_API_URI}users/getAllStrains`
+      );
+      setAllStrains(fetchData.data.result);
+    } catch (error) {
+      toast.error(error?.message);
+      console.log(error);
+    }
+  };
 
   const attachFile = (e) => {
     if (e.target.files) {

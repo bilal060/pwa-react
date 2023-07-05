@@ -1421,8 +1421,8 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 .poeple-sharing-seed {
   position: absolute;
   z-index: 1;
-  top: 16px;
-  right: 16px;
+  top: 30px;
+  right: 30px;
 }
 
 .sc-htpNat {
@@ -2360,7 +2360,10 @@ input[type="radio"]:checked+.radio-button::before {
   display: none !important;
 }
 
+.gm-style-iw {}
+
 .gm-style .gm-style-iw-c {
+  border-radius: 16px !important;
   padding: 0 !important;
 }
 
@@ -2369,9 +2372,18 @@ input[type="radio"]:checked+.radio-button::before {
   overflow: hidden !important;
 }
 
+.gmnoprint {
+  display: none;
+}
+
 .info-container {
   width: 250px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 16px !important;
+}
+
+.info-container img {
+  border-radius: 16px 16px 0px 0px;
 }
 
 .info-detail {
