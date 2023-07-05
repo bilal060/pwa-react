@@ -100,7 +100,7 @@ const LoginPage = () => {
               access_token: data.access_token,
               email: data.email
             };
-            googleLogin(apiData);
+            googleLogin(apiData, navigate);
           }}
           onReject={(error) => {
             console.log(error);
