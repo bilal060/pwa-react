@@ -3,7 +3,6 @@ import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import SeedICon from "../../assets/Images/Seed";
-import mapSeed1 from "../../assets/Images/mapSeed1.svg";
 import Axios from "../../axios/Axios";
 import { toast } from "react-toastify";
 import DispensaryIcon from "../../assets/Images/Dispensary";
@@ -37,7 +36,7 @@ function Spy(props) {
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setIsOpen(false);
-    console.log("called handleClickOutside");
+      console.log("called handleClickOutside");
 
     }
   };
@@ -57,16 +56,14 @@ function Spy(props) {
         {props.data.category === "headShop" && <HeadShopIcon />}
       </div>
       <div
-        className={`dropdown-menu map-comp-dropmenu ${
-          isOpen ? "d-block" : "d-none"
-        }`}
+        className={`dropdown-menu map-comp-dropmenu ${isOpen ? "d-block" : "d-none"
+          }`}
         aria-labelledby="dropdownMenuButton"
       >
         <img
           className="w-100 intro-img"
-          src={`${process.env.REACT_APP_PORT}/${
-            Array.isArray(data.photo) ? data.photo[0] : data.photo
-          }`}
+          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
+            }`}
           alt=""
         />
 
