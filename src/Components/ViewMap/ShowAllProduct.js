@@ -207,7 +207,7 @@ const AllProductMapView = () => {
                               </span>
                             </div>
                             <Link
-                              to={"/home/seed/seedinfo"}
+                              to={`/home/${data.category}/${data._id}`}
                               className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                             >
                               <span>View Profile </span>

@@ -75,8 +75,9 @@ const HeadShopMap = () => {
               return (
                 <div
                   key={index}
-                  className={`${data.active ? "active" : ""
-                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${
+                    data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -89,8 +90,11 @@ const HeadShopMap = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
-                            }`}
+                          src={`${process.env.REACT_APP_PORT}/${
+                            Array.isArray(data.photo)
+                              ? data.photo[0]
+                              : data.photo
+                          }`}
                           alt=""
                         />
                       </div>
@@ -132,7 +136,7 @@ const HeadShopMap = () => {
                             </span>
                           </div>
                           <Link
-                            to={"/home/headshop/detail"}
+                            to={`/home/headshop/${data._id}`}
                             className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                           >
                             {" "}

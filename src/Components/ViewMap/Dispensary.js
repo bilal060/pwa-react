@@ -127,8 +127,9 @@ const DispensaryMap = () => {
               return (
                 <div
                   key={index}
-                  className={`${data.active ? "active" : ""
-                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${
+                    data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -141,8 +142,11 @@ const DispensaryMap = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
-                            }`}
+                          src={`${process.env.REACT_APP_PORT}/${
+                            Array.isArray(data.photo)
+                              ? data.photo[0]
+                              : data.photo
+                          }`}
                           alt=""
                         />
                       </div>
@@ -217,11 +221,13 @@ const DispensaryMap = () => {
                               <span>{data.userId.ratingsAverage}</span>
                             </span>
                             <span className="font-14-100 text-grey font-weight-400">
-                              <span>({data.userId.ratingsQuantity} Reviews)</span>
+                              <span>
+                                ({data.userId.ratingsQuantity} Reviews)
+                              </span>
                             </span>
                           </div>
                           <Link
-                            to={`/home/${data.category}/${data._id}`}
+                            to={`/home/dispensary/${data._id}`}
                             className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                           >
                             <span>View Profile </span>
