@@ -159,16 +159,18 @@ const UserProfile = () => {
               <h3 className="d-flex gap-2 align-items-center flex-wrap font-32 font-weight-600 ms-12 bordered-heading">
                 My Shared Strains
               </h3>
-              <button
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-                className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
-              >
-                <span>Post a Strain</span>
-                <span className="icon-green-bg bg-light-green">
-                  <AddIcon />
-                </span>
-              </button>
+              {userData.userType === "Consumer" ? null : (
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
+                >
+                  <span>Post a Strain</span>
+                  <span className="icon-green-bg bg-light-green">
+                    <AddIcon />
+                  </span>
+                </button>
+              )}
             </div>
             <div className="seeds-card-main row m-0 pt-5">
               {sharedByUser?.result?.length !== 0 ? (
