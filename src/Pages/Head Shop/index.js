@@ -23,9 +23,9 @@ const HeadShop = () => {
     const parsedUser = JSON.parse(currentUser);
     setHeadShop((prevState) => ({
       ...prevState,
-      userId: parsedUser._id,
+      userId: parsedUser?._id,
     }));
-    setId(parsedUser._id);
+    setId(parsedUser?._id);
 
     const savedData = JSON.parse(localStorage.getItem("headShopData"));
     if (savedData && Array.isArray(savedData)) {

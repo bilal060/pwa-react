@@ -39,9 +39,9 @@ const CannabisLounge = () => {
     const currentUser = localStorage.getItem("userdata");
     setCannabis((prevState) => ({
       ...prevState,
-      userId: JSON.parse(currentUser)._id,
+      userId: JSON.parse(currentUser)?._id,
     }));
-    setId(JSON.parse(currentUser)._id);
+    setId(JSON.parse(currentUser)?._id);
   }, []);
 
   const goBack = () => {

@@ -23,9 +23,9 @@ const DispensaryType = () => {
     const currentUser = localStorage.getItem("userdata");
     setDispensary((prevState) => ({
       ...prevState,
-      userId: JSON.parse(currentUser)._id,
+      userId: JSON.parse(currentUser)?._id,
     }));
-    setId(JSON.parse(currentUser)._id);
+    setId(JSON.parse(currentUser)?._id);
   }, []);
 
   const formHandler = (e) => {

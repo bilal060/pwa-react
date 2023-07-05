@@ -7,6 +7,6 @@ export const ProtectedRoutes = ({ component: Component }) => {
   if (IsUserLoggedIn()) {
     return Component;
   } else {
-    return <Navigate to="/" />;
+    return window.history.back();
   }
 };
