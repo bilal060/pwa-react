@@ -78,17 +78,17 @@
 }
 
 .auth-input-textarea {
-    height: 112px;
-    background-color: Black !important;
-    color: #A3A3A3;
-    border: 1px solid #6B6B6B;
-    border-radius: 12px;
-    width: 100%;
-    padding: 10px 20px;
-    outline: 0;
-    resize: none;
-    font-size: 18px;
-    line-height: 100%;
+  height: 112px;
+  background-color: Black !important;
+  color: #a3a3a3;
+  border: 1px solid #6b6b6b;
+  border-radius: 12px;
+  width: 100%;
+  padding: 10px 20px;
+  outline: 0;
+  resize: none;
+  font-size: 18px;
+  line-height: 100%;
 }
 
 .auth-label {
@@ -810,10 +810,10 @@ input[type="range"]::-ms-thumb {
 /* seeds */
 .seeds-card-main {
   /* display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 24px;
-    flex-wrap: wrap; */
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap; */
 }
 
 .seeds-card-main .intro-img {
@@ -1848,10 +1848,8 @@ div.subs {
 }
 
 .bg-white {
-    background-color: white !important;
+  background-color: white !important;
 }
-
-
 
 @keyframes popup {
   0% {
@@ -1889,31 +1887,30 @@ div.subs {
   }
 }
 
-@media screen and (min-width:767px) {
-    .cards-image-style {
-        height: 200px !important;
-    }
+@media screen and (min-width: 767px) {
+  .cards-image-style {
+    height: 200px !important;
+  }
 }
 
-
-@media screen and (max-width:991px) {
-    .min-width-792 {
-        min-width: auto !important;
-    }
+@media screen and (max-width: 991px) {
+  .min-width-792 {
+    min-width: auto !important;
+  }
 
   .w-lg-40-100-40 {
     width: 100% !important;
   }
 }
 
-@media screen and (max-width:767px) {
-.cards-image-style {
-        max-height: 400px !important;
-    }
+@media screen and (max-width: 767px) {
+  .cards-image-style {
+    max-height: 400px !important;
+  }
 
-    .send-msg .msg .chat-image {
-        max-width: 250px;
-    }
+  .send-msg .msg .chat-image {
+    max-width: 250px;
+  }
 
   .map-card-col .map-link:first-child {
     border-radius: 0 !important;
@@ -1952,7 +1949,7 @@ div.subs {
   }
 
   .like-post {
-    right: 6% !important;
+    /* right: 6% !important; */
   }
 
   .favourite-post {
@@ -1973,9 +1970,6 @@ div.subs {
   .custom-model.filter-model {
     width: 100vw;
   }
-    .like-post {
-        /* right: 6% !important; */
-    }
 
   .custom-model.user-model .modal-content {
     width: 100vw;
@@ -2044,13 +2038,13 @@ div.subs {
   }
 
   .like-post {
-    left: 38% !important;
+    /* left: 38% !important; */
   }
 
-  .favourite-post {
-    left: 2% !important;
-    top: 5% !important;
-  }
+  /* .favourite-post {
+      left: 2% !important;
+      top: 5% !important;
+  } */
 
   .height-56 {
     height: 40px !important;
@@ -2064,225 +2058,6 @@ div.subs {
     height: 56px !important;
     border-radius: 12px !important;
   }
-    .nav-link.product-item {
-        border-radius: 5px !important;
-    }
-
-    .product-user-profile .auth-input,
-    .auth-input-textarea,
-    .upload-file {
-        border-radius: 5px !important;
-    }
-
-    .filter-model .auth-input {
-        border-radius: 5px !important;
-    }
-
-    .product-user-profile .upload-file::before {
-        border-radius: 5px !important;
-    }
-
-
-    .like-post {
-        /* left: 38% !important; */
-    }
-
-    /* .favourite-post {
-        left: 2% !important;
-        top: 5% !important;
-    } */
-
-    .height-56 {
-        height: 40px !important
-    }
-
-    .height-42 {
-        height: 36px !important
-    }
-
-    .registration-layout .green-btn {
-        height: 56px !important;
-        border-radius: 12px !important;
-    }
-
-    .registration-layout .green-btn-outline {
-        height: 56px !important;
-        border-radius: 12px !important;
-    }
-
-    .registration-layout .add-more {
-        height: 56px !important;
-        border-radius: 12px !important;
-    }
-
-    .registration-layout .light-red-btn-outline {
-        height: 56px !important;
-        border-radius: 12px !important;
-    }
-
-    .registration-layout .upload-file {
-        height: 56px !important;
-        border-radius: 12px !important;
-    }
-
-    .green-btn,
-    .green-btn-outline,
-    .product-item,
-    .search-product,
-    .light-red-btn-outline,
-    .add-more {
-        height: 40px !important;
-        border-radius: 8px !important;
-    }
-
-
-
-    .search-product {
-        padding-right: 4px;
-    }
-
-    .icon-green-bg,
-    .icon-red-bg {
-        width: 32px !important;
-        height: 32px;
-        border-radius: 5px;
-    }
-
-    .icon-light-green-bg {
-        width: 32px;
-        height: 32px;
-        border-radius: 5px;
-    }
-
-    .seed-card .green-btn .send-message svg {
-        height: 100%;
-        width: 100%;
-    }
-
-    .seed-card .green-btn.user .send-message {
-        height: 100%;
-        width: max-content !important;
-    }
-
-    .seed-card .green-btn {
-        /* height: 34px !important; */
-        border-radius: 5px !important;
-    }
-
-    .seed-card {
-        padding: 0 0 24px 0;
-        box-shadow: none;
-        flex-direction: row;
-        border-bottom: 1px solid rgba(93, 139, 47, 0.2);
-        border-radius: 0 !important;
-    }
-
-    .seed-card-col:last-child .seed-card {
-        border-bottom: 0 !important;
-        padding: 0 !important;
-    }
-
-    .seed-card.product-profile {
-        box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.05) !important;
-        border-radius: 16px !important;
-        padding: 16px !important;
-    }
-
-    .seed-card .like-post-main .intro-img {
-        max-width: 100%;
-        height: 100%;
-    }
-
-    .seed-card .intro-img {
-        /* max-width: 50%; */
-        height: 100%;
-    }
-
-    .app-header {
-        border-radius: 0px 0px 16px 16px;
-    }
-
-    .mob-app-header {
-        background: #FFFFFF;
-        border-radius: 0px 0px 16px 16px;
-        box-shadow: 0px 2px 19px rgba(0, 0, 0, 0.05);
-        height: 327px !important;
-    }
-
-    .all-product-section {
-        padding-top: 50px !important;
-    }
-
-    .mob-app-content-footer {
-        height: calc(100vh - 327px - 56px);
-    }
-
-    .small-header-mob-footer {
-        height: calc(100vh - 80px - 56px) !important;
-    }
-
-    .search-product {
-        width: 100%;
-    }
-
-    .max-width-521 {
-        max-width: 521px;
-        padding: 36px 16px 16px 16px;
-    }
-
-    .min-width-521 {
-        min-width: auto;
-    }
-
-    .max-width-792 {
-        max-width: 792px;
-        padding: 36px 16px 16px 16px;
-    }
-
-    .auth-model {
-        max-width: 521px;
-        background: rgba(255, 255, 255, 0.09);
-        backdrop-filter: blur(36.7143px);
-        border-radius: 24px;
-        color: white;
-    }
-
-    .registration-layout {
-        overflow-y: hidden;
-    }
-
-    .registration-layout .content {
-        overflow-y: auto;
-        width: 100%;
-        padding: 54px 24px 97px 24px;
-    }
-
-    .registration-layout .social-content {
-        background: #00000085 !important;
-        height: calc(100vh - 86px);
-        overflow-y: auto;
-        width: 100%;
-        padding: 0 !important;
-    }
-
-    .registration-layout .social-content-footer {
-        background: #00000085 !important;
-        height: calc(100vh - 86px - 67px);
-        overflow-y: auto;
-        width: 100%;
-        padding: 0 !important;
-    }
-
-    .custom-w {
-        width: 100% !important;
-    }
-
-    .seed-card .green-btn .send-message {
-        width: 100% !important;
-        height: 100% !important;
-        display: block !important;
-    }
-}
 
   .registration-layout .green-btn-outline {
     height: 56px !important;
@@ -2460,9 +2235,6 @@ div.subs {
     display: block !important;
   }
 }
-    .like-post {
-        /* left: 27% !important; */
-    }
 
 .nav-card-map {
   height: 700px;
@@ -2478,7 +2250,7 @@ div.subs {
 
 @media screen and (max-width: 436px) and (min-width: 399px) {
   .like-post {
-    left: 27% !important;
+    /* left: 27% !important; */
   }
 
   .seed-card .intro-img {
@@ -2491,10 +2263,6 @@ div.subs {
   .mobile-view-footer .section-1 {
     gap: 1.8rem !important;
   }
-@media screen and (max-width:400px) {
-    .like-post {
-        /* left: 24% !important; */
-    }
 
   .mobile-view-footer .section-2 {
     gap: 1.8rem !important;
@@ -2503,7 +2271,7 @@ div.subs {
 
 @media screen and (max-width: 400px) {
   .like-post {
-    left: 24% !important;
+    /* left: 24% !important; */
   }
 
   .seed-card .intro-img {
