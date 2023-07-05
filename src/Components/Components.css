@@ -2355,7 +2355,7 @@ input[type="radio"]:checked + .radio-button::before {
   font-size: 18px;
   color: #2d2b2b;
   font-weight: bold;
-  line-height: 18px;
+  line-height: 15px;
   margin: 8px 0 !important;
 }
 
