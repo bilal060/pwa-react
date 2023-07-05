@@ -322,7 +322,6 @@ export const createSubscription = (data) => {
 export const googleLogin = (data, navigate) => {
   Axios.post(`${process.env.REACT_APP_API_URI}users/google-login`, data)
     .then(response => {
-      console.log(response.data);
       localStorage.setItem("user-token", response.data.token);
       localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
       navigate("/home");
