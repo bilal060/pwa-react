@@ -143,8 +143,10 @@ const ShowAllProducts = ({ match }) => {
           );
         })
       ) : (
-        <div className="d-flex justify-content-center w-75">
-          <EmptyDataImage />
+        <div className="d-flex justify-content-center w-100">
+          <div className="w-50">
+            <EmptyDataImage />
+          </div>
         </div>
       )}
     </div>

@@ -112,9 +112,9 @@ export const PostAddress = async (adressUrl, address) => {
 export const PostResponse = async (newArray) => {
   try {
     await Axios.post(PostResponseUrl, newArray);
-    setTimeout(() => {
-      window.location.href = "/terms";
-    }, 1000);
+    // setTimeout(() => {
+    //   window.location.href = "/terms";
+    // }, 1000);
     toast.success("Response Added Successfully");
   } catch (error) {
     toast.error(error?.message);

@@ -2358,3 +2358,10 @@ input[type="radio"]:checked + .radio-button::before {
   line-height: 18px;
   margin: 10px 0 !important;
 }
+.user-profile-image{
+  height: 150px;
+  width: 150px;
+  border-radius: 12px !important;
+  object-fit: cover;
+  object-position: top;
+}

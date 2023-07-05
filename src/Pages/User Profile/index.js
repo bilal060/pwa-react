@@ -6,7 +6,6 @@ import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import DeleteIcon from "../../assets/Images/Delete";
 import EditIcon from "../../assets/Images/Edit";
 import AddIcon from "../../assets/Images/Add";
-import UploadIcon from "../../assets/Images/Upload";
 import { useState } from "react";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { Link } from "react-router-dom";
@@ -22,24 +21,10 @@ import SeedstoreForm from "../../Components/FilterForm/SeedstoreForm";
 import HeadshopForm from "../../Components/FilterForm/HeadshopForm";
 import CannbisFrom from "../../Components/FilterForm/CannbisFrom";
 import "../../Components/FilterForm/modelform.css";
-const UserProfile = (props) => {
-  const [fileName, setFileName] = useState("");
+const UserProfile = () => {
   const [userData, setUserData] = useState([]);
   const [sharedByUser, setSharedByUser] = useState([]);
 
-  const attachFile = (e) => {
-    if (e.target.files) {
-      setFileName(e.target.files[0]?.name);
-      let imageFile = e.target.files[0];
-      var reader = new FileReader();
-      reader.readAsDataURL(imageFile);
-      reader.onloadend = function (e) {
-        var myImage = new Image();
-        myImage.src = e.target.result;
-        return myImage;
-      };
-    }
-  };
   const GetSharedByUser = async (GetSharedByUserUrl) => {
     try {
       const fetchData = await Axios.get(GetSharedByUserUrl);
@@ -77,7 +62,15 @@ const UserProfile = (props) => {
           <div className="col-xl-3 pe-md-0 col-md-6 mb-md-0 pb-lg-0 mb-4 pb-3">
             <div className="seed-card flex-column">
               <div className="d-flex flex-lg-column justify-content-lg-center gap-4 justify-content-start align-items-lg-center mb-lg-5 mb-3">
-                <img src={productuser} alt="" className="mb-md-4 " />
+                <img
+                  src={
+                    userData.photo
+                      ? `${process.env.REACT_APP_PORT}/${userData.photo}`
+                      : productuser
+                  }
+                  alt=""
+                  className="mb-md-4 user-profile-image"
+                />
                 <div className="d-flex flex-column gap-3 align-items-lg-center">
                   <p className="font-24 font-weight-600">{userData.fullName}</p>
                   <div className="d-flex gap-2 align-items-center flex-wrap">
@@ -190,7 +183,6 @@ const UserProfile = (props) => {
                           <div className="col-4 col-sm-12 p-0">
                             <img
                               className="w-100 intro-img cards-image-style"
-                              // src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                               src={`${process.env.REACT_APP_PORT}/${
                                 Array.isArray(data.photo)
                                   ? data.photo[0]

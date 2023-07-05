@@ -1,10 +1,10 @@
-import React from 'react'
+import React from "react";
 
 const EmptyDataImage = () => {
   return (
     <>
-          <svg
-              className='w-100'
+      <svg
+        className="w-100"
         xmlns="http://www.w3.org/2000/svg"
         width="586.47858"
         height="659.29778"
@@ -154,6 +154,6 @@ const EmptyDataImage = () => {
       </svg>
     </>
   );
-}
+};
 
-export default EmptyDataImage
+export default EmptyDataImage;

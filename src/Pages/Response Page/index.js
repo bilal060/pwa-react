@@ -15,6 +15,9 @@ const ResponsivePage = () => {
     strainType: "",
     grownType: "",
     photo: "",
+    strainName: "",
+    description: "",
+    quantity: "",
   });
 
   useEffect(() => {
@@ -67,6 +70,9 @@ const ResponsivePage = () => {
         data.append("userId", id);
         data.append("strainType", mapData.strainType);
         data.append("grownType", mapData.grownType);
+        data.append("description", mapData.description);
+        data.append("strainName", mapData.strainName);
+        data.append("quantity", mapData.quantity);
 
         if (Array.isArray(mapData.photo)) {
           mapData.photo.forEach((file, fileIndex) =>
@@ -80,6 +86,9 @@ const ResponsivePage = () => {
       data.append("userId", id);
       data.append("strainType", response.strainType);
       data.append("grownType", response.grownType);
+      data.append("description", response.description);
+      data.append("strainName", response.strainName);
+      data.append("quantity", response.quantity);
 
       if (Array.isArray(response.photo)) {
         response.photo.forEach((file, fileIndex) =>
@@ -116,6 +125,22 @@ const ResponsivePage = () => {
         We’ll help you get started based on your response
       </h2>
       <form onSubmit={(e) => submitHandler(e)}>
+        <div className="d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4">
+          <div className="form-control h-auto p-0 bg-transparent border-0">
+            <label className="text-white mb-2 font-weight-600 font-18-100">
+              Name
+            </label>
+            <input
+              onChange={(e) => formHandler(e)}
+              type="text"
+              className="auth-input"
+              placeholder="Enter Name"
+              required
+              value={response.name}
+              name="strainName"
+            />
+          </div>
+        </div>
         <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
           <label className="text-white mb-2 font-weight-600 font-18-100">
             Which Strain type do you have?
@@ -151,6 +176,40 @@ const ResponsivePage = () => {
             <option value={"Grown"}>Grown</option>
           </select>
         </div>
+        <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+          <label className="text-white mb-2 font-weight-600 font-18-100">
+            Quantity Available for Sharing
+          </label>
+          <select
+            className="auth-input"
+            required
+            name="quantity"
+            onChange={(e) => formHandler(e)}
+            value={response.quantity}
+          >
+            <option value={""}>- Select Quantity-</option>
+            <option value={"1-7"}>1-7 Grams</option>
+            <option value={"7-14"}>7-14 Grams</option>
+            <option value={"14-30"}>14-30 Grams</option>
+          </select>
+        </div>
+
+        <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+          <label className="text-white mb-2 font-weight-600 font-18-100">
+            Description
+          </label>
+          <textarea
+            onChange={(e) => formHandler(e)}
+            className="auth-input-textarea"
+            placeholder="Enter description here..."
+            required
+            name="description"
+            value={response.description}
+          />
+        </div>
+        <label className="text-white mb-2 font-weight-600 font-18-100">
+          Upload Images
+        </label>
         <label className="upload-file cr-p w-100 mb-4">
           <input
             type="file"

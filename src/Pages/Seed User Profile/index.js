@@ -23,7 +23,6 @@ const SeedUserProfile = () => {
   const routeParams = useParams();
   const [seed, setSeed] = useState([]);
   const [others, setOthers] = useState([]);
-  const [api_url, setapi_url] = useState("");
   const [currentuserData, setcurrentuserData] = useState();
   const [selectedQuantity, setselectedQuantity] = useState("");
   const [selectedStrain, setselectedStrain] = useState("");
@@ -36,9 +35,6 @@ const SeedUserProfile = () => {
     Axios.get(GetSeedUrl)
       .then((response) => {
         setSeed(response.data.data);
-        setapi_url(
-          `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${response.data.data.userId?._id}`
-        );
         GetOthersByUser(
           `${process.env.REACT_APP_API_URI}seedStore/userseedStore?userId=${response.data.data.userId?._id}`
         );
