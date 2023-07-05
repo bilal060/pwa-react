@@ -3,9 +3,6 @@ import productuser from "../../assets/Images/productuser-1.svg";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
-// import ConcreteIcon from "../../assets/Images/Concrete";
-// import FlavorIcon from "../../assets/Images/Flavor";
-// import QuantityIcon from "../../assets/Images/Quantity";
 import DeleteIcon from "../../assets/Images/Delete";
 import EditIcon from "../../assets/Images/Edit";
 import AddIcon from "../../assets/Images/Add";
@@ -19,7 +16,12 @@ import { useEffect } from "react";
 import CountIcon from "../../assets/Images/Count";
 import DistanceIcon from "../../assets/Images/Distance";
 import PriceIcon from "../../assets/Images/Price";
-
+import EmptyDataImage from "../../assets/Images/EmptyData";
+import DispensaryFrom from "../../Components/FilterForm/DispensaryFrom";
+import SeedstoreForm from "../../Components/FilterForm/SeedstoreForm";
+import HeadshopForm from "../../Components/FilterForm/HeadshopForm";
+import CannbisFrom from "../../Components/FilterForm/CannbisFrom";
+import "../../Components/FilterForm/modelform.css";
 const UserProfile = (props) => {
   const [fileName, setFileName] = useState("");
   const [userData, setUserData] = useState([]);
@@ -176,68 +178,87 @@ const UserProfile = (props) => {
               </button>
             </div>
             <div className="seeds-card-main row m-0 pt-5">
-              {(sharedByUser || []).result?.map((data, index) => {
-                return (
-                  <div
-                    className="col-xl-4 col-md-12  mb-4 seed-card-col"
-                    key={index}
-                  >
-                    <div className="seed-card h-100 position-relative">
-                      <img
-                        className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                        alt=""
-                      />
+              {sharedByUser?.result?.length !== 0 ? (
+                (sharedByUser || []).result?.map((data, index) => {
+                  return (
+                    <div
+                      className="col-xl-4 col-md-12  mb-4 seed-card-col"
+                      key={index}
+                    >
+                      <div className="seed-card w-100 position-relative">
+                        <div className="row m-0 flex-sm-column w-100">
+                          <div className="col-4 col-sm-12 p-0">
+                            <img
+                              className="w-100 intro-img cards-image-style"
+                              src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                              alt=""
+                            />
+                          </div>
+                          <div className="col-8 col-sm-12 p-0">
+                            <div className="ps-sm-0 ps-3">
+                              <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                                {data.name}
+                              </p>
+                              <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                                  <DistanceIcon />
+                                  {data.distance} Away
+                                </span>
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                                  {data.quantity ? (
+                                    <CountIcon />
+                                  ) : (
+                                    <>
+                                      {data.cost ? (
+                                        <PriceIcon />
+                                      ) : (
+                                        <PriceIcon />
+                                      )}
+                                    </>
+                                  )}
 
-                      <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                          {data.name}
-                        </p>
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <DistanceIcon />
-                            {data.distance} Away
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            {data.quantity ? (
-                              <CountIcon />
-                            ) : (
-                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
-                            )}
-
-                            {data.quantity ? (
-                              `Seeds: ${data.quantity}`
-                            ) : (
-                              <>
-                                {data.cost
-                                  ? `Fees: $${data.cost}`
-                                  : `Entry Fee: $${data.entryFee}`}
-                              </>
-                            )}
-                          </span>
-                        </div>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
-                          <LocationIcon />
-                          <span className="cut-text">
-                            {data.userId?.location?.address}
-                          </span>
-                        </span>
-                        <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
-                          <div className="d-flex gap-2 align-items-center flex-wrap">
-                            <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
-                              <RatingIcon />
-                              {data.userId.ratingsAverage}
-                            </span>
-                            <span className="font-14-100 text-grey font-weight-400">
-                              ({data.userId.ratingsQuantity} Reviews)
-                            </span>
+                                  {data.quantity ? (
+                                    `Seeds: ${data.quantity}`
+                                  ) : (
+                                    <>
+                                      {data.cost
+                                        ? `Fees: $${data.cost}`
+                                        : `Entry Fee: $${data.entryFee}`}
+                                    </>
+                                  )}
+                                </span>
+                              </div>
+                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                                <LocationIcon />
+                                <span className="cut-text">
+                                  {data.userId?.location?.address}
+                                </span>
+                              </span>
+                              <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                                <div className="d-flex gap-2 align-items-center flex-wrap">
+                                  <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                                    <RatingIcon />
+                                    {data.userId.ratingsAverage}
+                                  </span>
+                                  <span className="font-14-100 text-grey font-weight-400">
+                                    ({data.userId.ratingsQuantity} Reviews)
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  );
+                })
+              ) : (
+                <div className="d-flex justify-content-center w-100">
+                  <div className="w-50">
+                    <EmptyDataImage />
                   </div>
-                );
-              })}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -260,140 +281,26 @@ const UserProfile = (props) => {
               </span>
             </div>
 
-            <h3 className="font-32 font-weight-600 allproduct-heading mb-5">
+            <h3 className="font-32 font-weight-600 allproduct-heading mb-2">
               Post a Strain
             </h3>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div className="row m-0 pt-4">
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Select a Strain
-                  </label>
-                  <select className="auth-input height-56 bg-white">
-                    <option defaultValue>Select an Item</option>
-                    <option>Big Buddha Cheese</option>
-                    <option>Girl Scout Cookies</option>
-                    <option>Blue Cheese</option>
-                    <option>Grease Monkey</option>
-                    <option>Rocksar</option>
-                    <option>Pennywise</option>
-                  </select>
-                </div>
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    className="auth-input height-56 bg-white"
-                  />
-                </div>
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Grown or purchased
-                  </label>
-                  <select className="auth-input height-56 bg-white">
-                    <option defaultValue>Select</option>
-                    <option>Indoor - Hydroponic</option>
-                    <option>Indoor - Soil</option>
-                    <option>Outdoor - Hydroponic</option>
-                    <option>Outdoor - Soil</option>
-                    <option>Dispensary Purchased</option>
-                    <option>Seeds</option>
-                  </select>
-                </div>
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Strain
-                  </label>
-                  <select className="auth-input height-56 bg-white">
-                    <option defaultValue>Select</option>
-                    <option>Indica</option>
-                    <option>Sativa</option>
-                    <option>Hybrid</option>
-                    <option>CBD</option>
-                  </select>
-                </div>
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Quantity available for sharing
-                  </label>
-                  <select className="auth-input height-56 bg-white">
-                    <option defaultValue>Select</option>
-                    <option>1-7 Grams</option>
-                    <option>7-14 Grams</option>
-                    <option>14-30 Grams</option>
-                  </select>
-                </div>
-                <div className="col-md-6  bg-transparent border-0 mb-4">
-                  <label className="mb-2 font-weight-600 font-18-100">
-                    Upload Images
-                  </label>
-                  <div className="d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between">
-                    <label className="upload-file height-56 cr-p">
-                      <input
-                        type="file"
-                        className="d-none"
-                        accept=".jpg, .jpeg, .png"
-                        onChange={(e) => attachFile(e)}
-                      />
-                      <div className="d-flex justify-content-center align-items-center h-100 w-100 gap-2">
-                        <UploadIcon />
-                        <p className="font-16 font-weight-500">
-                          {fileName === ""
-                            ? "Choose File / Drag & Drop Here"
-                            : fileName}
-                        </p>
-                      </div>
-                    </label>
-                  </div>
-                </div>
 
-                <div className="col-md-12  bg-transparent border-0 mb-4 p-0">
-                  <div className="row m-0">
-                    <label className="mb-2 font-weight-600 font-18-100">
-                      Description
-                    </label>
-
-                    <div className="col-md-6  bg-transparent border-0">
-                      <div className="p-0 bg-transparent border-0 mb-4">
-                        <textarea
-                          className="auth-input-textarea bg-white"
-                          placeholder="Enter description here..."
-                        />
-                      </div>
-                    </div>
-                    <div className="col-md-6  bg-transparent border-0">
-                      <button className="add-more bg-transparent text-black border-dark gap-2">
-                        <AddIcon />
-                        Add More Strain
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="col-md-12  d-flex justify-content-end p-0">
-                  <div className="row m-0 justify-content-end w-100">
-                    <div className="col-md-3 col-sm-6 mb-sm-0 mb-3 bg-transparent border-0">
-                      <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between">
-                        <button
-                          className="green-btn-outline text-primary-green "
-                          data-bs-dismiss="modal"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    </div>
-                    <div className="col-md-3 col-sm-6  bg-transparent border-0">
-                      <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-between">
-                        <button className="green-btn ">Post</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center"></div>
-                </div>
-              </div>
-            </form>
+            {userData.userType === "Retailer" ? (
+              <>
+                {userData.retailerType === "dispensary" && <DispensaryFrom />}
+                {userData.retailerType === "seedstore" && <SeedstoreForm />}
+                {userData.retailerType === "headshop" && <HeadshopForm />}
+                {userData.retailerType === "cannabis" && <CannbisFrom />}
+                {userData.retailerType !== "dispensary" &&
+                  userData.retailerType !== "seedstore" &&
+                  userData.retailerType !== "headshop" &&
+                  userData.retailerType !== "cannabis" && (
+                    <div>No matching retailer type found.</div>
+                  )}
+              </>
+            ) : (
+              <div>User is not a retailer.</div>
+            )}
           </div>
         </div>
       </div>

@@ -128,7 +128,7 @@ a {
 }
 
 .font-16-social {
-  font-size: 16px;
+  font-size: 16px !important;
   line-height: 100%;
 }
 
@@ -362,64 +362,6 @@ select {
   width: 100% !important;
   /* inset: 110% auto auto 0px !important; */
 }
-
-
-/* phone */
-/* .react-tel-input .form-control {
-  padding-left: 60px !important;
-  width: auto !important;
-}
-
-.phone-dropdown-btn {
-  background-color: transparent !important;
-  display: flex !important;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.phone-dropdown-btn .selected-flag {
-  background-color: transparent !important;
-  border-right: 2px solid #A3A3A3 !important;
-  height: 50% !important;
-  width: 50px !important;
-  padding: 0 !important;
-}
-
-.phone-dropdown-content {
-  background-color: #1D1D1D !important;
-  border-radius: 12px !important;
-  border: 1px solid #6B6B6B !important;
-  padding: 5px !important;
-  margin: 5px 0 !important;
-  top: 100% !important;
-  left: -40% !important;
-  max-width: 250px !important;
-}
-
-.phone-dropdown-content li.country {
-  display: flex !important;
-  align-items: center !important;
-  gap: 10px;
-}
-
-.phone-dropdown-content li.country span.country-name {
-  font-size: 14px !important;
-}
-
-.phone-dropdown-content::-webkit-scrollbar {
-  width: 2px !important;
-}
-
-.react-tel-input .selected-flag .flag {
-  position: absolute !important;
-  left: 0 !important;
-  right: 0 !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  margin: auto !important;
-} */
-
-
 
 /*  */
 .custom-phone-dropdown-btn {

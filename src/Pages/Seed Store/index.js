@@ -215,7 +215,7 @@ const SeedStore = () => {
             type="button"
           >
             <AddIcon />
-            Add More Strain {savedDataCount}
+            Add More Strain
           </button>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-5">

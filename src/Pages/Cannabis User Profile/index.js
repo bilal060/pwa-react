@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import HeartIcon from "../../assets/Images/Heart";
 import { MarkFavourite } from "../../Api";
+import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const CannabisProfileDetail = () => {
   const routeParams = useParams();
@@ -249,43 +250,51 @@ const CannabisProfileDetail = () => {
         </div>
 
         <div className="seeds-card-main row m-0 pt-5">
-          {(others || [])?.map((data, index) => {
-            return (
-              <div
-                className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
-                key={index}
-              >
-                <Link
-                  to={`/home/cannabisLounge/${data._id}`}
-                  className="seed-card position-relative text-black"
+          {others?.length !== 0 ? (
+            (others || [])?.map((data, index) => {
+              return (
+                <div
+                  className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
+                  key={index}
                 >
-                  <img
-                    className="w-100 intro-img"
-                    src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                    alt=""
-                  />
-                  <div className="ps-sm-0 ps-3">
-                    <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                      {data.brandName}
-                    </p>
+                  <Link
+                    to={`/home/cannabisLounge/${data._id}`}
+                    className="seed-card position-relative text-black"
+                  >
+                    <img
+                      className="w-100 intro-img"
+                      src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                      alt=""
+                    />
+                    <div className="ps-sm-0 ps-3">
+                      <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                        {data.brandName}
+                      </p>
 
-                    {/* <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
+                      {/* <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                         <QuantityIcon />
                         {data.strainName}
                       </span>
                     </div> */}
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
-                      <LocationIcon />
-                      <span className="cut-text">
-                        {data.userId?.location?.address}
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                        <LocationIcon />
+                        <span className="cut-text">
+                          {data.userId?.location?.address}
+                        </span>
                       </span>
-                    </span>
-                  </div>
-                </Link>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <div className="d-flex justify-content-center w-100">
+              <div className="w-50">
+                <EmptyDataImage />
               </div>
-            );
-          })}
+            </div>
+          )}
         </div>
       </div>
     </div>

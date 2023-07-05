@@ -17,11 +17,11 @@ const products = [
     icon: <SeedICon />,
     link: "/home/seed",
   },
-  {
-    name: "Buds",
-    icon: <BudsIcon />,
-    link: "/home/buds",
-  },
+  // {
+  //   name: "Buds",
+  //   icon: <BudsIcon />,
+  //   link: "/home/buds",
+  // },
   {
     name: "Dispensary",
     icon: <DispensaryIcon />,
@@ -240,7 +240,7 @@ const AllProducts = (props) => {
                     googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
                     libraries={libraries}
                   >
-                    <StandaloneSearchBox
+                    <StandaloneSearchBox 
                       onLoad={(ref) => (inputRef1.current = ref)}
                       onPlacesChanged={handlePlaceChanged}
                     >
@@ -373,21 +373,21 @@ const AllProducts = (props) => {
                       disabled={filter.area === "" ? true : false}
                     >
                       <option value={""}>- Select Quantity -</option>
-                      <option value={"1-5"}>
-                        1-5 {type === "Seeds" ? "Seeds" : "Grams"}
-                      </option>
-                      <option value={"5-10"}>
-                        5-10 {type === "Seeds" ? "Seeds" : "Grams"}
-                      </option>
-                      <option value={"10-15"}>
-                        10-15 {type === "Seeds" ? "Seeds" : "Grams"}
-                      </option>
-                      <option value={"15-20"}>
-                        15-20 {type === "Seeds" ? "Seeds" : "Grams"}
-                      </option>
-                      <option value={"20-30"}>
-                        20-30 {type === "Seeds" ? "Seeds" : "Grams"}
-                      </option>
+                        <option value={"1-5"}>
+                          1-5 {type === "Seeds" ? "Seeds" : "Grams"}
+                        </option>
+                        <option value={"5-10"}>
+                          5-10 {type === "Seeds" ? "Seeds" : "Grams"}
+                        </option>
+                        <option value={"10-15"}>
+                          10-15 {type === "Seeds" ? "Seeds" : "Grams"}
+                        </option>
+                        <option value={"15-20"}>
+                          15-20 {type === "Seeds" ? "Seeds" : "Grams"}
+                        </option>
+                        <option value={"20-30"}>
+                          20-30 {type === "Seeds" ? "Seeds" : "Grams"}
+                        </option>
                     </select>
                   </div>
                 </div>

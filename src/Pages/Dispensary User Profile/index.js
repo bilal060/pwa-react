@@ -19,12 +19,11 @@ import PhonebtnIcon from "../../assets/Images/Phonebtn";
 import "react-image-gallery/styles/css/image-gallery.css";
 import ImageGallery from "react-image-gallery";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import CountIcon from "../../assets/Images/Count";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
+import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const seedData = [
   {
@@ -278,43 +277,51 @@ const DispensaryProfileDetail = () => {
           </div>
         </div>
         <div className="seeds-card-main row m-0 pt-5">
-          {(others || [])?.map((data, index) => {
-            return (
-              <div
-                className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
-                key={index}
-              >
-                <Link
-                  to={`/home/dispensary/${data._id}`}
-                  className="seed-card position-relative text-black"
+          {others?.length !== 0 ? (
+            (others || [])?.map((data, index) => {
+              return (
+                <div
+                  className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
+                  key={index}
                 >
-                  <img
-                    className="w-100 intro-img"
-                    src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
-                    alt=""
-                  />
-                  <div className="ps-sm-0 ps-3">
-                    <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                      {data.strainName}
-                    </p>
-
-                    <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <QuantityIcon />
+                  <Link
+                    to={`/home/dispensary/${data._id}`}
+                    className="seed-card position-relative text-black"
+                  >
+                    <img
+                      className="w-100 intro-img"
+                      src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
+                      alt=""
+                    />
+                    <div className="ps-sm-0 ps-3">
+                      <p className="my-sm-4 mb-3 font-24 font-weight-700">
                         {data.strainName}
+                      </p>
+
+                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                          <QuantityIcon />
+                          {data.strainName}
+                        </span>
+                      </div>
+                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                        <LocationIcon />
+                        <span className="cut-text">
+                          {data.userId?.location?.address}
+                        </span>
                       </span>
                     </div>
-                    <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
-                      <LocationIcon />
-                      <span className="cut-text">
-                        {data.userId?.location?.address}
-                      </span>
-                    </span>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <div className="d-flex justify-content-center w-100">
+              <div className="w-50">
+                <EmptyDataImage />
               </div>
-            );
-          })}
+            </div>
+          )}
         </div>
       </div>
     </div>

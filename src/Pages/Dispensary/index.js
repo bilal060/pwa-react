@@ -148,9 +148,9 @@ const DispensaryType = () => {
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Quantity -</option>
-              <option value={"1-7"}>3-5 Grams</option>
-              <option value={"4-14"}>5-10 Grams</option>
-              <option value={"14-30"}>10-15 Grams</option>
+              <option value={"1-5"}>1-5 Grams</option>
+              <option value={"5-10"}>5-10 Grams</option>
+              <option value={"10-15"}>10-15 Grams</option>
             </select>
           </div>
         </div>
@@ -224,7 +224,7 @@ const DispensaryType = () => {
             type="button"
           >
             <AddIcon />
-            Add More Strain {savedDataCount}
+            Add More Strain
           </button>
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-5">

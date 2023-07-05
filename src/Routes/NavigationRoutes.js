@@ -54,6 +54,7 @@ import SocialLayout from "../Components/Social Layout";
 import SocialDashboard from "../Components/Social App/Dashboard";
 import SocialPosts from "../Components/Social App/Posts";
 import SocialMatch from "../Components/Social App/SocialMatch";
+import { RegisteredRoutes } from "../utils/RegisterRoutes";
 
 const NavigationRoutes = () => {
   const [windowSize, setWindowSize] = useState([
@@ -77,107 +78,168 @@ const NavigationRoutes = () => {
         <Route
           path="/"
           element={
-            <RegistrationLayout>
-              <LoginPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <LoginPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
         <Route
           path="/login"
           element={
-            <RegistrationLayout>
-              <LoginPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <LoginPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
         <Route
           path="/age"
           element={
-            <RegistrationLayout>
-              <AgeVerifyPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <AgeVerifyPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
         <Route
           path="/signup"
           element={
-            <RegistrationLayout>
-              <SignUpPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <SignUpPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
         <Route
           path="/retailer"
           element={
-            <RegistrationLayout>
-              <RetailerType />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <RetailerType />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/dispensary"
           element={
-            <RegistrationLayout>
-              <DispensaryType />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <DispensaryType />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/headshop"
           element={
-            <RegistrationLayout>
-              <HeadShopRegister />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <HeadShopRegister />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/seedstore"
           element={
-            <RegistrationLayout>
-              <SeedStore />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <SeedStore />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/cannabis"
           element={
-            <RegistrationLayout>
-              <CannabisLounge />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <CannabisLounge />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/address"
           element={
-            <RegistrationLayout>
-              <AddAddressPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <AddAddressPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/response"
           element={
-            <RegistrationLayout>
-              <ResponsivePage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <ResponsivePage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/budseed"
           element={
-            <RegistrationLayout>
-              <BudSeedPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <BudSeedPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route
           path="/terms"
           element={
-            <RegistrationLayout>
-              <TermsConditionsPage />
-            </RegistrationLayout>
+            <RegisteredRoutes
+              component={
+                <RegistrationLayout>
+                  <TermsConditionsPage />
+                </RegistrationLayout>
+              }
+            />
           }
         />
+
         <Route path="*" element={<NotFound />} />
         <Route
           path="/home/:radius?/:address?/:quantity?"
@@ -474,65 +536,97 @@ const NavigationRoutes = () => {
             <Route
               path="/social/summary"
               element={
-                <SocialAuthLayout>
-                  <SocialSummary />{" "}
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialSummary />{" "}
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/userdetail"
               element={
-                <SocialAuthLayout>
-                  <SocialUserDetail />{" "}
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialUserDetail />{" "}
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/userbio"
               element={
-                <SocialAuthLayout>
-                  <SocialUserBio />{" "}
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialUserBio />{" "}
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/notice"
               element={
-                <SocialAuthLayout>
-                  <SocialNotice />{" "}
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialNotice />{" "}
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/subscription"
               element={
-                <SocialAuthLayout>
-                  <SocialSubscription />
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialSubscription />
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/uploadpicture"
               element={
-                <SocialAuthLayout>
-                  <SocialUploadPicture />
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialUploadPicture />
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/profile"
               element={
-                <SocialAuthLayout>
-                  <SocialProfile />
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <SocialProfile />
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route
               path="/social/lookingfor"
               element={
-                <SocialAuthLayout>
-                  <LookingFor />
-                </SocialAuthLayout>
+                <ProtectedRoutes
+                  component={
+                    <SocialAuthLayout>
+                      <LookingFor />
+                    </SocialAuthLayout>
+                  }
+                />
               }
             />
             <Route

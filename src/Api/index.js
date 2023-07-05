@@ -134,6 +134,15 @@ export const PostSeedStore = async (data) => {
     console.log(error);
   }
 };
+export const PostSeedStoreform = async (data) => {
+  try {
+    await Axios.post(PostSeedStoreUrl, data);
+    toast.success("Seed Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
 
 export const PostDispensary = async (data) => {
   try {
@@ -141,6 +150,15 @@ export const PostDispensary = async (data) => {
     setTimeout(() => {
       window.location.href = "/address";
     }, 1000);
+    toast.success("Dispensary Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+export const PostDispensaryform = async (data) => {
+  try {
+    await Axios.post(PostDispensaryUrl, data);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error?.message);
@@ -159,12 +177,30 @@ export const PostHeadShop = async (data) => {
     console.log(error);
   }
 };
+export const PostHeadShopform = async (data) => {
+  try {
+    await Axios.post(PostHeadShopUrl, data);
+    toast.success("Head Shop Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
 export const PostCannabis = async (data) => {
   try {
     await Axios.post(PostCannabisUrl, data);
     setTimeout(() => {
       window.location.href = "/address";
     }, 1000);
+    toast.success("Cannabis Added Successfully");
+  } catch (error) {
+    toast.error(error?.message);
+    console.log(error);
+  }
+};
+export const PostCannabisform = async (data) => {
+  try {
+    await Axios.post(PostCannabisUrl, data);
     toast.success("Cannabis Added Successfully");
   } catch (error) {
     toast.error(error?.message);

@@ -56,7 +56,7 @@ const Seeds = () => {
               <div className="row m-0 flex-sm-column w-100">
                 <div className="col-4 col-sm-12 p-0">
                   <img
-                    className="w-100 intro-img"
+                    className="w-100 intro-img cards-image-style"
                     src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
                     alt=""
                   />

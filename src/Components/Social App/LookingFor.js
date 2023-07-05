@@ -1,66 +1,107 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SelectedTick from "../../assets/Images/selectedTick";
+import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 
+const libraries = ["places"];
 const LookingFor = () => {
   const navigate = useNavigate();
+  const inputRef = useRef();
+  const [sort, setSort] = useState("");
+  const [filter, setFilter] = useState({
+    looking: "",
+    age: "",
+    address: "",
+    sort: "",
+  });
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("social-preferences");
+    let data = JSON.parse(currentUser);
+    setFilter({
+      looking: data?.looking,
+      age: data?.age,
+      address: data?.address,
+      sort: data?.sort,
+    });
+  }, []);
+
+  const formHandler = (e) => {
+    const { name, value } = e.target;
+    setFilter((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handlePlaceChanged = () => {
+    const [place] = inputRef.current.getPlaces();
+    if (place) {
+      setFilter((prevState) => ({
+        ...prevState,
+        address: place.formatted_address,
+      }));
+    }
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate("/social/home");
+    localStorage.setItem("social-preferences", JSON.stringify(filter));
+    navigate("/social/dashboard");
   };
-  const [sort, setSort] = useState("");
-  const handleSort = (event) => {
-    setSort(event.target.value);
-  };
+  console.log(filter);
   return (
     <div className=" py-4 px-0 looking-for">
       <form onSubmit={(e) => submitHandler(e)} className=" mt-3 text-white">
         <div className="self-summary rounded-0">
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <select
-              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
-              required
+              className="auth-input font-16-social text-white border-0 w-100 border-bottom rounded-0 border-06"
+              name="looking"
+              onChange={(e) => formHandler(e)}
+              value={filter.looking}
             >
-              <option value="">I’M LOOKING FOR</option>
-              <option value="option1">Man</option>
-              <option value="option2">Women</option>
-              <option value="option3">Couples</option>
-              <option value="option4">Trans</option>
-              <option value="option5">Other</option>
+              <option value="">I am Looking For</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="others">Other</option>
             </select>
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <select
-              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
-              required
+              className="auth-input font-16-social text-white border-0 w-100 border-bottom rounded-0 border-06"
+              name="age"
+              onChange={(e) => formHandler(e)}
+              value={filter.age}
             >
               <option value="">Age range</option>
-              <option value="option1">26</option>
-              <option value="option2">27</option>
-              <option value="option3">28</option>
-              <option value="option4">29</option>
-              <option value="option5">30</option>
-              <option value="option6">31</option>
-              <option value="option7">32</option>
-              <option value="option8">33</option>
-              <option value="option9">34</option>
+              <option value="0-20">Under 20</option>
+              <option value="0-30">Under 30</option>
+              <option value="0-40">Under 40</option>
+              <option value="0-50">Under 50</option>
             </select>
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
-            <select
-              className="auth-input font-14-100 text-white border-0 w-100 border-bottom rounded-0 border-06"
-              required
+            <LoadScript
+              googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+              libraries={libraries}
             >
-              <option value="">Location</option>
-              <option value="option1">United States</option>
-              <option value="option2">Canada</option>
-              <option value="option3">united Kingdom</option>
-              <option value="option4">Australia</option>
-              <option value="option5">Afghanistan</option>
-              <option value="option6">Albania</option>
-              <option value="option7">ALgeria</option>
-            </select>
+              <StandaloneSearchBox
+                onLoad={(ref) => (inputRef.current = ref)}
+                onPlacesChanged={handlePlaceChanged}
+              >
+                <input
+                  type="text"
+                  className="auth-input font-16-social text-white border-0 w-100 border-bottom rounded-0 border-06"
+                  placeholder="Enter Address"
+                  onKeyPress={(e) => {
+                    if (e.key === "Enter") {
+                      e.preventDefault();
+                    }
+                  }}
+                />
+              </StandaloneSearchBox>
+            </LoadScript>
           </div>
         </div>
         <h3 className="font-16-social font-weight-700 text-white px-4 mt-4 pt-2 mb-3">
@@ -74,13 +115,13 @@ const LookingFor = () => {
             <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
               <input
                 type="radio"
-                name="options"
+                name="sort"
                 id="lastonline"
                 autoComplete="off"
                 readOnly
-                checked={sort === "Grams"}
-                onChange={handleSort}
-                value="Grams"
+                checked={filter.sort === "lastonline"}
+                onChange={(e) => formHandler(e)}
+                value={"lastonline"}
               />
               <div className="py-3 font-14-100 h-100 px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 LAST ONLINE
@@ -90,13 +131,13 @@ const LookingFor = () => {
             <label className="btn subscription-offer p-0 w-100 auth-input font-14-100 border-0 w-100 border-bottom rounded-0 border-06">
               <input
                 type="radio"
-                name="options"
+                name="sort"
                 id="Grams"
                 autoComplete="off"
                 readOnly
-                checked={sort === "newest"}
-                onChange={handleSort}
-                value="Grams"
+                checked={filter.sort === "newest"}
+                onChange={(e) => formHandler(e)}
+                value={"newest"}
               />
               <div className="py-3 font-14-100 h-100 px-4 border-0 w-100 d-flex gap-2 align-items-center justify-content-between font-weight-500">
                 NEWEST
@@ -109,7 +150,7 @@ const LookingFor = () => {
           Advance filters (Premium members only)
         </p>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  pt-3">
-          <button className="green-btn w-50 w-max-content mb-4">
+          <button className="green-btn w-max-content mb-4 px-5">
             Upgrade Now
           </button>
         </div>
@@ -186,8 +227,8 @@ const LookingFor = () => {
           </div>
         </div>
 
-        <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center  mt-4 pt-3">
-          <button className="green-btn w-75 w-max-content">Search</button>
+        <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-center mx-5 mt-4 pt-3">
+          <button className="green-btn px-5">Search</button>
         </div>
       </form>
     </div>

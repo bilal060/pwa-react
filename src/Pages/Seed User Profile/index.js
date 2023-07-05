@@ -17,6 +17,7 @@ import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import { CreateChat, MarkFavourite } from "../../Api";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
+import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const SeedUserProfile = () => {
   const routeParams = useParams();
@@ -299,53 +300,61 @@ const SeedUserProfile = () => {
           </div>
         </div>
         <div className="seeds-card-main row m-0 pt-5">
-          {(others || [])?.map((data, index) => {
-            return (
-              <div
-                className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
-                key={index}
-              >
-                <Link
-                  to={`/home/${data.category}/${data._id}`}
-                  className="seed-card position-relative text-black"
+          {others?.length !== 0 ? (
+            (others || [])?.map((data, index) => {
+              return (
+                <div
+                  className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
+                  key={index}
                 >
-                  <div className="row m-0 flex-sm-column w-100">
-                    <div className="col-4 col-sm-12 p-0">
-                      <img
-                        className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
-                        alt=""
-                      />
-                    </div>
-                    <div className="col-8 col-sm-12 p-0">
-                      <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                          {data.strainName}
-                        </p>
-
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <QuantityIcon />
+                  <Link
+                    to={`/home/${data.category}/${data._id}`}
+                    className="seed-card position-relative text-black"
+                  >
+                    <div className="row m-0 flex-sm-column w-100">
+                      <div className="col-4 col-sm-12 p-0">
+                        <img
+                          className="w-100 intro-img"
+                          src={`${process.env.REACT_APP_PORT}/${data.photo[0]}`}
+                          alt=""
+                        />
+                      </div>
+                      <div className="col-8 col-sm-12 p-0">
+                        <div className="ps-sm-0 ps-3">
+                          <p className="my-sm-4 mb-3 font-24 font-weight-700">
                             {data.strainName}
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500 ">
-                            <CountIcon />
-                            <span>{data.quantity} Seeds</span>
+                          </p>
+
+                          <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
+                            <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                              <QuantityIcon />
+                              {data.strainName}
+                            </span>
+                            <span className="d-flex gap-2 align-items-center font-18 font-weight-500 ">
+                              <CountIcon />
+                              <span>{data.quantity} Seeds</span>
+                            </span>
+                          </div>
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                            <LocationIcon />
+                            <span className="cut-text">
+                              {data.userId?.location?.address}
+                            </span>
                           </span>
                         </div>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
-                          <LocationIcon />
-                          <span className="cut-text">
-                            {data.userId?.location?.address}
-                          </span>
-                        </span>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
+              );
+            })
+          ) : (
+            <div className="d-flex justify-content-center w-100">
+              <div className="w-50">
+                <EmptyDataImage />
               </div>
-            );
-          })}
+            </div>
+          )}
         </div>
       </div>
     </div>
