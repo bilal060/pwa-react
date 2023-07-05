@@ -18,6 +18,7 @@ const CannabisLounge = () => {
     userId: "",
     photo: "",
   });
+  const [selectedImages, setSelectedImages] = useState([]);
   const [id, setId] = useState();
   const navigate = useNavigate();
   const [value, onChange] = useState();
@@ -46,15 +47,18 @@ const CannabisLounge = () => {
   const goBack = () => {
     navigate(-1);
   };
+
   const attachFile = (e) => {
     if (e.target.files) {
       let imageFile = e.target.files[0];
       setCannabis((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
   const formHandler = (e) => {
     const { name, value } = e.target;

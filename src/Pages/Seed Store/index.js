@@ -17,6 +17,7 @@ const SeedStore = () => {
     description: "",
     photo: "",
   });
+  const [selectedImages, setSelectedImages] = useState([]);
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     setSeedStore((prevState) => ({
@@ -41,8 +42,10 @@ const SeedStore = () => {
         ...prevState,
         photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
   const clearSavedData = () => {
     localStorage.setItem("savedDataCount", "0");

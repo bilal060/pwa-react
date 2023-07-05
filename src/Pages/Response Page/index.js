@@ -22,6 +22,7 @@ const ResponsivePage = () => {
     description: "",
     quantity: "",
   });
+  const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
@@ -50,10 +51,12 @@ const ResponsivePage = () => {
       let imageFile = e.target.files[0];
       setResponse((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
 
   const formHandler = (e) => {
