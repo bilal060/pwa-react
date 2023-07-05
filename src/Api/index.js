@@ -318,3 +318,16 @@ export const createSubscription = (data) => {
       console.log(error);
     });
 };
+
+export const googleLogin = (data, navigate) => {
+  Axios.post(`${process.env.REACT_APP_API_URI}users/google-login`, data)
+    .then(response => {
+      localStorage.setItem("user-token", response.data.token);
+      localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
+      navigate("/home");
+      toast.success("Welcome");
+    })
+    .catch(error => {
+      toast.error(error.response.data.message);
+    });
+};
