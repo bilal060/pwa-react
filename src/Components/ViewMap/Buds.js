@@ -12,6 +12,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { markersData } from "./fakeData";
 import Axios from "../../axios/Axios";
+import GoogleMapNew from "./GoogleMap/GoogleMapNew";
 
 const seedsDetail = [
   {
@@ -103,9 +104,8 @@ const BudsMap = () => {
             return (
               <div
                 key={index}
-                className={`${
-                  data.active ? "active" : ""
-                } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                className={`${data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                 id={`v-pills-${data.id}-tab`}
                 data-toggle="pill"
                 href={`#v-pills-${data.id}`}
@@ -215,9 +215,8 @@ const BudsMap = () => {
             return (
               <div
                 key={index}
-                className={`${
-                  chatsdetail.active ? "active show" : ""
-                } tab-pane h-100 w-100 fade  chat-detail`}
+                className={`${chatsdetail.active ? "active show" : ""
+                  } tab-pane h-100 w-100 fade  chat-detail`}
                 id={`v-pills-${chatsdetail.id}`}
                 role="tabpanel"
                 aria-labelledby={`v-pills-${chatsdetail.id}-tab`}
@@ -257,7 +256,7 @@ const BudsMap = () => {
                       {markersData.length} People Sharing Seeds
                     </button>
                   </div>
-                  {/* <GoogleMap points={points} /> */}
+                  <GoogleMapNew markersData={crimes.data} />
                 </div>
               </div>
             );

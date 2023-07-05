@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Button, Col, Image, Row } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 import { GoogleMap, useJsApiLoader, MarkerF, InfoWindowF } from '@react-google-maps/api';
-import { Link } from "react-router-dom";
 
 const GoogleMapNew = ({ markersData }) => {
 
@@ -68,12 +67,17 @@ const GoogleMapNew = ({ markersData }) => {
                                 key={index}
                                 position={{ lat: data?.userId?.location?.coordinates[0], lng: data?.userId?.location?.coordinates[1] }}
                                 onClick={() => handleActiveMarker(data._id)}
+                                icon={{
+                                    url: require('../../../assets/Images/seed-marker.svg').default,
+                                    scaledSize: new window.google.maps.Size('100', '100'),
+                                    scale: new window.google.maps.Size('100', '100'),
+                                }}
                             >
                                 {activeMarker === data._id ? (
                                     <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                                        <React.Fragment>
-                                            <Image fluid style={{ width: '100%' }} src={Array.isArray(data.photo) ? `${process.env.REACT_APP_PORT}/${data.photo[0]}` : `${process.env.REACT_APP_PORT}/${data.photo}`} />
-                                            <p>{data.brandName || data.strainName}</p>
+                                        <div style={{ width: '250px' }}>
+                                            <Image style={{ width: '100%', height: '150px' }} src={Array.isArray(data.photo) ? `${process.env.REACT_APP_PORT}/${data.photo[0]}` : `${process.env.REACT_APP_PORT}/${data.photo}`} />
+                                            <p className="window-title">{data.brandName || data.strainName}</p>
                                             <div className="d-flex align-items-center justify-content-between">
                                                 <p>{data.userId.fullName}</p>
                                                 <p>{data.userId.ratingsAverage}</p>
@@ -83,7 +87,7 @@ const GoogleMapNew = ({ markersData }) => {
                                                 <p>{data.userId.ratingsAverage}</p>
                                             </div>
                                             <p>{data.userId.location.address}</p>
-                                        </React.Fragment>
+                                        </div>
                                     </InfoWindowF>
                                 ) : null}
                             </MarkerF>
