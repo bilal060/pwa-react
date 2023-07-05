@@ -306,3 +306,15 @@ export const SocialPostSignUp = async (signUpDetails) => {
     localStorage.clear();
   }
 };
+
+export const createSubscription = (data) => {
+  Axios.post(`${process.env.REACT_APP_API_URI}subscription`, data, {
+    headers: { Authorization: `Bearer ${localStorage.getItem("user-token")}` },
+  })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.log(error);
+    })
+};
