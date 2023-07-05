@@ -2356,5 +2356,30 @@ input[type="radio"]:checked + .radio-button::before {
   color: #2d2b2b;
   font-weight: bold;
   line-height: 18px;
-  margin: 10px 0 !important;
+  margin: 8px 0 !important;
+}
+
+.gm-ui-hover-effect {
+  display: none !important;
+}
+
+.gm-style .gm-style-iw-c {
+  padding: 0 !important;
+}
+
+.gm-style-iw-d {
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+.info-container {
+  width: 250px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.info-detail {
+  padding: 0 !important;
+  margin: 0 !important;
+  margin-left: 10px !important;
+  font-weight: bold;
 }
