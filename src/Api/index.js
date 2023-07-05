@@ -255,9 +255,9 @@ export const CreateChat = async (senderId, receiverId) => {
     };
     await Axios.post(CreateChatUrl, data);
     toast.success("Chat Posted Successfully");
-    // setTimeout(() => {
-    //   window.location.href = `/chat/${senderId}`;
-    // }, 1000);
+    setTimeout(() => {
+      window.location.href = `/chat/${senderId}`;
+    }, 1000);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
@@ -311,10 +311,10 @@ export const createSubscription = (data) => {
   Axios.post(`${process.env.REACT_APP_API_URI}subscription`, data, {
     headers: { Authorization: `Bearer ${localStorage.getItem("user-token")}` },
   })
-    .then(response => {
+    .then((response) => {
       console.log(response.data);
     })
-    .catch(error => {
+    .catch((error) => {
       console.log(error);
-    })
+    });
 };
