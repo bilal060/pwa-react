@@ -190,7 +190,12 @@ const UserProfile = (props) => {
                           <div className="col-4 col-sm-12 p-0">
                             <img
                               className="w-100 intro-img cards-image-style"
-                              src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                              // src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                              src={`${process.env.REACT_APP_PORT}/${
+                                Array.isArray(data.photo)
+                                  ? data.photo[0]
+                                  : data.photo
+                              }`}
                               alt=""
                             />
                           </div>
