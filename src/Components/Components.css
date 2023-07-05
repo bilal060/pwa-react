@@ -2227,7 +2227,7 @@ div.subs {
   }
 
   .seed-card .green-btn .send-message {
-    width: 100% !important;
+    /* width: 100% !important; */
     height: 100% !important;
     display: block !important;
   }
@@ -2401,7 +2401,7 @@ input[type="radio"]:checked+.radio-button::before {
   object-position: top;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 12px;
 }
 
@@ -2415,4 +2415,41 @@ input[type="radio"]:checked+.radio-button::before {
   background: #dbdbdb;
   border-radius: 6px !important;
   border: 3px solid #f8f8f8;
+} */
+.gm-style-iw,.gm-style-iw-d{
+  max-height: fit-content !important;
+}
+
+.select__control {
+  height: 56px;
+  background-color: #1d1d1d !important;
+  border: 1px solid #6b6b6b !important;
+  border-radius: 12px !important;
+  width: 100%;
+  padding: 10px 12px;
+  outline: 0;
+  font-size: 18px;
+  line-height: 100%;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  position: relative;
+  background: url(../assets/Images/select-after.svg) no-repeat right #ddd;
+  background-position-x: 95%;
+}
+
+.select__indicators {
+  display: none !important;
+}
+
+.select__control .select__single-value {
+  color: #a3a3a3 !important;
+
+}
+
+.select__menu {
+  display: block !important;
+}
+
+.css-t3ipsp-control:hover {
+  box-shadow: none !important;
 }

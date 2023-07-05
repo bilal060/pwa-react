@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -10,9 +11,17 @@ const TermsConditionsPage = () => {
   const goBack = () => {
     navigate(-1);
   };
+
+  const [userToken, setuserToken] = useState();
+  useEffect(() => {
+    const currentUser = localStorage.getItem("user-token-signup");
+    setuserToken(currentUser);
+  }, []);
+
   const submitHandler = (e) => {
     e.preventDefault();
     if (terms && privacy) {
+      localStorage.setItem("user-token", userToken);
       navigate("/home");
       toast.success("Welcome");
     }

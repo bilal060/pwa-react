@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { PostHeadShop } from "../../Api";
 
-
 const HeadShop = () => {
   const [file, setFile] = useState(null);
   const [addMorebtn, setAddMoreBtn] = useState(false);
@@ -24,9 +23,9 @@ const HeadShop = () => {
     const currentUser = localStorage.getItem("userdata");
     setHeadShop((prevState) => ({
       ...prevState,
-      userId: JSON.parse(currentUser)._id,
+      userId: JSON.parse(currentUser)?._id,
     }));
-    setId(JSON.parse(currentUser)._id);
+    setId(JSON.parse(currentUser)?._id);
   }, []);
 
   const formHandler = (e) => {

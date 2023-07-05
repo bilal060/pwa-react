@@ -259,28 +259,34 @@ const CannabisProfileDetail = () => {
                     to={`/home/cannabisLounge/${data._id}`}
                     className="seed-card position-relative text-black"
                   >
-                    <img
-                      className="w-100 intro-img"
-                      src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                      alt=""
-                    />
-                    <div className="ps-sm-0 ps-3">
-                      <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                        {data.brandName}
-                      </p>
+                    <div className="row m-0 flex-sm-column w-100">
+                      <div className="col-4 col-sm-12 p-0">
+                        <img
+                          className="w-100 intro-img cards-image-style"
+                          src={`${process.env.REACT_APP_PORT}/${data.photo}`}
+                          alt=""
+                        />
+                      </div>
+                      <div className="col-8 col-sm-12 p-0">
+                        <div className="ps-sm-0 ps-3">
+                          <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                            {data.brandName}
+                          </p>
 
-                      {/* <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
+                          {/* <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                         <QuantityIcon />
                         {data.strainName}
                       </span>
                     </div> */}
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
-                        <LocationIcon />
-                        <span className="cut-text">
-                          {data.userId?.location?.address}
-                        </span>
-                      </span>
+                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
+                            <LocationIcon />
+                            <span className="cut-text">
+                              {data.userId?.location?.address}
+                            </span>
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </Link>
                 </div>

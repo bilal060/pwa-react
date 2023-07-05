@@ -61,7 +61,7 @@ export const PostSignUp = async (signInDetails) => {
   try {
     const fetchData = await Axios.post(SignUpUrl, signInDetails);
     localStorage.clear();
-    localStorage.setItem("user-token", fetchData.data.token);
+    localStorage.setItem("user-token-signup", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
     if (signInDetails.userType === "Retailer") {
       setTimeout(() => {
