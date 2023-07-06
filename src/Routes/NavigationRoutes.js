@@ -55,6 +55,8 @@ import SocialDashboard from "../Components/Social App/Dashboard";
 import SocialPosts from "../Components/Social App/Posts";
 // import SocialMatch from "../Components/Social App/SocialMatch";
 import { RegisteredRoutes } from "../utils/RegisterRoutes";
+import AllData from "../Components/Dashboard Components/AllData";
+import AllDataMapView from "../Components/ViewMap/ShowAllProduct";
 
 const NavigationRoutes = () => {
   const [windowSize, setWindowSize] = useState([
@@ -247,9 +249,7 @@ const NavigationRoutes = () => {
             <ProtectedRoutes
               component={
                 <AppLayout>
-                  <HomePage>
-                    <ShowAllProducts />
-                  </HomePage>
+                  <AllData />
                 </AppLayout>
               }
             />
@@ -261,9 +261,7 @@ const NavigationRoutes = () => {
             <ProtectedRoutes
               component={
                 <AppLayout>
-                  <HomePage>
-                    <AllProductMapView />
-                  </HomePage>
+                  <AllDataMapView/>
                 </AppLayout>
               }
             />

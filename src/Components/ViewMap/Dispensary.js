@@ -99,29 +99,6 @@ const DispensaryMap = () => {
     GetSeeds(GetDispensaryUrl);
   }, []);
 
-  const points = (dispensary.result || []).map((crime) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      crimeId: crime._id,
-      category: crime.category,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [
-        parseFloat(crime?.userId?.location?.coordinates[0]),
-        parseFloat(crime?.userId?.location?.coordinates[1]),
-      ],
-    },
-    category: crime.category,
-  }));
-
-  const markersData = (dispensary.result || []).map((crime) => ({
-    id: crime._id,
-    lat: crime?.userId?.location?.coordinates[0],
-    lng: crime?.userId?.location?.coordinates[1],
-    category: crime.category,
-  }));
 
   return (
     <div>
