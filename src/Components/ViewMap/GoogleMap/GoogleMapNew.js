@@ -105,6 +105,7 @@ const GoogleMapNew = ({ markersData }) => {
                     <div className="info-container">
                       <Image
                         style={{ width: "100%", height: "180px" }}
+                        className="img-fluid"
                         src={
                           Array.isArray(data.photo)
                             ? `${process.env.REACT_APP_PORT}/${data.photo[0]}`
@@ -142,10 +143,10 @@ const GoogleMapNew = ({ markersData }) => {
                             <span>5.0</span>
                           </span>
                         </div>
-                        <div className="d-flex justify-content-between align-items-center mb-2 pb-1">
+                        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start mb-2 pb-1 gap-2">
                           <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
                             <DistanceIcon />
-                            <span> {data.distance} Away</span>
+                            <span>{data.distance} Away</span>
                           </span>
                           <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
                             {data.quantity ? (
@@ -153,7 +154,6 @@ const GoogleMapNew = ({ markersData }) => {
                             ) : (
                               <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
                             )}
-
                             {data.quantity ? (
                               `Seeds: ${data.quantity}`
                             ) : (
@@ -165,6 +165,7 @@ const GoogleMapNew = ({ markersData }) => {
                             )}
                           </span>
                         </div>
+
                         <span className="d-flex gap-2 align-items-center font-13 font-weight-500">
                           <LocationIcon />
                           <span style={{ lineHeight: "18px" }}>
