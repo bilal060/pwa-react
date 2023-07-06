@@ -1,15 +1,8 @@
 import React from "react";
-import headshop1 from "../../assets/Images/headshop1.svg";
-import headshop2 from "../../assets/Images/headshop2.svg";
-import headshop3 from "../../assets/Images/headshop3.svg";
-import mapSeed1 from "../../assets/Images/mapSeed1.svg";
 import { Link } from "react-router-dom";
-import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-import SeedICon from "../../assets/Images/Seed";
-import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import PriceIcon from "../../assets/Images/Price";
 import FlavorIcon from "../../assets/Images/Flavor";
 import ConcreteIcon from "../../assets/Images/Concrete";
@@ -19,6 +12,8 @@ import Axios from "../../axios/Axios";
 import { useState } from "react";
 import GoogleMapNew from "./GoogleMap/GoogleMapNew";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import { PaginationControl } from "react-bootstrap-pagination-control";
+
 
 const seedsDetail = [
   {
@@ -53,17 +48,27 @@ const HeadShopMap = () => {
     }
   };
 
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetHeadShop(GetHeadShopUrl);
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
 
 
   return (
     <div>
-      {headShop?.result?.length !== 0 ? 
+      {headShop?.result?.length !== 0 ?
         <div className="row flex-md-row flex-column-reverse m-0 seed-card p-0 flex-row ps-12 pe-12">
           <div
             className="col-md-6 p-0 nav flex-column nav-pills map-card-col"
@@ -75,9 +80,8 @@ const HeadShopMap = () => {
               return (
                 <div
                   key={index}
-                  className={`${
-                    data.active ? "active" : ""
-                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${data.active ? "active" : ""
+                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -90,11 +94,10 @@ const HeadShopMap = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${
-                            Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
-                          }`}
+                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                            ? data.photo[0]
+                            : data.photo
+                            }`}
                           alt=""
                         />
                       </div>
@@ -173,6 +176,16 @@ const HeadShopMap = () => {
                 </div>
               );
             })}
+            {headShop.totalRecords > 10 && <div className="my-3">
+              <PaginationControl
+                page={page}
+                between={3}
+                total={headShop.totalRecords}
+                limit={headShop.limit}
+                changePage={(page) => pageHandler(page)}
+                ellipsis={1}
+              />
+            </div>}
           </div>
           <div className="col-md-6 p-0 mb-md-0 mb-4">
             {seedsDetail.map((chatsdetail, index) => {
@@ -226,7 +239,7 @@ const HeadShopMap = () => {
               );
             })}
           </div>
-        </div>:<EmptyDataImage/>}
+        </div> : <EmptyDataImage />}
     </div>
   );
 };

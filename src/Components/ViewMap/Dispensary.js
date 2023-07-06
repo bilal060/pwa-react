@@ -7,13 +7,13 @@ import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
-import GoogleMap from "./GoogleMap";
 import { useState } from "react";
 import Axios from "../../axios/Axios";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import GoogleMapNew from './GoogleMap/GoogleMapNew';
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const seedsDetail = [
   {
@@ -82,10 +82,20 @@ const DispensaryMap = () => {
     }
   };
 
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    GetSeeds(GetDispensaryUrl);
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetSeeds(GetDispensaryUrl);
   }, []);
 
@@ -127,9 +137,8 @@ const DispensaryMap = () => {
               return (
                 <div
                   key={index}
-                  className={`${
-                    data.active ? "active" : ""
-                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${data.active ? "active" : ""
+                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -142,11 +151,10 @@ const DispensaryMap = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${
-                            Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
-                          }`}
+                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                            ? data.photo[0]
+                            : data.photo
+                            }`}
                           alt=""
                         />
                       </div>
@@ -262,6 +270,16 @@ const DispensaryMap = () => {
                 </div>
               );
             })}
+            {dispensary.totalRecords > 10 && <div className="my-3">
+              <PaginationControl
+                page={page}
+                between={3}
+                total={dispensary.totalRecords}
+                limit={dispensary.limit}
+                changePage={(page) => pageHandler(page)}
+                ellipsis={1}
+              />
+            </div>}
           </div>
           <div className="col-md-6 p-0 mb-md-0 mb-4">
             {seedsDetail.map((chatsdetail, index) => {
@@ -315,7 +333,7 @@ const DispensaryMap = () => {
               );
             })}
           </div>
-        </div>:<EmptyDataImage/>}
+        </div> : <EmptyDataImage />}
     </div>
   );
 };
