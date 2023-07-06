@@ -13,6 +13,7 @@ import Hooks from "../../hooks";
 import Axios from "../../axios/Axios";
 import { toast } from "react-toastify";
 import useDebounce from "../../hooks/useDebounce";
+import ScopeIcon from "../../assets/Images/Scope";
 
 const headLinks = [
   {
@@ -79,7 +80,7 @@ const AppHeader = (props) => {
   const { isOpen, setIsOpen } = props;
   const { Logout } = Hooks();
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchedTerm = useDebounce(searchTerm, 1000);
 
   // console.log({ searchTerm });
@@ -114,15 +115,16 @@ const AppHeader = (props) => {
 
   return (
     <div
-      className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? "mob-app-header" : ""
+      className={`app-header ${head.includes(Location.pathname) ? "mob-app-header" : ""
         }`}
     >
       <div className="container px-4 mx-auto d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center gap-2">
           <svg
             onClick={() => navigate(-1)}
-            className={`${Location.pathname === "/home" ? "d-none" : ""
-              } d-sm-none`}
+            className={`${
+              Location.pathname === "/home" ? "d-none" : ""
+            } d-sm-none`}
             width={9}
             height={18}
             viewBox="0 0 9 18"
@@ -173,11 +175,12 @@ const AppHeader = (props) => {
               <Link
                 key={index}
                 to={data.link}
-                className={`${data.link === Location.pathname ||
+                className={`${
+                  data.link === Location.pathname ||
                   Location.pathname.includes(`${data.link}/map`)
-                  ? "product-item-active allproduct-heading"
-                  : ""
-                  }  product-item `}
+                    ? "product-item-active allproduct-heading"
+                    : ""
+                }  product-item `}
               >
                 {data.icon} {data.name}
               </Link>
@@ -199,15 +202,17 @@ const AppHeader = (props) => {
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <Link
               to={"/favourite"}
-              className={`${"/favourite" === Location.pathname ? "product-item-active " : ""
-                } dropdown-item`}
+              className={`${
+                "/favourite" === Location.pathname ? "product-item-active " : ""
+              } dropdown-item`}
             >
               Favourites
             </Link>
             <Link
               to={"/myaccount"}
-              className={`${"/myaccount" === Location.pathname ? "product-item-active " : ""
-                } dropdown-item`}
+              className={`${
+                "/myaccount" === Location.pathname ? "product-item-active " : ""
+              } dropdown-item`}
             >
               My Account
             </Link>
@@ -232,14 +237,37 @@ const AppHeader = (props) => {
         <div className="allproduct-mob d-sm-none d-block mt-5">
           <div className="container mx-auto">
             <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4">
-              <h2 className="allproduct-heading m ms-12 me-12">All Products</h2>
+              <div className="d-flex align-items-center gap-4 justify-content-between">
+                <h2 className="allproduct-heading m ms-12 me-12">
+                  All Products
+                </h2>
+
+                {!Location.pathname.includes("map") ? (
+                  <Link
+                    to={`${Location.pathname}/map`}
+                    className="text-white view-map-btn d-flex align-items-center gap-3 height-56 rounded-2"
+                  >
+                    View Map
+                    <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                      <ScopeIcon />
+                    </span>
+                  </Link>
+                ) : (
+                  <Link className="text-white view-map-btn d-flex align-items-center gap-3 height-56 rounded-2">
+                    View Map
+                    <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                      <ScopeIcon />
+                    </span>
+                  </Link>
+                )}
+              </div>
               <div className="d-flex ps-12 pe-12 align-items-center gap-4">
                 <div className="search-product  d-sm-none d-flex">
                   <input
                     placeholder="Search Product"
                     type="text"
                     className="border-0 outline-0 bg-transparent"
-                    onChange={e => setSearchTerm(e.target.value)}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                     value={searchTerm}
                   />
                   <span className="icon-green-bg">
@@ -288,11 +316,12 @@ const AppHeader = (props) => {
                   <Link
                     key={index}
                     to={data.link}
-                    className={`${data.link === Location.pathname ||
+                    className={`${
+                      data.link === Location.pathname ||
                       Location.pathname.includes(`${data.link}/map`)
-                      ? "product-item-active"
-                      : ""
-                      }  product-item`}
+                        ? "product-item-active"
+                        : ""
+                    }  product-item`}
                   >
                     {data.icon} {data.name}
                   </Link>

@@ -35,11 +35,13 @@ const Dispensary = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=dispensary&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetDispensary(GetDispensaryUrl);
   };
 
@@ -47,11 +49,13 @@ const Dispensary = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=dispensary&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetDispensary(GetDispensaryUrl);
   }, []);
 
@@ -90,14 +94,14 @@ const Dispensary = () => {
                       <p className="my-sm-4 mb-3 font-24 font-weight-700">
                         {data.strainName}
                       </p>
-                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2  gap-2">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <DistanceIcon />
-                          <span>{data.distance} Away</span>
+                          <span className="cut-text">{data.distance} Away</span>
                         </span>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <DispensryProductIcon />
-                          {data.postStrain}
+                          <span className="cut-text">{data.postStrain}</span>
                         </span>
                       </div>
 
@@ -142,14 +146,16 @@ const Dispensary = () => {
           </div>
         </div>
       )}
-      {dispensary.totalRecords > 10 && <PaginationControl
-        page={page}
-        between={3}
-        total={dispensary.totalRecords}
-        limit={dispensary.limit}
-        changePage={(page) => pageHandler(page)}
-        ellipsis={1}
-      />}
+      {dispensary.totalRecords > 10 && (
+        <PaginationControl
+          page={page}
+          between={3}
+          total={dispensary.totalRecords}
+          limit={dispensary.limit}
+          changePage={(page) => pageHandler(page)}
+          ellipsis={1}
+        />
+      )}
     </div>
   );
 };

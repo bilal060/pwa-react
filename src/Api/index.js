@@ -61,7 +61,7 @@ export const PostSignUp = async (signInDetails) => {
   try {
     const fetchData = await Axios.post(SignUpUrl, signInDetails);
     localStorage.clear();
-    localStorage.setItem("user-token-signup", fetchData.data.token);
+    localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
     if (signInDetails.userType === "Retailer") {
       setTimeout(() => {
@@ -321,13 +321,13 @@ export const createSubscription = (data) => {
 
 export const googleLogin = (data, navigate) => {
   Axios.post(`${process.env.REACT_APP_API_URI}users/google-login`, data)
-    .then(response => {
+    .then((response) => {
       localStorage.setItem("user-token", response.data.token);
       localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
       navigate("/home");
       toast.success("Welcome");
     })
-    .catch(error => {
+    .catch((error) => {
       toast.error(error.response.data.message);
     });
 };

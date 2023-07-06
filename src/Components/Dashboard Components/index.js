@@ -97,14 +97,6 @@ const AllProducts = (props) => {
         window.location.href = `${window.location.href}/${queryString}`;
       }
     }
-    // if (filter.quantity !== "") {
-    //   const params = new URLSearchParams();
-    //   params.set("radius", filter.radius);
-    //   params.set("address", filter.area);
-    //   params.set("quantity", filter.quantity);
-    //   const queryString = params.toString();
-    //   window.location.href = `${window.location.href}/${queryString}`;
-    // }
   };
 
   const inputRef1 = useRef();
@@ -126,6 +118,84 @@ const AllProducts = (props) => {
         <div className="container mx-auto">
           <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
             <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+            {/* <div className="d-flex  align-items-center gap-4">
+              <div className="search-product d-sm-none d-flex">
+                <input
+                  placeholder="Search Product"
+                  type="text"
+                  className="border-0 outline-0 bg-transparent"
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  value={searchTerm}
+                />
+                <SearchButtonIcon />
+              </div>
+              <div className="d-flex align-items-center gap-4">
+                {!Location.pathname.includes("map") ? (
+                  <Link
+                    to={`${Location.pathname}/map`}
+                    className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3"
+                  >
+                    View Map
+                    <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
+                      <ScopeIcon />
+                    </span>
+                  </Link>
+                ) : (
+                  <Link className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3">
+                    View Map
+                    <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
+                      <ScopeIcon />
+                    </span>
+                  </Link>
+                )}
+
+                <button
+                  className="border-0 outline-0 bg-transparent p-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#deactivatemodal"
+                >
+                  <svg
+                    width={56}
+                    height={56}
+                    viewBox="0 0 56 56"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="0.5"
+                      y="0.5"
+                      width={55}
+                      height={55}
+                      rx="15.5"
+                      fill="#5D8B2F"
+                      fillOpacity="0.2"
+                      stroke="#5D8B2F"
+                    />
+                    <path
+                      d="M41.9999 15.2328V18.7889C41.9999 20.0821 41.186 21.6985 40.372 22.5067L33.3721 28.649C32.3954 29.4572 31.7442 31.0736 31.7442 32.3668V39.3173C31.7442 40.2872 31.0931 41.5803 30.2791 42.0652L28.0001 43.52C25.8838 44.8131 22.9536 43.3584 22.9536 40.7721V32.2051C22.9536 31.0736 22.3025 29.6189 21.6513 28.8107L20.0234 27.1134L29.4977 12H38.7442C40.5348 12 41.9999 13.4548 41.9999 15.2328Z"
+                      fill="#5D8B2F"
+                    />
+                    <path
+                      opacity="0.4"
+                      d="M26.8603 12L18.4279 25.4324L15.4651 22.345C14.6512 21.5368 14 20.0821 14 19.1122V15.3945C14 13.4548 15.4651 12 17.2558 12H26.8603Z"
+                      fill="#5D8B2F"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </div> */}
+          </div>
+
+          <div className="mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12">
+            <div className="search-product d-sm-flex d-none">
+              <input
+                placeholder="Search Product"
+                className="border-0 outline-0 bg-transparent"
+                onChange={(e) => setSearchTerm(e.target.value)}
+                value={searchTerm}
+              />
+              <SearchButtonIcon />
+            </div>
             <div className="d-flex  align-items-center gap-4">
               <div className="search-product d-sm-none d-flex">
                 <input
@@ -192,19 +262,7 @@ const AllProducts = (props) => {
                 </button>
               </div>
             </div>
-          </div>
-
-          <div className="mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12">
-            <div className="search-product d-sm-flex d-none">
-              <input
-                placeholder="Search Product"
-                className="border-0 outline-0 bg-transparent"
-                onChange={(e) => setSearchTerm(e.target.value)}
-                value={searchTerm}
-              />
-              <SearchButtonIcon />
-            </div>
-            <div className="d-flex gap-3 overflow-x-auto all-products-link">
+            {/* <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {products.map((data, index) => {
                 return (
                   <Link
@@ -221,7 +279,7 @@ const AllProducts = (props) => {
                   </Link>
                 );
               })}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -374,6 +432,7 @@ const AllProducts = (props) => {
                       </div>
                     </div>
                   </div> */}
+
                   <div className="form-control h-auto p-0 bg-transparent border-0">
                     <label className="mb-2 font-weight-600 font-18-100">
                       Search by Quantity

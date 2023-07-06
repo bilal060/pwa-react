@@ -36,11 +36,13 @@ const HeadShop = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=headShop&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetHeadShop(GetHeadShopUrl);
   };
 
@@ -48,11 +50,13 @@ const HeadShop = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=headShop&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
 
@@ -95,14 +99,14 @@ const HeadShop = () => {
                         <PriceIcon />
                         <span>Price: ${data.cost}</span>
                       </span>
-                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 gap-sm-3 gap-2">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <ConcreteIcon />
-                          {data.brandName}
+                          <span className="cut-text">{data.brandName}</span>
                         </span>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <FlavorIcon />
-                          {data.type}
+                          <span className="cut-text">{data.type}</span>
                         </span>
                       </div>
 
@@ -132,7 +136,6 @@ const HeadShop = () => {
                             <SendMailIcon />
                           </span>
                         </Link>
-                        {/* <Link to={'/chat'} className='text-white green-btn w-auto ps-3 pe-1 d-flex align-items-center font-18 py-sm-3 gap-3'> <span>Message</span> <span className='send-message'><SendMailIcon /></span></Link> */}
                       </div>
                     </div>
                   </div>
@@ -148,14 +151,16 @@ const HeadShop = () => {
           </div>
         </div>
       )}
-      {headShop.totalRecords > 10 && <PaginationControl
-        page={page}
-        between={3}
-        total={headShop.totalRecords}
-        limit={headShop.limit}
-        changePage={(page) => pageHandler(page)}
-        ellipsis={1}
-      />}
+      {headShop.totalRecords > 10 && (
+        <PaginationControl
+          page={page}
+          between={3}
+          total={headShop.totalRecords}
+          limit={headShop.limit}
+          changePage={(page) => pageHandler(page)}
+          ellipsis={1}
+        />
+      )}
     </div>
   );
 };

@@ -13,7 +13,6 @@ import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 
-
 const Cannabis = () => {
   const [cannabis, setCannabis] = useState([]);
   const routeParams = useParams();
@@ -35,11 +34,13 @@ const Cannabis = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   };
 
@@ -47,11 +48,13 @@ const Cannabis = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, []);
 
@@ -90,20 +93,22 @@ const Cannabis = () => {
                       <p className="my-sm-4 mb-3 font-24 font-weight-700">
                         {data.brandName}
                       </p>
-                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 gap-2">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <DistanceIcon />
-                          {data.distance}
+                          <span className="cut-text">{data.distance}</span>
                         </span>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                           <PriceIcon />
-                          <span>Fees: ${data.entryFee}</span>
+                          <span className="cut-text">
+                            Fees: ${data.entryFee}
+                          </span>
                         </span>
                       </div>
                       {data.timing && (
                         <span className="d-flex gap-2 align-items-center font-18 font-weight-500  mb-sm-3 mb-2">
                           <TimerIcon />
-                          {data.timing}
+                          <span className="cut-text">{data.timing}</span>
                         </span>
                       )}
                       <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
@@ -148,14 +153,16 @@ const Cannabis = () => {
           </div>
         </div>
       )}
-      {cannabis.totalRecords > 10 && <PaginationControl
-        page={page}
-        between={3}
-        total={cannabis.totalRecords}
-        limit={cannabis.limit}
-        changePage={(page) => pageHandler(page)}
-        ellipsis={1}
-      />}
+      {cannabis.totalRecords > 10 && (
+        <PaginationControl
+          page={page}
+          between={3}
+          total={cannabis.totalRecords}
+          limit={cannabis.limit}
+          changePage={(page) => pageHandler(page)}
+          ellipsis={1}
+        />
+      )}
     </div>
   );
 };

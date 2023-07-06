@@ -1,14 +1,14 @@
 import React from "react";
 import PanicSection from "../../Components/Dashboard Components/PanicSection";
-import AllProductMapView from "./AllProductData";
+import AllProductsDashboard from "./AllProducts";
 
-const AllDataMapView = () => {
+const AllData = () => {
   return (
     <div>
       <PanicSection />
-      <AllProductMapView />
+      <AllProductsDashboard/>
     </div>
   );
 };
 
-export default AllDataMapView;
+export default AllData;
