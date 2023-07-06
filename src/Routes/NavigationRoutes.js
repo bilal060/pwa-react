@@ -53,7 +53,7 @@ import SocialProfile from "../Components/Social App/SocialProfile";
 import SocialLayout from "../Components/Social Layout";
 import SocialDashboard from "../Components/Social App/Dashboard";
 import SocialPosts from "../Components/Social App/Posts";
-import SocialMatch from "../Components/Social App/SocialMatch";
+// import SocialMatch from "../Components/Social App/SocialMatch";
 import { RegisteredRoutes } from "../utils/RegisterRoutes";
 
 const NavigationRoutes = () => {
@@ -645,14 +645,14 @@ const NavigationRoutes = () => {
                 </SocialLayout>
               }
             />
-            <Route
+            {/**<Route
               path="/social/match"
               element={
                 <SocialLayout>
                   <SocialMatch />
                 </SocialLayout>
               }
-            />
+            />**/}
           </>
         ) : (
           ""
