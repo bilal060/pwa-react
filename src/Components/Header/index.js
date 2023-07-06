@@ -12,6 +12,7 @@ import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Hooks from "../../hooks";
 import Axios from "../../axios/Axios";
 import { toast } from "react-toastify";
+import useDebounce from "../../hooks/useDebounce";
 
 const headLinks = [
   {
@@ -77,9 +78,17 @@ const AppHeader = (props) => {
   const Location = useLocation();
   const { isOpen, setIsOpen } = props;
   const { Logout } = Hooks();
-  
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchedTerm = useDebounce(searchTerm, 1000);
+
+  // console.log({ searchTerm });
+  useEffect(() => {
+    // console.log({ searchTerm });
+  }, [debouncedSearchedTerm]);
+
   const navigate = useNavigate();
-  
+
   const [currentuserData, setcurrentuserData] = useState();
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
@@ -105,17 +114,15 @@ const AppHeader = (props) => {
 
   return (
     <div
-      className={`app-header  flex-column justify-content-center ${
-        head.includes(Location.pathname) ? "mob-app-header" : ""
-      }`}
+      className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? "mob-app-header" : ""
+        }`}
     >
       <div className="container px-4 mx-auto d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center gap-2">
           <svg
             onClick={() => navigate(-1)}
-            className={`${
-              Location.pathname === "/home" ? "d-none" : ""
-            } d-sm-none`}
+            className={`${Location.pathname === "/home" ? "d-none" : ""
+              } d-sm-none`}
             width={9}
             height={18}
             viewBox="0 0 9 18"
@@ -166,12 +173,11 @@ const AppHeader = (props) => {
               <Link
                 key={index}
                 to={data.link}
-                className={`${
-                  data.link === Location.pathname ||
+                className={`${data.link === Location.pathname ||
                   Location.pathname.includes(`${data.link}/map`)
-                    ? "product-item-active allproduct-heading"
-                    : ""
-                }  product-item `}
+                  ? "product-item-active allproduct-heading"
+                  : ""
+                  }  product-item `}
               >
                 {data.icon} {data.name}
               </Link>
@@ -193,17 +199,15 @@ const AppHeader = (props) => {
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <Link
               to={"/favourite"}
-              className={`${
-                "/favourite" === Location.pathname ? "product-item-active " : ""
-              } dropdown-item`}
+              className={`${"/favourite" === Location.pathname ? "product-item-active " : ""
+                } dropdown-item`}
             >
               Favourites
             </Link>
             <Link
               to={"/myaccount"}
-              className={`${
-                "/myaccount" === Location.pathname ? "product-item-active " : ""
-              } dropdown-item`}
+              className={`${"/myaccount" === Location.pathname ? "product-item-active " : ""
+                } dropdown-item`}
             >
               My Account
             </Link>
@@ -233,7 +237,10 @@ const AppHeader = (props) => {
                 <div className="search-product  d-sm-none d-flex">
                   <input
                     placeholder="Search Product"
+                    type="text"
                     className="border-0 outline-0 bg-transparent"
+                    onChange={e => setSearchTerm(e.target.value)}
+                    value={searchTerm}
                   />
                   <span className="icon-green-bg">
                     <MobSearchIcon />
@@ -281,12 +288,11 @@ const AppHeader = (props) => {
                   <Link
                     key={index}
                     to={data.link}
-                    className={`${
-                      data.link === Location.pathname ||
+                    className={`${data.link === Location.pathname ||
                       Location.pathname.includes(`${data.link}/map`)
-                        ? "product-item-active"
-                        : ""
-                    }  product-item`}
+                      ? "product-item-active"
+                      : ""
+                      }  product-item`}
                   >
                     {data.icon} {data.name}
                   </Link>

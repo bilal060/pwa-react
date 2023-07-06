@@ -12,16 +12,16 @@ import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const ShowAllProducts = ({ match }) => {
   const [data, setData] = useState([]);
   const routeParams = useParams();
   const [currentuserData, setcurrentuserData] = useState();
-  console.log(routeParams);
+
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
       const fetchData = await Axios.get(GetAllProductUrl);
-      // console.log(fetchData.data);
       setData(fetchData.data);
     } catch (error) {
       toast.error(error?.message);
@@ -29,17 +29,29 @@ const ShowAllProducts = ({ match }) => {
     }
   };
 
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetAllProduct(GetAllProductUrl);
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&`
-        : `getAllData/?`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -57,9 +69,8 @@ const ShowAllProducts = ({ match }) => {
                   <div className="col-4 col-sm-12 p-0">
                     <img
                       className="w-100 intro-img cards-image-style"
-                      src={`${process.env.REACT_APP_PORT}/${
-                        Array.isArray(data.photo) ? data.photo[0] : data.photo
-                      }`}
+                      src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
+                        }`}
                       alt=""
                     />
                     <span
@@ -149,6 +160,14 @@ const ShowAllProducts = ({ match }) => {
           </div>
         </div>
       )}
+      {data.totalRecords > 10 && <PaginationControl
+        page={page}
+        between={3}
+        total={data.totalRecords}
+        limit={data.limit}
+        changePage={(page) => pageHandler(page)}
+        ellipsis={1}
+      />}
     </div>
   );
 };
