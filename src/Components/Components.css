@@ -2377,7 +2377,7 @@ input[type="radio"]:checked+.radio-button::before {
 }
 
 .info-container {
-  width: 250px;
+  /* width: 250px; */
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 16px !important;
 }
