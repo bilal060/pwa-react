@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
+import EmptyDataImage from '../../assets/Images/EmptyData'
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const Seeds = () => {
   const [seeds, setSeeds] = useState([]);
@@ -27,6 +29,21 @@ const Seeds = () => {
       console.log(error);
     }
   };
+
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=seedStore&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetSeeds(GetSeedsUrl);
+  };
+
   // useEffect(() => {
   //   GetSeeds();
   // }, []);
@@ -34,19 +51,17 @@ const Seeds = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&`
-        : `getAllData/?`
-    }category=seedStore&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=seedStore&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetSeeds(GetSeedsUrl);
   }, []);
 
   return (
     <div className="seeds-card-main row m-0">
-      {(seeds || []).result?.map((data, index) => {
+      {seeds?.result?.length !== 0 ? (seeds || []).result?.map((data, index) => {
         return (
           <div
             className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
@@ -121,7 +136,19 @@ const Seeds = () => {
             </div>
           </div>
         );
-      })}
+      }) : <div className="d-flex justify-content-center w-100">
+        <div className="w-50">
+          <EmptyDataImage />
+        </div>
+      </div>}
+      {seeds.totalRecords > 10 && <PaginationControl
+        page={page}
+        between={3}
+        total={seeds.totalRecords}
+        limit={seeds.limit}
+        changePage={(page) => pageHandler(page)}
+        ellipsis={1}
+      />}
     </div>
   );
 };

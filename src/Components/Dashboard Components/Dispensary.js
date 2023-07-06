@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const Dispensary = () => {
   const [dispensary, setDispensary] = useState([]);
@@ -27,17 +28,30 @@ const Dispensary = () => {
       console.log(error);
     }
   };
+
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetDispensary(GetDispensaryUrl);
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&`
-        : `getAllData/?`
-    }category=dispensary&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetDispensary(GetDispensaryUrl);
   }, []);
 
@@ -128,6 +142,14 @@ const Dispensary = () => {
           </div>
         </div>
       )}
+      {dispensary.totalRecords > 10 && <PaginationControl
+        page={page}
+        between={3}
+        total={dispensary.totalRecords}
+        limit={dispensary.limit}
+        changePage={(page) => pageHandler(page)}
+        ellipsis={1}
+      />}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
@@ -9,6 +9,7 @@ import DispensaryIcon from "../../assets/Images/Dispensary";
 import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
+import useDebounce from "../../hooks/useDebounce";
 
 const libraries = ["places"];
 const products = [
@@ -37,7 +38,7 @@ const products = [
     icon: <HeadShopIcon />,
     link: "/home/headshops",
   },
-];
+]
 
 const AllProducts = (props) => {
   const params = useParams();
@@ -47,6 +48,14 @@ const AllProducts = (props) => {
   const handleChange = (event) => {
     setType(event.target.value);
   };
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const debouncedSearchedTerm = useDebounce(searchTerm);
+
+  useEffect(() => {
+    console.log({ searchTerm });
+  }, [debouncedSearchedTerm]);
+
 
   const [filter, setFilter] = useState({
     radius: 0,
@@ -122,7 +131,10 @@ const AllProducts = (props) => {
               <div className="search-product d-sm-none d-flex">
                 <input
                   placeholder="Search Product"
+                  type="text"
                   className="border-0 outline-0 bg-transparent"
+                  onChange={e => setSearchTerm(e.target.value)}
+                  value={searchTerm}
                 />
                 <SearchButtonIcon />
               </div>
@@ -188,6 +200,8 @@ const AllProducts = (props) => {
               <input
                 placeholder="Search Product"
                 className="border-0 outline-0 bg-transparent"
+                onChange={e => setSearchTerm(e.target.value)}
+                value={searchTerm}
               />
               <SearchButtonIcon />
             </div>
@@ -197,12 +211,11 @@ const AllProducts = (props) => {
                   <Link
                     key={index}
                     to={data.link}
-                    className={`${
-                      data.link === Location.pathname ||
+                    className={`${data.link === Location.pathname ||
                       Location.pathname.includes(`${data.link}/map`)
-                        ? "product-item-active"
-                        : ""
-                    }  product-item`}
+                      ? "product-item-active"
+                      : ""
+                      }  product-item`}
                   >
                     {data.icon} {data.name}
                   </Link>
@@ -240,7 +253,7 @@ const AllProducts = (props) => {
                     googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
                     libraries={libraries}
                   >
-                    <StandaloneSearchBox 
+                    <StandaloneSearchBox
                       onLoad={(ref) => (inputRef1.current = ref)}
                       onPlacesChanged={handlePlaceChanged}
                     >
@@ -373,21 +386,21 @@ const AllProducts = (props) => {
                       disabled={filter.area === "" ? true : false}
                     >
                       <option value={""}>- Select Quantity -</option>
-                        <option value={"1-5"}>
-                          1-5 {type === "Seeds" ? "Seeds" : "Grams"}
-                        </option>
-                        <option value={"5-10"}>
-                          5-10 {type === "Seeds" ? "Seeds" : "Grams"}
-                        </option>
-                        <option value={"10-15"}>
-                          10-15 {type === "Seeds" ? "Seeds" : "Grams"}
-                        </option>
-                        <option value={"15-20"}>
-                          15-20 {type === "Seeds" ? "Seeds" : "Grams"}
-                        </option>
-                        <option value={"20-30"}>
-                          20-30 {type === "Seeds" ? "Seeds" : "Grams"}
-                        </option>
+                      <option value={"1-5"}>
+                        1-5 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"5-10"}>
+                        5-10 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"10-15"}>
+                        10-15 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"15-20"}>
+                        15-20 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
+                      <option value={"20-30"}>
+                        20-30 {type === "Seeds" ? "Seeds" : "Grams"}
+                      </option>
                     </select>
                   </div>
                 </div>

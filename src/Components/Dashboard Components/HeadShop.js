@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const HeadShop = () => {
   const [headShop, setHeadShop] = useState([]);
@@ -28,17 +29,30 @@ const HeadShop = () => {
       console.log(error);
     }
   };
+
+  const [page, setPage] = useState(1);
+
+  const pageHandler = (page) => {
+    setPage(page);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetHeadShop(GetHeadShopUrl);
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&`
-        : `getAllData/?`
-    }category=headShop&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
 
@@ -134,6 +148,14 @@ const HeadShop = () => {
           </div>
         </div>
       )}
+      {headShop.totalRecords > 10 && <PaginationControl
+        page={page}
+        between={3}
+        total={headShop.totalRecords}
+        limit={headShop.limit}
+        changePage={(page) => pageHandler(page)}
+        ellipsis={1}
+      />}
     </div>
   );
 };
