@@ -114,7 +114,7 @@ const AppHeader = (props) => {
 
   return (
     <div
-      className={`app-header  flex-column justify-content-center ${head.includes(Location.pathname) ? "mob-app-header" : ""
+      className={`app-header ${head.includes(Location.pathname) ? "mob-app-header" : ""
         }`}
     >
       <div className="container px-4 mx-auto d-flex align-items-center justify-content-between">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import { Image } from "react-bootstrap";
 import {
   GoogleMap,
@@ -11,10 +11,19 @@ import LocationIcon from "../../../assets/Images/Location";
 import RatingIcon from "../../../assets/Images/Rating";
 import CountIcon from "../../../assets/Images/Count";
 import PriceIcon from "../../../assets/Images/Price";
+import { useNavigate } from "react-router-dom";
 
 const GoogleMapNew = ({ markersData }) => {
+
+  const navigate = useNavigate();
+
   const [activeMarker, setActiveMarker] = useState(null);
-  const [center, setCenter] = useState(null);
+  const center = useMemo(() => {
+    return {
+      lat: 43.651070,
+      lng: -79.347015,
+    };
+  }, []);
 
   const containerStyle = {
     width: "100%",
@@ -50,20 +59,6 @@ const GoogleMapNew = ({ markersData }) => {
     setActiveMarker(marker);
   };
 
-  const successCallback = (position) => {
-    setCenter({
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    });
-  };
-
-  const errorCallback = (error) => {
-    console.log(error);
-  };
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  }, []);
   const MAP = {
     options: {
       fullscreenControl: false,
@@ -112,7 +107,7 @@ const GoogleMapNew = ({ markersData }) => {
                         }
                       />
                       <div className="p-3">
-                        <p className="mb-3 font-18 font-weight-700">
+                        <p className="mb-3 font-18 font-weight-700 map-link-nav" onClick={() => navigate(`/home/${data.category}/${data._id}`)}>
                           {data?.strainName}
                         </p>
                         <div className="d-flex justify-content-between align-items-center mb-2 pb-1">
