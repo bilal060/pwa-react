@@ -13,7 +13,7 @@ import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-
+import ImageDummy from "../../assets/Images/match/dummy.png";
 const ShowAllProducts = ({ match }) => {
   const [data, setData] = useState([]);
   const routeParams = useParams();
@@ -35,11 +35,13 @@ const ShowAllProducts = ({ match }) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -47,11 +49,13 @@ const ShowAllProducts = ({ match }) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -59,20 +63,33 @@ const ShowAllProducts = ({ match }) => {
     <div className="seeds-card-main row m-0">
       {data?.result?.length !== 0 ? (
         (data || []).result?.map((data, index) => {
+          const imageUrl = data.photo
+            ? `${process.env.REACT_APP_PORT}/${data.photo[0]}`
+            : "http://localhost:4000/undefined";
+          const isPlaceholderImage =
+            imageUrl === "http://localhost:4000/undefined";
+
           return (
             <div
-              className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col h-100"
+              className="col-xl-3 col-lg-4 col-md-6 mb-4 seed-card-col h-100"
               key={index}
             >
               <div className="seed-card h-100 position-relative">
                 <div className="row m-0 flex-sm-column w-100">
                   <div className="col-4 col-sm-12 p-0">
-                    <img
-                      className="w-100 intro-img cards-image-style"
-                      src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo) ? data.photo[0] : data.photo
-                        }`}
-                      alt=""
-                    />
+                    {isPlaceholderImage ? (
+                      <img
+                        className="w-100 intro-img cards-image-style"
+                        src={ImageDummy}
+                        alt=""
+                      />
+                    ) : (
+                      <img
+                        className="w-100 intro-img cards-image-style"
+                        src={imageUrl}
+                        alt=""
+                      />
+                    )}
                     <span
                       className="like-post cr-p"
                       onClick={() =>
@@ -91,7 +108,7 @@ const ShowAllProducts = ({ match }) => {
                       <p className="my-sm-4 mb-3 font-24 font-weight-700">
                         {data.strainName || data.productName || data.event}
                       </p>
-                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
+                      <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-2 gap-2">
                         <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                           <DistanceIcon />
                           {data.distance} Away
@@ -160,14 +177,16 @@ const ShowAllProducts = ({ match }) => {
           </div>
         </div>
       )}
-      {data.totalRecords > 10 && <PaginationControl
-        page={page}
-        between={3}
-        total={data.totalRecords}
-        limit={data.limit}
-        changePage={(page) => pageHandler(page)}
-        ellipsis={1}
-      />}
+      {data.totalRecords > 10 && (
+        <PaginationControl
+          page={page}
+          between={3}
+          total={data.totalRecords}
+          limit={data.limit}
+          changePage={(page) => pageHandler(page)}
+          ellipsis={1}
+        />
+      )}
     </div>
   );
 };

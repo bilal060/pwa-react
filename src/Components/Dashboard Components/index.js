@@ -38,7 +38,7 @@ const products = [
     icon: <HeadShopIcon />,
     link: "/home/headshops",
   },
-]
+];
 
 const AllProducts = (props) => {
   const params = useParams();
@@ -49,13 +49,12 @@ const AllProducts = (props) => {
     setType(event.target.value);
   };
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchedTerm = useDebounce(searchTerm);
 
   useEffect(() => {
     console.log({ searchTerm });
   }, [debouncedSearchedTerm]);
-
 
   const [filter, setFilter] = useState({
     radius: 0,
@@ -133,7 +132,7 @@ const AllProducts = (props) => {
                   placeholder="Search Product"
                   type="text"
                   className="border-0 outline-0 bg-transparent"
-                  onChange={e => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   value={searchTerm}
                 />
                 <SearchButtonIcon />
@@ -200,7 +199,7 @@ const AllProducts = (props) => {
               <input
                 placeholder="Search Product"
                 className="border-0 outline-0 bg-transparent"
-                onChange={e => setSearchTerm(e.target.value)}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
               />
               <SearchButtonIcon />
@@ -211,11 +210,12 @@ const AllProducts = (props) => {
                   <Link
                     key={index}
                     to={data.link}
-                    className={`${data.link === Location.pathname ||
+                    className={`${
+                      data.link === Location.pathname ||
                       Location.pathname.includes(`${data.link}/map`)
-                      ? "product-item-active"
-                      : ""
-                      }  product-item`}
+                        ? "product-item-active"
+                        : ""
+                    }  product-item`}
                   >
                     {data.icon} {data.name}
                   </Link>
@@ -341,7 +341,7 @@ const AllProducts = (props) => {
                       <span className="pl-2">Seeds</span>
                     </label>
                   </div>
-                  {/* 
+                  {/*
                   <div>
                     <p className="mb-2 font-weight-600 font-18-100">{type}</p>
                     <div className="d-flex align-items-center justify-content-between gap-2">
