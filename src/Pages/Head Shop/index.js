@@ -1,16 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UploadIcon from "../../assets/Images/Upload";
 import AddIcon from "../../assets/Images/Add";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import { PostHeadShop } from "../../Api";
-
 
 const HeadShop = () => {
   const [file, setFile] = useState(null);
-  const [addMorebtn, setAddMoreBtn] = useState(false);
   const [arrayData, setArrayData] = useState([]);
-  const [id, setId] = useState();
   const [headShop, setHeadShop] = useState({
     accessories: "",
     type: "",
@@ -20,14 +16,26 @@ const HeadShop = () => {
     size: "",
     photo: "",
   });
+  const [id, setId] = useState("");
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
+    const parsedUser = JSON.parse(currentUser);
     setHeadShop((prevState) => ({
       ...prevState,
-      userId: JSON.parse(currentUser)._id,
+      userId: parsedUser?._id,
     }));
-    setId(JSON.parse(currentUser)._id);
+    setId(parsedUser?._id);
+
+    const savedData = JSON.parse(localStorage.getItem("headShopData"));
+    if (savedData && Array.isArray(savedData)) {
+      setArrayData(savedData);
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("headShopData", JSON.stringify(arrayData));
+  }, [arrayData]);
 
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -42,20 +50,13 @@ const HeadShop = () => {
       let imageFile = e.target.files[0];
       setHeadShop((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
   };
 
-  const navigate = useNavigate();
-  const goBack = () => {
-    navigate(-1);
-  };
-
-  const addMore = () => {
-    setAddMoreBtn(true);
-    setArrayData((prev) => [...prev, headShop]);
+  const clearForm = () => {
     setHeadShop({
       accessories: "",
       type: "",
@@ -68,38 +69,42 @@ const HeadShop = () => {
     setFile(null);
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    if (addMorebtn) {
-      setArrayData((prev) => [...prev, headShop]);
-      arrayData.forEach((mapData) => {
-        data.append("userId", id);
-        data.append("accessories", mapData.accessories);
-        data.append("type", mapData.type);
-        data.append("cost", mapData.cost);
-        data.append("brandName", mapData.brandName);
-        data.append("productName", mapData.productName);
-        data.append("size", mapData.size);
-        data.append("photo", mapData.photo);
-      });
-    } else {
-      data.append("userId", id);
-      data.append("accessories", headShop.accessories);
-      data.append("type", headShop.type);
-      data.append("cost", headShop.cost);
-      data.append("brandName", headShop.brandName);
-      data.append("productName", headShop.productName);
-      data.append("size", headShop.size);
-      data.append("photo", headShop.photo);
-    }
-    PostHeadShop(data);
-    console.log(headShop);
+  const addMore = () => {
+    setArrayData((prev) => [...prev, headShop]);
+    clearForm();
   };
 
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const updatedArrayData = [...arrayData, headShop];
+    let data = new FormData();
+    updatedArrayData.forEach((mapData, index) => {
+      data.append("userId", id);
+      data.append("accessories", mapData.accessories);
+      data.append("type", mapData.type);
+      data.append("cost", mapData.cost);
+      data.append("brandName", mapData.brandName);
+      data.append("productName", mapData.productName);
+      data.append("size", mapData.size);
+      if (Array.isArray(mapData.photo)) {
+        mapData.photo.forEach((file) => data.append(`photo-${index}`, file));
+      } else {
+        data.append(`photo-${index}`, mapData.photo);
+      }
+    });
+    await PostHeadShop(data);
+    clearForm();
+    setArrayData([]);
+    localStorage.removeItem("headShopData");
+  };
+
+  const navigate = useNavigate();
+  const goBack = () => {
+    navigate(-1);
+  };
   return (
     <div className="max-width-792">
-      <form onSubmit={(e) => submitHandler(e)}>
+      <form onSubmit={submitHandler}>
         <div className="d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4">
           <div className="form-control h-auto p-0 bg-transparent border-0">
             <label className="text-white mb-2 font-weight-600 font-18-100">

@@ -17,13 +17,14 @@ const SeedStore = () => {
     description: "",
     photo: "",
   });
+  const [selectedImages, setSelectedImages] = useState([]);
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     setSeedStore((prevState) => ({
       ...prevState,
-      userId: JSON.parse(currentUser)._id,
+      userId: JSON.parse(currentUser)?._id,
     }));
-    setId(JSON.parse(currentUser)._id);
+    setId(JSON.parse(currentUser)?._id);
   }, []);
 
   const formHandler = (e) => {
@@ -41,8 +42,10 @@ const SeedStore = () => {
         ...prevState,
         photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
   const clearSavedData = () => {
     localStorage.setItem("savedDataCount", "0");

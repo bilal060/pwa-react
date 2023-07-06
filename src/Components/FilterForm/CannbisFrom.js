@@ -18,6 +18,8 @@ const CannbisFrom = () => {
     userId: "",
     photo: "",
   });
+  const [selectedImages, setSelectedImages] = useState([]);
+
   const [id, setId] = useState();
   const navigate = useNavigate();
   const [value, onChange] = useState();
@@ -51,10 +53,12 @@ const CannbisFrom = () => {
       let imageFile = e.target.files[0];
       setCannabis((prevState) => ({
         ...prevState,
-        photo: imageFile,
+        photo: Array.from(e.target.files),
       }));
-      setFile(imageFile.name);
+      setFile(imageFile?.name);
     }
+    const files = Array.from(e.target.files);
+    setSelectedImages(files);
   };
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -213,7 +217,7 @@ const CannbisFrom = () => {
         </div>
         <div className="d-flex flex-sm-row flex-column align-items-center gap-4 justify-content-end  mt-4">
           <button
-            className="green-btn-outline custom-w min-width-208"
+            className="green-btn-outlines custom-w min-width-208"
             type="button"
             data-bs-dismiss="modal"
           >
