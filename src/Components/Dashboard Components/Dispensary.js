@@ -141,9 +141,7 @@ const Dispensary = () => {
         })
       ) : (
         <div className="d-flex justify-content-center w-100">
-          <div className="w-50">
-            <EmptyDataImage />
-          </div>
+          <EmptyDataImage />
         </div>
       )}
       {dispensary.totalRecords > 10 && (

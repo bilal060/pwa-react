@@ -90,7 +90,7 @@ const GoogleMapNew = ({ markersData }) => {
                 onClick={() => handleActiveMarker(data._id)}
                 icon={{
                   url: require("../../../assets/Images/seed-marker.svg")
-                    .default
+                    .default,
                 }}
               >
                 {activeMarker === data._id ? (
@@ -106,10 +106,15 @@ const GoogleMapNew = ({ markersData }) => {
                         }
                       />
                       <div className="p-3">
-                        <p className="mb-3 font-18 font-weight-700 map-link-nav" onClick={() => navigate(`/home/${data.category}/${data._id}`)}>
+                        <p
+                          className="mb-3 font-18 font-weight-700 map-link-nav"
+                          onClick={() =>
+                            navigate(`/home/${data.category}/${data._id}`)
+                          }
+                        >
                           {data?.strainName}
                         </p>
-                        <div className="d-flex justify-content-between align-items-center mb-2 pb-1">
+                        <div className="d-flex flex-column flex-lg-row justify-content-between align-items-start flex-wrap mb-2 pb-1 gap-2">
                           <span className="d-flex gap-2 align-items-center font-13  font-weight-500 ">
                             <svg
                               width={13}
@@ -128,7 +133,9 @@ const GoogleMapNew = ({ markersData }) => {
                                 fill="#5D8B2F"
                               />
                             </svg>
-                            <span>{data.userId?.fullName}</span>
+                            <span className="cut-text">
+                              {data.userId?.fullName}
+                            </span>
                           </span>
 
                           <span className="d-flex gap-2 align-items-center font-13 font-weight-700">
@@ -136,32 +143,41 @@ const GoogleMapNew = ({ markersData }) => {
                             <span>5.0</span>
                           </span>
                         </div>
-                        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start mb-2 pb-1 gap-2">
-                          <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
-                            <DistanceIcon />
-                            <span>{data.distance} Away</span>
-                          </span>
-                          <span className="d-flex gap-1 align-items-center font-13 font-weight-500">
-                            {data.quantity ? (
-                              <CountIcon />
-                            ) : (
-                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
-                            )}
-                            {data.quantity ? (
-                              `Seeds: ${data.quantity}`
-                            ) : (
-                              <>
-                                {data.cost
-                                  ? `Fees: $${data.cost}`
-                                  : `Entry Fee: $${data.entryFee}`}
-                              </>
-                            )}
-                          </span>
+                        <div className="row mx-0 mb-2 gap-lg-0 gap-2">
+                          <div className="col-lg-6 col-12 p-0">
+                            <span className="d-flex gap-1 align-items-center font-13 font-weight-500 w-100">
+                              <DistanceIcon />
+                              <span className="cut-text">
+                                {data.distance} Away
+                              </span>
+                            </span>
+                          </div>
+                          <div className="col-lg-6 col-12 p-0">
+                            <span className="d-flex justify-content-lg-end gap-1 align-items-center font-13 font-weight-500 w-100">
+                              {data.quantity ? (
+                                <CountIcon />
+                              ) : (
+                                <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
+                              )}
+                              {data.quantity ? (
+                                `Seeds: ${data.quantity}`
+                              ) : (
+                                <>
+                                  {data.cost
+                                    ? `Fees: $${data.cost}`
+                                    : `Entry Fee: $${data.entryFee}`}
+                                </>
+                              )}
+                            </span>
+                          </div>
                         </div>
 
                         <span className="d-flex gap-2 align-items-center font-13 font-weight-500">
                           <LocationIcon />
-                          <span style={{ lineHeight: "18px" }}>
+                          <span
+                            style={{ lineHeight: "18px" }}
+                            className="cut-text"
+                          >
                             {data.userId?.location.address}
                           </span>
                         </span>

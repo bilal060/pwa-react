@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppHeader from "../Header";
 import AppFooter from "../Footer";
 import MobUserIcon from "../../assets/Images/MobUser";
@@ -42,8 +42,8 @@ const sideLinks = [
     link: "/home/headshop",
   },
   {
-    name: "About us",
-    link: "aboutus",
+    name: "Favourites",
+    link: "/favourite",
   },
 ];
 
@@ -67,6 +67,12 @@ const AppLayout = (props) => {
     "/home/headshops/map",
   ];
   const { Logout } = Hooks();
+  const [currentUserData, setcurrentUserData] = useState([]);
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    setcurrentUserData(data);
+  }, []);
 
   return (
     <div className="app-layout">
@@ -112,61 +118,29 @@ const AppLayout = (props) => {
                 );
               })}
               <p className="side-link border-0 cr-p" onClick={() => Logout()}>
-                Login/Logout
+                Logout
               </p>
             </div>
           </div>
           <div className="d-flex align-items-center justify-content-between gap-2 pt-4 section-2">
             <div className="dropdown">
-              <div
-                className="d-flex align-items-center gap-2"
-                type="button"
-                id="dropdownMenuButton1"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <img src={User} alt="" className="side-link-user-img" />
+              <div className="d-flex align-items-center gap-2" type="button">
+                <img
+                  src={currentUserData.photo ? currentUserData.photo : User}
+                  alt=""
+                  className="side-link-user-img"
+                />
                 <div>
-                  <h3 className="font-18 font-weight-700">Tony Stark</h3>
-                  <p className="font-10">Retailer</p>
+                  <h3 className="font-18 font-weight-700">
+                    {currentUserData.fullName}
+                  </h3>
+                  <p className="font-10">{currentUserData.userType}</p>
                 </div>
-                <img src={selectafter} alt="" />
               </div>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="dropdownMenuButton1"
-              >
-                <Link
-                  to={"/favourite"}
-                  className={`${
-                    "/favourite" === Location.pathname
-                      ? "product-item-active "
-                      : ""
-                  } dropdown-item`}
-                >
-                  Favourites
-                </Link>
-                <Link
-                  to={"/myaccount "}
-                  className={`${
-                    "/myaccount " === Location.pathname
-                      ? "product-item-active "
-                      : ""
-                  } dropdown-item`}
-                >
-                  My Account
-                </Link>
-                <div
-                  onClick={() => Logout()}
-                  to={"/login"}
-                  className={` dropdown-item`}
-                >
-                  Logout
-                </div>
-              </ul>
             </div>
-
-            <SideLinkSettings />
+            <Link to={"/myaccount"}>
+              <SideLinkSettings />
+            </Link>
           </div>
         </div>
       )}
