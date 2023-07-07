@@ -115,6 +115,8 @@ const DispensaryType = () => {
   const savedDataCount =
     JSON.parse(localStorage.getItem("savedDataCount")) || 0;
   return (
+
+    
     <div className="max-width-792">
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4">
