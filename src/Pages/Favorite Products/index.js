@@ -65,6 +65,29 @@ const FavoriteProduct = (props) => {
     }
   };
 
+  const unfavoriteHandler = (prodId, categry) => {
+    const userId = JSON.parse(localStorage.getItem('userdata'))._id;
+
+    const data = {
+      userId,
+      pId: prodId,
+      category: categry
+    };
+
+    Axios.post('users/markFavourite', data)
+      .then(response => {
+        console.log(response.data);
+        const currentUser = localStorage.getItem("userdata");
+        let data = JSON.parse(currentUser);
+        const GetFavouriteUrl = `${process.env.REACT_APP_API_URI}users/getFavorate/?userId=${data._id}&category=${userInfo.category}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+        GetMarkFavourite(GetFavouriteUrl);
+        toast.success(response.data.messgae);
+      })
+      .catch(error => {
+        toast.error(error.response.data.message);
+      })
+  };
+
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
@@ -126,7 +149,7 @@ const FavoriteProduct = (props) => {
           })}
         </ul>
         <div className="seeds-card-main row m-0">
-          {favouriteData?.findProduct?.length!== 0 ?  (
+          {favouriteData?.findProduct?.length !== 0 ? (
             (favouriteData || []).findProduct?.map((data, index) => {
               return (
                 <div className="col-xl-6 mb-4 seed-card-col" key={index}>
@@ -135,14 +158,13 @@ const FavoriteProduct = (props) => {
                       <div className="col-4 col-sm-12 p-0">
                         <img
                           className="intro-img cards-image-style"
-                          src={`${process.env.REACT_APP_PORT}/${
-                            Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
-                          }`}
+                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                            ? data.photo[0]
+                            : data.photo
+                            }`}
                           alt=""
                         />
-                        <span className="favourite-post">
+                        <span style={{ cursor: 'pointer' }} className="favourite-post" onClick={() => unfavoriteHandler(data._id, data.category)}>
                           <svg
                             width={20}
                             height={18}
