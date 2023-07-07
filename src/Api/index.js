@@ -208,8 +208,8 @@ export const MarkFavourite = async (userId, pId, category) => {
       pId: pId,
       category: category,
     };
-    await Axios.post(FavouriteUrl, data);
-    toast.success("Added to Favourite");
+    const fetchData = await Axios.post(FavouriteUrl, data);
+    toast.success(fetchData.data.messgae);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
