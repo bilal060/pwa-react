@@ -159,6 +159,7 @@ const UserProfile = () => {
               <h3 className="d-flex gap-2 align-items-center flex-wrap font-32 font-weight-600 ms-12 bordered-heading">
                 My Shared Strains
               </h3>
+              {/* <h1>{userData.retailerType} hello</h1> */}
               {userData.userType === "Consumer" ? null : (
                 <button
                   data-bs-toggle="modal"
@@ -185,10 +186,11 @@ const UserProfile = () => {
                           <div className="col-4 col-sm-12 p-0">
                             <img
                               className="w-100 intro-img cards-image-style"
-                              src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                                ? data.photo[0]
-                                : data.photo
-                                }`}
+                              src={`${process.env.REACT_APP_PORT}/${
+                                Array.isArray(data.photo)
+                                  ? data.photo[0]
+                                  : data.photo
+                              }`}
                               alt=""
                             />
                           </div>

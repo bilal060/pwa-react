@@ -304,7 +304,11 @@ const HeadshopForm = () => {
           >
             Cancel
           </button>
-          <button className="green-btn custom-w min-width-208" type="submit">
+          <button
+            className="green-btn custom-w min-width-208"
+            type="submit"
+            data-bs-dismiss="modal"
+          >
             Post
           </button>
         </div>
