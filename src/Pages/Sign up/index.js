@@ -50,7 +50,7 @@ const SignUpPage = () => {
     setpasswordCheck(true);
     console.log(signInDetails);
     if (signInDetails.password === signInDetails.passwordConfirm) {
-      PostSignUp(signInDetails);
+      PostSignUp(signInDetails, navigate);
     } else return;
   };
   return (

@@ -26,7 +26,7 @@ const RetailerType = () => {
   const RetailerTypeUrl = `${process.env.REACT_APP_API_URI}users/updateUser/${userData?._id}`;
   const submitHandler = (e) => {
     e.preventDefault();
-    PostRetailerType(RetailerTypeUrl, retailerType);
+    PostRetailerType(RetailerTypeUrl, retailerType, navigate);
   };
   return (
     <div className="max-width-521">

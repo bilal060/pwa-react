@@ -78,7 +78,7 @@ const CannabisLounge = () => {
     data.append("ConnectToEventbrite", cannabis.ConnectToEventbrite);
     data.append("userId", id);
     data.append("photo", cannabis.photo);
-    PostCannabis(data);
+    PostCannabis(data, navigate);
   };
   return (
     <div className="max-width-792">

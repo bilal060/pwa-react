@@ -8,9 +8,9 @@ const Hooks = () => {
     }
   };
 
-  const Logout = () => {
+  const Logout = (navigate) => {
     localStorage.clear();
-    window.location.href = "/";
+    navigate("/");
   };
 
   return {

@@ -31,7 +31,7 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const submitHandler = (e) => {
     e.preventDefault();
-    PostLoginData(loginDetails, rememberCheck);
+    PostLoginData(loginDetails, rememberCheck, navigate);
   };
   return (
     <>

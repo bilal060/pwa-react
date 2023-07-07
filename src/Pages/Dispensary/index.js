@@ -96,8 +96,7 @@ const DispensaryType = () => {
         data.append(`photo-${index}`, mapData.photo);
       }
     });
-    console.log(data);
-    PostDispensary(data);
+    PostDispensary(data, navigate);
 
     setDispensary({
       postStrain: "",

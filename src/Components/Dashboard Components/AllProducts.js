@@ -26,33 +26,6 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 
 const libraries = ["places"];
-// const products = [
-//   {
-//     name: "Seeds",
-//     icon: <SeedICon />,
-//     link: "/home/seed",
-//   },
-//   // {
-//   //   name: "Buds",
-//   //   icon: <BudsIcon />,
-//   //   link: "/home/buds",
-//   // },
-//   {
-//     name: "Dispensary",
-//     icon: <DispensaryIcon />,
-//     link: "/home/dispensaries",
-//   },
-//   {
-//     name: "Cannabis Lounge",
-//     icon: <CannbisIcon />,
-//     link: "/home/cannabis",
-//   },
-//   {
-//     name: "Head Shop",
-//     icon: <HeadShopIcon />,
-//     link: "/home/headshops",
-//   },
-// ];
 
 const AllProductsDashboard = (props) => {
   const params = useParams();
@@ -99,12 +72,32 @@ const AllProductsDashboard = (props) => {
     },
   ]);
 
+  const GetAllProduct = async (GetAllProductUrl) => {
+    try {
+      const fetchData = await Axios.get(GetAllProductUrl);
+      setData(fetchData.data);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
+
   const handleChange = (event) => {
     setType(event.target.value);
   };
 
   useEffect(() => {
     console.log({ searchTerm });
+
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&category=${categoryFilter.join(',')}`;
+    GetAllProduct(GetAllProductUrl);
+
   }, [debouncedSearchedTerm]);
 
   const formHandler = (e) => {
@@ -158,16 +151,6 @@ const AllProductsDashboard = (props) => {
     }
   };
 
-  const GetAllProduct = async (GetAllProductUrl) => {
-    try {
-      const fetchData = await Axios.get(GetAllProductUrl);
-      setData(fetchData.data);
-    } catch (error) {
-      toast.error(error.response.data.message);
-      console.log(error);
-    }
-  };
-
   const pageHandler = (page) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
@@ -176,7 +159,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=dispensary`;
+      }&category=${categoryFilter.join(',')}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -216,7 +199,6 @@ const AllProductsDashboard = (props) => {
     GetAllProduct(GetAllProductUrl);
   }
 
-  console.log(categoryFilter);
   return (
     <div className="all-product-section ">
       <div className="allproduct-mob d-sm-block d-none">
