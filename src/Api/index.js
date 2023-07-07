@@ -224,14 +224,14 @@ export const EditUser = async (EditProfileUrl, editedData) => {
 
 export const MarkFavourite = async (userId, pId, category) => {
   try {
-    // console.log(userId, pId, category);
     const data = {
       userId: userId,
       pId: pId,
       category: category,
     };
-    await Axios.post(FavouriteUrl, data);
-    toast.success("Added to Favourite");
+    const response = await Axios.post(FavouriteUrl, data);
+    // toast.success("Added to Favorite");
+    return response.data;
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);

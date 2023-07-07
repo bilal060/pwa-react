@@ -25,64 +25,8 @@ import TimerIcon from "../../assets/Images/Timer";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import ImageDummy from "../../assets/Images/match/dummy.png";
-
+import Heartoutfilled from "../../assets/Images/Heartoutfiled";
 const libraries = ["places"];
-// const products = [
-//   {
-//     name: "Seeds",
-//     icon: <SeedICon />,
-//     link: "/home/seed",
-//   },
-//   // {
-//   //   name: "Buds",
-//   //   icon: <BudsIcon />,
-//   //   link: "/home/buds",
-//   // },
-//   {
-//     name: "Dispensary",
-//     icon: <DispensaryIcon />,
-//     link: "/home/dispensaries",
-//   },
-//   {
-//     name: "Cannabis Lounge",
-//     icon: <CannbisIcon />,
-//     link: "/home/cannabis",
-//   },
-//   {
-//     name: "Head Shop",
-//     icon: <HeadShopIcon />,
-//     link: "/home/headshops",
-//   },
-// ];
-
-const libraries = ["places"];
-// const products = [
-//   {
-//     name: "Seeds",
-//     icon: <SeedICon />,
-//     link: "/home/seed",
-//   },
-//   // {
-//   //   name: "Buds",
-//   //   icon: <BudsIcon />,
-//   //   link: "/home/buds",
-//   // },
-//   {
-//     name: "Dispensary",
-//     icon: <DispensaryIcon />,
-//     link: "/home/dispensaries",
-//   },
-//   {
-//     name: "Cannabis Lounge",
-//     icon: <CannbisIcon />,
-//     link: "/home/cannabis",
-//   },
-//   {
-//     name: "Head Shop",
-//     icon: <HeadShopIcon />,
-//     link: "/home/headshops",
-//   },
-// ];
 
 const AllProductsDashboard = (props) => {
   const params = useParams();
@@ -149,11 +93,13 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -198,15 +144,37 @@ const AllProductsDashboard = (props) => {
     }
   };
 
+  const handleMarkFavorite = async (userId, pId, category) => {
+    try {
+      const updatedData = await MarkFavourite(userId, pId, category);
+      setData((prevData) => {
+        const newData = { ...prevData };
+        newData.result = newData.result.map((item) => {
+          if (item._id === pId && item.category === category) {
+            return {
+              ...item,
+              isFavorited: !item.isFavorited,
+            };
+          }
+          return item;
+        });
+        return newData;
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const pageHandler = (page) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=dispensary`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=dispensary`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -231,21 +199,21 @@ const AllProductsDashboard = (props) => {
       setcategoryFilter((prevStrings) =>
         prevStrings.filter((string) => string !== value)
       );
-
     } else {
       setcategoryFilter((prevArray) => [...prevArray, value]);
     }
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
-
   console.log(categoryFilter);
   return (
     <div className="all-product-section ">
@@ -331,38 +299,13 @@ const AllProductsDashboard = (props) => {
               />
               <SearchButtonIcon />
             </div>
-            {/* <ul
-              className=" nav nav-pills ps-12 pe-12  gap-3 align-items-end m-0 h-100 flex-nowrap w-md-75 overflow-auto accessories mb-5"
-              id="pills-tab"
-              role="tablist"
-            >
-              {categoryFilterList.map((data, index) => {
-                return (
-                  <li className="nav-item" key={index}>
-                    <button
-                      className={`nav-link product-item w-max-content ${
-                        categoryFilter.includes(data.query) ? "active" : ""
-                      }`}
-                      type={`button`}
-                      onClick={() =>
-                        setcategoryFilter((prevArray) => [
-                          ...prevArray,
-                          data.query,
-                        ])
-                      }
-                    >
-                      {data.icon} {data.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul> */}
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${option.checked ? "active" : ""
-                    }`}
+                  className={`product-item cr-p ${
+                    option.checked ? "active" : ""
+                  }`}
                 >
                   <input
                     className="d-none"
@@ -412,14 +355,18 @@ const AllProductsDashboard = (props) => {
                         <span
                           className="like-post cr-p"
                           onClick={() =>
-                            MarkFavourite(
+                            handleMarkFavorite(
                               currentuserData._id,
                               data._id,
                               data.category
                             )
                           }
                         >
-                          <HeartIcon />
+                          {data.isFavorited ? (
+                            <HeartIcon />
+                          ) : (
+                            <Heartoutfilled />
+                          )}
                         </span>
                       </div>
                       <div className="col-8 col-sm-12 p-0">
