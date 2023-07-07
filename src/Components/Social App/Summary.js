@@ -30,7 +30,7 @@ const SocialSummary = () => {
         JSON.stringify(fetchData?.data?.data?.doc)
       );
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -51,7 +51,7 @@ const SocialSummary = () => {
       navigate("/social/userdetail");
       toast.success("Summary Added Successfully");
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

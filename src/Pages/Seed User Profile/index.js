@@ -40,7 +40,7 @@ const SeedUserProfile = () => {
         );
       })
       .catch((error) => {
-        toast.error(error?.message);
+        toast.error(error.response.data.message);
         console.log(error);
       });
   };
@@ -50,7 +50,7 @@ const SeedUserProfile = () => {
       const fetchData = await Axios.get(GetOthersUrl);
       setOthers(fetchData.data.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

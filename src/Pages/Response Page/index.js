@@ -42,7 +42,7 @@ const ResponsivePage = () => {
       );
       setAllStrains(fetchData.data.result);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

@@ -24,7 +24,7 @@ const Dispensary = () => {
       const fetchData = await Axios.get(GetDispensaryUrl);
       setDispensary(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
