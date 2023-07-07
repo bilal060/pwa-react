@@ -69,6 +69,7 @@ const AllProductsDashboard = (props) => {
   const [page, setPage] = useState(1);
   const inputRef1 = useRef();
   const filtertheFilter = ["/home/cannabis", "/home/headshops"];
+  const [userType, setUserType] = useState("Retailer");
   const [filter, setFilter] = useState({
     radius: 0,
     area: "",
@@ -223,7 +224,7 @@ const AllProductsDashboard = (props) => {
     GetAllProduct(GetAllProductUrl);
   }
 
-  console.log(categoryFilter);
+  console.log(userType);
   return (
     <div className="all-product-section ">
       <div className="allproduct-mob d-block">
@@ -231,6 +232,17 @@ const AllProductsDashboard = (props) => {
           <div className="d-flex flex-sm-row flex-column align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
             <div className="d-flex align-items-center gap-4 justify-content-between">
               <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+              <div className="form-control w-max-content h-auto p-0 bg-transparent border-0">
+                <select
+                  className="green-btn-outline text-primary-green outline-0 w-max-content px-3"
+                  required
+                  name="userType"
+                  onChange={(e) => setUserType(e.target.value)}
+                >
+                  <option defaultValue={"Retailer"}>Retailer</option>
+                  <option value={"Consumer"}>Consumer</option>
+                </select>
+              </div>
 
               {!Location.pathname.includes("map") ? (
                 <Link
@@ -266,16 +278,16 @@ const AllProductsDashboard = (props) => {
                 {!Location.pathname.includes("map") ? (
                   <Link
                     to={`${Location.pathname}/map`}
-                    className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3"
+                    className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3"
                   >
-                    View Map
-                    <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
+                    <span className="d-md-block d-none ps-2">View Map</span>
+                    <span className="view-map-btn-scope d-flex align-items-center  justify-content-center ">
                       <ScopeIcon />
                     </span>
                   </Link>
                 ) : (
-                  <Link className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3">
-                    View Map
+                  <Link className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3">
+                    <span className="d-md-block d-none ps-2">View Map</span>
                     <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
                       <ScopeIcon />
                     </span>

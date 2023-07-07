@@ -17,6 +17,7 @@ import SeedICon from "../../assets/Images/Seed";
 import DispensaryIcon from "../../assets/Images/Dispensary";
 import CannbisIcon from "../../assets/Images/Cannbis";
 import HeadShopIcon from "../../assets/Images/HeadShop";
+import MobSearchIcon from "../../assets/Images/MobSearch";
 
 const seedsDetail = [
   {
@@ -40,6 +41,7 @@ const AllProductMapView = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [allProduct, setAllProduct] = useState([]);
   const [categoryFilter, setcategoryFilter] = useState([]);
+  const [userType, setUserType] = useState("Retailer");
 
   const [options, setOptions] = useState([
     {
@@ -129,10 +131,23 @@ const AllProductMapView = () => {
 
   return (
     <div className="all-product-section ">
-      <div className="allproduct-mob d-sm-block d-none">
+      <div className="allproduct-mob d-block">
         <div className="container mx-auto">
           <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
-            <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+            <div className="d-flex align-items-center gap-4 justify-content-between w-100">
+              <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+              <div className="form-control w-max-content h-auto p-0 bg-transparent border-0">
+                <select
+                  className="green-btn-outline text-primary-green outline-0 w-max-content px-3"
+                  required
+                  name="userType"
+                  onChange={(e) => setUserType(e.target.value)}
+                >
+                  <option defaultValue={"Retailer"}>Retailer</option>
+                  <option value={"Consumer"}>Consumer</option>
+                </select>
+              </div>
+            </div>
             <div className="d-flex  align-items-center gap-4">
               <div className="search-product d-sm-none d-flex">
                 <input
@@ -142,7 +157,12 @@ const AllProductMapView = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   value={searchTerm}
                 />
-                <SearchButtonIcon />
+                <span className="icon-green-bg d-md-none d-flex">
+                  <MobSearchIcon />
+                </span>
+                <span className="icon-green-bg d-md-flex d-none">
+                  <SearchButtonIcon />
+                </span>
               </div>
               <div className="d-none align-items-center gap-4">
                 {!Location.pathname?.includes("map") ? (

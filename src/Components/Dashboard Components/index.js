@@ -46,6 +46,8 @@ const AllProducts = (props) => {
   const { children } = props;
   const Location = useLocation();
   const [type, setType] = useState("Grams");
+  const [userType, setUserType] = useState("Retailer");
+
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -119,19 +121,34 @@ const AllProducts = (props) => {
         <div className="container mx-auto">
           <div className="d-flex flex-column  justify-content-between gap-4 ps-12 pe-12">
             <div className="d-flex align-items-center gap-4 justify-content-between">
-              <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+              <div className="d-flex align-items-center gap-4 justify-content-between">
+                <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+                <div className="form-control w-max-content h-auto p-0 bg-transparent border-0">
+                  <select
+                    className="green-btn-outline text-primary-green outline-0 w-max-content px-3"
+                    required
+                    name="userType"
+                    onChange={(e) => setUserType(e.target.value)}
+                  >
+                    <option defaultValue={"Retailer"}>Retailer</option>
+                    <option value={"Consumer"}>Consumer</option>
+                  </select>
+                </div>
+              </div>
               {!Location.pathname.includes("map") ? (
                 <Link
                   to={`${Location.pathname}/map`}
-                  className="text-white view-map-btn p-2 d-flex d-sm-none align-items-center gap-3 height-56 rounded-2"
+                  className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3"
                 >
-                  <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                  <span className="d-md-block d-none ps-2">View Map</span>
+                  <span className="view-map-btn-scope d-flex align-items-center  justify-content-center ">
                     <ScopeIcon />
                   </span>
                 </Link>
               ) : (
-                <Link className="text-white view-map-btn p-2 d-flex d-sm-none align-items-center gap-3 height-56 rounded-2">
-                  <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                <Link className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3">
+                  <span className="d-md-block d-none ps-2">View Map</span>
+                  <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
                     <ScopeIcon />
                   </span>
                 </Link>

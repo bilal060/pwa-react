@@ -134,7 +134,7 @@ const FavoriteProduct = (props) => {
                     <div className="row m-0 flex-sm-column w-100">
                       <div className="col-4 col-sm-12 p-0">
                         <img
-                          className="intro-img"
+                          className="intro-img cards-image-style"
                           src={`${process.env.REACT_APP_PORT}/${
                             Array.isArray(data.photo)
                               ? data.photo[0]
