@@ -68,7 +68,7 @@ const HeadShopMap = () => {
 
   return (
     <div>
-      {headShop?.result?.length !== 0 ?
+      {headShop?.result?.length !== 0 ? (
         <div className="row flex-md-row flex-column-reverse m-0 seed-card p-0 flex-row ps-12 pe-12">
           <div
             className="col-md-6 p-0 nav flex-column nav-pills map-card-col"
@@ -80,8 +80,9 @@ const HeadShopMap = () => {
               return (
                 <div
                   key={index}
-                  className={`${data.active ? "active" : ""
-                    } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                  className={`${
+                    data.active ? "active" : ""
+                  } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                   id={`v-pills-${data.id}-tab`}
                   data-toggle="pill"
                   href={`#v-pills-${data.id}`}
@@ -94,10 +95,11 @@ const HeadShopMap = () => {
                       <div>
                         <img
                           className="w-100 intro-img"
-                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                            ? data.photo[0]
-                            : data.photo
-                            }`}
+                          src={`${process.env.REACT_APP_PORT}/${
+                            Array.isArray(data.photo)
+                              ? data.photo[0]
+                              : data.photo
+                          }`}
                           alt=""
                         />
                       </div>
@@ -176,24 +178,27 @@ const HeadShopMap = () => {
                 </div>
               );
             })}
-            {headShop.totalRecords > 10 && <div className="my-3">
-              <PaginationControl
-                page={page}
-                between={3}
-                total={headShop.totalRecords}
-                limit={headShop.limit}
-                changePage={(page) => pageHandler(page)}
-                ellipsis={1}
-              />
-            </div>}
+            {headShop.totalRecords > 10 && (
+              <div className="my-3">
+                <PaginationControl
+                  page={page}
+                  between={3}
+                  total={headShop.totalRecords}
+                  limit={headShop.limit}
+                  changePage={(page) => pageHandler(page)}
+                  ellipsis={1}
+                />
+              </div>
+            )}
           </div>
           <div className="col-md-6 p-0 mb-md-0 mb-4">
             {seedsDetail.map((chatsdetail, index) => {
               return (
                 <div
                   key={index}
-                  className={`${chatsdetail.active ? "active show" : ""
-                    } tab-pane h-100 w-100 fade  chat-detail`}
+                  className={`${
+                    chatsdetail.active ? "active show" : ""
+                  } tab-pane h-100 w-100 fade  chat-detail`}
                   id={`v-pills-${chatsdetail.id}`}
                   role="tabpanel"
                   aria-labelledby={`v-pills-${chatsdetail.id}-tab`}
@@ -239,7 +244,12 @@ const HeadShopMap = () => {
               );
             })}
           </div>
-        </div> : <EmptyDataImage />}
+        </div>
+      ) : (
+        <div className="d-flex justify-content-center w-100">
+          <EmptyDataImage />
+        </div>
+      )}
     </div>
   );
 };

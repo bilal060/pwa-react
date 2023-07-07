@@ -115,8 +115,9 @@ const AppHeader = (props) => {
 
   return (
     <div
-      className={`app-header ${head.includes(Location.pathname) ? "mob-app-header" : ""
-        }`}
+      className={`app-header ${
+        head.includes(Location.pathname) ? "mob-app-header" : ""
+      }`}
     >
       <div className="container px-4 mx-auto d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center gap-2">
@@ -234,7 +235,7 @@ const AppHeader = (props) => {
       </div>
 
       {head.includes(Location.pathname) && (
-        <div className="allproduct-mob d-sm-none d-block mt-5">
+        <div className="allproduct-mob d-none mt-5">
           <div className="container mx-auto">
             <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-4 justify-content-between">

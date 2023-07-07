@@ -94,3 +94,20 @@
 .map-link-nav:hover {
   color: #5d8b2f;
 }
+
+
+@media screen and (max-width:576px) {
+  .info-container {
+    width: 100% !important;
+  }
+
+  .mob-app-header {
+    flex-direction: column !important;
+    justify-content: center;
+    height: 80px !important;
+  }
+
+  .mob-app-content-footer {
+    height: calc(100vh - 80px - 56px) !important;
+  }
+}

@@ -24,6 +24,7 @@ import LocationIcon from "../../assets/Images/Location";
 import TimerIcon from "../../assets/Images/Timer";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
+import MobSearchIcon from "../../assets/Images/MobSearch";
 
 const libraries = ["places"];
 // const products = [
@@ -119,11 +120,13 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -172,11 +175,13 @@ const AllProductsDashboard = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=dispensary`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=dispensary`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -201,28 +206,48 @@ const AllProductsDashboard = (props) => {
       setcategoryFilter((prevStrings) =>
         prevStrings.filter((string) => string !== value)
       );
-
     } else {
       setcategoryFilter((prevArray) => [...prevArray, value]);
     }
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
   console.log(categoryFilter);
   return (
     <div className="all-product-section ">
-      <div className="allproduct-mob d-sm-block d-none">
+      <div className="allproduct-mob d-block">
         <div className="container mx-auto">
-          <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
-            <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+          <div className="d-flex flex-sm-row flex-column align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
+            <div className="d-flex align-items-center gap-4 justify-content-between">
+              <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+
+              {!Location.pathname.includes("map") ? (
+                <Link
+                  to={`${Location.pathname}/map`}
+                  className="text-white view-map-btn p-2 d-flex d-sm-none align-items-center gap-3 height-56 rounded-2"
+                >
+                  <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                    <ScopeIcon />
+                  </span>
+                </Link>
+              ) : (
+                <Link className="text-white view-map-btn p-2 d-flex d-sm-none align-items-center gap-3 height-56 rounded-2">
+                  <span className="view-map-btn-scope d-flex align-items-center justify-content-center h-100 w-max-content p-1 rounded-2">
+                    <ScopeIcon />
+                  </span>
+                </Link>
+              )}
+            </div>
             <div className="d-flex  align-items-center gap-4">
               <div className="search-product d-sm-none d-flex">
                 <input
@@ -232,9 +257,11 @@ const AllProductsDashboard = (props) => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   value={searchTerm}
                 />
-                <SearchButtonIcon />
+                <span className="icon-green-bg">
+                  <MobSearchIcon />
+                </span>
               </div>
-              <div className="d-flex align-items-center gap-4">
+              <div className="d-flex align-items-center w-max-content gap-4">
                 {!Location.pathname.includes("map") ? (
                   <Link
                     to={`${Location.pathname}/map`}
@@ -254,39 +281,42 @@ const AllProductsDashboard = (props) => {
                   </Link>
                 )}
 
-                <button
-                  className="border-0 outline-0 bg-transparent p-0"
-                  data-bs-toggle="modal"
-                  data-bs-target="#deactivatemodal"
-                >
-                  <svg
-                    width={56}
-                    height={56}
-                    viewBox="0 0 56 56"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                <div className="d-flex align-items-center gap-4 w-max-content">
+                  <button
+                    className="border-0 outline-0 bg-transparent p-0 height-56"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deactivatemodal"
                   >
-                    <rect
-                      x="0.5"
-                      y="0.5"
-                      width={55}
-                      height={55}
-                      rx="15.5"
-                      fill="#5D8B2F"
-                      fillOpacity="0.2"
-                      stroke="#5D8B2F"
-                    />
-                    <path
-                      d="M41.9999 15.2328V18.7889C41.9999 20.0821 41.186 21.6985 40.372 22.5067L33.3721 28.649C32.3954 29.4572 31.7442 31.0736 31.7442 32.3668V39.3173C31.7442 40.2872 31.0931 41.5803 30.2791 42.0652L28.0001 43.52C25.8838 44.8131 22.9536 43.3584 22.9536 40.7721V32.2051C22.9536 31.0736 22.3025 29.6189 21.6513 28.8107L20.0234 27.1134L29.4977 12H38.7442C40.5348 12 41.9999 13.4548 41.9999 15.2328Z"
-                      fill="#5D8B2F"
-                    />
-                    <path
-                      opacity="0.4"
-                      d="M26.8603 12L18.4279 25.4324L15.4651 22.345C14.6512 21.5368 14 20.0821 14 19.1122V15.3945C14 13.4548 15.4651 12 17.2558 12H26.8603Z"
-                      fill="#5D8B2F"
-                    />
-                  </svg>
-                </button>
+                    <svg
+                      className="w-auto h-100"
+                      width={56}
+                      height={56}
+                      viewBox="0 0 56 56"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <rect
+                        x="0.5"
+                        y="0.5"
+                        width={55}
+                        height={55}
+                        rx="15.5"
+                        fill="#5D8B2F"
+                        fillOpacity="0.2"
+                        stroke="#5D8B2F"
+                      />
+                      <path
+                        d="M41.9999 15.2328V18.7889C41.9999 20.0821 41.186 21.6985 40.372 22.5067L33.3721 28.649C32.3954 29.4572 31.7442 31.0736 31.7442 32.3668V39.3173C31.7442 40.2872 31.0931 41.5803 30.2791 42.0652L28.0001 43.52C25.8838 44.8131 22.9536 43.3584 22.9536 40.7721V32.2051C22.9536 31.0736 22.3025 29.6189 21.6513 28.8107L20.0234 27.1134L29.4977 12H38.7442C40.5348 12 41.9999 13.4548 41.9999 15.2328Z"
+                        fill="#5D8B2F"
+                      />
+                      <path
+                        opacity="0.4"
+                        d="M26.8603 12L18.4279 25.4324L15.4651 22.345C14.6512 21.5368 14 20.0821 14 19.1122V15.3945C14 13.4548 15.4651 12 17.2558 12H26.8603Z"
+                        fill="#5D8B2F"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -299,40 +329,18 @@ const AllProductsDashboard = (props) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 value={searchTerm}
               />
-              <SearchButtonIcon />
+              <div className="icon-green-bg">
+                <SearchButtonIcon />
+              </div>
             </div>
-            {/* <ul
-              className=" nav nav-pills ps-12 pe-12  gap-3 align-items-end m-0 h-100 flex-nowrap w-md-75 overflow-auto accessories mb-5"
-              id="pills-tab"
-              role="tablist"
-            >
-              {categoryFilterList.map((data, index) => {
-                return (
-                  <li className="nav-item" key={index}>
-                    <button
-                      className={`nav-link product-item w-max-content ${
-                        categoryFilter.includes(data.query) ? "active" : ""
-                      }`}
-                      type={`button`}
-                      onClick={() =>
-                        setcategoryFilter((prevArray) => [
-                          ...prevArray,
-                          data.query,
-                        ])
-                      }
-                    >
-                      {data.icon} {data.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul> */}
+
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${option.checked ? "active" : ""
-                    }`}
+                  className={`product-item cr-p ${
+                    option.checked ? "active" : ""
+                  }`}
                 >
                   <input
                     className="d-none"
@@ -363,10 +371,11 @@ const AllProductsDashboard = (props) => {
                       <div className="col-4 col-sm-12 p-0">
                         <img
                           className="w-100 intro-img cards-image-style"
-                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                            ? data.photo[0]
-                            : data.photo
-                            }`}
+                          src={`${process.env.REACT_APP_PORT}/${
+                            Array.isArray(data.photo)
+                              ? data.photo[0]
+                              : data.photo
+                          }`}
                           alt=""
                         />
                         <span
@@ -455,9 +464,7 @@ const AllProductsDashboard = (props) => {
             })
           ) : (
             <div className="d-flex justify-content-center w-100">
-              <div className="w-50">
-                <EmptyDataImage />
-              </div>
+              <EmptyDataImage />
             </div>
           )}
           {data.totalRecords > 10 && (
