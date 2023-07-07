@@ -92,7 +92,7 @@ const SeedStore = () => {
       }
     });
 
-    PostSeedStore(data);
+    PostSeedStore(data, navigate);
     setSeedStore({
       postStrain: "",
       quantity: "",

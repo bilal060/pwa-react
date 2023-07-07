@@ -123,9 +123,8 @@ const AppHeader = (props) => {
         <div className="d-flex align-items-center gap-2">
           <svg
             onClick={() => navigate(-1)}
-            className={`${
-              Location.pathname === "/home" ? "d-none" : ""
-            } d-sm-none`}
+            className={`${Location.pathname === "/home" ? "d-none" : ""
+              } d-sm-none`}
             width={9}
             height={18}
             viewBox="0 0 9 18"
@@ -176,12 +175,11 @@ const AppHeader = (props) => {
               <Link
                 key={index}
                 to={data.link}
-                className={`${
-                  data.link === Location.pathname ||
+                className={`${data.link === Location.pathname ||
                   Location.pathname.includes(`${data.link}/map`)
-                    ? "product-item-active allproduct-heading"
-                    : ""
-                }  product-item `}
+                  ? "product-item-active allproduct-heading"
+                  : ""
+                  }  product-item `}
               >
                 {data.icon} {data.name}
               </Link>
@@ -203,22 +201,20 @@ const AppHeader = (props) => {
           <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <Link
               to={"/favourite"}
-              className={`${
-                "/favourite" === Location.pathname ? "product-item-active " : ""
-              } dropdown-item`}
+              className={`${"/favourite" === Location.pathname ? "product-item-active " : ""
+                } dropdown-item`}
             >
               Favourites
             </Link>
             <Link
               to={"/myaccount"}
-              className={`${
-                "/myaccount" === Location.pathname ? "product-item-active " : ""
-              } dropdown-item`}
+              className={`${"/myaccount" === Location.pathname ? "product-item-active " : ""
+                } dropdown-item`}
             >
               My Account
             </Link>
             <div
-              onClick={() => Logout()}
+              onClick={() => Logout(navigate)}
               to={"/login"}
               className={` dropdown-item`}
             >
@@ -317,12 +313,11 @@ const AppHeader = (props) => {
                   <Link
                     key={index}
                     to={data.link}
-                    className={`${
-                      data.link === Location.pathname ||
+                    className={`${data.link === Location.pathname ||
                       Location.pathname.includes(`${data.link}/map`)
-                        ? "product-item-active"
-                        : ""
-                    }  product-item`}
+                      ? "product-item-active"
+                      : ""
+                      }  product-item`}
                   >
                     {data.icon} {data.name}
                   </Link>

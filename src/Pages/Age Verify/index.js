@@ -36,7 +36,7 @@ const AgeVerifyPage = () => {
   const submitHandler = (e) => {
     console.log(ageVerify);
     e.preventDefault();
-    VerifyAge(ageVerify);
+    VerifyAge(ageVerify, navigate);
   };
   return (
     <div className="max-width-521">

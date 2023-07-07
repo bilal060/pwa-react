@@ -30,7 +30,7 @@ const AddAddressPage = () => {
   const addressUrl = `${process.env.REACT_APP_API_URI}users/updateUser/${userData?._id}`;
   const submitHandler = (e) => {
     e.preventDefault();
-    PostAddress(addressUrl, address);
+    PostAddress(addressUrl, address, navigate);
   };
 
   const inputRef = useRef();

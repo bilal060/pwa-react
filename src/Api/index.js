@@ -18,13 +18,11 @@ const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 //
 const SocialSignUpUrl = `${process.env.REACT_APP_API_URI}users/socialSignup`;
 
-export const VerifyAge = async (data) => {
+export const VerifyAge = async (data, navigate) => {
   try {
     const postData = await Axios.post(VerifyAgeUrl, data);
     sessionStorage.setItem("remember-age", JSON.stringify(postData.data));
-    setTimeout(() => {
-      window.location.href = "/signup";
-    }, 1000);
+    navigate("/signup");
     toast.success("Age Verified Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -32,7 +30,7 @@ export const VerifyAge = async (data) => {
   }
 };
 
-export const PostLoginData = async (loginDetails, rememberCheck) => {
+export const PostLoginData = async (loginDetails, rememberCheck, navigate) => {
   try {
     const fetchData = await Axios.post(LoginUrl, loginDetails);
     localStorage.clear();
@@ -49,28 +47,22 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData.data.data.user));
     toast.success("Welcome");
-    setTimeout(() => {
-      window.location.href = "/home";
-    }, 1000);
+    navigate("/home");
   } catch (error) {
     toast.error(error.response.data.message);
     console.log(error);
   }
 };
-export const PostSignUp = async (signInDetails) => {
+export const PostSignUp = async (signInDetails, navigate) => {
   try {
     const fetchData = await Axios.post(SignUpUrl, signInDetails);
     localStorage.clear();
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
     if (signInDetails.userType === "Retailer") {
-      setTimeout(() => {
-        window.location.href = "/retailer";
-      }, 1000);
+      navigate("/retailer");
     } else {
-      setTimeout(() => {
-        window.location.href = "/address";
-      }, 1000);
+      navigate("/address");
     }
     toast.success("  Sign up Successful");
     sessionStorage.removeItem("remember-age");
@@ -81,13 +73,11 @@ export const PostSignUp = async (signInDetails) => {
   }
 };
 
-export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
+export const PostRetailerType = async (RetailerTypeUrl, retailerType, navigate) => {
   try {
     const fetchData = await Axios.patch(RetailerTypeUrl, retailerType);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
-    setTimeout(() => {
-      window.location.href = `/${retailerType.retailerType}`;
-    }, 1000);
+    navigate(`/${retailerType.retailerType}`);
     toast.success("Retailer Type Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -95,13 +85,11 @@ export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
   }
 };
 
-export const PostAddress = async (adressUrl, address) => {
+export const PostAddress = async (adressUrl, address, navigate) => {
   try {
     const fetchData = await Axios.patch(adressUrl, address);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
-    setTimeout(() => {
-      window.location.href = "/response";
-    }, 1000);
+    navigate("/response");
     toast.success("Address Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -109,12 +97,10 @@ export const PostAddress = async (adressUrl, address) => {
   }
 };
 
-export const PostResponse = async (newArray) => {
+export const PostResponse = async (newArray, navigate) => {
   try {
     await Axios.post(PostResponseUrl, newArray);
-    setTimeout(() => {
-      window.location.href = "/terms";
-    }, 1000);
+    navigate("/terms");
     toast.success("Response Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -122,12 +108,10 @@ export const PostResponse = async (newArray) => {
   }
 };
 
-export const PostSeedStore = async (data) => {
+export const PostSeedStore = async (data, navigate) => {
   try {
     await Axios.post(PostSeedStoreUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    navigate("/address");
     toast.success("Seed Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -144,12 +128,10 @@ export const PostSeedStoreform = async (data) => {
   }
 };
 
-export const PostDispensary = async (data) => {
+export const PostDispensary = async (data, navigate) => {
   try {
     await Axios.post(PostDispensaryUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    navigate("/address");
     toast.success("Dispensary Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -165,12 +147,10 @@ export const PostDispensaryform = async (data) => {
     console.log(error);
   }
 };
-export const PostHeadShop = async (data) => {
+export const PostHeadShop = async (data, navigate) => {
   try {
     await Axios.post(PostHeadShopUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    navigate("/address");
     toast.success("Head Shop Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -186,12 +166,10 @@ export const PostHeadShopform = async (data) => {
     console.log(error);
   }
 };
-export const PostCannabis = async (data) => {
+export const PostCannabis = async (data, navigate) => {
   try {
     await Axios.post(PostCannabisUrl, data);
-    setTimeout(() => {
-      window.location.href = "/address";
-    }, 1000);
+    navigate("/address");
     toast.success("Cannabis Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -247,7 +225,7 @@ export const PostReview = async (ratingData) => {
     console.log(error);
   }
 };
-export const CreateChat = async (senderId, receiverId) => {
+export const CreateChat = async (senderId, receiverId, navigate) => {
   try {
     const data = {
       senderId: senderId,
@@ -255,9 +233,7 @@ export const CreateChat = async (senderId, receiverId) => {
     };
     await Axios.post(CreateChatUrl, data);
     toast.success("Chat Posted Successfully");
-    setTimeout(() => {
-      window.location.href = `/chat/${senderId}`;
-    }, 1000);
+    navigate(`/chat/${senderId}`);
   } catch (error) {
     toast.error(error?.response.data.message);
     console.log(error);
@@ -289,15 +265,13 @@ export const PostMedia = async (sendMedia, token) => {
 };
 
 // Social
-export const SocialPostSignUp = async (signUpDetails) => {
+export const SocialPostSignUp = async (signUpDetails, navigate) => {
   try {
     const fetchData = await Axios.post(SocialSignUpUrl, signUpDetails);
     localStorage.clear();
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
-    setTimeout(() => {
-      window.location.href = "/social/summary";
-    }, 1000);
+    navigate("/social/summary");
     toast.success("Sign up Successful");
     sessionStorage.removeItem("remember-age");
   } catch (error) {
