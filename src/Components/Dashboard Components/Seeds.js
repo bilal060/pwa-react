@@ -25,7 +25,7 @@ const Seeds = () => {
       console.log(fetchData.data);
       setSeeds(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

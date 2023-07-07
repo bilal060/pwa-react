@@ -399,39 +399,6 @@ const AllProducts = (props) => {
                       <span className="pl-2">Seeds</span>
                     </label>
                   </div>
-                  {/*
-                  <div>
-                    <p className="mb-2 font-weight-600 font-18-100">{type}</p>
-                    <div className="d-flex align-items-center justify-content-between gap-2">
-                      <div className="d-flex flex-column align-items-center justify-content-center w-100 gap-2">
-                        <input
-                          type="range"
-                          disabled={filter.area === "" ? true : false}
-                          className="form-control-range w-100"
-                          min="0"
-                          max="30"
-                          step="10"
-                          name="quantity"
-                          onChange={(e) => formHandler(e)}
-                        ></input>
-                        <p className="rangetext d-flex w-100 justify-content-between">
-                          <span>
-                            All {type === "Seeds" ? "Seeds" : "Grams"}
-                          </span>
-                          <span></span>
-                          <span>
-                            1-10 {type === "Seeds" ? "Seeds" : "Grams"}
-                          </span>
-                          <span>
-                            10-20 {type === "Seeds" ? "Seeds" : "Grams"}
-                          </span>
-                          <span>
-                            20-30 {type === "Seeds" ? "Seeds" : "Grams"}
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                  </div> */}
 
                   <div className="form-control h-auto p-0 bg-transparent border-0">
                     <label className="mb-2 font-weight-600 font-18-100">

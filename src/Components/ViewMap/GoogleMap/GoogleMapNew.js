@@ -68,7 +68,7 @@ const GoogleMapNew = ({ markersData }) => {
 
   return (
     <div className=" bg-white rounded-4 p-3 h-100">
-      {center !== null && isLoaded ? (
+      {isLoaded ? (
         <GoogleMap
           onLoad={onLoad}
           onUnmount={onUnmount}
@@ -90,9 +90,7 @@ const GoogleMapNew = ({ markersData }) => {
                 onClick={() => handleActiveMarker(data._id)}
                 icon={{
                   url: require("../../../assets/Images/seed-marker.svg")
-                    .default,
-                  scaledSize: new window.google.maps.Size("100", "100"),
-                  scale: new window.google.maps.Size("100", "100"),
+                    .default
                 }}
               >
                 {activeMarker === data._id ? (
