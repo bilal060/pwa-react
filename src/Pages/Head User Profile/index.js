@@ -80,7 +80,7 @@ const HeadProfileDetail = () => {
       let GetOthersUrl = `${process.env.REACT_APP_API_URI}headShop/userheadShop?userId=${fetchData.data.data.userId?._id}&accessories=${headShopFilter.accessories}&type=${headShopFilter.type}`;
       GetOthersByUser(GetOthersUrl);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -92,7 +92,7 @@ const HeadProfileDetail = () => {
         toast.error("No Record Found");
       }
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

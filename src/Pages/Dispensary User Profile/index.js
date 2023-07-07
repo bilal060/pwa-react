@@ -76,7 +76,7 @@ const DispensaryProfileDetail = () => {
       let GetOthersUrl = `${process.env.REACT_APP_API_URI}dispensary/userdispensary?userId=${fetchData.data.data.userId?._id}`;
       GetOthersByUser(GetOthersUrl);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -86,7 +86,7 @@ const DispensaryProfileDetail = () => {
       const fetchData = await Axios.get(GetOthersUrl);
       setOthers(fetchData.data.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -164,7 +164,7 @@ const DispensaryProfileDetail = () => {
                     </span>
                     <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                       <DistanceIcon />
-                      <span>{dispensary.distance} Away</span>
+                      <span>{dispensary.distance} Away </span>
                     </span>
                   </div>
                   <div>
@@ -299,7 +299,7 @@ const DispensaryProfileDetail = () => {
                       <div className="col-8 col-sm-12 p-0">
                         <div className="ps-sm-0 ps-3">
                           <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                            {data.strainName}
+                            {data.strainName} g
                           </p>
 
                           <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">

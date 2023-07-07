@@ -138,7 +138,7 @@ const Chat = () => {
       });
       setrecentChatsData(fetchData.data.userConversations);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -151,7 +151,7 @@ const Chat = () => {
       setSelectedChatData(fetchData?.data.messages);
       // console.log(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

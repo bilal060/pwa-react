@@ -108,7 +108,7 @@ const AppHeader = (props) => {
       );
       navigate("/social/signup");
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

@@ -25,6 +25,7 @@ import TimerIcon from "../../assets/Images/Timer";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import MobSearchIcon from "../../assets/Images/MobSearch";
+import ImageDummy from "../../assets/Images/match/dummy.png";
 
 const libraries = ["places"];
 // const products = [
@@ -166,7 +167,7 @@ const AllProductsDashboard = (props) => {
       const fetchData = await Axios.get(GetAllProductUrl);
       setData(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -361,6 +362,11 @@ const AllProductsDashboard = (props) => {
         <div className="seeds-card-main row m-0">
           {data?.result?.length !== 0 ? (
             (data || []).result?.map((data, index) => {
+              const imageUrl = data.photo
+                ? `${process.env.REACT_APP_PORT}/${data.photo[0]}`
+                : "http://localhost:4000/undefined";
+              const isPlaceholderImage =
+                imageUrl === "http://localhost:4000/undefined";
               return (
                 <div
                   className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col h-100"
@@ -369,15 +375,19 @@ const AllProductsDashboard = (props) => {
                   <div className="seed-card h-100 position-relative">
                     <div className="row m-0 flex-sm-column w-100">
                       <div className="col-4 col-sm-12 p-0">
-                        <img
-                          className="w-100 intro-img cards-image-style"
-                          src={`${process.env.REACT_APP_PORT}/${
-                            Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
-                          }`}
-                          alt=""
-                        />
+                        {isPlaceholderImage ? (
+                          <img
+                            className="w-100 intro-img cards-image-style"
+                            src={ImageDummy}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-100 intro-img cards-image-style"
+                            src={imageUrl}
+                            alt=""
+                          />
+                        )}
                         <span
                           className="like-post cr-p"
                           onClick={() =>

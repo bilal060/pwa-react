@@ -31,7 +31,7 @@ const SocialUserBio = () => {
       );
       setcurrentuserData(fetchData?.data?.data?.doc);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -56,7 +56,7 @@ const SocialUserBio = () => {
       navigate("/social/subscription");
       toast.success("Detail Added Successfully");
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

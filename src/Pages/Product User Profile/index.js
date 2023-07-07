@@ -77,7 +77,7 @@ const ProductUserProfile = (props) => {
       console.log(fetchData.data);
       setSharedByUser(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -88,7 +88,7 @@ const ProductUserProfile = (props) => {
       setUserData(fetchData.data.data.doc);
       console.log(fetchData.data.data.doc);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

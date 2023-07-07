@@ -77,7 +77,7 @@ const DispensaryMap = () => {
       setDispensary(fetchData.data);
       console.log(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };

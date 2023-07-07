@@ -25,7 +25,7 @@ const HeadShop = () => {
       const fetchData = await Axios.get(GetHeadShopUrl);
       setHeadShop(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
