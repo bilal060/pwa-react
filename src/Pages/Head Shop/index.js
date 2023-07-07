@@ -92,7 +92,7 @@ const HeadShop = () => {
         data.append(`photo-${index}`, mapData.photo);
       }
     });
-    await PostHeadShop(data);
+    await PostHeadShop(data, navigate);
     clearForm();
     setArrayData([]);
     localStorage.removeItem("headShopData");

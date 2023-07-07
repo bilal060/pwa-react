@@ -182,7 +182,7 @@ const SeedUserProfile = () => {
                   </button>
                   <div
                     onClick={() =>
-                      CreateChat(chatData.senderId, seed.userId._id)
+                      CreateChat(chatData.senderId, seed.userId._id, navigate)
                     }
                     className="green-btn text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-sm-2 gap-2"
                   >
@@ -257,10 +257,8 @@ const SeedUserProfile = () => {
               onChange={(e) => {
                 setselectedQuantity(e.target.value);
                 GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }seedStore/userseedStore?quantity=${e.target.value}${
-                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
+                  `${process.env.REACT_APP_API_URI
+                  }seedStore/userseedStore?quantity=${e.target.value}${selectedStrain ? `&postStrain=${selectedStrain}` : ""
                   }&userId=${seed?.userId?._id}`
                 );
               }}
@@ -281,8 +279,7 @@ const SeedUserProfile = () => {
               onChange={(e) => {
                 setselectedStrain(e.target.value);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI}seedStore/userseedStore?${
-                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
+                  `${process.env.REACT_APP_API_URI}seedStore/userseedStore?${selectedQuantity ? `quantity=${selectedQuantity}&` : ""
                   }postStrain=${e.target.value}&userId=${seed?.userId?._id}`
                 );
               }}

@@ -51,7 +51,7 @@ const SocialSignUp = () => {
     e.preventDefault();
     if (currentuserData) {
       navigate("/social/summary");
-    } else SocialPostSignUp(signUpDetails);
+    } else SocialPostSignUp(signUpDetails, navigate);
     console.log(signUpDetails);
   };
   return (

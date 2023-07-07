@@ -119,7 +119,7 @@ const ResponsivePage = () => {
       }
     }
 
-    PostResponse(data);
+    PostResponse(data, navigate);
     clearSavedData();
   };
 
