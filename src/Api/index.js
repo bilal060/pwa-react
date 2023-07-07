@@ -27,7 +27,7 @@ export const VerifyAge = async (data) => {
     }, 1000);
     toast.success("Age Verified Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -53,7 +53,7 @@ export const PostLoginData = async (loginDetails, rememberCheck) => {
       window.location.href = "/home";
     }, 1000);
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -75,7 +75,7 @@ export const PostSignUp = async (signInDetails) => {
     toast.success("  Sign up Successful");
     sessionStorage.removeItem("remember-age");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
     localStorage.clear();
   }
@@ -90,7 +90,7 @@ export const PostRetailerType = async (RetailerTypeUrl, retailerType) => {
     }, 1000);
     toast.success("Retailer Type Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -104,7 +104,7 @@ export const PostAddress = async (adressUrl, address) => {
     }, 1000);
     toast.success("Address Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -117,7 +117,7 @@ export const PostResponse = async (newArray) => {
     }, 1000);
     toast.success("Response Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -130,7 +130,7 @@ export const PostSeedStore = async (data) => {
     }, 1000);
     toast.success("Seed Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -139,7 +139,7 @@ export const PostSeedStoreform = async (data) => {
     await Axios.post(PostSeedStoreUrl, data);
     toast.success("Seed Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -152,7 +152,7 @@ export const PostDispensary = async (data) => {
     }, 1000);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -161,7 +161,7 @@ export const PostDispensaryform = async (data) => {
     await Axios.post(PostDispensaryUrl, data);
     toast.success("Dispensary Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -173,7 +173,7 @@ export const PostHeadShop = async (data) => {
     }, 1000);
     toast.success("Head Shop Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -182,7 +182,7 @@ export const PostHeadShopform = async (data) => {
     await Axios.post(PostHeadShopUrl, data);
     toast.success("Head Shop Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -194,7 +194,7 @@ export const PostCannabis = async (data) => {
     }, 1000);
     toast.success("Cannabis Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -203,7 +203,7 @@ export const PostCannabisform = async (data) => {
     await Axios.post(PostCannabisUrl, data);
     toast.success("Cannabis Added Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -217,7 +217,7 @@ export const EditUser = async (EditProfileUrl, editedData) => {
     );
     toast.success("User Edited Successfully");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
   }
 };
@@ -301,7 +301,7 @@ export const SocialPostSignUp = async (signUpDetails) => {
     toast.success("Sign up Successful");
     sessionStorage.removeItem("remember-age");
   } catch (error) {
-    toast.error(error?.message);
+    toast.error(error.response.data.message);
     console.log(error);
     localStorage.clear();
   }

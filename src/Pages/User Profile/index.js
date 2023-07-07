@@ -31,7 +31,7 @@ const UserProfile = () => {
       console.log(fetchData.data);
       setSharedByUser(fetchData.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -42,7 +42,7 @@ const UserProfile = () => {
       setUserData(fetchData.data.data.doc);
       console.log(fetchData.data.data.doc);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -185,11 +185,10 @@ const UserProfile = () => {
                           <div className="col-4 col-sm-12 p-0">
                             <img
                               className="w-100 intro-img cards-image-style"
-                              src={`${process.env.REACT_APP_PORT}/${
-                                Array.isArray(data.photo)
-                                  ? data.photo[0]
-                                  : data.photo
-                              }`}
+                              src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                                ? data.photo[0]
+                                : data.photo
+                                }`}
                               alt=""
                             />
                           </div>

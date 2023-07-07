@@ -41,7 +41,7 @@ const CannabisProfileDetail = () => {
       let GetOthersUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/userCannabisLounge/?userId=${fetchData.data.data.userId?._id}`;
       GetOthersByUser(GetOthersUrl);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
@@ -51,7 +51,7 @@ const CannabisProfileDetail = () => {
       const fetchData = await Axios.get(GetOthersUrl);
       setOthers(fetchData.data.data);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(error.response.data.message);
       console.log(error);
     }
   };
