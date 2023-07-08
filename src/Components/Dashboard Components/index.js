@@ -117,7 +117,7 @@ const AllProducts = (props) => {
 
   return (
     <div className="all-product-section ">
-      <div className="allproduct-mob mb-5 d-block">
+      {/* <div className="allproduct-mob mb-5 d-block">
         <div className="container mx-auto">
           <div className="d-flex flex-column  justify-content-between gap-4 ps-12 pe-12">
             <div className="d-flex align-items-center gap-4 justify-content-between">
@@ -227,7 +227,7 @@ const AllProducts = (props) => {
             </div>
           </div>
 
-          {/* <div className="mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12">
+          <div className="mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12">
             <div className="search-product d-sm-flex d-none">
               <input
                 placeholder="Search Product"
@@ -241,12 +241,12 @@ const AllProducts = (props) => {
             </div>
 
 
-          </div> */}
+          </div>
         </div>
-      </div>
+      </div> */}
 
       <div className="container mx-auto ">{children}</div>
-      <div
+      {/* <div
         className="modal fade"
         id="deactivatemodal"
         data-bs-backdrop="static"
@@ -410,7 +410,7 @@ const AllProducts = (props) => {
             </form>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

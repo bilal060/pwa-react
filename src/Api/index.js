@@ -15,7 +15,6 @@ const CreateChatUrl = `${process.env.REACT_APP_API_URI}conversations`;
 const PostMessageUrl = `${process.env.REACT_APP_API_URI}messages`;
 const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 
-//
 const SocialSignUpUrl = `${process.env.REACT_APP_API_URI}users/socialSignup`;
 
 export const VerifyAge = async (data, navigate) => {
@@ -73,7 +72,11 @@ export const PostSignUp = async (signInDetails, navigate) => {
   }
 };
 
-export const PostRetailerType = async (RetailerTypeUrl, retailerType, navigate) => {
+export const PostRetailerType = async (
+  RetailerTypeUrl,
+  retailerType,
+  navigate
+) => {
   try {
     const fetchData = await Axios.patch(RetailerTypeUrl, retailerType);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
@@ -202,7 +205,6 @@ export const EditUser = async (EditProfileUrl, editedData) => {
 
 export const MarkFavourite = async (userId, pId, category) => {
   try {
-    // console.log(userId, pId, category);
     const data = {
       userId: userId,
       pId: pId,

@@ -236,7 +236,7 @@ const AppHeader = (props) => {
             <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4">
               <div className="d-flex align-items-center gap-4 justify-content-between">
                 <h2 className="allproduct-heading m ms-12 me-12">
-                  All Products
+                  All Products 
                 </h2>
 
                 {!Location.pathname.includes("map") ? (

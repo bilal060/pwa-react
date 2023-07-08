@@ -26,7 +26,7 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import MobSearchIcon from "../../assets/Images/MobSearch";
 import ImageDummy from "../../assets/Images/match/dummy.png";
-
+import Heartoutfilled from "../../assets/Images/Heartoutfiled";
 const libraries = ["places"];
 
 const AllProductsDashboard = (props) => {
@@ -334,13 +334,13 @@ const AllProductsDashboard = (props) => {
                 <SearchButtonIcon />
               </div>
             </div>
-
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${option.checked ? "active" : ""
-                    }`}
+                  className={`product-item cr-p ${
+                    option.checked ? "active" : ""
+                  }`}
                 >
                   <input
                     className="d-none"
