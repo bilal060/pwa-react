@@ -229,10 +229,8 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${
-                    cannabis.userId?._id
+                  `${process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`&brandName=${e.target.value}`}`
                 );
               }}
@@ -252,10 +250,8 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${
-                    cannabis.userId?._id
+                  `${process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`event=${e.target.value}`}${`&brandName=${filter.brandName}`}`
                 );
               }}
@@ -276,10 +272,8 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${
-                    cannabis.userId?._id
+                  `${process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`foodOfferd=${e.target.value}`}${`&event=${filter.event}`}${`&brandName=${filter.brandName}`}`
                 );
               }}
