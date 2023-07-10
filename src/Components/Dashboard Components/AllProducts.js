@@ -41,7 +41,7 @@ const AllProductsDashboard = (props) => {
   const [page, setPage] = useState(1);
   const inputRef1 = useRef();
   const filtertheFilter = ["/home/cannabis", "/home/headshops"];
-  const [userType, setUserType] = useState("Retailer");
+  const [userType, setUserType] = useState("retailer");
   const [filter, setFilter] = useState({
     radius: 0,
     area: "",
@@ -97,10 +97,22 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
       : `getAllData/?page=${page}&name=${searchTerm}&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+      }&userType=${userType}&category=${categoryFilter.join(',')}`;
     GetAllProduct(GetAllProductUrl);
 
   }, [debouncedSearchedTerm]);
+
+  const userTyperHandler = (type) => {
+    setUserType(type);
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(',')}`;
+    GetAllProduct(GetAllProductUrl);
+  }
 
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -118,7 +130,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=1&`
       : `getAllData/?page=1&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -161,7 +173,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+      }&userType=${userType}&category=${categoryFilter.join(',')}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -173,7 +185,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(',')}`;
+      }&userType=${userType}&category=${categoryFilter.join(',')}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -208,7 +220,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=1&`
       : `getAllData/?page=1&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -224,10 +236,10 @@ const AllProductsDashboard = (props) => {
                   className="green-btn-outline text-primary-green outline-0 w-max-content px-3"
                   required
                   name="userType"
-                  onChange={(e) => setUserType(e.target.value)}
+                  onChange={(e) => userTyperHandler(e.target.value)}
                 >
-                  <option defaultValue={"Retailer"}>Retailer</option>
-                  <option value={"Consumer"}>Consumer</option>
+                  <option defaultValue={"retailer"}>Retailer</option>
+                  <option value={"consumer"}>Consumer</option>
                 </select>
               </div>
 
@@ -337,9 +349,8 @@ const AllProductsDashboard = (props) => {
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${
-                    option.checked ? "active" : ""
-                  }`}
+                  className={`product-item cr-p ${option.checked ? "active" : ""
+                    }`}
                 >
                   <input
                     className="d-none"
