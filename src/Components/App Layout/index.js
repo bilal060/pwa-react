@@ -30,7 +30,7 @@ const sideLinks = [
   // },
   {
     name: "Dispensary",
-    link: "/home/dispensary",
+    link: "/home/dispensaries",
   },
   {
     name: "Cannabis Lounge",
@@ -38,7 +38,7 @@ const sideLinks = [
   },
   {
     name: "Head Store",
-    link: "/home/headshop",
+    link: "/home/headshops",
   },
   {
     name: "Favourites",
@@ -109,14 +109,18 @@ const AppLayout = (props) => {
                     onClick={() => setIsOpen(!isOpen)}
                     key={index}
                     to={data.link}
-                    className={`${data.link === Location.pathname ? "side-link-active" : ""
-                      }  side-link`}
+                    className={`${
+                      data.link === Location.pathname ? "side-link-active" : ""
+                    }  side-link`}
                   >
                     {data.icon} {data.name}
                   </Link>
                 );
               })}
-              <p className="side-link border-0 cr-p" onClick={() => Logout(navigate)}>
+              <p
+                className="side-link border-0 cr-p"
+                onClick={() => Logout(navigate)}
+              >
                 Logout
               </p>
             </div>
@@ -146,9 +150,11 @@ const AppLayout = (props) => {
 
       <AppHeader setIsOpen={setIsOpen} isOpen={isOpen} />
       <div
-        className={`content-footer ${head.includes(Location.pathname) ? "mob-app-content-footer" : ""
-          } ${mobFooter.includes(Location.pathname) ? "small-header-mob-footer" : ""
-          }`}
+        className={`content-footer ${
+          head.includes(Location.pathname) ? "mob-app-content-footer" : ""
+        } ${
+          mobFooter.includes(Location.pathname) ? "small-header-mob-footer" : ""
+        }`}
       >
         {children}
         <div className="d-sm-block d-none">
@@ -171,28 +177,31 @@ const AppLayout = (props) => {
               <div className="d-flex align-items-center justify-content-between h-100 section-1">
                 <Link
                   to={"/home"}
-                  className={`${Location.pathname.includes("/home")
+                  className={`${
+                    Location.pathname.includes("/home")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobHomeIcon />
                 </Link>
                 <Link
                   to={"/favourite"}
-                  className={`${Location.pathname.includes("/favourite")
+                  className={`${
+                    Location.pathname.includes("/favourite")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobHeartIcon />
                 </Link>
                 <Link
                   to={"/search"}
-                  className={`${Location.pathname.includes("/search")
+                  className={`${
+                    Location.pathname.includes("/search")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobSearchIcon />
                 </Link>
@@ -200,28 +209,31 @@ const AppLayout = (props) => {
               <div className="d-flex align-items-center justify-content-between h-100 section-2">
                 <Link
                   to={"/home/dispensaries"}
-                  className={`${Location.pathname.includes("/dispensaries")
+                  className={`${
+                    Location.pathname.includes("/dispensaries")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobDispensaryIcon />
                 </Link>
                 <Link
                   // to={"/myaccount"}
-                  className={`${Location.pathname.includes("/myaccount")
+                  className={`${
+                    Location.pathname.includes("/myaccount")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobSettingsIcon />
                 </Link>
                 <Link
                   to={"/myaccount"}
-                  className={`${Location.pathname.includes("/myaccount")
+                  className={`${
+                    Location.pathname.includes("/myaccount")
                       ? "mob-footer-link-active"
                       : ""
-                    } mob-footer-link`}
+                  } mob-footer-link`}
                 >
                   <MobUserIcon />
                 </Link>
