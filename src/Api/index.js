@@ -58,7 +58,7 @@ export const PostSignUp = async (signInDetails, navigate) => {
     localStorage.clear();
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
-    if (signInDetails.userType === "Retailer") {
+    if (signInDetails.userType === "retailer") {
       navigate("/retailer");
     } else {
       navigate("/address");

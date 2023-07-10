@@ -50,11 +50,10 @@ const UserProfile = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&userId=${data._id}`;
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&userId=${data._id}`;
     GetSharedByUser(GetSharedByUserUrl);
-    const GetUserUrl = `${process.env.REACT_APP_API_URI}users/${
-      data._id
-    }?userType=${data.userType.toLowerCase()}`;
+    const GetUserUrl = `${process.env.REACT_APP_API_URI}users/${data._id
+      }?userType=${data.userType.toLowerCase()}`;
     GetUser(GetUserUrl);
   }, []);
   return (
@@ -188,11 +187,10 @@ const UserProfile = () => {
                           <div className="col-4 col-sm-12 p-0">
                             <img
                               className="w-100 intro-img cards-image-style"
-                              src={`${process.env.REACT_APP_PORT}/${
-                                Array.isArray(data.photo)
-                                  ? data.photo[0]
-                                  : data.photo
-                              }`}
+                              src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
+                                ? data.photo[0]
+                                : data.photo
+                                }`}
                               alt=""
                             />
                           </div>
