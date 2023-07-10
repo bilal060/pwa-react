@@ -110,7 +110,7 @@ const AllProductsDashboard = (props) => {
       ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
       : `getAllData/?page=${page}&name=${searchTerm}&`
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(',')}`;
+      }&userType=${type}&category=${categoryFilter.join(',')}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -236,9 +236,10 @@ const AllProductsDashboard = (props) => {
                   className="green-btn-outline text-primary-green outline-0 w-max-content px-3"
                   required
                   name="userType"
+                  defaultValue={"retailer"}
                   onChange={(e) => userTyperHandler(e.target.value)}
                 >
-                  <option defaultValue={"retailer"}>Retailer</option>
+                  <option value={"retailer"}>Retailer</option>
                   <option value={"consumer"}>Consumer</option>
                 </select>
               </div>
@@ -346,7 +347,7 @@ const AllProductsDashboard = (props) => {
               </div>
             </div>
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
-              {options.map((option) => (
+              {userType === 'retailer' && options.map((option) => (
                 <label
                   key={option.value}
                   className={`product-item cr-p ${option.checked ? "active" : ""
@@ -403,7 +404,7 @@ const AllProductsDashboard = (props) => {
                             favouriteHandler(currentuserData._id, data._id, data.category)
                           }
                         >
-                          {data.favourite.includes(currentuserData._id) ? <svg
+                          {data.favourite && data.favourite.includes(currentuserData._id) ? <svg
                             width={20}
                             height={18}
                             viewBox="0 0 20 18"

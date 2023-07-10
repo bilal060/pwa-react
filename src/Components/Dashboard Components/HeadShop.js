@@ -43,7 +43,7 @@ const HeadShop = (props) => {
     let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=headShop&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=headShop&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetHeadShop(GetHeadShopUrl);
   }, [debouncedSearchedTerm]);
@@ -127,7 +127,7 @@ const HeadShop = (props) => {
     let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=headShop&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetHeadShop(GetHeadShopUrl);
   };
@@ -139,7 +139,7 @@ const HeadShop = (props) => {
     let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=1&`
       : `getAllData/?page=1&`
-      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=headShop&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetHeadShop(GetHeadShopUrl);
   }, []);

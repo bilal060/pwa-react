@@ -70,7 +70,7 @@ const Cannabis = (props) => {
     let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=cannabisLounge&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=cannabisLounge&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, [debouncedSearchedTerm]);
@@ -154,7 +154,7 @@ const Cannabis = (props) => {
     let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=cannabisLounge&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   };
@@ -166,7 +166,7 @@ const Cannabis = (props) => {
     let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=1&`
       : `getAllData/?page=1&`
-      }category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=cannabisLounge&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, []);

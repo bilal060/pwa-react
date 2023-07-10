@@ -42,7 +42,7 @@ const Dispensary = (props) => {
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetDispensary(GetDispensaryUrl);
   };
@@ -54,7 +54,7 @@ const Dispensary = (props) => {
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=1&`
       : `getAllData/?page=1&`
-      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetDispensary(GetDispensaryUrl);
   }, []);
@@ -75,7 +75,7 @@ const Dispensary = (props) => {
     let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
       ? `getDataByRadius?${routeParams.radius}&page=${page}&`
       : `getAllData/?page=${page}&`
-      }category=dispensary&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }category=dispensary&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }`;
     GetDispensary(GetDispensaryUrl);
   }, [debouncedSearchedTerm]);
