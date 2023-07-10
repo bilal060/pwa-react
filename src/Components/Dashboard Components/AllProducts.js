@@ -26,7 +26,6 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import MobSearchIcon from "../../assets/Images/MobSearch";
 import ImageDummy from "../../assets/Images/match/dummy.png";
-import Heartoutfilled from "../../assets/Images/Heartoutfiled";
 const libraries = ["places"];
 
 const AllProductsDashboard = (props) => {

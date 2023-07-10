@@ -1,7 +1,4 @@
 import React from "react";
-import dispensary1 from "../../assets/Images/dispensary1.svg";
-import dispensary2 from "../../assets/Images/dispensary2.svg";
-import dispensary3 from "../../assets/Images/dispensary3.svg";
 import { Link } from "react-router-dom";
 import DistanceIcon from "../../assets/Images/Distance";
 import LocationIcon from "../../assets/Images/Location";
@@ -29,41 +26,6 @@ const seedsDetail = [
   {
     id: 3,
     name: "Raza Awan",
-    active: false,
-  },
-];
-const seedData = [
-  {
-    id: 1,
-    name: "Toronto, Ontario     ",
-    img: dispensary1,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "Super Store",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: false,
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario     ",
-    img: dispensary2,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "Super Store",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
-    active: true,
-  },
-  {
-    id: 1,
-    name: "Toronto, Ontario     ",
-    img: dispensary3,
-    distance: "3 km Away",
-    location: "Indica, White Rhino",
-    count: "Super Store",
-    rating: "5.0",
-    totalReviews: "(56 Reviews)",
     active: false,
   },
 ];

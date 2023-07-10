@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 const Hooks = () => {
   const token = localStorage.getItem("user-token");
   const IsUserLoggedIn = () => {
@@ -10,6 +12,7 @@ const Hooks = () => {
 
   const Logout = (navigate) => {
     localStorage.clear();
+    toast.success("Logout successful!")
     navigate("/");
   };
 
