@@ -5,7 +5,6 @@ import DispensaryIcon from "../../assets/Images/Dispensary";
 import CannbisIcon from "../../assets/Images/Cannbis";
 import HeadShopIcon from "../../assets/Images/HeadShop";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import BudsIcon from "../../assets/Images/Buds";
 import MobSearchIcon from "../../assets/Images/MobSearch";
 import MenuBarIcon from "../../assets/Images/MenuBar";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";

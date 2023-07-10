@@ -24,33 +24,6 @@ import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import useDebounce from "../../hooks/useDebounce";
 
 const libraries = ["places"];
-const products = [
-  {
-    name: "Seeds",
-    icon: <SeedICon />,
-    link: "/home/seed",
-  },
-  // {
-  //   name: "Buds",
-  //   icon: <BudsIcon />,
-  //   link: "/home/buds",
-  // },
-  {
-    name: "Dispensary",
-    icon: <DispensaryIcon />,
-    link: "/home/dispensaries",
-  },
-  {
-    name: "Cannabis Lounge",
-    icon: <CannbisIcon />,
-    link: "/home/cannabis",
-  },
-  {
-    name: "Head Shop",
-    icon: <HeadShopIcon />,
-    link: "/home/headshops",
-  },
-];
 
 const HeadShop = (props) => {
   const params = useParams();
@@ -65,7 +38,14 @@ const HeadShop = (props) => {
   const debouncedSearchedTerm = useDebounce(searchTerm);
 
   useEffect(() => {
-    console.log({ searchTerm });
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=headShop&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetHeadShop(GetHeadShopUrl);
   }, [debouncedSearchedTerm]);
 
   const [filter, setFilter] = useState({
@@ -144,13 +124,11 @@ const HeadShop = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }category=headShop&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetHeadShop(GetHeadShopUrl);
   };
 
@@ -158,13 +136,11 @@ const HeadShop = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }category=headShop&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
 

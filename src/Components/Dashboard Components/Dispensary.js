@@ -12,43 +12,11 @@ import Axios from "../../axios/Axios";
 import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
-import SeedICon from "../../assets/Images/Seed";
-import BudsIcon from "../../assets/Images/Buds";
-import CannbisIcon from "../../assets/Images/Cannbis";
-import HeadShopIcon from "../../assets/Images/HeadShop";
-import DispensaryIcon from "../../assets/Images/Dispensary";
 import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import useDebounce from "../../hooks/useDebounce";
 const libraries = ["places"];
-const products = [
-  {
-    name: "Seeds",
-    icon: <SeedICon />,
-    link: "/home/seed",
-  },
-  // {
-  //   name: "Buds",
-  //   icon: <BudsIcon />,
-  //   link: "/home/buds",
-  // },
-  {
-    name: "Dispensary",
-    icon: <DispensaryIcon />,
-    link: "/home/dispensaries",
-  },
-  {
-    name: "Cannabis Lounge",
-    icon: <CannbisIcon />,
-    link: "/home/cannabis",
-  },
-  {
-    name: "Head Shop",
-    icon: <HeadShopIcon />,
-    link: "/home/headshops",
-  },
-];
 
 const Dispensary = (props) => {
   const [dispensary, setDispensary] = useState([]);
@@ -71,13 +39,11 @@ const Dispensary = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }category=dispensary&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetDispensary(GetDispensaryUrl);
   };
 
@@ -85,13 +51,11 @@ const Dispensary = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }category=dispensary&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=dispensary&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetDispensary(GetDispensaryUrl);
   }, []);
   const params = useParams();
@@ -106,7 +70,14 @@ const Dispensary = (props) => {
   const debouncedSearchedTerm = useDebounce(searchTerm);
 
   useEffect(() => {
-    console.log({ searchTerm });
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=dispensary&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetDispensary(GetDispensaryUrl);
   }, [debouncedSearchedTerm]);
 
   const [filter, setFilter] = useState({
