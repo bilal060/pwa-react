@@ -54,14 +54,14 @@ const HeadShopMap = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&userType=retailer&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   };
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&userType=retailer&category=headShop&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
 

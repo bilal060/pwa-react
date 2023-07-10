@@ -51,14 +51,14 @@ const CannabisMap = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=${page}&userType=retailer&category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     Getcannabis(GetCannabisUrl);
   };
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?page=1&userType=retailer&category=cannabisLounge&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     Getcannabis(GetCannabisUrl);
   }, []);
 
