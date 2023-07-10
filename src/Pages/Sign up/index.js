@@ -65,8 +65,8 @@ const SignUpPage = () => {
             onChange={(e) => formHandler(e)}
           >
             <option value="">- Select Type -</option>
-            <option value="Retailer">Retailer</option>
-            <option value="Consumer">Consumer</option>
+            <option value="retailer">Retailer</option>
+            <option value="consumer">Consumer</option>
           </select>
           {signInDetails.userType === "Consumer" ? (
             <input

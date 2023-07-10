@@ -12,6 +12,8 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
+import ImageDummy from "../../assets/Images/match/dummy.png";
+import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const CannabisProfileDetail = () => {
@@ -70,17 +72,17 @@ const CannabisProfileDetail = () => {
       category: categry,
     };
     Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, data)
-      .then(response => {
+      .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
         let GetCannabissUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
         GetCannabiss(GetCannabissUrl);
         toast.success(response.data.messgae);
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error?.response.data.message);
         console.log(error);
-      })
+      });
   };
 
   const navigate = useNavigate();
@@ -103,11 +105,15 @@ const CannabisProfileDetail = () => {
         </div>
         <div className="row m-0 seed-card flex-row">
           <div className="col-lg-5 ps-0">
-            <img
-              className="w-100"
-              src={`${process.env.REACT_APP_PORT}/${cannabis?.photo}`}
-              alt=""
-            />
+            {cannabis?.photo ? (
+              <img
+                className="w-100"
+                src={`${process.env.REACT_APP_PORT}/${cannabis.photo}`}
+                alt=""
+              />
+            ) : (
+              <img className="w-100" src={ImageDummy} alt="Dummy Image" />
+            )}
           </div>
           <div className="col-lg-7 pe-0 ps-lg-3 ps-0 pt-lg-0 pt-5">
             <div className="ps-sm-0 ps-3">
@@ -170,20 +176,30 @@ const CannabisProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>{cannabis.favourite && cannabis.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
+                  <span>
+                    {cannabis.favourite &&
+                    cannabis.favourite.includes(currentuserData._id)
+                      ? "Mark Unfavourite"
+                      : "Mark Favourite"}
+                  </span>
                   <span className="icon-green-bg">
-                    {cannabis.favourite && cannabis.favourite.includes(currentuserData._id) ? <svg
-                      width={20}
-                      height={18}
-                      viewBox="0 0 20 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
-                        fill="#BE3F3F"
-                      />
-                    </svg> : <MobHeartIcon />}
+                    {cannabis.favourite &&
+                    cannabis.favourite.includes(currentuserData._id) ? (
+                      <svg
+                        width={20}
+                        height={18}
+                        viewBox="0 0 20 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                          fill="#BE3F3F"
+                        />
+                      </svg>
+                    ) : (
+                      <MobHeartIcon />
+                    )}
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
@@ -275,9 +291,15 @@ const CannabisProfileDetail = () => {
         <div className="seeds-card-main row m-0 pt-5">
           {others?.length !== 0 ? (
             (others || [])?.map((data, index) => {
+              const imageUrl = data.photo
+                ? `${process.env.REACT_APP_PORT}/${data.photo}`
+                : "http://localhost:4000/undefined";
+              const isPlaceholderImage =
+                imageUrl === "http://localhost:4000/undefined";
+
               return (
                 <div
-                  className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
+                  className="col-xl-3 col-lg-4 col-md-6 mb-4 seed-card-col"
                   key={index}
                 >
                   <Link
@@ -286,24 +308,25 @@ const CannabisProfileDetail = () => {
                   >
                     <div className="row m-0 flex-sm-column w-100">
                       <div className="col-4 col-sm-12 p-0">
-                        <img
-                          className="w-100 intro-img cards-image-style"
-                          src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                          alt=""
-                        />
+                        {isPlaceholderImage ? (
+                          <img
+                            className="w-100 intro-img cards-image-style"
+                            src={ImageDummy}
+                            alt=""
+                          />
+                        ) : (
+                          <img
+                            className="w-100 intro-img cards-image-style"
+                            src={imageUrl}
+                            alt=""
+                          />
+                        )}
                       </div>
                       <div className="col-8 col-sm-12 p-0">
                         <div className="ps-sm-0 ps-3">
                           <p className="my-sm-4 mb-3 font-24 font-weight-700">
                             {data.brandName}
                           </p>
-
-                          {/* <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-2">
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                        <QuantityIcon />
-                        {data.strainName}
-                      </span>
-                    </div> */}
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2 ">
                             <LocationIcon />
                             <span className="cut-text">
