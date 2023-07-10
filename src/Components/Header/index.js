@@ -19,10 +19,10 @@ const headLinks = [
     name: "Home",
     link: "/home",
   },
-  {
-    name: "Seeds",
-    link: "/home/seed",
-  },
+  // {
+  //   name: "Seeds",
+  //   link: "/home/seed",
+  // },
   {
     name: "Dispensary",
     link: "/home/dispensaries",
@@ -37,11 +37,11 @@ const headLinks = [
   },
 ];
 const products = [
-  {
-    name: "Seeds",
-    icon: <SeedICon />,
-    link: "/home/seed",
-  },
+  // {
+  //   name: "Seeds",
+  //   icon: <SeedICon />,
+  //   link: "/home/seed",
+  // },
   // {
   //   name: "Buds",
   //   icon: <BudsIcon />,
