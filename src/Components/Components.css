@@ -79,7 +79,7 @@
 
 .auth-input-textarea {
   height: 112px;
-  background-color: Black !important;
+  background-color: #1d1d1d !important;
   color: #a3a3a3;
   border: 1px solid #6b6b6b;
   border-radius: 12px;
@@ -2355,4 +2355,21 @@ input[type="radio"]:checked+.radio-button::before {
   border-radius: 12px !important;
   object-fit: cover;
   object-position: top;
+}
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff !important;
+  background-color: #5d8b2f !important;;
+  border-color: #5d8b2f !important;;
+}
+.page-link {
+  position: relative;
+  display: block;
+  padding: var(--bs-pagination-padding-y) var(--bs-pagination-padding-x);
+  font-size: var(--bs-pagination-font-size);
+  color: #5d8b2f !important;
+  text-decoration: none;
+  background-color: var(--bs-pagination-bg);
+  border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
