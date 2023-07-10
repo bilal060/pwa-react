@@ -208,15 +208,27 @@ const AllProductsDashboard = (props) => {
   };
 
   const favouriteHandler = (userId, prodId, categry) => {
-    MarkFavourite(userId, prodId, categry);
-    const currentUser = localStorage.getItem("userdata");
-    let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
-    GetAllProduct(GetAllProductUrl);
+    const markdata = {
+      userId: userId,
+      pId: prodId,
+      category: categry,
+    };
+    Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, markdata)
+      .then(response => {
+        const currentUser = localStorage.getItem("userdata");
+        let data = JSON.parse(currentUser);
+        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+          : `getAllData/?page=${page}&`
+          }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+          }&userType=${userType}&category=${categoryFilter.join(",")}`;
+        GetAllProduct(GetAllProductUrl);
+        toast.success(response.data.messgae);
+      })
+      .catch(error => {
+        toast.error(error?.response.data.message);
+        console.log(error);
+      })
   };
 
   const handlePlaceChanged = () => {

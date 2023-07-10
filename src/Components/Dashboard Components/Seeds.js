@@ -18,6 +18,7 @@ import ScopeIcon from "../../assets/Images/Scope";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import MobSearchIcon from "../../assets/Images/MobSearch";
+import useDebounce from "../../hooks/useDebounce";
 
 const libraries = ["places"];
 const Seeds = () => {
@@ -42,19 +43,30 @@ const Seeds = () => {
     }
   };
 
+  const debouncedSearchedTerm = useDebounce(searchTerm);
+
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=seedStore&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
+    GetSeeds(GetSeedsUrl);
+  }, [debouncedSearchedTerm]);
+
   const [page, setPage] = useState(1);
 
   const pageHandler = (page) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }category=seedStore&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=seedStore&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetSeeds(GetSeedsUrl);
   };
 
@@ -65,13 +77,11 @@ const Seeds = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }category=seedStore&latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=seedStore&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }`;
     GetSeeds(GetSeedsUrl);
   }, []);
 
