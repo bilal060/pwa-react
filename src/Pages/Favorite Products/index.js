@@ -20,27 +20,34 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 const filter = [
   {
     id: 1,
+    query: "",
+    ariaSelected: false,
+    name: "All",
+    icon: "",
+  },
+  {
+    id: 2,
     query: "seedStore",
     ariaSelected: false,
     name: "Seed",
     icon: <SeedICon />,
   },
   {
-    id: 2,
+    id: 3,
     query: "dispensary",
     ariaSelected: false,
     name: "Dispensary",
     icon: <DispensaryIcon />,
   },
   {
-    id: 3,
+    id: 4,
     query: "cannabisLounge",
     ariaSelected: false,
     name: "Cannabis Lounge",
     icon: <CannbisIcon />,
   },
   {
-    id: 4,
+    id: 5,
     query: "headShop",
     ariaSelected: false,
     name: "HeadShop",
