@@ -116,6 +116,26 @@ const DispensaryProfileDetail = () => {
     }
   }
 
+  const favouriteHandler = (userId, prodId, categry) => {
+    const data = {
+      userId: userId,
+      pId: prodId,
+      category: categry,
+    };
+    Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, data)
+      .then(response => {
+        const currentUser = localStorage.getItem("userdata");
+        let data = JSON.parse(currentUser);
+        let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+        GetDispensarys(GetDispensaryUrl);
+        toast.success(response.data.messgae);
+      })
+      .catch(error => {
+        toast.error(error?.response.data.message);
+        console.log(error);
+      })
+  };
+
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -199,7 +219,7 @@ const DispensaryProfileDetail = () => {
               <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
                 <button
                   onClick={() =>
-                    MarkFavourite(
+                    favouriteHandler(
                       currentuserData._id,
                       dispensary._id,
                       dispensary.category
@@ -207,9 +227,20 @@ const DispensaryProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>Mark Favourite</span>
+                  <span>{dispensary.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
                   <span className="icon-green-bg">
-                    <MobHeartIcon />
+                    {dispensary.favourite.includes(currentuserData._id) ? <svg
+                      width={20}
+                      height={18}
+                      viewBox="0 0 20 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                        fill="#BE3F3F"
+                      />
+                    </svg> : <MobHeartIcon />}
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
@@ -238,10 +269,8 @@ const DispensaryProfileDetail = () => {
               onChange={(e) => {
                 setselectedQuantity(e.target.value);
                 GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }dispensary/userdispensary?quantity=${e.target.value}${
-                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
+                  `${process.env.REACT_APP_API_URI
+                  }dispensary/userdispensary?quantity=${e.target.value}${selectedStrain ? `&postStrain=${selectedStrain}` : ""
                   }&userId=${dispensary?.userId?._id}`
                 );
               }}
@@ -260,10 +289,8 @@ const DispensaryProfileDetail = () => {
               onChange={(e) => {
                 setselectedStrain(e.target.value);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI}dispensary/userdispensary?${
-                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
-                  }postStrain=${e.target.value}&userId=${
-                    dispensary?.userId?._id
+                  `${process.env.REACT_APP_API_URI}dispensary/userdispensary?${selectedQuantity ? `quantity=${selectedQuantity}&` : ""
+                  }postStrain=${e.target.value}&userId=${dispensary?.userId?._id
                   }`
                 );
               }}
