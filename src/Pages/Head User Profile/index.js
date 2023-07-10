@@ -210,9 +210,9 @@ const HeadProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>{headShop.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
+                  <span>{headShop.favourite && headShop.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
                   <span className="icon-green-bg">
-                    {headShop.favourite.includes(currentuserData._id) ? <svg
+                    {headShop.favourite && headShop.favourite.includes(currentuserData._id) ? <svg
                       width={20}
                       height={18}
                       viewBox="0 0 20 18"
