@@ -226,7 +226,11 @@ const SeedstoreForm = () => {
           >
             Cancel
           </button>
-          <button className="green-btn custom-w min-width-208" type="submit">
+          <button
+            className="green-btn custom-w min-width-208"
+            data-bs-dismiss="modal"
+            type="submit"
+          >
             Post
           </button>
         </div>
