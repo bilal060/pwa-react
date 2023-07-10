@@ -257,8 +257,10 @@ const SeedUserProfile = () => {
               onChange={(e) => {
                 setselectedQuantity(e.target.value);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI
-                  }seedStore/userseedStore?quantity=${e.target.value}${selectedStrain ? `&postStrain=${selectedStrain}` : ""
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }seedStore/userseedStore?quantity=${e.target.value}${
+                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
                   }&userId=${seed?.userId?._id}`
                 );
               }}
@@ -279,7 +281,8 @@ const SeedUserProfile = () => {
               onChange={(e) => {
                 setselectedStrain(e.target.value);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI}seedStore/userseedStore?${selectedQuantity ? `quantity=${selectedQuantity}&` : ""
+                  `${process.env.REACT_APP_API_URI}seedStore/userseedStore?${
+                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
                   }postStrain=${e.target.value}&userId=${seed?.userId?._id}`
                 );
               }}
@@ -343,9 +346,7 @@ const SeedUserProfile = () => {
             })
           ) : (
             <div className="d-flex justify-content-center w-100">
-              <div className="w-50">
-                <EmptyDataImage />
-              </div>
+              <EmptyDataImage />
             </div>
           )}
         </div>

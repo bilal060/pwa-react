@@ -158,13 +158,20 @@ const FavoriteProduct = (props) => {
                       <div className="col-4 col-sm-12 p-0">
                         <img
                           className="intro-img cards-image-style"
-                          src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                            ? data.photo[0]
-                            : data.photo
-                            }`}
+                          src={`${process.env.REACT_APP_PORT}/${
+                            Array.isArray(data.photo)
+                              ? data.photo[0]
+                              : data.photo
+                          }`}
                           alt=""
                         />
-                        <span style={{ cursor: 'pointer' }} className="favourite-post" onClick={() => unfavoriteHandler(data._id, data.category)}>
+                        <span
+                          style={{ cursor: "pointer" }}
+                          className="favourite-post"
+                          onClick={() =>
+                            unfavoriteHandler(data._id, data.category)
+                          }
+                        >
                           <svg
                             width={20}
                             height={18}
@@ -292,9 +299,7 @@ const FavoriteProduct = (props) => {
             })
           ) : (
             <div className="d-flex justify-content-center w-100">
-              <div className="w-50">
-                <EmptyDataImage />
-              </div>
+              <EmptyDataImage />
             </div>
           )}
         </div>

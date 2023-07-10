@@ -129,7 +129,11 @@ const AppLayout = (props) => {
             <div className="dropdown">
               <div className="d-flex align-items-center gap-2" type="button">
                 <img
-                  src={currentUserData.photo ? currentUserData.photo : User}
+                  src={
+                    currentUserData.photo
+                      ? `${process.env.REACT_APP_PORT}/${currentUserData.photo}`
+                      : User
+                  }
                   alt=""
                   className="side-link-user-img"
                 />

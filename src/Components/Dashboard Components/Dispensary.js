@@ -16,6 +16,7 @@ import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import useDebounce from "../../hooks/useDebounce";
+import MobSearchIcon from "../../assets/Images/MobSearch";
 const libraries = ["places"];
 
 const Dispensary = (props) => {
@@ -39,11 +40,13 @@ const Dispensary = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=dispensary&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   };
 
@@ -51,11 +54,13 @@ const Dispensary = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=dispensary&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   }, []);
   const params = useParams();
@@ -72,11 +77,13 @@ const Dispensary = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=dispensary&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=dispensary&userType=retailer&name=${searchTerm}&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   }, [debouncedSearchedTerm]);
 
@@ -137,11 +144,44 @@ const Dispensary = (props) => {
   const filtertheFilter = ["/home/cannabis", "/home/headshops"];
   return (
     <>
-      <div className="all-product-section ">
-        <div className="allproduct-mob d-sm-block d-none">
+      <div>
+        <div className="allproduct-mob d-block">
           <div className="container mx-auto">
-            <div className="d-flex flex-sm-row flex-column-reverse align-items-sm-center justify-content-between gap-4 ps-12 pe-12">
+            <div className="d-flex align-items-center justify-content-between gap-4 ps-12 pe-12">
               <h2 className="allproduct-heading ms-12 me-12">All Products</h2>
+              <button
+                className="border-0 outline-0 bg-transparent p-0 d-sm-none"
+                data-bs-toggle="modal"
+                data-bs-target="#deactivatemodal"
+              >
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 40 40"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="0.5"
+                    y="0.5"
+                    width="39"
+                    height="39"
+                    rx="7.5"
+                    fill="#5D8B2F"
+                    fill-opacity="0.2"
+                    stroke="#5D8B2F"
+                  />
+                  <path
+                    d="M30.0002 10.8804V13.4205C30.0002 14.3442 29.4188 15.4988 28.8374 16.0761L23.8375 20.4634C23.1398 21.0407 22.6747 22.1953 22.6747 23.119V28.0837C22.6747 28.7764 22.2096 29.7001 21.6282 30.0465L20.0003 31.0856C18.4887 32.0092 16.3957 30.9701 16.3957 29.1228V23.0035C16.3957 22.1953 15.9306 21.1562 15.4655 20.5789L14.3027 19.3666L21.07 8.57129H27.6746C28.9537 8.57129 30.0002 9.61041 30.0002 10.8804Z"
+                    fill="#5D8B2F"
+                  />
+                  <path
+                    opacity="0.4"
+                    d="M19.1859 8.57129L13.1628 18.1658L11.0465 15.9606C10.4651 15.3833 10 14.3442 10 13.6514V10.9959C10 9.61041 11.0465 8.57129 12.3256 8.57129H19.1859Z"
+                    fill="#5D8B2F"
+                  />
+                </svg>
+              </button>
             </div>
 
             <div className="mt-sm-5 mt-4 mb-5 pb-3 gap-4 d-flex align-items-start justify-content-between ps-12 pe-12">
@@ -152,9 +192,11 @@ const Dispensary = (props) => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   value={searchTerm}
                 />
-                <SearchButtonIcon />
+                <div className="icon-green-bg">
+                  <SearchButtonIcon />
+                </div>
               </div>
-              <div className="d-flex  align-items-center gap-4">
+              <div className="d-flex w-100 justify-content-end align-items-center gap-4">
                 <div className="search-product d-sm-none d-flex">
                   <input
                     placeholder="Search Product"
@@ -163,34 +205,54 @@ const Dispensary = (props) => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     value={searchTerm}
                   />
-                  <SearchButtonIcon />
+                  <span className="icon-green-bg">
+                    <MobSearchIcon />
+                  </span>
                 </div>
                 <div className="d-flex align-items-center gap-4">
-                  {!Location.pathname.includes("map") ? (
+                  {!Location.pathname?.includes("map") ? (
                     <Link
                       to={`${Location.pathname}/map`}
-                      className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3"
+                      className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3"
                     >
-                      View Map
+                      <span className="d-md-block d-none ps-2">View Map</span>
                       <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
                         <ScopeIcon />
                       </span>
                     </Link>
                   ) : (
-                    <Link className="text-white view-map-btn d-sm-flex d-none align-items-center gap-3">
-                      View Map
+                    <Link className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3">
+                      <span className="d-md-block d-none ps-2">View Map</span>
                       <span className="view-map-btn-scope d-flex align-items-center justify-content-center ">
                         <ScopeIcon />
                       </span>
                     </Link>
                   )}
-
+                  {!Location.pathname?.includes("map") ? (
+                    <Link
+                      to={`${Location.pathname}/map`}
+                      className="text-white height-56 view-map-btn p-2 rounded-2 d-flex d-sm-none align-items-center gap-3"
+                    >
+                      <span className="d-md-block d-none ps-2">View Map</span>
+                      <span className="view-map-btn-scope w-100 h-100 rounded-2 p-1 d-flex align-items-center justify-content-center ">
+                        <ScopeIcon />
+                      </span>
+                    </Link>
+                  ) : (
+                    <Link className="text-white height-56 view-map-btn p-2 rounded-2 d-flex d-sm-none align-items-center gap-3">
+                      <span className="d-md-block d-none ps-2">View Map</span>
+                      <span className="view-map-btn-scope w-100 h-100 rounded-2 p-1 d-flex align-items-center justify-content-center ">
+                        <ScopeIcon />
+                      </span>
+                    </Link>
+                  )}
                   <button
-                    className="border-0 outline-0 bg-transparent p-0"
+                    className="border-0 outline-0 bg-transparent p-0 d-sm-block d-none"
                     data-bs-toggle="modal"
                     data-bs-target="#deactivatemodal"
                   >
                     <svg
+                      className="w-auto h-100"
                       width={56}
                       height={56}
                       viewBox="0 0 56 56"
@@ -475,9 +537,7 @@ const Dispensary = (props) => {
           })
         ) : (
           <div className="d-flex justify-content-center w-100">
-            <div className="w-50">
-              <EmptyDataImage />
-            </div>
+            <EmptyDataImage />
           </div>
         )}
         {dispensary.totalRecords > 10 && (

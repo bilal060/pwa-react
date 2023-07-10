@@ -918,6 +918,8 @@ input[type="range"]::-ms-thumb {
 .side-link-user-img {
   border: 3.86561px solid #5d8b2f;
   border-radius: 50%;
+  width: 43.48814392089844px;
+  height: 43.48814392089844px
 }
 
 .app-menu .section-1 {
@@ -2346,6 +2348,7 @@ input[type="radio"]:checked+.radio-button::before {
   background: #fff;
   background: #5d8b2f !important;
 }
+
 .user-profile-image {
   height: 150px;
   width: 150px;
