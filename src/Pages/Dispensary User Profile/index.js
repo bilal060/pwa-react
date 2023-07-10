@@ -227,9 +227,9 @@ const DispensaryProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>{dispensary.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
+                  <span>{dispensary.favourite && dispensary.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
                   <span className="icon-green-bg">
-                    {dispensary.favourite.includes(currentuserData._id) ? <svg
+                    {dispensary.favourite && dispensary.favourite.includes(currentuserData._id) ? <svg
                       width={20}
                       height={18}
                       viewBox="0 0 20 18"

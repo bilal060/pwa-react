@@ -38,6 +38,7 @@ const CannabisProfileDetail = () => {
     try {
       const fetchData = await Axios.get(GetCannabissUrl);
       setCannabis(fetchData.data.data);
+      console.log(fetchData.data.data);
       let GetOthersUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/userCannabisLounge/?userId=${fetchData.data.data.userId?._id}`;
       GetOthersByUser(GetOthersUrl);
     } catch (error) {
@@ -170,9 +171,9 @@ const CannabisProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>{cannabis.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
+                  <span>{cannabis.favourite && cannabis.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
                   <span className="icon-green-bg">
-                    {cannabis.favourite.includes(currentuserData._id) ? <svg
+                    {cannabis.favourite && cannabis.favourite.includes(currentuserData._id) ? <svg
                       width={20}
                       height={18}
                       viewBox="0 0 20 18"
