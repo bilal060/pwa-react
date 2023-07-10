@@ -53,31 +53,57 @@ const AllProductsDashboard = (props) => {
       value: "seedStore",
       label: "Seed",
       icon: <SeedICon />,
+      userType: 'retailer'
     },
     {
       id: 2,
       value: "dispensary",
       label: "Dispensary",
       icon: <DispensaryIcon />,
+      userType: 'retailer'
     },
     {
       id: 3,
       value: "cannabisLounge",
       label: "Cannabis Lounge",
       icon: <CannbisIcon />,
+      userType: 'retailer'
     },
     {
       id: 4,
       value: "headShop",
       label: "HeadShop",
       icon: <HeadShopIcon />,
+      userType: 'retailer'
     },
-  ]);
-  const [consumerOptions, setConsumerOptions] = useState([
-    "Sativa",
-    "Indica",
-    "Hybrid",
-    "CBD",
+    {
+      id: 1,
+      value: "Sativa",
+      label: "Sativa",
+      icon: "",
+      userType: 'consumer'
+    },
+    {
+      id: 2,
+      value: "Indica",
+      label: "Indica",
+      icon: "",
+      userType: 'consumer'
+    },
+    {
+      id: 3,
+      value: "Hybrid",
+      label: "Hybrid",
+      icon: "",
+      userType: 'consumer'
+    },
+    {
+      id: 4,
+      value: "CBD",
+      label: "CBD",
+      icon: "",
+      userType: 'consumer'
+    },
   ]);
   const GetAllProduct = async (GetAllProductUrl) => {
     try {
@@ -97,27 +123,24 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-        : `getAllData/?page=${page}&name=${searchTerm}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [debouncedSearchedTerm]);
 
   const userTyperHandler = (type) => {
     setUserType(type);
+    setcategoryFilter([])
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-        : `getAllData/?page=${page}&name=${searchTerm}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${type}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${type}&category=`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -133,13 +156,11 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -178,13 +199,11 @@ const AllProductsDashboard = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -192,13 +211,11 @@ const AllProductsDashboard = (props) => {
     MarkFavourite(userId, prodId, categry);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -229,13 +246,11 @@ const AllProductsDashboard = (props) => {
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -362,13 +377,12 @@ const AllProductsDashboard = (props) => {
               </div>
             </div>
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
-              {userType === "retailer" &&
-                options.map((option) => (
-                  <label
+              {options.map((option) => {
+                if (userType === option.userType) {
+                  return <label
                     key={option.value}
-                    className={`product-item cr-p ${
-                      option.checked ? "active" : ""
-                    }`}
+                    className={`product-item cr-p ${option.checked ? "active" : ""
+                      }`}
                   >
                     <input
                       className="d-none"
@@ -379,26 +393,8 @@ const AllProductsDashboard = (props) => {
                     />
                     {option.icon} {option.label}
                   </label>
-                ))}
-
-              {userType === "consumer" &&
-                consumerOptions.map((option) => (
-                  <label
-                    key={option}
-                    className={`product-item cr-p ${
-                      option.checked ? "active" : ""
-                    }`}
-                  >
-                    <input
-                      className="d-none"
-                      type="checkbox"
-                      value={option}
-                      checked={option.checked}
-                      onChange={handleCheckboxChange}
-                    />
-                    {option}
-                  </label>
-                ))}
+                }
+              })}
             </div>
           </div>
         </div>
@@ -445,7 +441,7 @@ const AllProductsDashboard = (props) => {
                           }
                         >
                           {data.favourite &&
-                          data.favourite.includes(currentuserData._id) ? (
+                            data.favourite.includes(currentuserData._id) ? (
                             <svg
                               width={20}
                               height={18}
