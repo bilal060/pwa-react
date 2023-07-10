@@ -69,7 +69,7 @@ const SignUpPage = () => {
             <option value="consumer">Consumer</option>
           </select>
           {signInDetails.userType === "Consumer" ? (
-            <input
+            <input 
               onChange={(e) => formHandler(e)}
               name="fullName"
               className="auth-input mb-3"

@@ -20,6 +20,10 @@ const headLinks = [
     link: "/home",
   },
   {
+    name: "Seeds",
+    link: "/home/seed",
+  },
+  {
     name: "Dispensary",
     link: "/home/dispensaries",
   },
