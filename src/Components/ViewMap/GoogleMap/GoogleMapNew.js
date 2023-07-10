@@ -28,6 +28,8 @@ const GoogleMapNew = ({ markersData }) => {
     height: "100%",
   };
 
+  console.log({ markersData });
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA",

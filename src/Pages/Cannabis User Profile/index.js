@@ -12,7 +12,6 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
-import { MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const CannabisProfileDetail = () => {
@@ -215,7 +214,7 @@ const CannabisProfileDetail = () => {
                 formHandler(e);
                 GetOthersByUser(
                   `${process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${cannabis.userId?._id
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`&brandName=${e.target.value}`}`
                 );
               }}
@@ -236,7 +235,7 @@ const CannabisProfileDetail = () => {
                 formHandler(e);
                 GetOthersByUser(
                   `${process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${cannabis.userId?._id
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`event=${e.target.value}`}${`&brandName=${filter.brandName}`}`
                 );
               }}
@@ -258,7 +257,7 @@ const CannabisProfileDetail = () => {
                 formHandler(e);
                 GetOthersByUser(
                   `${process.env.REACT_APP_API_URI
-                  }cannabisLoung/userCannabisLounge/?userId=${cannabis.userId?._id
+                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
                   }&${`foodOfferd=${e.target.value}`}${`&event=${filter.event}`}${`&brandName=${filter.brandName}`}`
                 );
               }}
