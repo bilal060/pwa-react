@@ -13,11 +13,6 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation, useParams } from "react-router-dom";
-import SeedICon from "../../assets/Images/Seed";
-import BudsIcon from "../../assets/Images/Buds";
-import CannbisIcon from "../../assets/Images/Cannbis";
-import HeadShopIcon from "../../assets/Images/HeadShop";
-import DispensaryIcon from "../../assets/Images/Dispensary";
 import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
@@ -41,13 +36,11 @@ const HeadShop = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }category=headShop&userType=retailer&name=${searchTerm}&latlang=${
-      data?.location?.coordinates[0]
-    },${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=headShop&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]
+      },${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   }, [debouncedSearchedTerm]);
 
@@ -127,13 +120,11 @@ const HeadShop = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }category=headShop&userType=retailer&latlang=${
-      data?.location?.coordinates[0]
-    },${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }category=headShop&userType=retailer&latlang=${data?.location?.coordinates[0]
+      },${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   };
 
@@ -141,15 +132,37 @@ const HeadShop = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }category=headShop&userType=retailer&latlang=${
-      data?.location?.coordinates[0]
-    },${data?.location?.coordinates[1]}`;
+    let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }category=headShop&userType=retailer&latlang=${data?.location?.coordinates[0]
+      },${data?.location?.coordinates[1]}`;
     GetHeadShop(GetHeadShopUrl);
   }, []);
+
+  const favouriteHandler = (userId, prodId, categry) => {
+    const markdata = {
+      userId: userId,
+      pId: prodId,
+      category: categry,
+    };
+    Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, markdata)
+      .then((response) => {
+        const currentUser = localStorage.getItem("userdata");
+        let data = JSON.parse(currentUser);
+        let GetHeadShopUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+          : `getAllData/?page=${page}&`
+          }category=headShop&userType=retailer&latlang=${data?.location?.coordinates[0]
+          },${data?.location?.coordinates[1]}`;
+        GetHeadShop(GetHeadShopUrl);
+        toast.success(response.data.messgae);
+      })
+      .catch((error) => {
+        toast.error(error?.response.data.message);
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -482,14 +495,30 @@ const HeadShop = (props) => {
                       <span
                         className="like-post cr-p"
                         onClick={() =>
-                          MarkFavourite(
+                          favouriteHandler(
                             currentuserData._id,
                             data._id,
                             data.category
                           )
                         }
                       >
-                        <HeartIcon />
+                        {data.favourite &&
+                          data.favourite.includes(currentuserData._id) ? (
+                          <svg
+                            width={20}
+                            height={18}
+                            viewBox="0 0 20 18"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                              fill="#BE3F3F"
+                            />
+                          </svg>
+                        ) : (
+                          <HeartIcon />
+                        )}
                       </span>
                     </div>
                     <div className="col-8 col-sm-12 p-0">
