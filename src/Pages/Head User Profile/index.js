@@ -105,6 +105,26 @@ const HeadProfileDetail = () => {
   }, [routeParams.id]);
   const navigate = useNavigate();
 
+  const favouriteHandler = (userId, prodId, categry) => {
+    const data = {
+      userId: userId,
+      pId: prodId,
+      category: categry,
+    };
+    Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, data)
+      .then(response => {
+        const currentUser = localStorage.getItem("userdata");
+        let data = JSON.parse(currentUser);
+        let GetHeadShopsUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+        GetHeadShops(GetHeadShopsUrl);
+        toast.success(response.data.messgae);
+      })
+      .catch(error => {
+        toast.error(error?.response.data.message);
+        console.log(error);
+      })
+  };
+
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">
@@ -126,11 +146,10 @@ const HeadProfileDetail = () => {
           <div className="col-lg-5 ps-0">
             <img
               className="w-100 intro-img"
-              src={`${process.env.REACT_APP_PORT}/${
-                Array.isArray(headShop.photo)
-                  ? headShop.photo[0]
-                  : headShop.photo
-              }`}
+              src={`${process.env.REACT_APP_PORT}/${Array.isArray(headShop.photo)
+                ? headShop.photo[0]
+                : headShop.photo
+                }`}
               alt=""
             />
           </div>
@@ -183,7 +202,7 @@ const HeadProfileDetail = () => {
               <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
                 <button
                   onClick={() =>
-                    MarkFavourite(
+                    favouriteHandler(
                       currentuserData._id,
                       headShop._id,
                       headShop.category
@@ -191,9 +210,20 @@ const HeadProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>Mark Favourite</span>
+                  <span>{headShop.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
                   <span className="icon-green-bg">
-                    <MobHeartIcon />
+                    {headShop.favourite.includes(currentuserData._id) ? <svg
+                      width={20}
+                      height={18}
+                      viewBox="0 0 20 18"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                        fill="#BE3F3F"
+                      />
+                    </svg> : <MobHeartIcon />}
                   </span>
                 </button>
                 <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
