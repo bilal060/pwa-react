@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
+import Select from "react-select";
 import BudsIcon from "../../assets/Images/Buds";
 import CannbisIcon from "../../assets/Images/Cannbis";
 import HeadShopIcon from "../../assets/Images/HeadShop";
@@ -53,56 +54,56 @@ const AllProductsDashboard = (props) => {
       value: "seedStore",
       label: "Seed",
       icon: <SeedICon />,
-      userType: 'retailer'
+      userType: "retailer",
     },
     {
       id: 2,
       value: "dispensary",
       label: "Dispensary",
       icon: <DispensaryIcon />,
-      userType: 'retailer'
+      userType: "retailer",
     },
     {
       id: 3,
       value: "cannabisLounge",
       label: "Cannabis Lounge",
       icon: <CannbisIcon />,
-      userType: 'retailer'
+      userType: "retailer",
     },
     {
       id: 4,
       value: "headShop",
       label: "HeadShop",
       icon: <HeadShopIcon />,
-      userType: 'retailer'
+      userType: "retailer",
     },
     {
       id: 1,
       value: "Sativa",
       label: "Sativa",
       icon: "",
-      userType: 'consumer'
+      userType: "consumer",
     },
     {
       id: 2,
       value: "Indica",
       label: "Indica",
       icon: "",
-      userType: 'consumer'
+      userType: "consumer",
     },
     {
       id: 3,
       value: "Hybrid",
       label: "Hybrid",
       icon: "",
-      userType: 'consumer'
+      userType: "consumer",
     },
     {
       id: 4,
       value: "CBD",
       label: "CBD",
       icon: "",
-      userType: 'consumer'
+      userType: "consumer",
     },
   ]);
   const GetAllProduct = async (GetAllProductUrl) => {
@@ -123,24 +124,28 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [debouncedSearchedTerm]);
 
   const userTyperHandler = (type) => {
     setUserType(type);
-    setcategoryFilter([])
+    setcategoryFilter([]);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${type}&category=`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${type}&category=`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -156,11 +161,13 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -199,11 +206,13 @@ const AllProductsDashboard = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -214,21 +223,23 @@ const AllProductsDashboard = (props) => {
       category: categry,
     };
     Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, markdata)
-      .then(response => {
+      .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-          }&userType=${userType}&category=${categoryFilter.join(",")}`;
+        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }latlang=${data?.location?.coordinates[0]},${
+          data?.location?.coordinates[1]
+        }&userType=${userType}&category=${categoryFilter.join(",")}`;
         GetAllProduct(GetAllProductUrl);
         toast.success(response.data.messgae);
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error?.response.data.message);
         console.log(error);
-      })
+      });
   };
 
   const handlePlaceChanged = () => {
@@ -258,11 +269,13 @@ const AllProductsDashboard = (props) => {
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -391,20 +404,23 @@ const AllProductsDashboard = (props) => {
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => {
                 if (userType === option.userType) {
-                  return <label
-                    key={option.value}
-                    className={`product-item cr-p ${option.checked ? "active" : ""
+                  return (
+                    <label
+                      key={option.value}
+                      className={`product-item cr-p ${
+                        option.checked ? "active" : ""
                       }`}
-                  >
-                    <input
-                      className="d-none"
-                      type="checkbox"
-                      value={option.value}
-                      checked={option.checked}
-                      onChange={handleCheckboxChange}
-                    />
-                    {option.icon} {option.label}
-                  </label>
+                    >
+                      <input
+                        className="d-none"
+                        type="checkbox"
+                        value={option.value}
+                        checked={option.checked}
+                        onChange={handleCheckboxChange}
+                      />
+                      {option.icon} {option.label}
+                    </label>
+                  );
                 }
               })}
             </div>
@@ -453,7 +469,7 @@ const AllProductsDashboard = (props) => {
                           }
                         >
                           {data.favourite &&
-                            data.favourite.includes(currentuserData._id) ? (
+                          data.favourite.includes(currentuserData._id) ? (
                             <svg
                               width={20}
                               height={18}
@@ -595,6 +611,22 @@ const AllProductsDashboard = (props) => {
                         <label className="mb-2 font-weight-600 font-18-100">
                           Search an area
                         </label>
+                        {/* <Select
+                          onPlacesChanged={handlePlaceChanged}
+                          className="searchable-select"
+                          classNamePrefix="select"
+                          isDisabled={false}
+                          isLoading={false}
+                          isClearable={false}
+                          isRtl={false}
+                          isSearchable={true}
+                          name="color"
+                          onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                              e.preventDefault();
+                            }
+                          }}
+                        /> */}
                         <input
                           type="text"
                           className="auth-input bg-white auth-input height-42"
@@ -614,7 +646,6 @@ const AllProductsDashboard = (props) => {
                   <label className="font-weight-600 font-18-100">
                     Distance
                   </label>
-
                   <input
                     disabled={filter.area === "" ? true : false}
                     type="range"
