@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback } from "react";
 import { Image } from "react-bootstrap";
 import {
   GoogleMap,
@@ -18,12 +18,10 @@ const GoogleMapNew = ({ markersData }) => {
   const navigate = useNavigate();
 
   const [activeMarker, setActiveMarker] = useState(null);
-  const center = useMemo(() => {
-    return {
-      lat: 43.651070,
-      lng: -79.347015,
-    };
-  }, []);
+  const center = {
+    lat: 43.651070,
+    lng: -79.347015,
+  };
 
   const containerStyle = {
     width: "100%",
@@ -45,7 +43,7 @@ const GoogleMapNew = ({ markersData }) => {
 
       setMap(map);
     },
-    [center]
+    []
   );
 
   const onUnmount = useCallback(function callback(map) {
