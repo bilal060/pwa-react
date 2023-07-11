@@ -85,18 +85,22 @@ const AllProductMapView = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=${page}&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=${page}&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=1&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=1&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [categoryFilter]);
 
@@ -117,9 +121,11 @@ const AllProductMapView = () => {
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=${page}&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=${page}&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -225,38 +231,13 @@ const AllProductMapView = () => {
               />
               <SearchButtonIcon />
             </div>
-            {/* <ul
-              className=" nav nav-pills ps-12 pe-12  gap-3 align-items-end m-0 h-100 flex-nowrap w-md-75 overflow-auto accessories mb-5"
-              id="pills-tab"
-              role="tablist"
-            >
-              {categoryFilterList.map((data, index) => {
-                return (
-                  <li className="nav-item" key={index}>
-                    <button
-                      className={`nav-link product-item w-max-content ${
-                        categoryFilter.includes(data.query) ? "active" : ""
-                      }`}
-                      type={`button`}
-                      onClick={() =>
-                        setcategoryFilter((prevArray) => [
-                          ...prevArray,
-                          data.query,
-                        ])
-                      }
-                    >
-                      {data.icon} {data.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul> */}
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${option.checked ? "active" : ""
-                    }`}
+                  className={`product-item cr-p ${
+                    option.checked ? "active" : ""
+                  }`}
                 >
                   <input
                     className="d-none"
@@ -286,8 +267,9 @@ const AllProductMapView = () => {
                   return (
                     <div
                       key={index}
-                      className={`${data.active ? "active" : ""
-                        } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                      className={`${
+                        data.active ? "active" : ""
+                      } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto product-border`}
                       id={`v-pills-${data.id}-tab`}
                       data-toggle="pill"
                       href={`#v-pills-${data.id}`}
@@ -300,10 +282,11 @@ const AllProductMapView = () => {
                           <div>
                             <img
                               className="w-100 intro-img"
-                              src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                                ? data.photo[0]
-                                : data.photo
-                                }`}
+                              src={`${process.env.REACT_APP_PORT}/${
+                                Array.isArray(data.photo)
+                                  ? data.photo[0]
+                                  : data.photo
+                              }`}
                               alt=""
                             />
                           </div>
@@ -436,8 +419,9 @@ const AllProductMapView = () => {
                 return (
                   <div
                     key={index}
-                    className={`${chatsdetail.active ? "active show" : ""
-                      } tab-pane h-100 w-100 fade  chat-detail`}
+                    className={`${
+                      chatsdetail.active ? "active show" : ""
+                    } tab-pane h-100 w-100 fade  chat-detail`}
                     id={`v-pills-${chatsdetail.id}`}
                     role="tabpanel"
                     aria-labelledby={`v-pills-${chatsdetail.id}-tab`}

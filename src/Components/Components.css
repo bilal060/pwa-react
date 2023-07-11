@@ -1356,7 +1356,9 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 .w-lg-40-100-40 {
   width: 40% !important;
 }
-
+.product-border:not(:last-child) {
+  border-bottom: 1px solid #C6C6C6;
+}
 .map-card-col .map-link:first-child {
   border-radius: 16px 0 0 0 !important;
 }
