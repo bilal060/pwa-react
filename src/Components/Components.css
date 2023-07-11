@@ -2382,7 +2382,9 @@ input[type="radio"]:checked+.radio-button::before {
 .react-calendar__navigation__prev-button,
 .react-calendar__navigation__next-button,
 .react-calendar__navigation__prev2-button,
-.react-calendar__navigation__next2-button {
+.react-calendar__navigation__next2-button,
+.react-calendar__month-view__days__day,
+.react-calendar__year-view__months__month {
   background-color: #1d1d1d !important;
 }
 .react-calendar__tile--hasActive {
