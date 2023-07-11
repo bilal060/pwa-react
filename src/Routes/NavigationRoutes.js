@@ -55,6 +55,7 @@ import SocialPosts from "../Components/Social App/Posts";
 import { RegisteredRoutes } from "../utils/RegisterRoutes";
 import AllData from "../Components/Dashboard Components/AllData";
 import AllDataMapView from "../Components/ViewMap/ShowAllProduct";
+import ConsumerDetailPage from "../Pages/Consumer Detail Page";
 
 const NavigationRoutes = () => {
   const [windowSize, setWindowSize] = useState([
@@ -449,6 +450,18 @@ const NavigationRoutes = () => {
               component={
                 <AppLayout>
                   <HeadProfileDetail />
+                </AppLayout>
+              }
+            />
+          }
+        />
+        <Route
+          path="/home/userItem/:id"
+          element={
+            <ProtectedRoutes
+              component={
+                <AppLayout>
+                  <ConsumerDetailPage />
                 </AppLayout>
               }
             />
