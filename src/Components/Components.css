@@ -1356,9 +1356,11 @@ textarea[name="chatbox"]::-webkit-scrollbar-thumb {
 .w-lg-40-100-40 {
   width: 40% !important;
 }
+
 .product-border:not(:last-child) {
   border-bottom: 1px solid #C6C6C6;
 }
+
 .map-card-col .map-link:first-child {
   border-radius: 16px 0 0 0 !important;
 }
@@ -2358,12 +2360,16 @@ input[type="radio"]:checked+.radio-button::before {
   object-fit: cover;
   object-position: top;
 }
+
 .page-item.active .page-link {
   z-index: 3;
   color: #fff !important;
-  background-color: #5d8b2f !important;;
-  border-color: #5d8b2f !important;;
+  background-color: #5d8b2f !important;
+  ;
+  border-color: #5d8b2f !important;
+  ;
 }
+
 .page-link {
   position: relative;
   display: block;
@@ -2374,4 +2380,37 @@ input[type="radio"]:checked+.radio-button::before {
   background-color: var(--bs-pagination-bg);
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.select__control {
+  height: 56px;
+  background-color: #1d1d1d !important;
+  border: 1px solid #6b6b6b !important;
+  border-radius: 12px !important;
+  width: 100%;
+  padding: 10px 12px;
+  outline: 0;
+  font-size: 18px;
+  line-height: 100%;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  position: relative;
+  background: url(../assets/Images/select-after.svg) no-repeat right #ddd;
+  background-position-x: 95%;
+}
+
+.select__indicators {
+  display: none !important;
+}
+
+.select__control .select__single-value {
+  color: #a3a3a3 !important;
+}
+
+.select__menu {
+  display: block !important;
+}
+
+.css-t3ipsp-control:hover {
+  box-shadow: none !important;
 }
