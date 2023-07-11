@@ -2389,7 +2389,21 @@ input[type="radio"]:checked+.radio-button::before {
   border: var(--bs-pagination-border-width) solid var(--bs-pagination-border-color);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+/* calender */
 
+.react-calendar__navigation__label,
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+  background-color: #1d1d1d !important;
+}
+.react-calendar__tile--hasActive {
+  background: #5d8b2f !important;
+}
+.react-calendar__tile react-calendar__year-view__months__month{
+  background-color: #5d8b2f !important;
+}
 .select__control {
   height: 56px;
   background-color: #1d1d1d !important;
