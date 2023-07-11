@@ -106,8 +106,8 @@ const GoogleMapNew = ({ markersData }) => {
                       : require("../../../assets/Images/seed-marker.svg")
                           .default,
 
-                    // url: require("../../../assets/Images/seed-marker.svg")
-                    //   .default,
+                  // url: require("../../../assets/Images/seed-marker.svg")
+                  //   .default,
                   scaledSize: new window.google.maps.Size("100", "100"),
                   scale: new window.google.maps.Size("100", "100"),
                 }}

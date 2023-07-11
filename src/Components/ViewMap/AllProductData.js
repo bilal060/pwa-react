@@ -231,32 +231,6 @@ const AllProductMapView = () => {
               />
               <SearchButtonIcon />
             </div>
-            {/* <ul
-              className=" nav nav-pills ps-12 pe-12  gap-3 align-items-end m-0 h-100 flex-nowrap w-md-75 overflow-auto accessories mb-5"
-              id="pills-tab"
-              role="tablist"
-            >
-              {categoryFilterList.map((data, index) => {
-                return (
-                  <li className="nav-item" key={index}>
-                    <button
-                      className={`nav-link product-item w-max-content ${
-                        categoryFilter.includes(data.query) ? "active" : ""
-                      }`}
-                      type={`button`}
-                      onClick={() =>
-                        setcategoryFilter((prevArray) => [
-                          ...prevArray,
-                          data.query,
-                        ])
-                      }
-                    >
-                      {data.icon} {data.name}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul> */}
             <div className="d-flex gap-3 overflow-x-auto all-products-link">
               {options.map((option) => (
                 <label
@@ -295,7 +269,7 @@ const AllProductMapView = () => {
                       key={index}
                       className={`${
                         data.active ? "active" : ""
-                      } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                      } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto product-border`}
                       id={`v-pills-${data.id}-tab`}
                       data-toggle="pill"
                       href={`#v-pills-${data.id}`}
