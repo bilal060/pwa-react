@@ -142,12 +142,14 @@ const CannabisProfileDetail = () => {
                   </div>
                   <div>
                     <div className="d-flex gap-2 align-items-center flex-wrap mb-sm-4 mb-3">
-                      <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
+                      <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
                         <RatingIcon />
-                        <span>5.0</span>
+                        <span>{cannabis?.userId?.ratingsAverage}</span>
                       </span>
-                      <span className="font-14-100 text-grey font-weight-400">
-                        <span>(56 Reviews)</span>
+                      <span className="font-18-100 text-grey font-weight-400">
+                        <span>
+                          ({cannabis?.userId?.ratingsQuantity} Reviews)
+                        </span>
                       </span>
                     </div>
                     <span className="d-flex gap-2 align-items-center font-18 font-weight-500">

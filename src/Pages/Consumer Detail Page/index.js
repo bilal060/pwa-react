@@ -26,60 +26,62 @@ import { CreateChat, MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 import SendMailIcon from "../../assets/Images/SendMail";
 
-const seedData = [
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: dispensary1,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: dispensary2,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Purple Haze, Indica",
-    img: dispensary3,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-  {
-    id: 1,
-    name: "Lemon Kush, Indica",
-    img: dispensary4,
-    quantity: "Quantity: 1 Gram",
-    thc: "THC: 24%",
-    cbd: "CBD: 1%",
-  },
-];
-
-const DispensaryProfileDetail = () => {
+const ConsumerDetailPage = () => {
   const routeParams = useParams();
   const [dispensary, setDispensary] = useState([]);
   const [others, setOthers] = useState([]);
-  const [selectedQuantity, setselectedQuantity] = useState("");
-  const [selectedStrain, setselectedStrain] = useState("");
+  const [categoryFilter, setcategoryFilter] = useState([]);
   const navigate = useNavigate();
   const [currentuserData, setcurrentuserData] = useState();
   const [chatData, setChatData] = useState({
     senderId: "",
     receiverId: "",
   });
+  const [options, setOptions] = useState([
+    {
+      id: 1,
+      value: "Sativa",
+      label: "Sativa",
+      icon: "",
+      userType: "consumer",
+    },
+    {
+      id: 2,
+      value: "Indica",
+      label: "Indica",
+      icon: "",
+      userType: "consumer",
+    },
+    {
+      id: 3,
+      value: "Hybrid",
+      label: "Hybrid",
+      icon: "",
+      userType: "consumer",
+    },
+    {
+      id: 4,
+      value: "CBD",
+      label: "CBD",
+      icon: "",
+      userType: "consumer",
+    },
+  ]);
 
-  const GetDispensarys = async (GetDispensaryUrl) => {
+  // &category=${category}
+  const GetDispensarys = async (GetUserItemUrl) => {
     try {
-      const fetchData = await Axios.get(GetDispensaryUrl);
-      setDispensary(fetchData.data.data);
-      let GetOthersUrl = `${process.env.REACT_APP_API_URI}dispensary/userdispensary?userId=${fetchData.data.data.userId?._id}`;
-      GetOthersByUser(GetOthersUrl);
+      const fetchData = await Axios.get(GetUserItemUrl);
+      setDispensary(fetchData?.data?.data?.doc);
+      let GetSharedByUserUrl = `${
+        process.env.REACT_APP_API_URI
+      }users/getAllData/?latlang=${
+        fetchData?.data?.data?.doc?.location?.coordinates[0]
+      },${fetchData?.data?.data?.doc?.location?.coordinates[1]}&userId=${
+        fetchData?.data?.data?.doc?.userId?._id
+      }&userType=consumer&category=${categoryFilter.join(",")}`;
+
+      GetOthersByUser(GetSharedByUserUrl);
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);
@@ -89,7 +91,8 @@ const DispensaryProfileDetail = () => {
   const GetOthersByUser = async (GetOthersUrl) => {
     try {
       const fetchData = await Axios.get(GetOthersUrl);
-      setOthers(fetchData.data.data);
+      console.log(fetchData);
+      setOthers(fetchData.data.result);
     } catch (error) {
       toast.error(error.response.data.message);
       console.log(error);
@@ -100,13 +103,14 @@ const DispensaryProfileDetail = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
-    GetDispensarys(GetDispensaryUrl);
+    let GetUserItemUrl = `${process.env.REACT_APP_API_URI}userItem/${routeParams.id}`;
+    GetDispensarys(GetUserItemUrl);
     setChatData((prevState) => ({
       ...prevState,
       senderId: data._id,
     }));
   }, [routeParams.id]);
+  console.log(routeParams.id);
 
   const images = [];
   if (dispensary?.photo) {
@@ -135,7 +139,7 @@ const DispensaryProfileDetail = () => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
+        let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?latlang=31.591409,74.471373&userId=64ace4b6209ed5a8bc3f1d16&userType=retailer`;
         GetDispensarys(GetDispensaryUrl);
         toast.success(response.data.messgae);
       })
@@ -144,6 +148,37 @@ const DispensaryProfileDetail = () => {
         console.log(error);
       });
   };
+  function handleCheckboxChange(event) {
+    const { value, checked } = event.target;
+    setOptions((prevOptions) =>
+      prevOptions.map((option) =>
+        option.value === value ? { ...option, checked } : option
+      )
+    );
+    if (categoryFilter.includes(value)) {
+      setcategoryFilter((prevStrings) =>
+        prevStrings.filter((string) => string !== value)
+      );
+    } else {
+      setcategoryFilter((prevArray) => [...prevArray, value]);
+    }
+  }
+  useEffect(() => {
+    let GetSharedByUserUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?latlang=${dispensary.location?.coordinates[0]},${
+      dispensary.location?.coordinates[1]
+    }&userId=${
+      dispensary.userId?._id
+    }&userType=consumer&category=${categoryFilter.join(",")}`;
+
+    GetOthersByUser(GetSharedByUserUrl);
+  }, [
+    categoryFilter,
+    dispensary?.location?.coordinates,
+    dispensary?.userId?._id,
+    dispensary?.userId?.userType,
+  ]);
 
   return (
     <div className="product-user-profile">
@@ -189,13 +224,14 @@ const DispensaryProfileDetail = () => {
                   <div>
                     <span className="d-flex gap-2 align-items-center font-18 mb-sm-4 mb-3 font-weight-500">
                       <DispensryProductIcon />
-                      <span>{dispensary.postStrain}</span>
+                      <span>{dispensary.strainType}</span>
                     </span>
                     <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                       <DistanceIcon />
                       <span>{dispensary.distance} Away </span>
                     </span>
                   </div>
+                  {/* <a href="tel:923097926467">call</a> */}
                   <div>
                     <div className="d-flex gap-2 align-items-center flex-wrap mb-sm-4 mb-3">
                       <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
@@ -289,54 +325,28 @@ const DispensaryProfileDetail = () => {
             {dispensary.userId?.fullName}
           </span>
         </h3>
-
-        <div className="row m-0 pt-4">
-          <div className="col-lg-3 col-md-6  bg-transparent border-0 mb-3">
-            <label className="mb-2 font-weight-700 font-18-100">Quantity</label>
-            <select
-              className="auth-input height-56 bg-white"
-              value={selectedQuantity}
-              onChange={(e) => {
-                setselectedQuantity(e.target.value);
-                GetOthersByUser(
-                  `${
-                    process.env.REACT_APP_API_URI
-                  }dispensary/userdispensary?quantity=${e.target.value}${
-                    selectedStrain ? `&postStrain=${selectedStrain}` : ""
-                  }&userId=${dispensary?.userId?._id}`
-                );
-              }}
-            >
-              <option value={""}>- Select Quantity -</option>
-              <option value={"1-7"}>1-7 Grams</option>
-              <option value={"7-14"}>7-14 Grams</option>
-              <option value={"14-30"}>14-30 Grams</option>
-            </select>
-          </div>
-          <div className="col-lg-3 col-md-6  bg-transparent border-0">
-            <label className="mb-2 font-weight-700 font-18-100"> Strain</label>
-            <select
-              className="auth-input height-56 bg-white"
-              value={selectedStrain}
-              onChange={(e) => {
-                setselectedStrain(e.target.value);
-                GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI}dispensary/userdispensary?${
-                    selectedQuantity ? `quantity=${selectedQuantity}&` : ""
-                  }postStrain=${e.target.value}&userId=${
-                    dispensary?.userId?._id
-                  }`
-                );
-              }}
-            >
-              <option value={""}>- Select Strain -</option>
-              <option value="Sativa">Sativa</option>
-              <option value="Indica">Indica</option>
-              <option value="Hybrid">Hybrid</option>
-              <option value="CBD">CBD</option>
-            </select>
-          </div>
+        <div className="d-flex gap-3 overflow-x-auto all-products-link pt-4 ms-12">
+          {options.map((option) => {
+            return (
+              <label
+                key={option.value}
+                className={`product-item cr-p ${
+                  option.checked ? "active" : ""
+                }`}
+              >
+                <input
+                  className="d-none"
+                  type="checkbox"
+                  value={option.value}
+                  checked={option.checked}
+                  onChange={handleCheckboxChange}
+                />
+                {option.icon} {option.label}
+              </label>
+            );
+          })}
         </div>
+
         <div className="seeds-card-main row m-0 pt-5">
           {others?.length !== 0 ? (
             (others || [])?.map((data, index) => {
@@ -393,7 +403,7 @@ const DispensaryProfileDetail = () => {
   );
 };
 
-export default DispensaryProfileDetail;
+export default ConsumerDetailPage;
 
 const RightNav = React.memo(({ disabled, onClick }) => {
   return (
