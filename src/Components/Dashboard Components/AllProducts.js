@@ -124,11 +124,13 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [debouncedSearchedTerm]);
 
@@ -137,11 +139,13 @@ const AllProductsDashboard = (props) => {
     setcategoryFilter([]);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${type}&category=`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${type}&category=`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -157,11 +161,13 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -200,11 +206,13 @@ const AllProductsDashboard = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -218,11 +226,13 @@ const AllProductsDashboard = (props) => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-          }&userType=${userType}&category=${categoryFilter.join(",")}`;
+        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }latlang=${data?.location?.coordinates[0]},${
+          data?.location?.coordinates[1]
+        }&userType=${userType}&category=${categoryFilter.join(",")}`;
         GetAllProduct(GetAllProductUrl);
         toast.success(response.data.messgae);
       })
@@ -259,11 +269,13 @@ const AllProductsDashboard = (props) => {
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -395,8 +407,9 @@ const AllProductsDashboard = (props) => {
                   return (
                     <label
                       key={option.value}
-                      className={`product-item cr-p ${option.checked ? "active" : ""
-                        }`}
+                      className={`product-item cr-p ${
+                        option.checked ? "active" : ""
+                      }`}
                     >
                       <input
                         className="d-none"
@@ -456,16 +469,16 @@ const AllProductsDashboard = (props) => {
                           }
                         >
                           {data.favourite &&
-                            data.favourite.includes(currentuserData._id) ? (
+                          data.favourite.includes(currentuserData._id) ? (
                             <svg
-                              width={20}
-                              height={18}
-                              viewBox="0 0 20 18"
+                              width={12}
+                              height={12}
+                              viewBox="0 0 12 12"
                               fill="none"
                               xmlns="http://www.w3.org/2000/svg"
                             >
                               <path
-                                d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                                d="M6.372 11.3455C6.168 11.4183 5.832 11.4183 5.628 11.3455C3.888 10.7448 0 8.23897 0 3.99178C0 2.11695 1.494 0.600098 3.336 0.600098C4.428 0.600098 5.394 1.13403 6 1.9592C6.606 1.13403 7.578 0.600098 8.664 0.600098C10.506 0.600098 12 2.11695 12 3.99178C12 8.23897 8.112 10.7448 6.372 11.3455Z"
                                 fill="#BE3F3F"
                               />
                             </svg>
