@@ -85,18 +85,22 @@ const AllProductMapView = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=${page}&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=${page}&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=1&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=1&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [categoryFilter]);
 
@@ -117,9 +121,11 @@ const AllProductMapView = () => {
 
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI
-      }users/getAllData/?page=${page}&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${
+      process.env.REACT_APP_API_URI
+    }users/getAllData/?page=${page}&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }
 
@@ -255,8 +261,9 @@ const AllProductMapView = () => {
               {options.map((option) => (
                 <label
                   key={option.value}
-                  className={`product-item cr-p ${option.checked ? "active" : ""
-                    }`}
+                  className={`product-item cr-p ${
+                    option.checked ? "active" : ""
+                  }`}
                 >
                   <input
                     className="d-none"
@@ -286,8 +293,9 @@ const AllProductMapView = () => {
                   return (
                     <div
                       key={index}
-                      className={`${data.active ? "active" : ""
-                        } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
+                      className={`${
+                        data.active ? "active" : ""
+                      } nav-link w-100 map-link bg-white rounded-0 w-100 justify-content-start h-auto`}
                       id={`v-pills-${data.id}-tab`}
                       data-toggle="pill"
                       href={`#v-pills-${data.id}`}
@@ -300,10 +308,11 @@ const AllProductMapView = () => {
                           <div>
                             <img
                               className="w-100 intro-img"
-                              src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                                ? data.photo[0]
-                                : data.photo
-                                }`}
+                              src={`${process.env.REACT_APP_PORT}/${
+                                Array.isArray(data.photo)
+                                  ? data.photo[0]
+                                  : data.photo
+                              }`}
                               alt=""
                             />
                           </div>
@@ -397,10 +406,14 @@ const AllProductMapView = () => {
                           <div className="d-flex gap-2 align-items-center">
                             <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
                               <RatingIcon />
-                              <span className="text-black">5.0</span>
+                              <span className="text-black">
+                                {data?.userId?.ratingsAverage}
+                              </span>
                             </span>
                             <span className="font-14-100 text-grey font-weight-400">
-                              <span>(56 Reviews)</span>
+                              <span>
+                                ({data?.userId?.ratingsQuantity} Reviews)
+                              </span>
                             </span>
                           </div>
                           <Link
@@ -436,8 +449,9 @@ const AllProductMapView = () => {
                 return (
                   <div
                     key={index}
-                    className={`${chatsdetail.active ? "active show" : ""
-                      } tab-pane h-100 w-100 fade  chat-detail`}
+                    className={`${
+                      chatsdetail.active ? "active show" : ""
+                    } tab-pane h-100 w-100 fade  chat-detail`}
                     id={`v-pills-${chatsdetail.id}`}
                     role="tabpanel"
                     aria-labelledby={`v-pills-${chatsdetail.id}-tab`}

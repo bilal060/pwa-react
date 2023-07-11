@@ -65,7 +65,7 @@
   padding: 10px 20px;
   outline: 0;
   font-size: 18px;
-  line-height: 100%;
+  /* line-height: 100%; */
 }
 
 .password-input {
@@ -2228,7 +2228,7 @@ div.subs {
   }
 
   .seed-card .green-btn .send-message {
-    width: 100% !important;
+    /* width: 100% !important; */
     height: 100% !important;
     display: block !important;
   }

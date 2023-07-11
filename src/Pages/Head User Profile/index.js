@@ -17,10 +17,18 @@ import BongRigsIcon from "../../assets/Images/BongRigs";
 import PriceIcon from "../../assets/Images/Price";
 import { toast } from "react-toastify";
 import Axios from "../../axios/Axios";
-import { MarkFavourite } from "../../Api";
+import { CreateChat, MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import SendMailIcon from "../../assets/Images/SendMail";
 
 const filter = [
+  {
+    id: 1,
+    query: "",
+    ariaSelected: false,
+    url: "",
+    name: "All",
+  },
   {
     id: 1,
     query: "Vaporizers",
@@ -57,13 +65,16 @@ const filter = [
 const HeadProfileDetail = () => {
   const routeParams = useParams();
   const [headShop, setheadShop] = useState([]);
+  const [others, setOthers] = useState([]);
   const [headShopFilter, setHeadShopFilter] = useState({
     accessories: "",
     type: "",
   });
   const [currentuserData, setcurrentuserData] = useState();
-
-  const [others, setOthers] = useState([]);
+  const [chatData, setChatData] = useState({
+    senderId: "",
+    receiverId: "",
+  });
 
   const formHandler = (e) => {
     const { name, value } = e.target;
@@ -102,6 +113,10 @@ const HeadProfileDetail = () => {
     setcurrentuserData(data);
     let GetHeadShopsUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetHeadShops(GetHeadShopsUrl);
+    setChatData((prevState) => ({
+      ...prevState,
+      senderId: data._id,
+    }));
   }, [routeParams.id]);
   const navigate = useNavigate();
 
@@ -112,17 +127,17 @@ const HeadProfileDetail = () => {
       category: categry,
     };
     Axios.post(`${process.env.REACT_APP_API_URI}users/markFavourite`, data)
-      .then(response => {
+      .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
         let GetHeadShopsUrl = `${process.env.REACT_APP_API_URI}headshop/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
         GetHeadShops(GetHeadShopsUrl);
         toast.success(response.data.messgae);
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error?.response.data.message);
         console.log(error);
-      })
+      });
   };
 
   return (
@@ -146,10 +161,11 @@ const HeadProfileDetail = () => {
           <div className="col-lg-5 ps-0">
             <img
               className="w-100 intro-img"
-              src={`${process.env.REACT_APP_PORT}/${Array.isArray(headShop.photo)
-                ? headShop.photo[0]
-                : headShop.photo
-                }`}
+              src={`${process.env.REACT_APP_PORT}/${
+                Array.isArray(headShop.photo)
+                  ? headShop.photo[0]
+                  : headShop.photo
+              }`}
               alt=""
             />
           </div>
@@ -193,11 +209,11 @@ const HeadProfileDetail = () => {
                 </span>
               </div>
               <p className="font-24 font-weight-700">{headShop.brandName}</p>
-              <p className="mt-3 font-18 font-weight-500">
+              {/* <p className="mt-3 font-18 font-weight-500">
                 Super Stores are highly rated retailers committed to great
                 customer services, and prices. They have received more than ten
                 5 star ratings.
-              </p>
+              </p> */}
 
               <div className="d-flex flex-sm-row flex-column justify-content-between align-items-center gap-sm-4 gap-3 mt-md-5 mt-3 pt-4">
                 <button
@@ -210,28 +226,43 @@ const HeadProfileDetail = () => {
                   }
                   className="green-btn-outline text-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2"
                 >
-                  <span>{headShop.favourite && headShop.favourite.includes(currentuserData._id) ? 'Mark Unfavourite' : 'Mark Favourite'}</span>
+                  <span>
+                    {headShop.favourite &&
+                    headShop.favourite.includes(currentuserData._id)
+                      ? "Mark Unfavourite"
+                      : "Mark Favourite"}
+                  </span>
                   <span className="icon-green-bg">
-                    {headShop.favourite && headShop.favourite.includes(currentuserData._id) ? <svg
-                      width={20}
-                      height={18}
-                      viewBox="0 0 20 18"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
-                        fill="#BE3F3F"
-                      />
-                    </svg> : <MobHeartIcon />}
+                    {headShop.favourite &&
+                    headShop.favourite.includes(currentuserData._id) ? (
+                      <svg
+                        width={20}
+                        height={18}
+                        viewBox="0 0 20 18"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M10.62 17.909C10.28 18.0303 9.72 18.0303 9.38 17.909C6.48 16.9079 0 12.7315 0 5.65281C0 2.52809 2.49 0 5.56 0C7.38 0 8.99 0.889888 10 2.26517C11.01 0.889888 12.63 0 14.44 0C17.51 0 20 2.52809 20 5.65281C20 12.7315 13.52 16.9079 10.62 17.909Z"
+                          fill="#BE3F3F"
+                        />
+                      </svg>
+                    ) : (
+                      <MobHeartIcon />
+                    )}
                   </span>
                 </button>
-                <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  <span>Call Store </span>
-                  <span className="icon-green-bg bg-light-green">
-                    <PhonebtnIcon />
+                <div
+                  onClick={() =>
+                    CreateChat(chatData.senderId, headShop.userId._id, navigate)
+                  }
+                  className="green-btn text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-sm-2 gap-2"
+                >
+                  <span>Messaege </span>
+                  <span className="send-message w-max-content">
+                    <SendMailIcon />
                   </span>
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -242,7 +273,11 @@ const HeadProfileDetail = () => {
         </h3>
 
         <div className="row m-0 pt-4">
-          <div className="col-md-8 mb-md-0 mb-4 pb-md-0 pb-2">
+          <div
+            className={`${
+              headShopFilter.accessories === "" ? "col-12" : "col-md-8"
+            }  mb-md-0 mb-4 pb-md-0 pb-2 `}
+          >
             <ul
               className=" nav nav-pills  gap-3 align-items-end m-0 h-100 flex-nowrap w-md-75 overflow-auto accessories"
               id="pills-tab"
@@ -277,10 +312,14 @@ const HeadProfileDetail = () => {
               })}
             </ul>
           </div>
-          <div className="col-md-4 bg-transparent border-0">
+          <div
+            className={`col-md-4 bg-transparent border-0 ${
+              headShopFilter.accessories === "" ? "d-none" : ""
+            }`}
+          >
             <label className="mb-2 font-weight-700 font-18-100">Type</label>
             <select
-              className="auth-input height-56 bg-white"
+              className={`auth-input height-56 bg-white `}
               name="type"
               value={headShopFilter.type}
               onChange={(e) => {
@@ -346,18 +385,6 @@ const HeadProfileDetail = () => {
                             src={`${process.env.REACT_APP_PORT}/${data.photo}`}
                             alt=""
                           />
-                          <span
-                            className="like-post cr-p"
-                            onClick={() =>
-                              MarkFavourite(
-                                currentuserData._id,
-                                data._id,
-                                data.category
-                              )
-                            }
-                          >
-                            <HeartIcon />
-                          </span>
                         </div>
                         <div className="col-8 col-sm-12 p-0">
                           <div className="ps-sm-0 ps-3">
@@ -368,18 +395,20 @@ const HeadProfileDetail = () => {
                               <PriceIcon />
                               <span>Price: ${data.cost}</span>
                             </span>
-                            <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
-                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                            <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 gap-sm-3 gap-2">
+                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                                 <ConcreteIcon />
-                                {data.brandName}
+                                <span className="cut-text">
+                                  {data.brandName}
+                                </span>
                               </span>
-                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
+                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
                                 <FlavorIcon />
-                                {data.type}
+                                <span className="cut-text">{data.type}</span>
                               </span>
                             </div>
 
-                            <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                            {/* <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
                               <LocationIcon />
                               <span className="cut-text">
                                 {data.userId?.location?.address}
@@ -395,7 +424,7 @@ const HeadProfileDetail = () => {
                                   ({data.userId.ratingsQuantity} Reviews)
                                 </span>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                         </div>
                       </div>

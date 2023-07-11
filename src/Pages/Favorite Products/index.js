@@ -73,16 +73,16 @@ const FavoriteProduct = (props) => {
   };
 
   const unfavoriteHandler = (prodId, categry) => {
-    const userId = JSON.parse(localStorage.getItem('userdata'))._id;
+    const userId = JSON.parse(localStorage.getItem("userdata"))._id;
 
     const data = {
       userId,
       pId: prodId,
-      category: categry
+      category: categry,
     };
 
-    Axios.post('users/markFavourite', data)
-      .then(response => {
+    Axios.post("users/markFavourite", data)
+      .then((response) => {
         console.log(response.data);
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
@@ -90,9 +90,9 @@ const FavoriteProduct = (props) => {
         GetMarkFavourite(GetFavouriteUrl);
         toast.success(response.data.messgae);
       })
-      .catch(error => {
+      .catch((error) => {
         toast.error(error.response.data.message);
-      })
+      });
   };
 
   useEffect(() => {
@@ -159,7 +159,10 @@ const FavoriteProduct = (props) => {
           {favouriteData?.findProduct?.length !== 0 ? (
             (favouriteData || []).findProduct?.map((data, index) => {
               return (
-                <div className="col-xl-6 mb-4 seed-card-col" key={index}>
+                <div
+                  className="col-md-6 col-xl-4 mb-4 seed-card-col"
+                  key={index}
+                >
                   <div className="seed-card flex-column">
                     <div className="row m-0 flex-sm-column w-100">
                       <div className="col-4 col-sm-12 p-0">
@@ -198,8 +201,10 @@ const FavoriteProduct = (props) => {
                           <p className="mb-sm-4 mb-3 font-24 font-weight-700">
                             {data.name}
                           </p>
-                          <div className="d-flex gap-sm-5 gap-2 align-items-sm-center flex-sm-row flex-column mb-sm-3 mb-2">
-                            <div>
+                          {/* <div className="d-flex gap-sm-5 gap-2 align-items-sm-center flex-sm-row flex-column mb-sm-3 mb-2"> */}
+
+                          <div className="row m-0 mb-sm-3 mb-2">
+                            <div className="col-sm-6">
                               <span className="d-flex gap-2 align-items-center font-18 mb-sm-3 mb-2 font-weight-500 ">
                                 <svg
                                   width={13}
@@ -218,7 +223,9 @@ const FavoriteProduct = (props) => {
                                     fill="#5D8B2F"
                                   />
                                 </svg>
-                                <span>{data.userId.fullName}</span>
+                                <span className="cut-text">
+                                  {data.userId.fullName}
+                                </span>
                               </span>
                               <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                                 {data.quantity ? (
@@ -229,18 +236,20 @@ const FavoriteProduct = (props) => {
                                   </>
                                 )}
 
-                                {data.quantity ? (
-                                  `Seeds: ${data.quantity}`
-                                ) : (
-                                  <>
-                                    {data.cost
-                                      ? `Fees: $${data.cost}`
-                                      : `Entry Fee: $${data.entryFee}`}
-                                  </>
-                                )}
+                                <span className="cut-text">
+                                  {data.quantity ? (
+                                    `Seeds: ${data.quantity}`
+                                  ) : (
+                                    <>
+                                      {data.cost
+                                        ? `Fees: $${data.cost}`
+                                        : `Entry Fee: $${data.entryFee}`}
+                                    </>
+                                  )}
+                                </span>
                               </span>
                             </div>
-                            <div>
+                            <div className="col-sm-6">
                               <div className="d-flex gap-2 align-items-center flex-wrap mb-sm-3 mb-2">
                                 <span className="d-flex gap-2 align-items-center font-18 font-weight-700">
                                   <RatingIcon />
@@ -254,13 +263,17 @@ const FavoriteProduct = (props) => {
                               </div>
                               <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
                                 <DistanceIcon />
-                                {data.distance} Away
+                                <span className="cut-text">
+                                  {data.distance} Away
+                                </span>
                               </span>
                             </div>
                           </div>
                           <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-3">
                             <LocationIcon />
-                            <span>{data.userId.location.address}</span>
+                            <span className="cut-text">
+                              {data.userId.location.address}
+                            </span>
                           </span>
                         </div>
 

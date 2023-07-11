@@ -84,6 +84,7 @@ const Chat = () => {
     sender: "",
     message: "",
   });
+  console.log(sendMessage?.conversationId);
   const [currentChat, setCurrentChat] = useState(null);
   const scrollRef = useRef(null);
   const [token, setToken] = useState("");
@@ -180,10 +181,10 @@ const Chat = () => {
 
   // send message handler
   const SendMessageHandler = async () => {
-    setSendMessage((prevState) => ({
-      ...prevState,
-      conversationId: selectedChatData._id,
-    }));
+    // setSendMessage((prevState) => ({
+    //   ...prevState,
+    //   conversationId: selectedChatData._id,
+    // }));
 
     if (currentChat !== null) {
       if (message !== "") {
@@ -220,10 +221,10 @@ const Chat = () => {
   };
 
   const SendMediaHandler = async () => {
-    setSendMessage((prevState) => ({
-      ...prevState,
-      conversationId: selectedChatData._id,
-    }));
+    // setSendMessage((prevState) => ({
+    //   ...prevState,
+    //   conversationId: selectedChatData._id,
+    // }));
     if (currentChat !== null) {
       if (mediaFile !== null) {
         var objectUrl = URL.createObjectURL(mediaFile);

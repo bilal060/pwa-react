@@ -13,15 +13,19 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
 import ImageDummy from "../../assets/Images/match/dummy.png";
-import { MarkFavourite } from "../../Api";
+import { CreateChat, MarkFavourite } from "../../Api";
 import EmptyDataImage from "../../assets/Images/EmptyData";
+import SendMailIcon from "../../assets/Images/SendMail";
 
 const CannabisProfileDetail = () => {
   const routeParams = useParams();
   const [cannabis, setCannabis] = useState([]);
   const [others, setOthers] = useState([]);
   const [currentuserData, setcurrentuserData] = useState();
-
+  const [chatData, setChatData] = useState({
+    senderId: "",
+    receiverId: "",
+  });
   const [filter, setFilter] = useState({
     event: "",
     foodOfferd: "",
@@ -63,6 +67,10 @@ const CannabisProfileDetail = () => {
     setcurrentuserData(data);
     let GetCannabissUrl = `${process.env.REACT_APP_API_URI}cannabisLounge/${routeParams.id}?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}`;
     GetCannabiss(GetCannabissUrl);
+    setChatData((prevState) => ({
+      ...prevState,
+      senderId: data._id,
+    }));
   }, [routeParams.id]);
 
   const favouriteHandler = (userId, prodId, categry) => {
@@ -202,12 +210,17 @@ const CannabisProfileDetail = () => {
                     )}
                   </span>
                 </button>
-                <button className="green-btn-outline bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2">
-                  <span>Call Store </span>
-                  <span className="icon-green-bg bg-light-green">
-                    <PhonebtnIcon />
+                <div
+                  onClick={() =>
+                    CreateChat(chatData.senderId, cannabis.userId._id, navigate)
+                  }
+                  className="green-btn text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-sm-2 gap-2"
+                >
+                  <span>Messaege </span>
+                  <span className="send-message w-max-content">
+                    <SendMailIcon />
                   </span>
-                </button>
+                </div>
               </div>
             </div>
           </div>
@@ -229,8 +242,10 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI
-                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${
+                    cannabis.userId?._id
                   }&${`&brandName=${e.target.value}`}`
                 );
               }}
@@ -250,8 +265,10 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI
-                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${
+                    cannabis.userId?._id
                   }&${`event=${e.target.value}`}${`&brandName=${filter.brandName}`}`
                 );
               }}
@@ -272,8 +289,10 @@ const CannabisProfileDetail = () => {
               onChange={(e) => {
                 formHandler(e);
                 GetOthersByUser(
-                  `${process.env.REACT_APP_API_URI
-                  }cannabisLounge/userCannabisLounge/?userId=${cannabis.userId?._id
+                  `${
+                    process.env.REACT_APP_API_URI
+                  }cannabisLounge/userCannabisLounge/?userId=${
+                    cannabis.userId?._id
                   }&${`foodOfferd=${e.target.value}`}${`&event=${filter.event}`}${`&brandName=${filter.brandName}`}`
                 );
               }}

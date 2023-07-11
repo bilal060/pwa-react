@@ -190,7 +190,7 @@ const HeadShop = (props) => {
                     height="39"
                     rx="7.5"
                     fill="#5D8B2F"
-                    fill-opacity="0.2"
+                    fillOpacity="0.2"
                     stroke="#5D8B2F"
                   />
                   <path

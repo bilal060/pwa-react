@@ -4,7 +4,7 @@ import CountIcon from "../../assets/Images/Count";
 import RatingIcon from "../../assets/Images/Rating";
 import LocationIcon from "../../assets/Images/Location";
 import HeartIcon from "../../assets/Images/Heart";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -27,6 +27,7 @@ const Seeds = () => {
   const [currentuserData, setcurrentuserData] = useState();
   const [searchTerm, setSearchTerm] = useState("");
   const [type, setType] = useState("Grams");
+  const Location = useLocation();
   const handleChange = (event) => {
     setType(event.target.value);
   };
@@ -47,11 +48,13 @@ const Seeds = () => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=seedStore&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=seedStore&userType=retailer&name=${searchTerm}&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetSeeds(GetSeedsUrl);
   }, [debouncedSearchedTerm]);
 
@@ -61,11 +64,13 @@ const Seeds = () => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=seedStore&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=seedStore&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetSeeds(GetSeedsUrl);
   };
 
@@ -73,11 +78,13 @@ const Seeds = () => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=seedStore&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }`;
+    let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=seedStore&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetSeeds(GetSeedsUrl);
   }, []);
 
@@ -147,11 +154,13 @@ const Seeds = () => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }category=seedStore&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-          }`;
+        let GetSeedsUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }category=seedStore&userType=retailer&latlang=${
+          data?.location?.coordinates[0]
+        },${data?.location?.coordinates[1]}`;
         GetSeeds(GetSeedsUrl);
         toast.success(response.data.messgae);
       })
@@ -185,7 +194,7 @@ const Seeds = () => {
                 height="39"
                 rx="7.5"
                 fill="#5D8B2F"
-                fill-opacity="0.2"
+                fillOpacity="0.2"
                 stroke="#5D8B2F"
               />
               <path
@@ -226,7 +235,7 @@ const Seeds = () => {
               </span>
             </div>
             <div className="d-flex align-items-center gap-4">
-              {!Location.pathname?.includes("map") ? (
+              {!Location.pathname.includes("map") ? (
                 <Link
                   to={`${Location.pathname}/map`}
                   className="text-white view-map-btn p-2 d-sm-flex d-none align-items-center gap-3"
@@ -494,7 +503,7 @@ const Seeds = () => {
                         }
                       >
                         {data.favourite &&
-                          data.favourite.includes(currentuserData._id) ? (
+                        data.favourite.includes(currentuserData._id) ? (
                           <svg
                             width={20}
                             height={18}

@@ -19,10 +19,10 @@ const headLinks = [
     name: "Home",
     link: "/home",
   },
-  // {
-  //   name: "Seeds",
-  //   link: "/home/seed",
-  // },
+  {
+    name: "Seeds",
+    link: "/home/seed",
+  },
   {
     name: "Dispensary",
     link: "/home/dispensaries",
@@ -173,7 +173,7 @@ const AppHeader = (props) => {
           </svg>
         </Link>
 
-        <div className="d-flex gap-lg-3 headlink d-lg-flex d-none h-100">
+        <div className="d-flex gap-lg-2 headlink d-lg-flex d-none h-100">
           {headLinks.map((data, index) => {
             return (
               <Link

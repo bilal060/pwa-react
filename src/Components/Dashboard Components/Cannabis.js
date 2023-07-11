@@ -67,11 +67,13 @@ const Cannabis = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=cannabisLounge&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=cannabisLounge&userType=retailer&name=${searchTerm}&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, [debouncedSearchedTerm]);
 
@@ -151,11 +153,13 @@ const Cannabis = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=cannabisLounge&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=cannabisLounge&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   };
 
@@ -163,11 +167,13 @@ const Cannabis = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=cannabisLounge&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&${routeParams.radius}`;
+    let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=cannabisLounge&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}&${routeParams.radius}`;
     GetCannabis(GetCannabisUrl);
   }, []);
 
@@ -181,11 +187,13 @@ const Cannabis = (props) => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }category=cannabisLounge&userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-          }&${routeParams.radius}`;
+        let GetCannabisUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }category=cannabisLounge&userType=retailer&latlang=${
+          data?.location?.coordinates[0]
+        },${data?.location?.coordinates[1]}&${routeParams.radius}`;
         GetCannabis(GetCannabisUrl);
         toast.success(response.data.messgae);
       })
@@ -221,7 +229,7 @@ const Cannabis = (props) => {
                     height="39"
                     rx="7.5"
                     fill="#5D8B2F"
-                    fill-opacity="0.2"
+                    fillOpacity="0.2"
                     stroke="#5D8B2F"
                   />
                   <path
@@ -509,6 +517,8 @@ const Cannabis = (props) => {
       <div className="seeds-card-main row m-0">
         {cannabis?.result?.length !== 0 ? (
           (cannabis || []).result?.map((data, index) => {
+            console.log(data);
+
             return (
               <div
                 className="col-xl-3 col-lg-4  col-md-6 mb-4 seed-card-col"
@@ -533,7 +543,7 @@ const Cannabis = (props) => {
                         }
                       >
                         {data.favourite &&
-                          data.favourite.includes(currentuserData._id) ? (
+                        data.favourite.includes(currentuserData._id) ? (
                           <svg
                             width={20}
                             height={18}

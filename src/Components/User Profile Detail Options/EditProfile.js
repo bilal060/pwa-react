@@ -25,13 +25,13 @@ const EditProfile = () => {
   const goBack = () => {
     navigate(-1);
   };
-  const [file, setFile] = useState();
+  const [file, setFile] = useState(productuser);
 
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     const data = JSON.parse(currentUser);
     setuserData(JSON.parse(currentUser));
-    setFile(`${process.env.REACT_APP_PORT}/${data?.photo}`);
+    data.photo && setFile(`${process.env.REACT_APP_PORT}/${data?.photo}`);
   }, []);
 
   const EditProfileUrl = `${process.env.REACT_APP_API_URI}users/profileUpdate/${userData?._id}`;
@@ -88,6 +88,8 @@ const EditProfile = () => {
       }));
     }
   };
+  console.log(userData?.photo);
+
   return (
     <div className="product-user-profile">
       <div className="container mx-auto">

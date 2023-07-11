@@ -40,11 +40,13 @@ const Dispensary = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]
-      },${data?.location?.coordinates[1]}`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=dispensary&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   };
 
@@ -52,11 +54,13 @@ const Dispensary = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]
-      },${data?.location?.coordinates[1]}`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }category=dispensary&userType=retailer&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   }, []);
   const params = useParams();
@@ -73,11 +77,13 @@ const Dispensary = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }category=dispensary&userType=retailer&name=${searchTerm}&latlang=${data?.location?.coordinates[0]
-      },${data?.location?.coordinates[1]}`;
+    let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }category=dispensary&userType=retailer&name=${searchTerm}&latlang=${
+      data?.location?.coordinates[0]
+    },${data?.location?.coordinates[1]}`;
     GetDispensary(GetDispensaryUrl);
   }, [debouncedSearchedTerm]);
 
@@ -145,11 +151,13 @@ const Dispensary = (props) => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }category=dispensary&userType=retailer&latlang=${data?.location?.coordinates[0]
-          },${data?.location?.coordinates[1]}`;
+        let GetDispensaryUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }category=dispensary&userType=retailer&latlang=${
+          data?.location?.coordinates[0]
+        },${data?.location?.coordinates[1]}`;
         GetDispensary(GetDispensaryUrl);
         toast.success(response.data.messgae);
       })
@@ -186,7 +194,7 @@ const Dispensary = (props) => {
                     height="39"
                     rx="7.5"
                     fill="#5D8B2F"
-                    fill-opacity="0.2"
+                    fillOpacity="0.2"
                     stroke="#5D8B2F"
                   />
                   <path
@@ -499,7 +507,7 @@ const Dispensary = (props) => {
                         }
                       >
                         {data.favourite &&
-                          data.favourite.includes(currentuserData._id) ? (
+                        data.favourite.includes(currentuserData._id) ? (
                           <svg
                             width={20}
                             height={18}

@@ -4,7 +4,7 @@ import LocationIcon from "../../assets/Images/Location";
 import RatingIcon from "../../assets/Images/Rating";
 import DispensryProductIcon from "../../assets/Images/Dispensry1";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
 import DispensaryIcon from "../../assets/Images/Dispensary";
 import CannbisIcon from "../../assets/Images/Cannbis";
@@ -19,31 +19,41 @@ import { PostReview } from "../../Api";
 import DistanceIcon from "../../assets/Images/Distance";
 import CountIcon from "../../assets/Images/Count";
 import PriceIcon from "../../assets/Images/Price";
+import ImageDummy from "../../assets/Images/match/dummy.png";
+import TimerIcon from "../../assets/Images/Timer";
+import FavouriteIcon from "../../assets/Images/FavouriteIcon";
+import EmptyDataImage from "../../assets/Images/EmptyData";
 
 const filter = [
   {
     id: 1,
+    query: "",
+    ariaSelected: false,
+    name: "All",
+  },
+  {
+    id: 2,
     query: "seedStore",
     ariaSelected: false,
     name: "Seed",
     icon: <SeedICon />,
   },
   {
-    id: 2,
+    id: 3,
     query: "dispensary",
     ariaSelected: false,
     name: "Dispensary",
     icon: <DispensaryIcon />,
   },
   {
-    id: 3,
+    id: 4,
     query: "cannabisLounge",
     ariaSelected: false,
     name: "Cannabis Lounge",
     icon: <CannbisIcon />,
   },
   {
-    id: 4,
+    id: 5,
     query: "headShop",
     ariaSelected: false,
     name: "HeadShop",
@@ -96,7 +106,7 @@ const ProductUserProfile = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&collection=${category}&userId=${routeParams.id}`;
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?userType=${data?.userType}&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&collection=${category}&userId=${routeParams.id}`;
     GetSharedByUser(GetSharedByUserUrl);
     GetUser(GetUserUrl);
     setRatingData((prevState) => ({
@@ -105,6 +115,7 @@ const ProductUserProfile = (props) => {
       LoginUserId: data._id,
     }));
   }, [category, GetUserUrl, routeParams.id]);
+  console.log(userData);
 
   return (
     <div className="product-user-profile">
@@ -113,7 +124,15 @@ const ProductUserProfile = (props) => {
           <div className="col-xl-3 pe-md-0 col-md-6 mb-md-0 pb-lg-0 mb-4 pb-3">
             <div className="seed-card flex-column">
               <div className="d-flex flex-lg-column justify-content-lg-center gap-4 justify-content-start align-items-lg-center mb-lg-5 mb-3">
-                <img src={productuser} alt="" className="mb-md-4 " />
+                <img
+                  src={
+                    userData?.photo
+                      ? `${process.env.REACT_APP_PORT}/${userData?.photo}`
+                      : productuser
+                  }
+                  alt=""
+                  className="mb-md-4 user-profile-image"
+                />
                 <div className="d-flex flex-column gap-3 align-items-lg-center">
                   <p className="font-24 font-weight-600">{userData.fullName}</p>
                   <div className="d-flex gap-2 align-items-center flex-wrap">
@@ -230,68 +249,108 @@ const ProductUserProfile = (props) => {
               })}
             </ul>
             <div className="seeds-card-main row m-0 pt-5">
-              {(sharedByUser || []).result?.map((data, index) => {
-                return (
-                  <div
-                    className="col-xl-4 col-md-12  mb-4 seed-card-col"
-                    key={index}
-                  >
-                    <div className="seed-card h-100 position-relative">
-                      <img
-                        className="w-100 intro-img"
-                        src={`${process.env.REACT_APP_PORT}/${data.photo}`}
-                        alt=""
-                      />
-
-                      <div className="ps-sm-0 ps-3">
-                        <p className="my-sm-4 mb-3 font-24 font-weight-700">
-                          {data.name}
-                        </p>
-                        <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 flex-wrap gap-sm-3 gap-2">
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            <DistanceIcon />
-                            {data.distance} Away
-                          </span>
-                          <span className="d-flex gap-2 align-items-center font-18 font-weight-500">
-                            {data.quantity ? (
-                              <CountIcon />
+              {sharedByUser?.result?.length !== 0 ? (
+                (sharedByUser || []).result?.map((data, index) => {
+                  const imageUrl = data.photo
+                    ? `${process.env.REACT_APP_PORT}/${data.photo[0]}`
+                    : "http://localhost:4000/undefined";
+                  const isPlaceholderImage =
+                    imageUrl === "http://localhost:4000/undefined";
+                  return (
+                    <div
+                      className="col-xl-4 col-md-12  mb-4 seed-card-col h-100"
+                      key={index}
+                    >
+                      <div className="seed-card h-100 position-relative">
+                        <div className="row m-0 flex-sm-column w-100">
+                          <div className="col-4 col-sm-12 p-0">
+                            {isPlaceholderImage ? (
+                              <img
+                                className="w-100 intro-img cards-image-style"
+                                src={ImageDummy}
+                                alt=""
+                              />
                             ) : (
-                              <>{data.cost ? <PriceIcon /> : <PriceIcon />}</>
+                              <img
+                                className="w-100 intro-img cards-image-style"
+                                src={imageUrl}
+                                alt=""
+                              />
                             )}
+                          </div>
+                          <div className="col-8 col-sm-12 p-0">
+                            <div className="ps-sm-0 ps-3">
+                              <p className="my-sm-4 mb-3 font-24 font-weight-700">
+                                {data.strainName || data.brandName}
+                              </p>
+                              <div className="d-flex justify-content-between align-items-center mb-sm-3 mb-2 gap-sm-3 gap-2">
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
+                                  <DistanceIcon />
+                                  <span className="cut-text">
+                                    {data.distance} Away
+                                  </span>
+                                </span>
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500 w-50">
+                                  {data.quantity ? (
+                                    <CountIcon />
+                                  ) : (
+                                    <>
+                                      {data.cost ? (
+                                        <PriceIcon />
+                                      ) : (
+                                        <PriceIcon />
+                                      )}
+                                    </>
+                                  )}
 
-                            {data.quantity ? (
-                              `Seeds: ${data.quantity}`
-                            ) : (
-                              <>
-                                {data.cost
-                                  ? `Fees: $${data.cost}`
-                                  : `Entry Fee: $${data.entryFee}`}
-                              </>
-                            )}
-                          </span>
-                        </div>
-                        <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
-                          <LocationIcon />
-                          <span className="cut-text">
-                            {data.userId?.location?.address}
-                          </span>
-                        </span>
-                        <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
-                          <div className="d-flex gap-2 align-items-center flex-wrap">
-                            <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
-                              <RatingIcon />
-                              {data.userId.ratingsAverage}
-                            </span>
-                            <span className="font-14-100 text-grey font-weight-400">
-                              ({data.userId.ratingsQuantity} Reviews)
-                            </span>
+                                  <span className="cut-text">
+                                    {data.quantity ? (
+                                      `Seeds: ${data.quantity}`
+                                    ) : (
+                                      <>
+                                        {data.cost
+                                          ? `Fees: $${data.cost}`
+                                          : `Entry Fee: $${data.entryFee}`}
+                                      </>
+                                    )}
+                                  </span>
+                                </span>
+                              </div>
+                              {data.timing && (
+                                <span className="d-flex gap-2 align-items-center font-18 font-weight-500  mb-sm-3 mb-2">
+                                  <TimerIcon />
+                                  {data.timing}
+                                </span>
+                              )}
+                              <span className="d-flex gap-2 align-items-center font-18 font-weight-500 mb-sm-4 pb-sm-1 mb-2">
+                                <LocationIcon />
+                                <span className="cut-text">
+                                  {data.userId?.location?.address}
+                                </span>
+                              </span>
+                              <div className="d-flex justify-content-between align-items-center gap-sm-2 gap-3 flex-sm-nowrap flex-wrap">
+                                <div className="d-flex gap-2 align-items-center flex-wrap">
+                                  <span className="d-flex gap-2 align-items-center font-24 font-weight-700">
+                                    <RatingIcon />
+                                    {data.userId.ratingsAverage}
+                                  </span>
+                                  <span className="font-14-100 text-grey font-weight-400">
+                                    ({data.userId.ratingsQuantity} Reviews)
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })
+              ) : (
+                <div className="d-flex justify-content-center w-100">
+                  <EmptyDataImage />
+                </div>
+              )}
             </div>
           </div>
         </div>
