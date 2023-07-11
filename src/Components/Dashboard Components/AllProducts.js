@@ -26,7 +26,6 @@ import ImageDummy from "../../assets/Images/match/dummy.png";
 const libraries = ["places"];
 
 const AllProductsDashboard = (props) => {
-
   const navigate = useNavigate();
   const params = useParams();
   const Location = useLocation();
@@ -278,6 +277,7 @@ const AllProductsDashboard = (props) => {
     }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [categoryFilter]);
+  console.log(data?.result);
 
   return (
     <div className="all-product-section ">
@@ -542,7 +542,11 @@ const AllProductsDashboard = (props) => {
                               </span>
                             </div>
                             <Link
-                              to={`/home/${data.category}/${data._id}`}
+                              to={`/home/${
+                                userType === "retailer"
+                                  ? data.category
+                                  : "userItem"
+                              }/${data._id}`}
                               className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                             >
                               <span>View Product </span>
