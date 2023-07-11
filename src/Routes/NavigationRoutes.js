@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { ProtectedRoutes } from "../utils/ProtectedRoutes";
-import ShowAllProducts from "../Components/Dashboard Components/AllProducts";
 import HomePage from "../Pages/Home";
 import Seeds from "../Components/Dashboard Components/Seeds";
 import SeedMap from "../Components/ViewMap/Seed";
@@ -36,7 +35,6 @@ import BudSeedPage from "../Pages/Bud Seed";
 import TermsConditionsPage from "../Pages/Terms and Conditions";
 import NotFound from "../Pages/Not Found";
 import RegistrationLayout from "../Components/Registration";
-import AllProductMapView from "../Components/ViewMap/ShowAllProduct";
 import SeedUserProfile from "../Pages/Seed User Profile";
 import ProductUserProfile from "../Pages/Product User Profile";
 import Chat from "../Pages/Chat";
@@ -261,7 +259,7 @@ const NavigationRoutes = () => {
             <ProtectedRoutes
               component={
                 <AppLayout>
-                  <AllDataMapView/>
+                  <AllDataMapView />
                 </AppLayout>
               }
             />
