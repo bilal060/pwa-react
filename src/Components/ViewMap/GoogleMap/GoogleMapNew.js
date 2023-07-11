@@ -81,9 +81,7 @@ const GoogleMapNew = ({ markersData }) => {
                 position={{ lat: data?.userId?.location?.coordinates[0], lng: data?.userId?.location?.coordinates[1] }}
                 onClick={() => handleActiveMarker(data._id)}
                 icon={{
-                  url: require('../../../assets/Images/seed-marker.svg').default,
-                  scaledSize: new window.google.maps.Size('100', '100'),
-                  scale: new window.google.maps.Size('100', '100'),
+                  url: require('../../../assets/Images/seed-marker.svg').default
                 }}
               >
                 {activeMarker === data._id ? (

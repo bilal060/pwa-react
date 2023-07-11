@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
-import Select from "react-select";
-import BudsIcon from "../../assets/Images/Buds";
 import CannbisIcon from "../../assets/Images/Cannbis";
 import HeadShopIcon from "../../assets/Images/HeadShop";
 import DispensaryIcon from "../../assets/Images/Dispensary";
@@ -11,10 +9,8 @@ import SearchButtonIcon from "../../assets/Images/Search";
 import CrossBorderIcon from "../../assets/Images/CrossBorder";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import useDebounce from "../../hooks/useDebounce";
-import ShowAllProducts from "./AllProducts";
 import Axios from "../../axios/Axios";
 import { toast } from "react-toastify";
-import { MarkFavourite } from "../../Api";
 import HeartIcon from "../../assets/Images/Heart";
 import DistanceIcon from "../../assets/Images/Distance";
 import CountIcon from "../../assets/Images/Count";
@@ -30,6 +26,8 @@ import ImageDummy from "../../assets/Images/match/dummy.png";
 const libraries = ["places"];
 
 const AllProductsDashboard = (props) => {
+
+  const navigate = useNavigate();
   const params = useParams();
   const Location = useLocation();
   const [type, setType] = useState("Grams");
@@ -165,8 +163,8 @@ const AllProductsDashboard = (props) => {
     GetAllProduct(GetAllProductUrl);
   }, []);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
+  const submitHandler = (event) => {
+    event.preventDefault();
 
     const hasRadius = "radius" in params;
     console.log(hasRadius);
@@ -191,7 +189,7 @@ const AllProductsDashboard = (props) => {
         }
         const queryString = params.toString();
         console.log(queryString);
-        window.location.href = `${window.location.href}/${queryString}`;
+        navigate(`/home/${queryString}`);
       }
     }
   };
@@ -256,7 +254,9 @@ const AllProductsDashboard = (props) => {
     } else {
       setcategoryFilter((prevArray) => [...prevArray, value]);
     }
+  }
 
+  useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
@@ -265,7 +265,7 @@ const AllProductsDashboard = (props) => {
       }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
       }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
-  }
+  }, [categoryFilter]);
 
   return (
     <div className="all-product-section ">
@@ -580,7 +580,7 @@ const AllProductsDashboard = (props) => {
                 <CrossBorderIcon />
               </span>
             </div>
-            <form onSubmit={(e) => submitHandler(e)}>
+            <form>
               <div className="d-flex flex-column align-items-start justify-content-center mb-5 mt-4 pt-2">
                 <p className="font-32 font-weight-800 text-center mb-4">
                   Filter your search
@@ -735,7 +735,7 @@ const AllProductsDashboard = (props) => {
                 </button>
                 <button
                   className="green-btn custom-w min-width-208 height-42"
-                  type="submit"
+                  onClick={submitHandler}
                 >
                   Apply
                 </button>
