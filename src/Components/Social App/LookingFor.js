@@ -83,7 +83,7 @@ const LookingFor = () => {
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0 ">
             <LoadScript
-              googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+              googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP}
               libraries={libraries}
             >
               <StandaloneSearchBox

@@ -24,6 +24,11 @@ import EmptyDataImage from "../../assets/Images/EmptyData";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import MobSearchIcon from "../../assets/Images/MobSearch";
 import ImageDummy from "../../assets/Images/match/dummy.png";
+import AddIcon from "../../assets/Images/Add";
+import DispensaryFrom from "../../Components/FilterForm/DispensaryFrom";
+import SeedstoreForm from "../../Components/FilterForm/SeedstoreForm";
+import HeadshopForm from "../../Components/FilterForm/HeadshopForm";
+import CannbisFrom from "../../Components/FilterForm/CannbisFrom";
 const libraries = ["places"];
 
 const AllProductsDashboard = (props) => {
@@ -126,13 +131,11 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-        : `getAllData/?page=${page}&name=${searchTerm}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [debouncedSearchedTerm]);
 
@@ -141,13 +144,11 @@ const AllProductsDashboard = (props) => {
     setcategoryFilter([]);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-        : `getAllData/?page=${page}&name=${searchTerm}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${type}&category=`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+      : `getAllData/?page=${page}&name=${searchTerm}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${type}&category=`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -163,13 +164,11 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -239,13 +238,11 @@ const AllProductsDashboard = (props) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-        : `getAllData/?page=${page}&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+      : `getAllData/?page=${page}&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -259,13 +256,11 @@ const AllProductsDashboard = (props) => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-          routeParams.radius
-            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-            : `getAllData/?page=${page}&`
-        }latlang=${data?.location?.coordinates[0]},${
-          data?.location?.coordinates[1]
-        }&userType=${userType}&category=${categoryFilter.join(",")}`;
+        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+          : `getAllData/?page=${page}&`
+          }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+          }&userType=${userType}&category=${categoryFilter.join(",")}`;
         GetAllProduct(GetAllProductUrl);
         toast.success(response.data.messgae);
       })
@@ -304,17 +299,47 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
-      routeParams.radius
-        ? `getDataByRadius?${routeParams.radius}&page=1&`
-        : `getAllData/?page=1&`
-    }latlang=${data?.location?.coordinates[0]},${
-      data?.location?.coordinates[1]
-    }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
+      ? `getDataByRadius?${routeParams.radius}&page=1&`
+      : `getAllData/?page=1&`
+      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
+      }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [categoryFilter]);
   console.log(data?.result);
 
+  const [userData, setUserData] = useState([]);
+  const [sharedByUser, setSharedByUser] = useState([]);
+  const GetUser = async (GetOthersUrl) => {
+    try {
+      const fetchData = await Axios.get(GetOthersUrl);
+      setUserData(fetchData.data.data.doc);
+      console.log(fetchData.data.data.doc);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    const currentUser = localStorage.getItem("userdata");
+    let data = JSON.parse(currentUser);
+    let GetSharedByUserUrl = `${process.env.REACT_APP_API_URI}users/getAllData/?userType=retailer&latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]}&userId=${data._id}`;
+    GetSharedByUser(GetSharedByUserUrl);
+    const GetUserUrl = `${process.env.REACT_APP_API_URI}users/${
+      data._id
+    }?userType=${data.userType.toLowerCase()}`;
+    GetUser(GetUserUrl);
+  }, []);
+  const GetSharedByUser = async (GetSharedByUserUrl) => {
+    try {
+      const fetchData = await Axios.get(GetSharedByUserUrl);
+      console.log(fetchData.data);
+      setSharedByUser(fetchData.data);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.log(error);
+    }
+  };
   return (
     <div className="all-product-section ">
       <div className="allproduct-mob d-block">
@@ -365,6 +390,19 @@ const AllProductsDashboard = (props) => {
                   <MobSearchIcon />
                 </span>
               </div>
+              {/* <span>{userData.userType} no found</span> */}
+              {userData.userType === "Consumer" ? null : (
+                <button
+                  data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop"
+                  className="green-btn-outline ms-12 bg-primary-green ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
+                >
+                  <span>Post a Strain</span>
+                  <span className="icon-green-bg bg-light-green">
+                    <AddIcon />
+                  </span>
+                </button>
+              )}
               <div className="d-flex align-items-center w-max-content gap-4">
                 {!Location.pathname.includes("map") ? (
                   <Link
@@ -443,9 +481,8 @@ const AllProductsDashboard = (props) => {
                   return (
                     <label
                       key={option.value}
-                      className={`product-item cr-p ${
-                        option.checked ? "active" : ""
-                      }`}
+                      className={`product-item cr-p ${option.checked ? "active" : ""
+                        }`}
                     >
                       <input
                         className="d-none"
@@ -505,7 +542,7 @@ const AllProductsDashboard = (props) => {
                           }
                         >
                           {data.favourite &&
-                          data.favourite.includes(currentuserData._id) ? (
+                            data.favourite.includes(currentuserData._id) ? (
                             <svg
                               width={12}
                               height={12}
@@ -578,11 +615,10 @@ const AllProductsDashboard = (props) => {
                               </span>
                             </div>
                             <Link
-                              to={`/home/${
-                                userType === "retailer"
-                                  ? data.category
-                                  : "userItem"
-                              }/${data._id}`}
+                              to={`/home/${userType === "retailer"
+                                ? data.category
+                                : "userItem"
+                                }/${data._id}`}
                               className="green-btn-outline bg-primary-green text-white ps-3 pe-1 d-flex align-items-center justify-content-between font-18 py-sm-3 py-2 gap-2 w-max-content"
                             >
                               <span>View Product </span>
@@ -640,14 +676,14 @@ const AllProductsDashboard = (props) => {
                 </p>
                 <div className="p-0 bg-transparent border-0 mb-4">
                   <LoadScript
-                    googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+                    googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP}
                     libraries={libraries}
                   >
                     <StandaloneSearchBox
                       onLoad={(ref) => (inputRef1.current = ref)}
                       onPlacesChanged={handlePlaceChanged}
                     >
-                      <div className="form-control h-auto p-0 bg-transparent border-0 mb-4">
+                      <div className="form-control h-auto p-0 bg-transparent border-0">
                         <label className="mb-2 font-weight-600 font-18-100">
                           Search an area
                         </label>
@@ -669,7 +705,7 @@ const AllProductsDashboard = (props) => {
                         /> */}
                         <input
                           type="text"
-                          className="auth-input bg-white auth-input height-42"
+                          className="auth-input bg-white auth-input w-100"
                           placeholder="Enter here..."
                           name="area"
                           onKeyPress={(e) => {
@@ -802,6 +838,47 @@ const AllProductsDashboard = (props) => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex={-1}
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog custom-model model-lg modal-dialog-centered mx-auto">
+          <div className="modal-content p-4">
+            <div className="d-flex justify-content-end">
+              <span className="cr-p" data-bs-dismiss="modal">
+                <CrossBorderIcon />
+              </span>
+            </div>
+
+            <h3 className="font-32 font-weight-600 allproduct-heading mb-2">
+              Post a Strain
+            </h3>
+
+            {userData.userType === "retailer" ? (
+              <>
+                {userData.retailerType === "dispensary" && <DispensaryFrom />}
+                {userData.retailerType === "seedstore" && <SeedstoreForm />}
+                {userData.retailerType === "headshop" && <HeadshopForm />}
+                {userData.retailerType === "cannabis" && <CannbisFrom />}
+                {userData.retailerType !== "dispensary" &&
+                  userData.retailerType !== "seedstore" &&
+                  userData.retailerType !== "headshop" &&
+                  userData.retailerType !== "cannabis" && (
+                    <div>No matching retailer type found.</div>
+                  )}
+              </>
+            ) : (
+              <div>User is not a retailer.</div>
+            )}
           </div>
         </div>
       </div>

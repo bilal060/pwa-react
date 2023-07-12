@@ -162,7 +162,7 @@ const UserProfile = () => {
                 My Shared Strains
               </h3>
               {/* <h1>{userData.retailerType} hello</h1> */}
-              {userData.userType === "Consumer" ? null : (
+              {userData.userType === "consumer" ? null : (
                 <button
                   data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop"

@@ -334,7 +334,7 @@ const Seeds = () => {
                 </p>
                 <div className="p-0 bg-transparent border-0 mb-4">
                   <LoadScript
-                    googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+                    googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP}
                     libraries={libraries}
                   >
                     <StandaloneSearchBox

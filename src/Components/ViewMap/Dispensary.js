@@ -31,6 +31,15 @@ const seedsDetail = [
 ];
 
 const DispensaryMap = () => {
+
+  const [activeMarker, setActiveMarker] = useState(null);
+  const handleActiveMarker = (marker) => {
+    if (marker === activeMarker) {
+      return;
+    }
+    setActiveMarker(marker);
+  };
+
   const [dispensary, setDispensary] = useState([]);
 
   const GetSeeds = async (GetDispensaryUrl) => {
@@ -91,8 +100,8 @@ const DispensaryMap = () => {
                         <img
                           className="w-100 intro-img"
                           src={`${process.env.REACT_APP_PORT}/${Array.isArray(data.photo)
-                              ? data.photo[0]
-                              : data.photo
+                            ? data.photo[0]
+                            : data.photo
                             }`}
                           alt=""
                         />
@@ -268,7 +277,7 @@ const DispensaryMap = () => {
                         {dispensary.length} People Sharing Seeds
                       </button>
                     </div>
-                    <GoogleMapNew markersData={dispensary.result} />
+                    <GoogleMapNew markersData={dispensary.result} activeMarker={activeMarker} setActiveMarker={setActiveMarker} handleActiveMarker={handleActiveMarker} isMarkerShown />
                   </div>
                 </div>
               );

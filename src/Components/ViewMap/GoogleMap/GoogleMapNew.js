@@ -1,11 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Image } from "react-bootstrap";
+import { compose, withProps } from "recompose";
 import {
+  withScriptjs,
+  withGoogleMap,
   GoogleMap,
-  useJsApiLoader,
-  MarkerF,
-  InfoWindowF,
-} from "@react-google-maps/api";
+  Marker,
+  InfoWindow
+} from "react-google-maps";
 import DistanceIcon from "../../../assets/Images/Distance";
 import LocationIcon from "../../../assets/Images/Location";
 import RatingIcon from "../../../assets/Images/Rating";
