@@ -90,7 +90,7 @@ const LoginPage = () => {
 
         <LoginSocialGoogle
           client_id={
-            "643396070667-bfebpofn127mm7krc7c4iamdu5ejckig.apps.googleusercontent.com"
+            "650480178079-jq4fu9l4ac4t20fajvgkt86imjkok9ig.apps.googleusercontent.com"
           }
           discoveryDocs="claims_supported"
           access_type="offline"
