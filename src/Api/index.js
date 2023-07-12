@@ -103,7 +103,7 @@ export const PostAddress = async (adressUrl, address, navigate) => {
 export const PostResponse = async (newArray, navigate) => {
   try {
     await Axios.post(PostResponseUrl, newArray);
-    navigate("/terms");
+    navigate("/home");
     toast.success("Response Added Successfully");
   } catch (error) {
     toast.error(error.response.data.message);

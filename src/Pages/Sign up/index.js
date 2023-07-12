@@ -6,10 +6,13 @@ import { useEffect } from "react";
 const SignUpPage = () => {
   const [signInDetails, setsignInDetails] = useState({
     fullName: "",
+    storeName: "",
+    startTime: "",
+    closeTime: "",
     email: "",
     password: "",
     passwordConfirm: "",
-    userType: "",
+    userType: "retailer",
     age: "",
     province: "",
   });
@@ -75,12 +78,13 @@ const SignUpPage = () => {
             className="auth-input mb-3"
             name="userType"
             onChange={(e) => formHandler(e)}
+            defaultValue={'retailer'}
           >
             <option value="">- Select Type -</option>
             <option value="retailer">Retailer</option>
             <option value="consumer">Consumer</option>
           </select>
-          {signInDetails.userType === "Consumer" ? (
+          {signInDetails.userType === "consumer" ? (
             <input
               onChange={(e) => formHandler(e)}
               name="fullName"
@@ -90,14 +94,34 @@ const SignUpPage = () => {
               required
             />
           ) : (
-            <input
-              onChange={(e) => formHandler(e)}
-              name="fullName"
-              className="auth-input mb-3"
-              type="text"
-              placeholder="Store Name"
-              required
-            />
+            <React.Fragment>
+              <input
+                onChange={(e) => formHandler(e)}
+                name="storeName"
+                className="auth-input mb-3"
+                type="text"
+                placeholder="Store Name"
+                required
+              />
+              <input
+                onChange={(e) => formHandler(e)}
+                name="startTime"
+                className="auth-input mb-3"
+                type="text"
+                placeholder="Open Time"
+                onFocus={(e) => (e.target.type = "time")}
+                required
+              />
+              <input
+                onChange={(e) => formHandler(e)}
+                name="closeTime"
+                className="auth-input mb-3"
+                type="text"
+                placeholder="Close Time"
+                onFocus={(e) => (e.target.type = "time")}
+                required
+              />
+            </React.Fragment>
           )}
           <input
             className="auth-input mb-3"
