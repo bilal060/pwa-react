@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import ShowPassword from "../../assets/Images/ShowPassword";
 import { PostSignUp } from "../../Api";
 import { useEffect } from "react";
 const SignUpPage = () => {
+
+  const { state } = useLocation();
+
   const [signInDetails, setsignInDetails] = useState({
-    fullName: "",
-    storeName: "",
+    fullName: JSON.parse(localStorage.getItem('signupData'))?.fullName || "",
+    storeName: JSON.parse(localStorage.getItem('signupData'))?.storeName || "",
     startTime: "",
     closeTime: "",
-    email: "",
-    password: "",
-    passwordConfirm: "",
-    userType: "retailer",
-    age: "",
-    province: "",
+    email: state.googleEmail || JSON.parse(localStorage.getItem('signupData'))?.email || "",
+    password: JSON.parse(localStorage.getItem('signupData'))?.password || "",
+    passwordConfirm: JSON.parse(localStorage.getItem('signupData'))?.passwordConfirm || "",
+    userType: JSON.parse(localStorage.getItem('signupData'))?.userType || "retailer",
+    age: JSON.parse(localStorage.getItem('signupData'))?.age || "",
+    province: JSON.parse(localStorage.getItem('signupData'))?.province || "",
   });
   useEffect(() => {
     const user = sessionStorage.getItem("remember-age");
@@ -65,7 +68,7 @@ const SignUpPage = () => {
     setpasswordCheck(true);
     console.log(signInDetails);
     if (signInDetails.password === signInDetails.passwordConfirm) {
-      PostSignUp(signInDetails, navigate);
+      PostSignUp(signInDetails, navigate, state.googleEmail);
     } else return;
   };
   return (
@@ -78,7 +81,7 @@ const SignUpPage = () => {
             className="auth-input mb-3"
             name="userType"
             onChange={(e) => formHandler(e)}
-            defaultValue={'retailer'}
+            defaultValue={signInDetails.userType}
           >
             <option value="">- Select Type -</option>
             <option value="retailer">Retailer</option>
@@ -88,6 +91,7 @@ const SignUpPage = () => {
             <input
               onChange={(e) => formHandler(e)}
               name="fullName"
+              value={signInDetails.fullName}
               className="auth-input mb-3"
               type="text"
               placeholder="Full Name"
@@ -99,6 +103,7 @@ const SignUpPage = () => {
                 onChange={(e) => formHandler(e)}
                 name="storeName"
                 className="auth-input mb-3"
+                value={signInDetails.storeName}
                 type="text"
                 placeholder="Store Name"
                 required
@@ -108,6 +113,7 @@ const SignUpPage = () => {
                 name="startTime"
                 className="auth-input mb-3"
                 type="text"
+                value={signInDetails.startTime}
                 placeholder="Open Time"
                 onFocus={(e) => (e.target.type = "time")}
                 required
@@ -117,6 +123,7 @@ const SignUpPage = () => {
                 name="closeTime"
                 className="auth-input mb-3"
                 type="text"
+                value={signInDetails.closeTime}
                 placeholder="Close Time"
                 onFocus={(e) => (e.target.type = "time")}
                 required
@@ -129,13 +136,16 @@ const SignUpPage = () => {
             placeholder="Email"
             required
             name="email"
+            value={signInDetails.email}
+            readOnly={state.googleEmail}
             onChange={(e) => formHandler(e)}
           />
-          <div className="auth-input mb-3 d-flex align-items-center justify-content-between">
+          {!state.googleEmail && <div className="auth-input mb-3 d-flex align-items-center justify-content-between">
             <input
               name="password"
               required
               type={passwordShown1 ? "text" : "password"}
+              value={signInDetails.password}
               placeholder="Enter password"
               className="password-input w-75"
               onChange={(e) => formHandler(e)}
@@ -150,13 +160,14 @@ const SignUpPage = () => {
             >
               <ShowPassword />
             </span>
-          </div>
+          </div>}
           {passwordError && <p className="text-danger mt-1">{passwordError}</p>}
-          <div className="mb-3">
+          {!state.googleEmail && <div className="mb-3">
             <div className="auth-input d-flex align-items-center justify-content-between">
               <input
                 name="passwordConfirm"
                 required
+                value={signInDetails.passwordConfirm}
                 type={passwordShown2 ? "text" : "password"}
                 placeholder="Confirm password"
                 className="password-input w-75"
@@ -184,7 +195,7 @@ const SignUpPage = () => {
                 )}
               </div>
             )}
-          </div>
+          </div>}
           <div className="d-flex align-items-start flex-column">
             <div className="checkbox-container">
               <input

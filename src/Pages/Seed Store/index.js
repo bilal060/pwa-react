@@ -10,11 +10,11 @@ const SeedStore = () => {
   const [arrayData, setArrayData] = useState([]);
   const [id, setId] = useState();
   const [seedStore, setSeedStore] = useState({
-    postStrain: "",
-    quantity: "",
-    cost: "",
-    strainName: "",
-    description: "",
+    postStrain: JSON.parse(localStorage.getItem('signupData'))?.postStrain || "",
+    quantity: JSON.parse(localStorage.getItem('signupData'))?.quantity || "",
+    cost: JSON.parse(localStorage.getItem('signupData'))?.cost || "",
+    strainName: JSON.parse(localStorage.getItem('signupData'))?.strainName || "",
+    description: JSON.parse(localStorage.getItem('signupData'))?.description || "",
     photo: "",
   });
   const [selectedImages, setSelectedImages] = useState([]);
@@ -76,6 +76,22 @@ const SeedStore = () => {
     e.preventDefault();
     const updatedArrayData = [...arrayData, seedStore];
 
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const formatedData = {
+      postStrain: seedStore.postStrain,
+      quantity: seedStore.quantity,
+      cost: seedStore.cost,
+      strainName: seedStore.strainName,
+      description: seedStore.description,
+    }
+
+    const finalData = {
+      ...dataSignup,
+      ...formatedData
+    }
+
+    localStorage.setItem('signupData', JSON.stringify(finalData));
+
     const data = new FormData();
     updatedArrayData.forEach((mapData, index) => {
       data.append("userId", id);
@@ -119,7 +135,7 @@ const SeedStore = () => {
               className="auth-input"
               required
               name="postStrain"
-              value={seedStore.postStrain}
+              defaultValue={seedStore.postStrain}
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Strain -</option>
@@ -136,7 +152,7 @@ const SeedStore = () => {
             <select
               className="auth-input"
               required
-              value={seedStore.quantity}
+              defaultValue={seedStore.quantity}
               name="quantity"
               onChange={(e) => formHandler(e)}
             >

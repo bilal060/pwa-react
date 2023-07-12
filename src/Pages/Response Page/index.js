@@ -15,13 +15,13 @@ const ResponsivePage = () => {
   const [file, setFile] = useState(null);
   const [allStrains, setAllStrains] = useState();
   const [response, setResponse] = useState({
-    userId: "",
-    strainType: "",
-    grownType: "",
+    userId: JSON.parse(localStorage.getItem('signupData'))?.userId || "",
+    strainType: JSON.parse(localStorage.getItem('signupData'))?.strainType || "",
+    grownType: JSON.parse(localStorage.getItem('signupData'))?.grownType || "",
     photo: "",
-    strainName: "",
-    description: "",
-    quantity: "",
+    strainName: JSON.parse(localStorage.getItem('signupData'))?.strainName || "",
+    description: JSON.parse(localStorage.getItem('signupData'))?.description || "",
+    quantity: JSON.parse(localStorage.getItem('signupData'))?.quantity || "",
   });
   const [selectedImages, setSelectedImages] = useState([]);
 
@@ -79,6 +79,24 @@ const ResponsivePage = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
+
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const formatedData = {
+      userId: response.userId,
+      strainType: response.strainType,
+      grownType: response.cost,
+      strainName: response.strainName,
+      description: response.description,
+      quantity: response.quantity,
+    }
+
+    const finalData = {
+      ...dataSignup,
+      ...formatedData
+    }
+
+    localStorage.setItem('signupData', JSON.stringify(finalData));
+
     const data = new FormData();
 
     if (addMorebtn) {
@@ -206,7 +224,7 @@ const ResponsivePage = () => {
               required
               name="strainType"
               onChange={(e) => formHandler(e)}
-              value={response.strainType}
+              defaultValue={response.strainType}
             >
               <option value={""}>Strain Type</option>
               <option value={"Sativa"}>Sativa</option>
@@ -226,7 +244,7 @@ const ResponsivePage = () => {
               required
               name="quantity"
               onChange={(e) => formHandler(e)}
-              value={response.quantity}
+              defaultValue={response.quantity}
             >
               <option value={""}>- Select Quantity-</option>
               <option value={"1-7"}>1-7 Grams</option>
@@ -244,7 +262,7 @@ const ResponsivePage = () => {
               required
               name="grownType"
               onChange={(e) => formHandler(e)}
-              value={response.grownType}
+              defaultValue={response.grownType}
             >
               <option value={""}>- Select Option -</option>
               <option value={"Dispensary"}>Dispensary</option>

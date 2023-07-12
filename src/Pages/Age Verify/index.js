@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import DatePicker from "react-date-picker";
 import CalendarIcon from "../../assets/Images/Calendar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { VerifyAge } from "../../Api";
 
 const AgeVerifyPage = () => {
+
+  const [searchParams] = useSearchParams();
+  const googleEmail = searchParams.get("email");
+
   const [value, onChange] = useState("");
   const [ageVerify, setAgeVerify] = useState({
     date: "",
-    province: value,
+    province: JSON.parse(localStorage.getItem('signupData'))?.province || value,
   });
   useEffect(() => {
     setAgeVerify((prevState) => ({
@@ -34,9 +38,8 @@ const AgeVerifyPage = () => {
     }));
   };
   const submitHandler = (e) => {
-    console.log(ageVerify);
     e.preventDefault();
-    VerifyAge(ageVerify, navigate);
+    VerifyAge(ageVerify, navigate, googleEmail);
   };
   const handleDatePickerChange = (date) => {
     onChange(date);
@@ -56,6 +59,7 @@ const AgeVerifyPage = () => {
           required
           name="province"
           onChange={(e) => formHandler(e)}
+          defaultValue={ageVerify.province}
         >
           <option value="">Where are you from?</option>
           <option value="AB">Alberta(AB)</option>

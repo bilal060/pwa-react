@@ -8,12 +8,12 @@ const HeadShop = () => {
   const [file, setFile] = useState(null);
   const [arrayData, setArrayData] = useState([]);
   const [headShop, setHeadShop] = useState({
-    accessories: "",
-    type: "",
-    cost: "",
-    brandName: "",
-    productName: "",
-    size: "",
+    accessories: JSON.parse(localStorage.getItem('signupData'))?.accessories || "",
+    type: JSON.parse(localStorage.getItem('signupData'))?.type || "",
+    cost: JSON.parse(localStorage.getItem('signupData'))?.cost || "",
+    brandName: JSON.parse(localStorage.getItem('signupData'))?.brandName || "",
+    productName: JSON.parse(localStorage.getItem('signupData'))?.productName || "",
+    size: JSON.parse(localStorage.getItem('signupData'))?.size || "",
     photo: "",
   });
   const [id, setId] = useState("");
@@ -77,6 +77,24 @@ const HeadShop = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     const updatedArrayData = [...arrayData, headShop];
+
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const formatedData = {
+      accessories: headShop.accessories,
+      type: headShop.type,
+      cost: headShop.cost,
+      brandName: headShop.brandName,
+      productName: headShop.productName,
+      size: headShop.size,
+    }
+
+    const finalData = {
+      ...dataSignup,
+      ...formatedData
+    }
+
+    localStorage.setItem('signupData', JSON.stringify(finalData));
+
     let data = new FormData();
     updatedArrayData.forEach((mapData, index) => {
       data.append("userId", id);
@@ -114,7 +132,7 @@ const HeadShop = () => {
               className="auth-input"
               required
               name="accessories"
-              value={headShop.accessories}
+              defaultValue={headShop.accessories}
               onChange={(e) => {
                 formHandler(e);
                 setHeadShop((prevState) => ({
@@ -139,7 +157,7 @@ const HeadShop = () => {
               className="auth-input"
               required
               name="type"
-              value={headShop.type}
+              defaultValue={headShop.type}
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Type -</option>
@@ -187,6 +205,7 @@ const HeadShop = () => {
             </label>
             <input
               name="cost"
+              value={headShop.cost}
               type="number"
               className="auth-input"
               required
@@ -200,6 +219,7 @@ const HeadShop = () => {
             </label>
             <input
               name="brandName"
+              value={headShop.brandName}
               type="text"
               className="auth-input"
               placeholder="Enter Brand Name"
@@ -218,6 +238,7 @@ const HeadShop = () => {
               className="auth-input"
               placeholder="Enter Product Name"
               name="productName"
+              value={headShop.productName}
               required
               onChange={(e) => formHandler(e)}
             />
@@ -230,7 +251,7 @@ const HeadShop = () => {
               className="auth-input"
               required
               name="size"
-              value={headShop.size}
+              defaultValue={headShop.size}
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Type -</option>

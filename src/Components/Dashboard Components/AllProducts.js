@@ -119,6 +119,10 @@ const AllProductsDashboard = (props) => {
   };
 
   useEffect(() => {
+    localStorage.removeItem("signupData");
+  }, []);
+
+  useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
