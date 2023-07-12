@@ -27,7 +27,7 @@ const SignUpPage = () => {
         age: JSON.parse(user)?.age,
       }));
   }, []);
-
+  const [passwordError, setPasswordError] = useState("");
   const [passwordShown1, setPasswordShown1] = useState(false);
   const [passwordShown2, setPasswordShown2] = useState(false);
   const [termCheck, setTermCheck] = useState(false);
@@ -39,7 +39,19 @@ const SignUpPage = () => {
       ...prevState,
       [name]: value,
     }));
+
+    if (
+      name === "password" &&
+      (value.length < 8 || value.length > 12 || !/[!@#$%^&*]/.test(value))
+    ) {
+      setPasswordError(
+        "Choose a password between 8-12 characters and include one special character."
+      );
+    } else {
+      setPasswordError("");
+    }
   };
+
   const navigate = useNavigate();
   const goBack = () => {
     navigate(-1);
@@ -69,7 +81,7 @@ const SignUpPage = () => {
             <option value="consumer">Consumer</option>
           </select>
           {signInDetails.userType === "Consumer" ? (
-            <input 
+            <input
               onChange={(e) => formHandler(e)}
               name="fullName"
               className="auth-input mb-3"
@@ -104,8 +116,8 @@ const SignUpPage = () => {
               className="password-input w-75"
               onChange={(e) => formHandler(e)}
               minLength={8}
-              maxLength={16}
-            />{" "}
+              maxLength={12}
+            />
             <span
               onClick={() => {
                 setPasswordShown1(!passwordShown1);
@@ -115,18 +127,19 @@ const SignUpPage = () => {
               <ShowPassword />
             </span>
           </div>
+          {passwordError && <p className="text-danger mt-1">{passwordError}</p>}
           <div className="mb-3">
             <div className="auth-input d-flex align-items-center justify-content-between">
               <input
                 name="passwordConfirm"
                 required
                 type={passwordShown2 ? "text" : "password"}
-                placeholder="Enter password"
+                placeholder="Confirm password"
                 className="password-input w-75"
                 onChange={(e) => formHandler(e)}
                 minLength={8}
-                maxLength={16}
-              />{" "}
+                maxLength={12}
+              />
               <span
                 onClick={() => {
                   setPasswordShown2(!passwordShown2);
