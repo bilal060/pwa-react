@@ -11,9 +11,9 @@ import { useEffect } from "react";
 const libraries = ["places"];
 const AddAddressPage = () => {
   const [address, setAddress] = useState({
-    address: "",
-    postalCode: "",
-    phone: "",
+    address: JSON.parse(localStorage.getItem('signupData'))?.address || "",
+    postalCode: JSON.parse(localStorage.getItem('signupData'))?.postalCode || "",
+    phone: JSON.parse(localStorage.getItem('signupData'))?.phone || "",
   });
   const [userData, setuserData] = useState();
 
@@ -85,6 +85,7 @@ const AddAddressPage = () => {
               required
               className="auth-input"
               placeholder="Enter Postal Code"
+              value={address.postalCode}
               onChange={(e) =>
                 setAddress((prevState) => ({
                   ...prevState,

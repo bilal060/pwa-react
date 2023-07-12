@@ -9,13 +9,13 @@ import UploadIcon from "../../assets/Images/Upload";
 const CannabisLounge = () => {
   const [file, setFile] = useState(null);
   const [cannabis, setCannabis] = useState({
-    event: "",
+    event: JSON.parse(localStorage.getItem('signupData'))?.event || "",
     date: "",
-    foodOfferd: "",
-    brandName: "",
-    entryFee: "",
-    ConnectToEventbrite: "",
-    userId: "",
+    foodOfferd: JSON.parse(localStorage.getItem('signupData'))?.foodOfferd || "",
+    brandName: JSON.parse(localStorage.getItem('signupData'))?.brandName || "",
+    entryFee: JSON.parse(localStorage.getItem('signupData'))?.entryFee || "",
+    ConnectToEventbrite: JSON.parse(localStorage.getItem('signupData'))?.ConnectToEventbrite || "",
+    userId: JSON.parse(localStorage.getItem('signupData'))?.userId || "",
     photo: "",
   });
   const [selectedImages, setSelectedImages] = useState([]);
@@ -69,6 +69,23 @@ const CannabisLounge = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const formatedData = {
+      event: cannabis.event,
+      foodOfferd: cannabis.foodOfferd,
+      brandName: cannabis.brandName,
+      entryFee: cannabis.entryFee,
+      ConnectToEventbrite: cannabis.ConnectToEventbrite,
+      userId: cannabis.userId,
+    }
+
+    const finalData = {
+      ...dataSignup,
+      ...formatedData
+    }
+
+    localStorage.setItem('signupData', JSON.stringify(finalData));
+
     const data = new FormData();
     data.append("event", cannabis.event);
     data.append("date", cannabis.date);
@@ -93,6 +110,7 @@ const CannabisLounge = () => {
               name="event"
               onChange={(e) => formHandler(e)}
               required
+              defaultValue={cannabis.event}
             >
               <option value="">- Select Option -</option>
               <option value="Music/Band">Music / Band</option>
@@ -130,6 +148,7 @@ const CannabisLounge = () => {
               name="foodOfferd"
               onChange={(e) => formHandler(e)}
               required
+              defaultValue={cannabis.foodOfferd}
             >
               <option value="">- Select Option -</option>
               <option value="Shakes">Shakes</option>
@@ -148,6 +167,7 @@ const CannabisLounge = () => {
               name="brandName"
               onChange={(e) => formHandler(e)}
               required
+              defaultValue={cannabis.brandName}
             >
               <option value="">- Select Option -</option>
               <option value="Bongs">Bongs</option>
@@ -168,6 +188,7 @@ const CannabisLounge = () => {
               className="auth-input"
               placeholder="$ 00"
               name="entryFee"
+              value={cannabis.entryFee}
             />
           </div>
           <div className="form-control h-auto p-0 bg-transparent border-0">
@@ -181,6 +202,7 @@ const CannabisLounge = () => {
                 onChange={(e) => formHandler(e)}
                 name="ConnectToEventbrite"
                 placeholder="Enter Link"
+                value={cannabis.ConnectToEventbrite}
               />
               <svg
                 width={23}

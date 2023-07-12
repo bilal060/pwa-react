@@ -4,7 +4,7 @@ import { PostRetailerType } from "../../Api";
 
 const RetailerType = () => {
   const [retailerType, setRetailerType] = useState({
-    retailerType: "",
+    retailerType: JSON.parse(localStorage.getItem('signupData'))?.retailerType || "",
   });
   const [userData, setuserData] = useState();
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const RetailerType = () => {
           required
           onChange={(e) => formHandler(e)}
           name="retailerType"
+          defaultValue={retailerType.retailerType}
         >
           <option value="">- Select Retailer Type -</option>
           <option value="dispensary">Dispensary</option>

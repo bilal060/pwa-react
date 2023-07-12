@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import Axios from "../axios/Axios";
 import axios from "axios";
 const VerifyAgeUrl = `${process.env.REACT_APP_API_URI}users/ageVerify`;
-const SignUpUrl = `${process.env.REACT_APP_API_URI}users/signup`;
+
 const LoginUrl = `${process.env.REACT_APP_API_URI}users/login`;
 const PostResponseUrl = `${process.env.REACT_APP_API_URI}userItem`;
 const PostDispensaryUrl = `${process.env.REACT_APP_API_URI}dispensary`;
@@ -17,11 +17,17 @@ const PostMediaUrl = `${process.env.REACT_APP_API_URI}messages/media_message`;
 
 const SocialSignUpUrl = `${process.env.REACT_APP_API_URI}users/socialSignup`;
 
-export const VerifyAge = async (data, navigate) => {
+export const VerifyAge = async (data, navigate, googleEmail = null) => {
   try {
+    localStorage.clear();
     const postData = await Axios.post(VerifyAgeUrl, data);
     sessionStorage.setItem("remember-age", JSON.stringify(postData.data));
-    navigate("/signup");
+    localStorage.setItem('signupData', JSON.stringify(data));
+    navigate("/signup", {
+      state: {
+        googleEmail
+      }
+    });
     toast.success("Age Verified Successfully");
   } catch (error) {
     toast.error(error.response.data.message);
@@ -52,12 +58,18 @@ export const PostLoginData = async (loginDetails, rememberCheck, navigate) => {
     console.log(error);
   }
 };
-export const PostSignUp = async (signInDetails, navigate) => {
+export const PostSignUp = async (signInDetails, navigate, googleEmail = null) => {
   try {
-    const fetchData = await Axios.post(SignUpUrl, signInDetails);
-    localStorage.clear();
+    const SignUpUrl = !googleEmail ? `${process.env.REACT_APP_API_URI}users/signup` : `${process.env.REACT_APP_API_URI}users/googleSignUp`;
+    const fetchData = !googleEmail ? await Axios.post(SignUpUrl, signInDetails) : await Axios.patch(SignUpUrl, signInDetails);
     localStorage.setItem("user-token", fetchData.data.token);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data.data.user));
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const finalData = {
+      ...dataSignup,
+      ...signInDetails
+    }
+    localStorage.setItem('signupData', JSON.stringify(finalData));
     if (signInDetails.userType === "retailer") {
       navigate("/retailer");
     } else {
@@ -80,6 +92,12 @@ export const PostRetailerType = async (
   try {
     const fetchData = await Axios.patch(RetailerTypeUrl, retailerType);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const finalData = {
+      ...dataSignup,
+      ...retailerType
+    }
+    localStorage.setItem('signupData', JSON.stringify(finalData));
     navigate(`/${retailerType.retailerType}`);
     toast.success("Retailer Type Added Successfully");
   } catch (error) {
@@ -92,6 +110,12 @@ export const PostAddress = async (adressUrl, address, navigate) => {
   try {
     const fetchData = await Axios.patch(adressUrl, address);
     localStorage.setItem("userdata", JSON.stringify(fetchData?.data?.user));
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const finalData = {
+      ...dataSignup,
+      ...address
+    }
+    localStorage.setItem('signupData', JSON.stringify(finalData));
     navigate("/response");
     toast.success("Address Added Successfully");
   } catch (error) {
@@ -298,12 +322,14 @@ export const createSubscription = (data) => {
 export const googleLogin = (data, navigate) => {
   Axios.post(`${process.env.REACT_APP_API_URI}users/google-login`, data)
     .then((response) => {
-      localStorage.setItem("user-token", response.data.token);
-      localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
-      navigate("/home");
-      toast.success("Welcome");
+      if (!response.data.data.url.includes('platform')) {
+        localStorage.setItem("userdata", JSON.stringify(response.data.data.user));
+        localStorage.setItem("user-token", response.data.token);
+      }
+      navigate(response.data.data.url);
     })
     .catch((error) => {
+      console.log(error);
       toast.error(error.response.data.message);
     });
 };

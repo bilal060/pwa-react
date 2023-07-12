@@ -15,7 +15,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Axios from "../../axios/Axios";
-import { CreateChat, MarkFavourite } from "../../Api";
+import { CreateChat } from "../../Api";
 import FavouriteIcon from "../../assets/Images/FavouriteIcon";
 import EmptyDataImage from "../../assets/Images/EmptyData";
 

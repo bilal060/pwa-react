@@ -10,11 +10,11 @@ const DispensaryType = () => {
   const [arrayData, setArrayData] = useState([]);
   const [id, setId] = useState();
   const [dispensary, setDispensary] = useState({
-    postStrain: "",
-    quantity: "",
-    cost: "",
-    strainName: "",
-    description: "",
+    postStrain: JSON.parse(localStorage.getItem('signupData'))?.postStrain || "",
+    quantity: JSON.parse(localStorage.getItem('signupData'))?.quantity || "",
+    cost: JSON.parse(localStorage.getItem('signupData'))?.cost || "",
+    strainName: JSON.parse(localStorage.getItem('signupData'))?.strainName || "",
+    description: JSON.parse(localStorage.getItem('signupData'))?.description || "",
     photo: "",
   });
   const [selectedImages, setSelectedImages] = useState([]);
@@ -81,6 +81,21 @@ const DispensaryType = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     const updatedArrayData = [...arrayData, dispensary];
+    const dataSignup = localStorage.getItem('signupData') && JSON.parse(localStorage.getItem('signupData'));
+    const formatedData = {
+      postStrain: dispensary.postStrain,
+      quantity: dispensary.quantity,
+      cost: dispensary.cost,
+      strainName: dispensary.strainName,
+      description: dispensary.description,
+    }
+
+    const finalData = {
+      ...dataSignup,
+      ...formatedData
+    }
+
+    localStorage.setItem('signupData', JSON.stringify(finalData));
     let data = new FormData();
     updatedArrayData.forEach((mapData, index) => {
       data.append("userId", id);
@@ -115,7 +130,7 @@ const DispensaryType = () => {
     JSON.parse(localStorage.getItem("savedDataCount")) || 0;
   return (
 
-    
+
     <div className="max-width-792">
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="d-flex flex-md-row flex-column align-items-center gap-4 justify-content-between mb-4">
@@ -127,7 +142,7 @@ const DispensaryType = () => {
               className="auth-input"
               required
               name="postStrain"
-              value={dispensary.postStrain}
+              defaultValue={dispensary.postStrain}
               onChange={(e) => formHandler(e)}
             >
               <option value={""}>- Select Strain -</option>

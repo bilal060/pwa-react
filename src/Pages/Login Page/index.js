@@ -15,7 +15,6 @@ const LoginPage = () => {
     const user = sessionStorage.getItem("remember-user");
     const data = JSON.parse(user);
     setloginDetails({ email: data?.email });
-    console.log(data);
   }, []);
 
   const [passwordShown, setPasswordShown] = useState(false);
