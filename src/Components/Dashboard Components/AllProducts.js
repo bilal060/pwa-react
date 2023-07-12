@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import ScopeIcon from "../../assets/Images/Scope";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SeedICon from "../../assets/Images/Seed";
 import CannbisIcon from "../../assets/Images/Cannbis";
 import HeadShopIcon from "../../assets/Images/HeadShop";
@@ -121,11 +122,13 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [debouncedSearchedTerm]);
 
@@ -134,11 +137,13 @@ const AllProductsDashboard = (props) => {
     setcategoryFilter([]);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
-      : `getAllData/?page=${page}&name=${searchTerm}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${type}&category=`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&name=${searchTerm}&`
+        : `getAllData/?page=${page}&name=${searchTerm}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${type}&category=`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -154,11 +159,13 @@ const AllProductsDashboard = (props) => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
     setcurrentuserData(data);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, []);
 
@@ -193,15 +200,48 @@ const AllProductsDashboard = (props) => {
     }
   };
 
+  // const submitHandler = (event) => {
+  //   event.preventDefault();
+
+  //   const hasRadius = "radius" in params;
+  //   console.log(hasRadius);
+  //   if (hasRadius) {
+  //     console.log("hasRadius");
+  //     let url = window.location.href;
+  //     let modifiedUrl = url.split("radius=")[0];
+  //     const params = new URLSearchParams();
+  //     params.set("radius", filter.radius);
+  //     params.set("address", filter.area);
+  //     params.set("quantity", filter.quantity);
+
+  //     history.push(`${modifiedUrl}${params.radius ? "" : params}`);
+  //   } else {
+  //     if (filter.area !== "") {
+  //       console.log("filter.radius");
+  //       const params = new URLSearchParams();
+  //       params.set("radius", filter.radius);
+  //       params.set("address", filter.area);
+  //       if (filter.quantity !== "") {
+  //         params.set("quantity", filter.quantity);
+  //       }
+  //       const queryString = params.toString();
+  //       console.log(queryString);
+  //       history.push(`/home/${queryString}`);
+  //     }
+  //   }
+  // };
+
   const pageHandler = (page) => {
     setPage(page);
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-      : `getAllData/?page=${page}&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+        : `getAllData/?page=${page}&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   };
 
@@ -215,11 +255,13 @@ const AllProductsDashboard = (props) => {
       .then((response) => {
         const currentUser = localStorage.getItem("userdata");
         let data = JSON.parse(currentUser);
-        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-          ? `getDataByRadius?${routeParams.radius}&page=${page}&`
-          : `getAllData/?page=${page}&`
-          }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-          }&userType=${userType}&category=${categoryFilter.join(",")}`;
+        let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+          routeParams.radius
+            ? `getDataByRadius?${routeParams.radius}&page=${page}&`
+            : `getAllData/?page=${page}&`
+        }latlang=${data?.location?.coordinates[0]},${
+          data?.location?.coordinates[1]
+        }&userType=${userType}&category=${categoryFilter.join(",")}`;
         GetAllProduct(GetAllProductUrl);
         toast.success(response.data.messgae);
       })
@@ -258,11 +300,13 @@ const AllProductsDashboard = (props) => {
   useEffect(() => {
     const currentUser = localStorage.getItem("userdata");
     let data = JSON.parse(currentUser);
-    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${routeParams.radius
-      ? `getDataByRadius?${routeParams.radius}&page=1&`
-      : `getAllData/?page=1&`
-      }latlang=${data?.location?.coordinates[0]},${data?.location?.coordinates[1]
-      }&userType=${userType}&category=${categoryFilter.join(",")}`;
+    let GetAllProductUrl = `${process.env.REACT_APP_API_URI}users/${
+      routeParams.radius
+        ? `getDataByRadius?${routeParams.radius}&page=1&`
+        : `getAllData/?page=1&`
+    }latlang=${data?.location?.coordinates[0]},${
+      data?.location?.coordinates[1]
+    }&userType=${userType}&category=${categoryFilter.join(",")}`;
     GetAllProduct(GetAllProductUrl);
   }, [categoryFilter]);
   console.log(data?.result);
@@ -395,8 +439,9 @@ const AllProductsDashboard = (props) => {
                   return (
                     <label
                       key={option.value}
-                      className={`product-item cr-p ${option.checked ? "active" : ""
-                        }`}
+                      className={`product-item cr-p ${
+                        option.checked ? "active" : ""
+                      }`}
                     >
                       <input
                         className="d-none"
@@ -456,7 +501,7 @@ const AllProductsDashboard = (props) => {
                           }
                         >
                           {data.favourite &&
-                            data.favourite.includes(currentuserData._id) ? (
+                          data.favourite.includes(currentuserData._id) ? (
                             <svg
                               width={12}
                               height={12}
@@ -657,6 +702,14 @@ const AllProductsDashboard = (props) => {
                     <span>0-40km</span>
                     <span>0-50km</span>
                   </p>
+                  {/* <p className="rangetext d-flex w-100 justify-content-between">
+                    <span className="flex-grow-1">All</span>
+                    <span className="flex-grow-1">0-10km</span>
+                    <span className="flex-grow-1">0-20km</span>
+                    <span className="flex-grow-1">0-30km</span>
+                    <span className="flex-grow-1">0-40km</span>
+                    <span className="flex-grow-1">0-50km</span>
+                  </p> */}
                 </div>
                 <div
                   className={
