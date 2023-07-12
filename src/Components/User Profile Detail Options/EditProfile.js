@@ -172,7 +172,7 @@ const EditProfile = () => {
                       </div>
                     </div>
                     <LoadScript
-                      googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+                      googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP}
                       libraries={libraries}
                     >
                       <StandaloneSearchBox

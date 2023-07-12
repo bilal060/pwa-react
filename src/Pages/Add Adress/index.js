@@ -56,7 +56,7 @@ const AddAddressPage = () => {
       <form onSubmit={(e) => submitHandler(e)}>
         <div className="mb-5">
           <LoadScript
-            googleMapsApiKey="AIzaSyBji3krLZlmFpDakJ1jadbsMuL_ZJfazfA"
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_MAP}
             libraries={libraries}
           >
             <StandaloneSearchBox
